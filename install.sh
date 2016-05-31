@@ -13,6 +13,7 @@ create_link .dircolors
 create_link .gitconfig
 create_link .tmux.conf
 create_link .vimrc
+create_link .ideavimrc
 
 create_vim_link() {
     if [ -e ~/.vim/$1 ]; then

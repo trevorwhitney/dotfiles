@@ -1,0 +1,27 @@
+let mapleader = " "
+imap jj <Esc>
+
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+
+" map some common Idea actions
+map <Leader>l :action Run <CR>
+map <Leader>s :action RunClass <CR>
+map <Leader>g :action Annotate <CR>
+map <Leader>b :action ToggleLineBreakpoint<CR>
+map <Leader>d :action Debug<CR>
+
+" quicker window movement
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+" Rotating splits is the only action that has a direct correlation in Idea
+nnoremap <C-w>r :action MoveEditorToOppositeTabGroup<CR>
+
+" some useful commands
+map <Leader>z :'<,'>sort<CR>
+
+" some useful plugins
+set surround
+set showmode
