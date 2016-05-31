@@ -5,6 +5,7 @@
 [core]
   excludesfile = /Users/trevor/.gitignore_global
   pager = less -FXRS -x2
+	editor = vim
 [alias]
   st = status
   di = diff
