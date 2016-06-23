@@ -55,6 +55,7 @@ create_vim_link vimrc.bundles
 create_vim_link vimrc.coffeescript.bundles
 create_vim_link vimrc.config
 create_vim_link vimrc.javascript.bundles
+create_vim_link vimrc.haskell.bundles
 create_vim_link vimrc.localvimrc.config
 create_vim_link vimrc.ruby.bundles
 create_vim_link vimrc.ruby.config
