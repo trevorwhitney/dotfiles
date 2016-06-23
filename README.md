@@ -30,6 +30,12 @@ To interactively update a docker image, `docker run -it image-name`, make your c
 # docker commit SHA image-name
 ```
 
+To publish a docker image:
+```
+docker tag SHA IMAGE_NAME:latest
+docker push IMAGE_NAME
+```
+
 Adding a non-root user to docker:
 ```
 sudo groupadd docker
