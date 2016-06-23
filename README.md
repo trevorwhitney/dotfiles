@@ -17,3 +17,22 @@ Because I keep forgetting them from not enough usage
 :Qargs | argdo %s/findme/replacement/gc | update
 ```
 
+# Development Environments
+
+These are docker images I use for various dev environments
+
+## Notes
+
+To build a docker image, `cd` into correct directory, and run `docker build -t tag-name .`
+To interactively update a docker image, `docker run -it image-name`, make your changes, then:
+```
+# docker ps -a
+# docker commit SHA image-name
+```
+
+Adding a non-root user to docker:
+```
+sudo groupadd docker
+sudo usermod -aG docker $(whoami)
+sudo service docker restart
+```
