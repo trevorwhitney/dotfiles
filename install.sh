@@ -20,7 +20,7 @@ if [ ! -e "$HOME/.bash_it" ]; then
     rm -f "$HOME/$CONFIG_FILE.bak"
   fi
 
-  ~/.bash_it/install.sh
+  $HOME/.bash_it/install.sh
 fi
 
 create_link() {
@@ -38,6 +38,10 @@ create_link .tmux.conf
 create_link .vimrc
 create_link .ideavimrc
 create_link .bash_profile
+
+if [ ! -e "$HOME/.vim" ]; then
+  mkdir "$HOME/.vim"
+fi
 
 create_vim_link() {
     if [ -e "$HOME/.vim/$1" ]; then
