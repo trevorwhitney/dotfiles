@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -e ~/.bash_it ]; then
+if [ ! -e "$HOME/.bash_it" ]; then
   git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 
   case $OSTYPE in
@@ -24,11 +24,11 @@ if [ ! -e ~/.bash_it ]; then
 fi
 
 create_link() {
-    if [ -e ~/$1 ]; then
-        rm -rf ~/$1;
+    if [ -e "$HOME/$1" ]; then
+        rm -rf "$HOME/$1";
     fi
 
-    ln -s ~/.dotfiles/$1 ~/$1;
+    ln -s "$HOME/.dotfiles/$1" "$HOME/$1"
 }
 
 create_link .ctags
@@ -40,11 +40,11 @@ create_link .ideavimrc
 create_link .bash_profile
 
 create_vim_link() {
-    if [ -e ~/.vim/$1 ]; then
-        rm -rf ~/.vim/$1;
+    if [ -e "$HOME/.vim/$1" ]; then
+        rm -rf "$HOME/.vim/$1"
     fi
 
-    ln -s ~/.dotfiles/.vim/$1 ~/.vim/$1
+    ln -s "$HOME/.dotfiles/.vim/$1" "$HOME/.vim/$1"
 }
 
 create_vim_link vimrc.bundles
@@ -54,3 +54,8 @@ create_vim_link vimrc.javascript.bundles
 create_vim_link vimrc.localvimrc.config
 create_vim_link vimrc.ruby.bundles
 create_vim_link vimrc.ruby.config
+
+if [ ! -e "$HOME/.vim/bundle" ]; then
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  vim +PluginInstall +qall
+fi
