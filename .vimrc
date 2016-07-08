@@ -13,8 +13,8 @@ for bundle in [
 \	'~/.vim/vimrc.bundles',
 \	'~/.vim/vimrc.ruby.bundles',
 \	'~/.vim/vimrc.javascript.bundles',
-\	'~/.vim/vimrc.haskell.bundles',
-\	'~/.vim/vimrc.coffeescript.bundles' ]
+\	'~/.vim/vimrc.coffeescript.bundles',
+\	'~/.vim/vimrc.haskell.bundles' ]
   if filereadable(expand(bundle))
     execute "source " . expand(bundle)
   endif
@@ -27,6 +27,7 @@ filetype plugin indent on
 for config in [ 
       \ '~/.vim/vimrc.config', 
       \ '~/.vim/vimrc.ruby.config',
+      \ '~/.vim/vimrc.haskell.config',
       \ '~/.vim/vimrc.localvimrc.config' ]
   if filereadable(expand(config))
     execute "source " . expand(config)
