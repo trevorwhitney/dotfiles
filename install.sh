@@ -64,5 +64,5 @@ create_vim_link vimrc.haskell.config
 
 if [ ! -e "$HOME/.vim/bundle" ]; then
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  vim +"silent PluginInstall" +"silent VimProcInstall" +qall
+  vim -s --not-a-term +"silent PluginInstall" +"silent VimProcInstall" +qall
 fi
