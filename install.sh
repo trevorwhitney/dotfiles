@@ -65,4 +65,5 @@ create_vim_link vimrc.haskell.config
 if [ ! -e "$HOME/.vim/bundle" ]; then
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   vim --noplugin +"silent PluginInstall" +"silent VimProcInstall" +qall
+  echo "colorscheme solarized" >> $HOME/.vim/vimrc.config
 fi
