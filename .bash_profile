@@ -27,6 +27,8 @@ export SCM_CHECK=true
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/xvzf/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
+STACK_COMPILER_BIN=`stack path --compiler-bin`
+PATH=$HOME/.rbenv/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PATH
 
 # Load Bash It
 source $BASH_IT/bash_it.sh

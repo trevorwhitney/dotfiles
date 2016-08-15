@@ -4,5 +4,5 @@ RUN echo 'deb http://download.fpcomplete.com/debian jessie main' > /etc/apt/sour
 RUN apt-get update && apt-get install -y stack && apt-get -y clean
 RUN stack setup
 ENV PATH /root/.local/bin:$PATH
-RUN stack install hlint stylish-haskell hindent ghc-mod hdevtools
+RUN stack install hlint stylish-haskell hindent ghc-mod hdevtools fast-tags
 CMD /bin/bash

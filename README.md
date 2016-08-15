@@ -42,3 +42,20 @@ sudo groupadd docker
 sudo usermod -aG docker $(whoami)
 sudo service docker restart
 ```
+
+## Haskell
+Summary
+In summary adding these plugins and lines to the .vimrc will introduce several Haskell specific commands which are bound to these keyboard shortcuts:
+
+Command
+`t + w` Insert type for toplevel declaration
+`t + q` Query type of expression under cursor
+`t + s` Case split expression under cursor
+`t + e` Erase type query
+`Ctrl + x + o` Tab complete under cursor
+
+Don't have implemented yet
+`a + =` Align on equal sign
+`a + -` Align on case match
+`\ + c + SpaceToggle` comment of text under cursor
+`\ + c + s` Toggle “sexy” comment of text
