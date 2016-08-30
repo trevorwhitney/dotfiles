@@ -66,6 +66,17 @@ if [ ! -e "$HOME/.vim/bundle" ]; then
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-sed -e 's/^colorscheme/"colorscheme/' -i ''  $HOME/.vim/vimrc.config
+os=`uname`
+if [ $os == 'Darwin' ]; then
+  sed -e 's/^colorscheme/"colorscheme/' -i ''  $HOME/.vim/vimrc.config
+elif [ $os == 'Linux' ]; then
+  sed -e 's/^colorscheme/"colorscheme/' -i''  $HOME/.vim/vimrc.config
+fi
+
 vim --noplugin +"silent PluginInstall" +"silent VimProcInstall" +qall
-sed -e 's/^"colorscheme/colorscheme/' -i ''  $HOME/.vim/vimrc.config
+
+if [ $os == 'Darwin' ]; then
+  sed -e 's/^"colorscheme/colorscheme/' -i ''  $HOME/.vim/vimrc.config
+elif [ $os == 'Linux' ]; then
+  sed -e 's/^"colorscheme/colorscheme/' -i''  $HOME/.vim/vimrc.config
+fi
