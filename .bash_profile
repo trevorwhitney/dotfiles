@@ -36,3 +36,6 @@ source $BASH_IT/bash_it.sh
 
 # Load Rbenv
 eval "$(rbenv init -)"
+
+# Aliases
+alias cdws="cd ~/workspace"
