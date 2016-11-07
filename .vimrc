@@ -14,6 +14,7 @@ for bundle in [
 \	'~/.vim/vimrc.ruby.bundles',
 \	'~/.vim/vimrc.javascript.bundles',
 \	'~/.vim/vimrc.coffeescript.bundles',
+\	'~/.vim/vimrc.kotlin.bundles',
 \	'~/.vim/vimrc.haskell.bundles' ]
   if filereadable(expand(bundle))
     execute "source " . expand(bundle)
