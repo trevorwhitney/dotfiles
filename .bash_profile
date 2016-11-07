@@ -39,3 +39,9 @@ eval "$(rbenv init -)"
 
 # Aliases
 alias cdws="cd ~/workspace"
+
+# Start a tmux session if it doesn't exist so remote machines always have access to one
+tmux has-session -t remote
+if [ $? -ne 0 ]; then
+  tmux new -s remote -d
+fi
