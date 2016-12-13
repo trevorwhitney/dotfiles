@@ -1,0 +1,10 @@
+# Start a tmux session if it doesn't exist so remote machines always have access to one
+hostname=`hostname | sed 's/\.local//'` 
+tmux has-session -t $hostname
+if [ $? -ne 0 ]; then
+  tmux new -s $hostname -d
+fi
+
+if [ -z `git config --get user.email`  ]; then 
+  git config --global user.email 'twhitney@pivotal.io'
+fi

@@ -1,7 +1,7 @@
 [user]
   name = Trevor Whitney
-  email = trevorjwhitney@gmail.com
   initials = tw
+	email = twhitney@pivotal.io
 [core]
 	excludesfile = /Users/trevorwhitney/.gitignore_global
   pager = less -FXRS -x2
