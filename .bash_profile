@@ -51,15 +51,18 @@ alias cdws="cd ~/workspace"
 source $HOME/.git-completion
 
 tmux2host() {
-  if [ $# -ne 2  ]; then
+  if [ $# -eq 2  ]; then
+    user=$1
+    host=$2
+    ssh $1@$host -t "bash -l -c \"tmux new\""
+  elif [ $# -eq 1 ]; then
+    host=$1
+    ssh $host -t "bash -l -c \"tmux new\""
+  else
     echo 'Incorrect usage'
-    echo "usage: tmux2host user host-ip"
+    echo "usage: tmux2host [user] host-ip"
     return 1
   fi
-
-  user=$1
-  host=$2
-  ssh $1@$host -t "bash -l -c \"tmux new\""
 }
 
 # Source local bash configuration if present
