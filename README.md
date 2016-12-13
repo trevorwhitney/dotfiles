@@ -7,6 +7,10 @@ This repo contains my dotfiles for setting up a new computer.
 The `install.sh` script will copy the dotfile into your home directory. The vim configuration requires vim 7.4 or higher.
 If you're on a Mac, the `osx_install_vim.sh` script will help you get vim setup.
 
+## Local Configuration
+
+The `.bash_profile` will source `~/.bash_profile.local` if it is present. An example local config is included in this repo.
+
 # Vim tricks
 
 Because I keep forgetting them from not enough usage
