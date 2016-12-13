@@ -50,6 +50,18 @@ alias cdws="cd ~/workspace"
 # Auto completion
 source $HOME/.git-completion
 
+tmux2host() {
+  if [ $# -ne 2  ]; then
+    echo 'Incorrect usage'
+    echo "usage: tmux2host user host-ip"
+    return 1
+  fi
+
+  user=$1
+  host=$2
+  ssh $1@$host -t "bash -l -c \"tmux new\""
+}
+
 # Source local bash configuration if present
 if [ -e $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
