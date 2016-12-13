@@ -1,5 +1,8 @@
+# Uncomment to debug slow performance
+# set -x
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
+export EDITOR="vim"
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
@@ -28,8 +31,9 @@ export SCM_CHECK=true
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/xvzf/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
-STACK_COMPILER_BIN=`stack path --compiler-bin --silent`
-PATH=$HOME/.rbenv/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PATH
+STACK_COMPILER_BIN=$HOME/.stack/programs/x86_64-osx/ghc-7.10.3/bin
+PYTHON_HOME=$HOME/Library/Python/2.7
+PATH=$HOME/.rbenv/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:$PATH
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
@@ -43,6 +47,10 @@ eval "$(direnv hook bash)"
 # Aliases
 alias cdws="cd ~/workspace"
 
+# Auto completion
+source $HOME/.git-completion
+
+# Source local bash configuration if present
 if [ -e $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
 fi

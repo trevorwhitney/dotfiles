@@ -39,6 +39,7 @@ create_link .vimrc
 create_link .ideavimrc
 create_link .bash_profile
 create_link .gitignore_global
+create_link .git-completion
 
 if [ ! -e "$HOME/.vim" ]; then
   mkdir "$HOME/.vim"
