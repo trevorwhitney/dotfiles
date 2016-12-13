@@ -3,7 +3,7 @@
   email = trevorjwhitney@gmail.com
   initials = tw
 [core]
-  excludesfile = /Users/trevor/.gitignore_global
+	excludesfile = /Users/trevorwhitney/.gitignore_global
   pager = less -FXRS -x2
 	editor = vim
 [alias]
