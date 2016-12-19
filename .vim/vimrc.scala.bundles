@@ -1,0 +1,1 @@
+Plugin 'derekwyatt/vim-scala'
