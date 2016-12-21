@@ -86,15 +86,15 @@ fi
 
 os=`uname`
 if [ $os == 'Darwin' ]; then
-  sed -e 's/^colorscheme/"colorscheme/' -i ''  $HOME/.vim/vimrc.config
+  sed -e 's/^colorscheme/"colorscheme/' -i ''  $HOME/.dotfiles/.vim/vimrc.config
 elif [ $os == 'Linux' ]; then
-  sed -e 's/^colorscheme/"colorscheme/' -i''  $HOME/.vim/vimrc.config
+  sed -e 's/^colorscheme/"colorscheme/' -i''  $HOME/.dotfiles/.vim/vimrc.config
 fi
 
 vim --noplugin +"silent PluginInstall" +"silent VimProcInstall" +qall
 
 if [ $os == 'Darwin' ]; then
-  sed -e 's/^"colorscheme/colorscheme/' -i ''  $HOME/.vim/vimrc.config
+  sed -e 's/^"colorscheme/colorscheme/' -i ''  $HOME/.dotfiles/.vim/vimrc.config
 elif [ $os == 'Linux' ]; then
-  sed -e 's/^"colorscheme/colorscheme/' -i''  $HOME/.vim/vimrc.config
+  sed -e 's/^"colorscheme/colorscheme/' -i''  $HOME/.dotfiles/.vim/vimrc.config
 fi
