@@ -1,7 +1,11 @@
 #!/bin/bash
 
-mkdir ~/.vim/bundle
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+mkdir -p ~/.vim/bundle
+
+if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
+  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+
 brew update
 brew install vim --with-override-system-vi
 brew install reattach-to-user-namespace direnv
