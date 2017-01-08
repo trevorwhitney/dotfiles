@@ -48,6 +48,13 @@ sudo service docker restart
 ```
 
 ## Haskell
+
+To install necessary Haskell binaries, run the following:
+
+```bash
+stack install hlint stylish-haskell hindent ghc-mod hdevtools fast-tags
+```
+
 Summary
 In summary adding these plugins and lines to the .vimrc will introduce several Haskell specific commands which are bound to these keyboard shortcuts:
 
@@ -63,3 +70,9 @@ Don't have implemented yet
 `a + -` Align on case match
 `\ + c + SpaceToggle` comment of text under cursor
 `\ + c + s` Toggle “sexy” comment of text
+
+## TODO
+
+Investigate `envsubst` for templating/substitution.
+  - For example, finding the stack bin path
+  - Or OS specific stuff
