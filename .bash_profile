@@ -28,6 +28,10 @@ export TODO="t"
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=true
 
+# UTF-8
+export LC_ALL=en_US.utf-8
+export LANG="$LC_ALL"
+
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
