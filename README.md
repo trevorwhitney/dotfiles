@@ -81,3 +81,5 @@ Don't have implemented yet
 Investigate `envsubst` for templating/substitution.
   - For example, finding the stack bin path
   - Or OS specific stuff
+
+Expand the home directory for the .gitignore_global path dynamically in installation
