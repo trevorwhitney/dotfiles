@@ -21,6 +21,11 @@ Because I keep forgetting them from not enough usage
 :Qargs | argdo %s/findme/replacement/gc | update
 ```
 
+## Paste
+
+Remember to `:set paste` before pasting in insert mode, and `:set nopaste` when done.
+Otherwise autoident really screws things up.
+
 # Development Environments
 
 These are docker images I use for various dev environments
