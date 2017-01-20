@@ -1,5 +1,6 @@
 let mapleader = " "
 imap jj <Esc>
+set clipboard=unnamed           " Yank to system clipboard
 
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>

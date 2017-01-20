@@ -3,7 +3,7 @@
   initials = tw
 	email = twhitney@pivotal.io
 [core]
-	excludesfile = /Users/trevorwhitney/.gitignore_global
+	excludesfile = /Users/twhitney/.gitignore_global
   pager = less -FXRS -x2
 	editor = vim
 [alias]
