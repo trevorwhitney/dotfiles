@@ -15,6 +15,18 @@ The `.bash_profile` will source `~/.bash_profile.local` if it is present. An exa
 
 Because I keep forgetting them from not enough usage
 
+## Keybindings Specific to this Configuration
+
+These are the special keybindings I've added:
+
+|Keybinding   |Action   |Required Plugin|
+|-------------|:---------:|---------------|
+|<Leader>sr   | Search and replace word under cursor | |
+|<Leader>ts   | Run current spec file | vim-ruby |
+|<Leader>sp   | Run spec nearest to cursor | vim -ruby |
+|<Leader>ls   | Rerun most recently ran spec | |
+|<Leader>as   | Run all specs | |
+
 ## Project wide search and replace
 ```
 :Ag findme
