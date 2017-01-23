@@ -91,7 +91,7 @@ elif [ $os == 'Linux' ]; then
   sed -e 's/^colorscheme/"colorscheme/' -i''  $HOME/.dotfiles/.vim/vimrc.config
 fi
 
-vim --noplugin +"silent PluginInstall" +"silent VimProcInstall" +qall
+vim --noplugin +"silent PluginInstall" +qall
 
 if [ $os == 'Darwin' ]; then
   sed -e 's/^"colorscheme/colorscheme/' -i ''  $HOME/.dotfiles/.vim/vimrc.config
