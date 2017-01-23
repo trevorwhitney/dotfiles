@@ -20,12 +20,12 @@ Because I keep forgetting them from not enough usage
 These are the special keybindings I've added:
 
 |Keybinding   |Action   |Required Plugin|
-|-------------|:---------:|---------------|
-|<Leader>sr   | Search and replace word under cursor | |
-|<Leader>ts   | Run current spec file | vim-ruby |
-|<Leader>sp   | Run spec nearest to cursor | vim -ruby |
-|<Leader>ls   | Rerun most recently ran spec | |
-|<Leader>as   | Run all specs | |
+|:-------------|:---------|---------------|
+|\<Leader\>sr   | Search and replace word under cursor | |
+|\<Leader\>ts   | Run current spec file | vim-ruby |
+|\<Leader\>sp   | Run spec nearest to cursor | vim -ruby |
+|\<Leader\>ls   | Rerun most recently ran spec | vim-ruby |
+|\<Leader\>as   | Run all specs | vim-ruby |
 
 ## Project wide search and replace
 ```
