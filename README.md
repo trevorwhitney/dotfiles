@@ -22,10 +22,32 @@ These are the special keybindings I've added:
 |Keybinding   |Action   |Required Plugin|
 |:-------------|:---------|---------------|
 |\<Leader\>sr   | Search and replace word under cursor | |
+|\<Leader\>ll   | Open location list | |
+|\<Leader\>z    | Sort selection alphabetically | |
 |\<Leader\>ts   | Run current spec file | vim-ruby |
 |\<Leader\>sp   | Run spec nearest to cursor | vim -ruby |
 |\<Leader\>ls   | Rerun most recently ran spec | vim-ruby |
 |\<Leader\>as   | Run all specs | vim-ruby |
+|\<Leader\>rem  | Extract Ruby Method | vim-ruby-refactoring |
+|\<Leader\>rriv | Rename ruby instance variable | vim-ruby-refactoring |
+|\<Leader\>rrlv | Rename ruby local variable | vim-ruby-refactoring |
+|\<Leader\>relv | Extract local ruby variable | vim-ruby-refactoring |
+|\<Leader\>rec  | Extract ruby constant | vim-ruby-refactoring |
+|\<Leader\>riv  | Introduce ruby variable | vim-ruby-refactoring |
+|\<Leader\>rcpc | Convert ruby post conditional | vim-ruby-refactoring |
+|\<Leader\>rel  | Extract ruby statement to let | vim-ruby-refactoring |
+|\<Leader\>rit  | Inline temporary ruby variable | vim-ruby-refactoring |
+|\<Leader\>rapn | Add parameter to ruby method with no brackets | vim-ruby-refactoring |
+|\<Leader\>rap  | Add parameter to ruby method with brackets | vim-ruby-refactoring |
+|\<Leader\>bv   | BufExplorerVerticalSplit | bufexplorer |
+|\<Leader\>bs   | BufExplorerHorizontalSplit | bufexplorer |
+|\<Leader\>bt   | ToggleBufExplorer | bufexplorer |
+|\<Leader\>be   | BufExplorer | bufexplorer |
+|\<Leader\>n:   | Align selected code by : | tabular |
+|\<Leader\>n=   | Align selected code by = | tabular |
+|\<Leader\>p    | Open ctrl-p fuzzy search | ctrlp.vim |
+|\<Leader\>g    | Open Git Blame | fugitive.vim |
+|\<Leader\>d    | Search word under cursor in Dash | dash.vim |
 
 ## Project wide search and replace
 ```
