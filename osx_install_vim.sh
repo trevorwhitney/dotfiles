@@ -8,7 +8,7 @@ fi
 
 brew update
 brew install vim --with-override-system-vi
-brew install reattach-to-user-namespace direnv gettext
+brew install reattach-to-user-namespace direnv gettext the_silver_searcher
 brew link --force gettext
 
 defaults write -g InitialKeyRepeat -int 12 # normal minimum is 15 (225 ms)
