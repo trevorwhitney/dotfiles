@@ -11,6 +11,18 @@ If you're on a Mac, the `osx_install_vim.sh` script will help you get vim setup.
 
 The `.bash_profile` will source `~/.bash_profile.local` if it is present. An example local config is included in this repo.
 
+# Bash tricks
+
+## Edit a previous command
+
+1. Find the command using history
+2. Hit `CTRL+X``CTRL+E` to bring up the command in `$EDITOR`, which should be vim
+3. Command will run if vim exits with 0 exit code, you can kill it with a non-zero
+exit code by running `:cquit`
+
+This can also be acheived by using the `fc` command, which can take a number from the
+print out of the `history` command.
+
 # Vim tricks
 
 Because I keep forgetting them from not enough usage
@@ -24,8 +36,8 @@ These are the special keybindings I've added:
 |\<Leader\>sr   | Search and replace word under cursor | |
 |\<Leader\>ll   | Open location list | |
 |\<Leader\>z    | Sort selection alphabetically | |
-|\<Leader\>ts   | Run current spec file | vim-ruby |
-|\<Leader\>sp   | Run spec nearest to cursor | vim -ruby |
+|\<Leader\>cs   | Run current spec file | vim-ruby |
+|\<Leader\>ns   | Run spec nearest to cursor | vim -ruby |
 |\<Leader\>ls   | Rerun most recently ran spec | vim-ruby |
 |\<Leader\>as   | Run all specs | vim-ruby |
 |\<Leader\>rem  | Extract Ruby Method | vim-ruby-refactoring |
