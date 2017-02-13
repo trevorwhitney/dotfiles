@@ -5,6 +5,9 @@ set clipboard=unnamed           " Yank to system clipboard
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
 
+" since idea is a gui
+set mouse=a
+
 " map some common Idea actions
 map <Leader>l :action Run <CR>
 map <Leader>s :action RunClass <CR>

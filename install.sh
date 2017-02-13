@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -ex
+
+current_dir=$(cd $(dirname 0) && pwd)
+
 if [ ! -e "$HOME/.bash_it" ]; then
   git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
 
@@ -59,42 +63,5 @@ if [ ! -e "$HOME/.vim" ]; then
   mkdir "$HOME/.vim"
 fi
 
-create_vim_link() {
-    if [ -e "$HOME/.vim/$1" ]; then
-        rm -rf "$HOME/.vim/$1"
-    fi
 
-    ln -s "$HOME/.dotfiles/.vim/$1" "$HOME/.vim/$1"
-}
-
-create_vim_link vimrc.bundles
-create_vim_link vimrc.coffeescript.bundles
-create_vim_link vimrc.config
-create_vim_link vimrc.javascript.bundles
-create_vim_link vimrc.haskell.bundles
-create_vim_link vimrc.localvimrc.config
-create_vim_link vimrc.ruby.bundles
-create_vim_link vimrc.ruby.config
-create_vim_link vimrc.haskell.bundles
-create_vim_link vimrc.haskell.config
-create_vim_link vimrc.kotlin.bundles
-create_vim_link vimrc.scala.bundles
-
-if [ ! -e "$HOME/.vim/bundle" ]; then
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
-
-os=`uname`
-if [ $os == 'Darwin' ]; then
-  sed -e 's/^colorscheme/"colorscheme/' -i ''  $HOME/.dotfiles/.vim/vimrc.config
-elif [ $os == 'Linux' ]; then
-  sed -e 's/^colorscheme/"colorscheme/' -i''  $HOME/.dotfiles/.vim/vimrc.config
-fi
-
-vim --noplugin +"silent PluginInstall" +qall
-
-if [ $os == 'Darwin' ]; then
-  sed -e 's/^"colorscheme/colorscheme/' -i ''  $HOME/.dotfiles/.vim/vimrc.config
-elif [ $os == 'Linux' ]; then
-  sed -e 's/^"colorscheme/colorscheme/' -i''  $HOME/.dotfiles/.vim/vimrc.config
-fi
+$current_dir/install_vim.sh

@@ -1,0 +1,3 @@
+call dein#add('neomake/neomake')
+call dein#add('sbdchd/neoformat')
+call dein#add('Shougo/deoplete.nvim')

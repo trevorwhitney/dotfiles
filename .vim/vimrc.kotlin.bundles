@@ -1,1 +1,1 @@
-Plugin 'udalov/kotlin-vim'
+call dein#add('udalov/kotlin-vim')

@@ -1,5 +1,5 @@
-Plugin 'thoughtbot/vim-rspec'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-endwise'
-Plugin 'ecomba/vim-ruby-refactoring'
+call dein#add('thoughtbot/vim-rspec')
+call dein#add('vim-ruby/vim-ruby')
+call dein#add('tpope/vim-rails')
+call dein#add('tpope/vim-endwise')
+call dein#add('ecomba/vim-ruby-refactoring')

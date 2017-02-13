@@ -1,3 +1,3 @@
-Plugin 'pangloss/vim-javascript'
-Plugin 'mustache/vim-mustache-handlebars'
-Plugin 'burnettk/vim-angular'
+call dein#add('pangloss/vim-javascript')
+call dein#add('mustache/vim-mustache-handlebars')
+call dein#add('burnettk/vim-angular')

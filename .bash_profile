@@ -33,25 +33,37 @@ export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export XDG_CONFIG_HOME=$HOME/.config
 
 # Set vcprompt executable path for scm advance info in prompt (demula theme)
 # https://github.com/xvzf/vcprompt
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 STACK_COMPILER_BIN=$HOME/.stack/programs/x86_64-osx/ghc-7.10.3/bin
 PYTHON_HOME=$HOME/Library/Python/2.7
-PATH=$HOME/.rbenv/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:$PATH
+RBENV_ROOT=$HOME/.rbenv
+PYENV_ROOT=$HOME/.pyenv
+PATH=$RBENV_ROOT/bin:$PYENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:$GOPATH/bin:$PATH
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
 
 # Load Rbenv
-eval "$(rbenv init -)"
+[ `which rbenv` ] && eval "$(rbenv init -)"
 
 # Load direnv
-eval "$(direnv hook bash)"
+[ `which direnv` ] && eval "$(direnv hook bash)"
+
+# Load pyenv
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+[ `which pyenv` ] && eval "$(pyenv init -)"
+[ `which pyenv-virtualenv-init` ] && eval "$(pyenv virtualenv-init -)"
 
 # Aliases
 alias cdws="cd ~/workspace"
+
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
 
 # Auto completion
 source $HOME/.git-completion
@@ -75,4 +87,5 @@ tmux2host() {
 if [ -e $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
 fi
+
 
