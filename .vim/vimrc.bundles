@@ -23,3 +23,5 @@ call dein#add('rizzatti/dash.vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('edkolev/tmuxline.vim')
+call dein#add('christoomey/vim-tmux-navigator')
+
