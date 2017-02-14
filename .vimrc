@@ -48,6 +48,7 @@ syntax on
 for config in [ 
       \ s:editor_root . '/vimrc.config', 
       \ s:editor_root . '/vimrc.ruby.config',
+      \ s:editor_root . '/vimrc.javascript.config',
       \ s:editor_root . '/vimrc.haskell.config',
       \ s:editor_root . '/vimrc.java.config',
       \ s:editor_root . '/vimrc.localvimrc.config' ]
