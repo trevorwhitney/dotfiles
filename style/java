@@ -1,0 +1,11 @@
+style=google
+indent=spaces=2
+indent-continuation=4
+break-blocks
+pad-oper
+pad-comma
+pad-header
+delete-empty-lines
+add-brackets
+convert-tabs
+max-code-length=100

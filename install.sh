@@ -59,9 +59,4 @@ copy_file() {
 
 copy_file .gitconfig
 
-if [ ! -e "$HOME/.vim" ]; then
-  mkdir "$HOME/.vim"
-fi
-
-
 $current_dir/install_vim.sh

@@ -2,9 +2,15 @@
 
 set -ex
 
+if [ ! -e "$HOME/.vim" ]; then
+  mkdir "$HOME/.vim"
+fi
+
+[ ! -h $HOME/.vim/style ] && ln -s $HOME/.dotfiles/style $HOME/.vim/style
+
 mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
-[ ! -h  $XDG_CONFIG_HOME/nvim ] && ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-[ ! -h  $XDG_CONFIG_HOME/nvim/init.vim ] && ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+[ ! -h  $XDG_CONFIG_HOME/nvim ] && ln -s $HOME/.vim $XDG_CONFIG_HOME/nvim
+[ ! -h  $XDG_CONFIG_HOME/nvim/init.vim ] && ln -s $HOME/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 create_vim_link() {
     [ -h "$HOME/.vim/$1" ] && rm -rf "$HOME/.vim/$1"

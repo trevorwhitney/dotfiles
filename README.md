@@ -64,12 +64,12 @@ These are the special keybindings I've added:
 |\<leader\>jR   | Remove all unused java importst | vim-javacomplete2|
 |\<leader\>ji   | Smart add import for class under cursor | vim-javacomplete2|
 |\<leader\>jii  | Dumb add import for class under cursor | vim-javacomplete2|
-|\<C-j\>I         | Add all missing java imports| vim-javacomplete2 |
-|\<C-j\>R         | Remove all unused java importst | vim-javacomplete2|
-|\<C-j\>i         | Smart add import for class under cursor | vim-javacomplete2|
-|\<C-j\>ii        | Dumb add import for class under cursor | vim-javacomplete2|
+|\<C-j\>I       | Add all missing java imports| vim-javacomplete2 |
+|\<C-j\>R       | Remove all unused java imports | vim-javacomplete2|
+|\<C-j\>i       | Smart add import for class under cursor | vim-javacomplete2|
+|\<C-j\>ii      | Dumb add import for class under cursor | vim-javacomplete2|
 |\<leader\>jM   | Generate abstract Java methods | vim-javacomplete2 |
-|\<C-j\>jM        | Generate abstract Java methods | vim-javacomplete2 |
+|\<C-j\>jM      | Generate abstract Java methods | vim-javacomplete2 |
 |\<leader\>jA   | Generate Java accessor methods | vim-javacomplete2 |
 |\<leader\>js   | Generate Java setter | vim-javacomplete2 |
 |\<leader\>jg   | Generate Java getter | vim-javacomplete2 |
@@ -78,9 +78,9 @@ These are the special keybindings I've added:
 |\<leader\>jeq  | Generate Java equals and hashCode methods | vim-javacomplete2 |
 |\<leader\>jc   | Generate Java constructor | vim-javacomplete2 
 |\<leader\>jcc  | Generate defulat Java constructor | vim-javacomplete2 
-|\<C-j\>s         | Generate Java setter | vim-javacomplete2 |
-|\<C-j\>g         | Generate Java getter | vim-javacomplete2 |
-|\<C-j\>a         | Generate Java setter and getter | vim-javacomplete2 |
+|\<C-j\>s       | Generate Java setter | vim-javacomplete2 |
+|\<C-j\>g       | Generate Java getter | vim-javacomplete2 |
+|\<C-j\>a       | Generate Java setter and getter | vim-javacomplete2 |
 |\<leader\>=    | Neoformat current file | neoformat |
 
 ## Project wide search and replace
