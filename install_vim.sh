@@ -33,6 +33,7 @@ create_vim_link vimrc.kotlin.bundles
 create_vim_link vimrc.scala.bundles
 create_vim_link vimrc.java.bundles
 create_vim_link vimrc.java.config
+create_vim_link vimrc.html.bundles
 
 create_vim_link vimrc.neovim.bundles
 create_vim_link vimrc.neovim.config

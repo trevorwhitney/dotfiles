@@ -1,0 +1,2 @@
+call dein#add('mattn/emmet-vim')
+call dein#add('vim-scripts/closetag.vim')

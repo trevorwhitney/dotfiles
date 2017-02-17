@@ -24,6 +24,7 @@ if dein#load_state(s:bundles_path)
   \	s:editor_root . '/vimrc.kotlin.bundles',
   \	s:editor_root . '/vimrc.scala.bundles',
   \	s:editor_root . '/vimrc.java.bundles',
+  \	s:editor_root . '/vimrc.html.bundles',
   \	s:editor_root . '/vimrc.haskell.bundles' ]
     if filereadable(expand(bundle))
       execute "source " . expand(bundle)
