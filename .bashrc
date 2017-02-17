@@ -1,9 +1,6 @@
 # Uncomment to debug slow performance
 # set -x
 
-current_dir=$(cd $(dirname $0) && pwd)
-source $current_dir/bin/utilities.sh
-
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
 export EDITOR="vim"
@@ -36,7 +33,7 @@ export SCM_CHECK=true
 export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME='/usr/lib/jvm/default-java/'
 
 export XDG_CONFIG_HOME=$HOME/.config
 
@@ -45,7 +42,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 STACK_COMPILER_BIN=$HOME/.stack/programs/x86_64-osx/ghc-7.10.3/bin
 
-export PYTHON_HOME=$HOME/Library/Python/2.7
+export PYTHON_HOME=/usr/lib/python2.7
 
 export GOPATH=$HOME/workspace/gocode
 

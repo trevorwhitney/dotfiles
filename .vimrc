@@ -4,9 +4,9 @@ set nocompatible
 filetype off
 
 if has('nvim')
-    let s:editor_root=expand("$XDG_CONFIG_HOME/nvim")
+  let s:editor_root=expand("$XDG_CONFIG_HOME/nvim")
 else
-    let s:editor_root=expand("$HOME/.vim")
+  let s:editor_root=expand("$HOME/.vim")
 endif
 
 let s:bundles_path = s:editor_root . '/bundles'
