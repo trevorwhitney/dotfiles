@@ -2,3 +2,5 @@
 *.iml
 .envrc
 .gradle
+.vagrant
+.DS_Store
