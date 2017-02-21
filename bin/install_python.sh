@@ -20,14 +20,14 @@ if [ ! `which pyenv` ]; then
   fi
 fi
 
-if [ ! `pyenv versions | grep 2.7.11` ]; then
+if [ ! -e $HOME/.pyenv/versions/2.7.11 ]; then
   pyenv install 2.7.11
   pyenv virtualenv 2.7.11 neovim2
   pyenv activate neovim2
   pip install neovim
 fi
 
-if [ ! `pyenv versions | grep 3.4.4` ]; then
+if [ ! -e $HOME/.pyenv/versions/3.4.4 ]; then
   pyenv install 3.4.4
   pyenv virtualenv 3.4.4 neovim3
   pyenv activate neovim3

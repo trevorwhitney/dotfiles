@@ -10,7 +10,7 @@ fi
 export RBENV_ROOT=$HOME/.rbenv
 export PATH=$RBENV_ROOT/bin:$RBENV_ROOT/shims:$PATH
 
-if [ ! `rbenv versions | grep 2.3.1` ]; then
+if [ ! -e $HOME/.rbenv/versions/2.3.1 ]; then
   rbenv install 2.3.1
   pushd $HOME
     rbenv local 2.3.1
