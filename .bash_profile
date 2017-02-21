@@ -88,4 +88,12 @@ if [ -e $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
 fi
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f /usr/local/opt/google-cloud-sdk/path.bash.inc ]; then
+  source '/usr/local/opt/google-cloud-sdk/path.bash.inc'
+fi
 
+# The next line enables shell command completion for gcloud.
+if [ -f /usr/local/opt/google-cloud-sdk/completion.bash.inc ]; then
+  source '/usr/local/opt/google-cloud-sdk/completion.bash.inc'
+fi
