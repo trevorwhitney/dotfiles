@@ -33,7 +33,7 @@ export SCM_CHECK=true
 export LC_ALL=en_US.utf-8
 export LANG="$LC_ALL"
 
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME='/usr/lib/jvm/default-java/'
 
 export XDG_CONFIG_HOME=$HOME/.config
 
@@ -42,7 +42,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 #export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
 STACK_COMPILER_BIN=$HOME/.stack/programs/x86_64-osx/ghc-7.10.3/bin
 
-export PYTHON_HOME=$HOME/Library/Python/2.7
+export PYTHON_HOME=/usr/lib/python2.7
 
 export GOPATH=$HOME/workspace/gocode
 
@@ -94,12 +94,4 @@ if [ -e $HOME/.bash_profile.local ]; then
   source $HOME/.bash_profile.local
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f /usr/local/opt/google-cloud-sdk/path.bash.inc ]; then
-  source '/usr/local/opt/google-cloud-sdk/path.bash.inc'
-fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f /usr/local/opt/google-cloud-sdk/completion.bash.inc ]; then
-  source '/usr/local/opt/google-cloud-sdk/completion.bash.inc'
-fi
