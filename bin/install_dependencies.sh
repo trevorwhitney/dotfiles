@@ -17,7 +17,8 @@ if $darwin; then
     uncrustify \
     gradle \
     gawk \
-    git
+    git \
+    node
 
   brew link --force gettext
   set -e
@@ -58,20 +59,22 @@ elif $ubuntu; then
     libxml2-dev \
     libssl-dev \
     libreadline6 \
-    libreadline6-dev
+    libreadline6-dev \
+    nodejs \
+    npm
 
-  curl -OLk https://github.com/direnv/direnv/releases/download/v2.10.0/direnv.linux-amd64
-  sudo mv direnv.linux-amd64 /usr/local/bin/direnv
+  sudo curl -Lk https://github.com/direnv/direnv/releases/download/v2.10.0/direnv.linux-amd64 \
+    -o /usr/local/bin/direnv
   sudo chmod a+x /usr/local/bin/direnv
 
-  mkdir -p ~/tmp/astyle
+  mkdir -p $HOME/tmp/astyle
   curl -L https://sourceforge.net/projects/astyle/files/astyle/astyle%202.06/astyle_2.06_linux.tar.gz/download -o ~/tmp/astyle/astyle.tar.gz
-  pushd ~/tmp/astyle
+  pushd $HOME/tmp/astyle
     tar -xzf astyle.tar.gz
-    pushd astyle/build/mac
+    pushd astyle/build/gcc
       make
-      cp bin/AStyle /usr/local/bin/astyle
-      chmod a+x /usr/local/bin/astyle
+      sudo cp bin/astyle /usr/local/bin/astyle
+      sudo chmod a+x /usr/local/bin/astyle
     popd
   popd
   rm -rf ~/tmp/astyle

@@ -1,9 +1,29 @@
 #!/bin/bash
 
 shpec_dir=$(cd $(dirname $0) && pwd)
-source $shpec_dir/../bin/utilities.sh
-
 root_dir=$(cd $shpec_dir/.. && pwd)
+
+export darwin=false
+export ubuntu=false
+export unsupported=false
+
+case $OSTYPE in
+  darwin*)
+    export darwin=true
+    ;;
+  *)
+    export linux_flavor=`gawk -F= '/^NAME/{print $2}' /etc/os-release | tr -d '"'`
+    export CONFIG_FILE=.bashrc
+    case $linux_flavor in
+      Ubuntu)
+        export ubuntu=true
+        ;;
+      *)
+        export unsupported=true
+        ;;
+    esac
+    ;;
+esac
 
 describe "dotfile"
   describe "configuration"
