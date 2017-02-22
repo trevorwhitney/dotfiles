@@ -2,6 +2,8 @@
 machine:
   timezone:
     America/Denver
+  services:
+    - docker
 
 compile:
   override:
