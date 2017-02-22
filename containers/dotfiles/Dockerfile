@@ -1,5 +1,8 @@
-FROM dotfiles:vim
+FROM ubuntu:trusty
+ENV HOME /root
+ADD dotfiles.tar.gz /root/.dotfiles
+RUN chown -R root:root /root/.dotfiles
 
-RUN bin/install_python.sh && \
-    bin/install_ruby.sh && \
-    bin/install_haskell.sh
+WORKDIR /root/.dotfiles
+RUN sudo apt-get update && sudo apt-get install -y gawk
+RUN bin/install.sh --skip-tests

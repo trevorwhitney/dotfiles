@@ -3,16 +3,10 @@
 set -ex
 
 current_dir=$(cd $(dirname $0) && pwd)
-dotfiles_containers_dir=$(cd $current_dir/.. && pwd)
+dotfiles_container_dir=$(cd $current_dir/.. && pwd)
+dotfiles_dir=$(cd $dotfiles_container_dir/../.. && pwd)
 
-for dir in ubuntu base vim; do
-  pushd $dotfiles_containers_dir/$dir
-    echo "Building dotfiles:${dir}"
-    ./build.sh
-  popd
-done
-
-pushd $dotfiles_containers_dir
-  echo "Building dotfiles:latest"
-  docker build -t dotfiles:latest --no-cache .
+pushd $dotfiles_dir
+  tar -czf $dotfiles_container_dir/dotfiles.tar.gz --exclude containers .
 popd
+docker build -t dotfiles --no-cache $dotfiles_container_dir

@@ -1,3 +1,4 @@
 *.ti
 .vagrant
 .stack-work
+containers/dotfiles/*.tar.gz

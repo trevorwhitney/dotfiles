@@ -1,0 +1,12 @@
+---
+machine:
+  timezone:
+    America/Denver
+
+compile:
+  override:
+    - ci/build.sh
+
+test:
+  override:
+    - ci/test.sh

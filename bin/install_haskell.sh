@@ -10,6 +10,6 @@ if [ ! `which stack` ]; then
 fi
 
 pushd $dotfiles_dir
-  stack setup
+  stack setup --allow-different-user
   stack install hlint stylish-haskell hindent ghc-mod hdevtools fast-tags
 popd

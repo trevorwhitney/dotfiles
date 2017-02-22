@@ -16,6 +16,6 @@ $current_dir/install_ruby.sh
 $current_dir/install_haskell.sh
 
 # Run Tests
-$current_dir/shpec
+[ "$1" != '--skip-tests' ] && $current_dir/shpec
 
 exit 0
