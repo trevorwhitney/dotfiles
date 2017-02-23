@@ -5,6 +5,9 @@ machine:
   services:
     - docker
 
+dependencies:
+  override: []
+
 compile:
   override:
     - ci/build.sh

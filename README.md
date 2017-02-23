@@ -1,6 +1,9 @@
-# Dotfile
+# Dotfiles
+
+![build status](https://circleci.com/gh/trevorwhitney/dotfiles.svg?style=shield&circle-token=3829835c1307815a3fb5ebe4755691cabaf0b9c4)
 
 This repo contains my dotfiles for setting up a new computer.
+
 
 # Installation
 
