@@ -14,10 +14,6 @@ describe "dependencies"
       assert present $(which uncrustify)
     end
 
-    it "installs the gradle binary"
-      assert present $(which gradle)
-    end
-
     it "installs the curl binary"
       assert present $(which curl)
     end

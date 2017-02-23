@@ -47,7 +47,6 @@ elif $ubuntu; then
     gettext \
     silversearcher-ag \
     uncrustify \
-    gradle \
     curl \
     git \
     build-essential \
