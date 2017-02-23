@@ -7,12 +7,12 @@ This repo contains my dotfiles for setting up a new computer.
 
 # Installation
 
-The `install.sh` script will copy the dotfile into your home directory. The vim configuration requires vim 7.4 or higher.
-If you're on a Mac, the `osx_install_vim.sh` script will help you get vim setup.
+`bin/install.sh`
 
 ## Local Configuration
 
-The `.bash_profile` will source `~/.bash_profile.local` if it is present. An example local config is included in this repo.
+The `.bash_profile` and `.bashrc` will source `~/.bash_profile.local` or `~/.bashrc.local`, respectively, if it is present. 
+An example local config is included in this repo.
 
 # Bash tricks
 
@@ -25,6 +25,11 @@ exit code by running `:cquit`
 
 This can also be acheived by using the `fc` command, which can take a number from the
 print out of the `history` command.
+
+##
+
+`!$` -> Last argument to previous command
+`!^` -> First argument to previous command
 
 # Vim tricks
 

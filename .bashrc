@@ -86,8 +86,8 @@ tmux2host() {
 }
 
 # Source local bash configuration if present
-if [ -e $HOME/.bash_profile.local ]; then
-  source $HOME/.bash_profile.local
+if [ -e $HOME/.bashrc.local ]; then
+  source $HOME/.bashrc.local
 fi
 
 
