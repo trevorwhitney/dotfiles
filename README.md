@@ -39,66 +39,71 @@ Because I keep forgetting them from not enough usage
 
 These are the special keybindings I've added:
 
-| Keybinding     | Action                                        | Required Plugin      |
-| :------------- | :---------                                    | ---------------      |
-| \<Leader\>sr   | Search and replace word under cursor          |                      |
-| \<Leader\>ll   | Open location list                            |                      |
-| \<Leader\>z    | Sort selection alphabetically                 |                      |
-| \<Leader\>cs   | Run current spec file                         | vim-ruby             |
-| \<Leader\>ns   | Run spec nearest to cursor                    | vim -ruby            |
-| \<Leader\>ls   | Rerun most recently ran spec                  | vim-ruby             |
-| \<Leader\>as   | Run all specs                                 | vim-ruby             |
-| \<Leader\>rem  | Extract Ruby Method                           | vim-ruby-refactoring |
-| \<Leader\>rriv | Rename ruby instance variable                 | vim-ruby-refactoring |
-| \<Leader\>rrlv | Rename ruby local variable                    | vim-ruby-refactoring |
-| \<Leader\>relv | Extract local ruby variable                   | vim-ruby-refactoring |
-| \<Leader\>rec  | Extract ruby constant                         | vim-ruby-refactoring |
-| \<Leader\>riv  | Introduce ruby variable                       | vim-ruby-refactoring |
-| \<Leader\>rcpc | Convert ruby post conditional                 | vim-ruby-refactoring |
-| \<Leader\>rel  | Extract ruby statement to let                 | vim-ruby-refactoring |
-| \<Leader\>rit  | Inline temporary ruby variable                | vim-ruby-refactoring |
-| \<Leader\>rapn | Add parameter to ruby method with no brackets | vim-ruby-refactoring |
-| \<Leader\>rap  | Add parameter to ruby method with brackets    | vim-ruby-refactoring |
-| \<Leader\>bv   | BufExplorerVerticalSplit                      | bufexplorer          |
-| \<Leader\>bs   | BufExplorerHorizontalSplit                    | bufexplorer          |
-| \<Leader\>bt   | ToggleBufExplorer                             | bufexplorer          |
-| \<Leader\>be   | BufExplorer                                   | bufexplorer          |
-| \<Leader\>n:   | Align selected code by :                      | tabular              |
-| \<Leader\>n=   | Align selected code by =                      | tabular              |
-| \<Leader\>p    | Open ctrl-p fuzzy search                      | ctrlp.vim            |
-| \<Leader\>g    | Open Git Blame                                | fugitive.vim         |
-| \<Leader\>d    | Search word under cursor in Dash              | dash.vim             |
-| \<leader\>jI   | Add all missing java imports                  | vim-javacomplete2    |
-| \<leader\>jR   | Remove all unused java importst               | vim-javacomplete2    |
-| \<leader\>ji   | Smart add import for class under cursor       | vim-javacomplete2    |
-| \<leader\>jii  | Dumb add import for class under cursor        | vim-javacomplete2    |
-| \<C-j\>I       | Add all missing java imports                  | vim-javacomplete2    |
-| \<C-j\>R       | Remove all unused java imports                | vim-javacomplete2    |
-| \<C-j\>i       | Smart add import for class under cursor       | vim-javacomplete2    |
-| \<C-j\>ii      | Dumb add import for class under cursor        | vim-javacomplete2    |
-| \<leader\>jM   | Generate abstract Java methods                | vim-javacomplete2    |
-| \<C-j\>jM      | Generate abstract Java methods                | vim-javacomplete2    |
-| \<leader\>jA   | Generate Java accessor methods                | vim-javacomplete2    |
-| \<leader\>js   | Generate Java setter                          | vim-javacomplete2    |
-| \<leader\>jg   | Generate Java getter                          | vim-javacomplete2    |
-| \<leader\>ja   | Generate Java setter and getter               | vim-javacomplete2    |
-| \<leader\>jts  | Generate Java toString method                 | vim-javacomplete2    |
-| \<leader\>jeq  | Generate Java equals and hashCode methods     | vim-javacomplete2    |
-| \<leader\>jc   | Generate Java constructor                     | vim-javacomplete2    |
-| \<leader\>jcc  | Generate defulat Java constructor             | vim-javacomplete2    |
-| \<C-j\>s       | Generate Java setter                          | vim-javacomplete2    |
-| \<C-j\>g       | Generate Java getter                          | vim-javacomplete2    |
-| \<C-j\>a       | Generate Java setter and getter               | vim-javacomplete2    |
-| \<leader\>=    | Neoformat current file                        | neoformat            |
-| \<C-y\>,       | Emmet completion                              | emmet-vim            |
+| Keybinding     | Action                                                                    | Required Plugin      |
+| :------------- | :---------                                                                | ---------------      |
+| \<Leader\>sr   | Search and replace word under cursor                                      |                      |
+| \<Leader\>ll   | Open location list                                                        |                      |
+| \<Leader\>z    | Sort selection alphabetically                                             |                      |
+| \<Leader\>cs   | Run current spec file                                                     | vim-ruby             |
+| \<Leader\>ns   | Run spec nearest to cursor                                                | vim -ruby            |
+| \<Leader\>ls   | Rerun most recently ran spec                                              | vim-ruby             |
+| \<Leader\>as   | Run all specs                                                             | vim-ruby             |
+| \<Leader\>rem  | Extract Ruby Method                                                       | vim-ruby-refactoring |
+| \<Leader\>rriv | Rename ruby instance variable                                             | vim-ruby-refactoring |
+| \<Leader\>rrlv | Rename ruby local variable                                                | vim-ruby-refactoring |
+| \<Leader\>relv | Extract local ruby variable                                               | vim-ruby-refactoring |
+| \<Leader\>rec  | Extract ruby constant                                                     | vim-ruby-refactoring |
+| \<Leader\>riv  | Introduce ruby variable                                                   | vim-ruby-refactoring |
+| \<Leader\>rcpc | Convert ruby post conditional                                             | vim-ruby-refactoring |
+| \<Leader\>rel  | Extract ruby statement to let                                             | vim-ruby-refactoring |
+| \<Leader\>rit  | Inline temporary ruby variable                                            | vim-ruby-refactoring |
+| \<Leader\>rapn | Add parameter to ruby method with no brackets                             | vim-ruby-refactoring |
+| \<Leader\>rap  | Add parameter to ruby method with brackets                                | vim-ruby-refactoring |
+| \<Leader\>bv   | BufExplorerVerticalSplit                                                  | bufexplorer          |
+| \<Leader\>bs   | BufExplorerHorizontalSplit                                                | bufexplorer          |
+| \<Leader\>bt   | ToggleBufExplorer                                                         | bufexplorer          |
+| \<Leader\>be   | BufExplorer                                                               | bufexplorer          |
+| \<Leader\>n:   | Align selected code by :                                                  | tabular              |
+| \<Leader\>n=   | Align selected code by =                                                  | tabular              |
+| \<Leader\>p    | Open ctrl-p fuzzy search                                                  | ctrlp.vim            |
+| \<Leader\>g    | Open Git Blame                                                            | fugitive.vim         |
+| \<Leader\>d    | Search word under cursor in Dash                                          | dash.vim             |
+| \<leader\>jI   | Add all missing java imports                                              | vim-javacomplete2    |
+| \<leader\>jR   | Remove all unused java importst                                           | vim-javacomplete2    |
+| \<leader\>ji   | Smart add import for class under cursor                                   | vim-javacomplete2    |
+| \<leader\>jii  | Dumb add import for class under cursor                                    | vim-javacomplete2    |
+| \<C-j\>I       | Add all missing java imports                                              | vim-javacomplete2    |
+| \<C-j\>R       | Remove all unused java imports                                            | vim-javacomplete2    |
+| \<C-j\>i       | Smart add import for class under cursor                                   | vim-javacomplete2    |
+| \<C-j\>ii      | Dumb add import for class under cursor                                    | vim-javacomplete2    |
+| \<leader\>jM   | Generate abstract Java methods                                            | vim-javacomplete2    |
+| \<C-j\>jM      | Generate abstract Java methods                                            | vim-javacomplete2    |
+| \<leader\>jA   | Generate Java accessor methods                                            | vim-javacomplete2    |
+| \<leader\>js   | Generate Java setter                                                      | vim-javacomplete2    |
+| \<leader\>jg   | Generate Java getter                                                      | vim-javacomplete2    |
+| \<leader\>ja   | Generate Java setter and getter                                           | vim-javacomplete2    |
+| \<leader\>jts  | Generate Java toString method                                             | vim-javacomplete2    |
+| \<leader\>jeq  | Generate Java equals and hashCode methods                                 | vim-javacomplete2    |
+| \<leader\>jc   | Generate Java constructor                                                 | vim-javacomplete2    |
+| \<leader\>jcc  | Generate defulat Java constructor                                         | vim-javacomplete2    |
+| \<C-j\>s       | Generate Java setter                                                      | vim-javacomplete2    |
+| \<C-j\>g       | Generate Java getter                                                      | vim-javacomplete2    |
+| \<C-j\>a       | Generate Java setter and getter                                           | vim-javacomplete2    |
+| \<leader\>=    | Neoformat current file                                                    | neoformat            |
+| \<C-y\>,       | Emmet completion                                                          | emmet-vim            |
+| \<leader\>fa   | Activate `:Ack`, search for pattern in files in current directory         | ferret               |
+| \<leader\>fl   | Activate `:Lack`, same as `:Ack`, but populate `ll` instead of `quickfix` | ferret               |
+| \<leader\>fs   | Activate `:Ack` for word currently under cursor.                          | ferret               |
+| \<leader\>fr   | Activate `:Acks` to search and replace last search term to `:Ack`         | ferret               |
 
 ## Project wide search and replace
 ```
-:Ag findme
+:Ack findme
 :Qargs | argdo %s/findme/replacement/gc | update
 ```
 
 This can be used with [Subvert](https://github.com/tpope/vim-abolish#substitution) as well.
+Another option is the `:Acks` command, by itself
 
 ## Copy and Paste
 
