@@ -11,7 +11,7 @@ This repo contains my dotfiles for setting up a new computer.
 
 ## Local Configuration
 
-The `.bash_profile` and `.bashrc` will source `~/.bash_profile.local` or `~/.bashrc.local`, respectively, if it is present. 
+The `.bash_profile` and `.bashrc` will source `~/.bash_profile.local` or `~/.bashrc.local`, respectively, if it is present.
 An example local config is included in this repo.
 
 # Bash tricks
@@ -95,6 +95,10 @@ These are the special keybindings I've added:
 | \<leader\>fl   | Activate `:Lack`, same as `:Ack`, but populate `ll` instead of `quickfix` | ferret               |
 | \<leader\>fs   | Activate `:Ack` for word currently under cursor.                          | ferret               |
 | \<leader\>fr   | Activate `:Acks` to search and replace last search term to `:Ack`         | ferret               |
+| tw             | Haskell insert type for toplevel declaration                              |                      |
+| tq             | Haskell query type of expression under cursor                             |                      |
+| ts             | Haskell case split expression under cursor                                |                      |
+| te             | Haskell erase type query                                                  |                      |
 
 ## Project wide search and replace
 ```
@@ -115,60 +119,10 @@ Normally, `:set paste` before pasting in insert mode, and `:set nopaste` when do
 Otherwise autoident really screws things up. However, this should happen automatically
 when pasting in insert mode in this configuration.
 
-# Development Environments
+## Tmux Integration
 
-These are docker images I use for various dev environments
+* Use `<C-j>` and friends to move between vim panes and tmux panes.
+* `<C-a>` is a lot easier for me to type than `<C-b>`. The tmux bind key
+  for this configuration is `<C-a>`. To get a real `<C-a>`, say to increment
+  a value in vim, use `<C-a>a`.
 
-## Notes
-
-To build a docker image, `cd` into correct directory, and run `docker build -t tag-name .`
-To interactively update a docker image, `docker run -it image-name`, make your changes, then:
-```
-# docker ps -a
-# docker commit SHA image-name
-```
-
-To publish a docker image:
-```
-docker tag SHA IMAGE_NAME:latest
-docker push IMAGE_NAME
-```
-
-Adding a non-root user to docker:
-```
-sudo groupadd docker
-sudo usermod -aG docker $(whoami)
-sudo service docker restart
-```
-
-## Haskell
-
-To install necessary Haskell binaries, run the following:
-
-```bash
-stack install hlint stylish-haskell hindent ghc-mod hdevtools fast-tags
-```
-
-Summary
-In summary adding these plugins and lines to the .vimrc will introduce several Haskell specific commands which are bound to these keyboard shortcuts:
-
-Command
-`t + w` Insert type for toplevel declaration
-`t + q` Query type of expression under cursor
-`t + s` Case split expression under cursor
-`t + e` Erase type query
-`Ctrl + x + o` Tab complete under cursor
-
-Don't have implemented yet
-`a + =` Align on equal sign
-`a + -` Align on case match
-`\ + c + SpaceToggle` comment of text under cursor
-`\ + c + s` Toggle “sexy” comment of text
-
-## TODO
-
-Investigate `envsubst` for templating/substitution.
-  - For example, finding the stack bin path
-  - Or OS specific stuff
-
-Expand the home directory for the .gitignore_global path dynamically in installation
