@@ -98,10 +98,17 @@ These are the special keybindings I've added:
 :Qargs | argdo %s/findme/replacement/gc | update
 ```
 
-## Paste
+This can be used with [Subvert](https://github.com/tpope/vim-abolish#substitution) as well.
 
-Remember to `:set paste` before pasting in insert mode, and `:set nopaste` when done.
-Otherwise autoident really screws things up.
+## Copy and Paste
+
+To copy to, or paste from, the system clipboard, use the `*` register. The `+` register
+is related to X11 CLIPBOARD, I have yet been able to grok the difference between `*` and
+`+`.
+
+Normally, `:set paste` before pasting in insert mode, and `:set nopaste` when done.
+Otherwise autoident really screws things up. However, this should happen automatically
+when pasting in insert mode in this configuration.
 
 # Development Environments
 
