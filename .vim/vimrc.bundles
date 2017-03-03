@@ -23,4 +23,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ervandew/supertab'
 Plug 'rking/ag.vim'
 Plug 'nelstrom/vim-qargs'
-
+Plug 'luan/vim-concourse'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'mbbill/undotree'

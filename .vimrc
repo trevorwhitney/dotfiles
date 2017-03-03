@@ -26,6 +26,7 @@ for bundle in [
       \	s:editor_root . '/vimrc.kotlin.bundles',
       \	s:editor_root . '/vimrc.scala.bundles',
       \	s:editor_root . '/vimrc.java.bundles',
+      \	s:editor_root . '/vimrc.go.bundles',
       \	s:editor_root . '/vimrc.html.bundles',
       \	s:editor_root . '/vimrc.purescript.bundles',
       \	s:editor_root . '/vimrc.elm.bundles',
@@ -47,12 +48,13 @@ if has('nvim')
   endfor
 endif
 
-for config in [ 
-      \ s:editor_root . '/vimrc.config', 
+for config in [
+      \ s:editor_root . '/vimrc.config',
       \ s:editor_root . '/vimrc.ruby.config',
       \ s:editor_root . '/vimrc.javascript.config',
       \ s:editor_root . '/vimrc.haskell.config',
       \ s:editor_root . '/vimrc.java.config',
+      \ s:editor_root . '/vimrc.go.config',
       \ s:editor_root . '/vimrc.purescript.config',
       \ s:editor_root . '/vimrc.elm.config',
       \ s:editor_root . '/vimrc.localvimrc.config' ]
