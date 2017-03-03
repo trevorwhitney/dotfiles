@@ -39,6 +39,8 @@ create_vim_link vimrc.java.config
 create_vim_link vimrc.html.bundles
 create_vim_link vimrc.purescript.bundles
 create_vim_link vimrc.purescript.config
+create_vim_link vimrc.elm.bundles
+create_vim_link vimrc.elm.config
 
 create_vim_link vimrc.neovim.bundles
 create_vim_link vimrc.neovim.config

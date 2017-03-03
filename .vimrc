@@ -26,6 +26,7 @@ if dein#load_state(s:bundles_path)
   \	s:editor_root . '/vimrc.java.bundles',
   \	s:editor_root . '/vimrc.html.bundles',
   \	s:editor_root . '/vimrc.purescript.bundles',
+  \	s:editor_root . '/vimrc.elm.bundles',
   \	s:editor_root . '/vimrc.haskell.bundles' ]
     if filereadable(expand(bundle))
       execute "source " . expand(bundle)
@@ -54,6 +55,7 @@ for config in [
       \ s:editor_root . '/vimrc.haskell.config',
       \ s:editor_root . '/vimrc.java.config',
       \ s:editor_root . '/vimrc.purescript.config',
+      \ s:editor_root . '/vimrc.elm.config',
       \ s:editor_root . '/vimrc.localvimrc.config' ]
   if filereadable(expand(config))
     execute "source " . expand(config)
