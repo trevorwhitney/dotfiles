@@ -1,4 +1,4 @@
-call dein#add('neomake/neomake')
-call dein#add('sbdchd/neoformat')
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('Shougo/denite.nvim')
+Plug 'neomake/neomake'
+Plug 'sbdchd/neoformat'
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/denite.nvim'

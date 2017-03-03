@@ -1,8 +1,6 @@
-call dein#add('bitc/vim-hdevtools')
-" Plugin 'eagletmt/ghcmod-vim'
-call dein#add('eagletmt/neco-ghc')
-" Plugin 'Shougo/vimproc.vim'
-call dein#add('lukerandall/haskellmode-vim')
-call dein#add('Twinside/vim-haskellConceal')
-call dein#add('Twinside/vim-haskellFold')
-call dein#add('dag/vim2hs')
+Plug 'bitc/vim-hdevtools'
+Plug 'eagletmt/neco-ghc'
+Plug 'lukerandall/haskellmode-vim'
+Plug 'Twinside/vim-haskellConceal'
+Plug 'Twinside/vim-haskellFold'
+Plug 'dag/vim2hs'

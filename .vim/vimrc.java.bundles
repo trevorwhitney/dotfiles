@@ -1,1 +1,1 @@
-call dein#add('artur-shaik/vim-javacomplete2')
+Plug 'artur-shaik/vim-javacomplete2'

@@ -45,13 +45,11 @@ create_vim_link vimrc.elm.config
 create_vim_link vimrc.neovim.bundles
 create_vim_link vimrc.neovim.config
 
-if [ ! -e "$HOME/.vim/bundles" ]; then
-  mkdir -p ~/tmp
-  curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/tmp/dein-installer.sh
-  chmod a+x ~/tmp/dein-installer.sh
-  ~/tmp/dein-installer.sh ~/.vim/bundles
-  rm ~/tmp/dein-installer.sh
-fi
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 if $darwin; then
   sed -e 's/^colorscheme/"colorscheme/' -i ''  $dotfiles_dir/.vim/vimrc.config
@@ -59,8 +57,8 @@ else
   sed -e 's/^colorscheme/"colorscheme/' -i''  $dotfiles_dir/.vim/vimrc.config
 fi
 
-vim --noplugin +"silent call dein#install()" +qall
-which nvim && XDG_CONFIG_HOME=$HOME/.config nvim --noplugin -c "call dein#install()" -c "UpdateRemotePlugins" -c "qall"
+vim --noplugin +"silent PlugInstall" +qall
+which nvim && XDG_CONFIG_HOME=$HOME/.config nvim --noplugin -c "PlugInstall" -c "UpdateRemotePlugins" -c "qall"
 
 if $darwin; then
   sed -e 's/^"colorscheme/colorscheme/' -i ''  $dotfiles_dir/.vim/vimrc.config
