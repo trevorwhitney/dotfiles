@@ -46,6 +46,7 @@ create_vim_link vimrc.elm.config
 
 create_vim_link vimrc.neovim.bundles
 create_vim_link vimrc.neovim.config
+create_vim_link vimrc.deoplete.config
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

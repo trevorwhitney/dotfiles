@@ -41,7 +41,9 @@ filetype plugin indent on
 syntax on
 
 if has('nvim')
-  for bundle in [ s:editor_root . '/vimrc.neovim.config' ]
+  for bundle in [
+        \ s:editor_root . '/vimrc.neovim.config',
+        \ s:editor_root . '/vimrc.deoplete.config' ]
     if filereadable(expand(bundle))
       execute "source " . expand(bundle)
     endif
