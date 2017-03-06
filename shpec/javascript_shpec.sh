@@ -13,6 +13,10 @@ describe "javascript"
     assert present $(which pulp)
   end
 
+  it "installs yarn"
+    assert present $(which yarn)
+  end
+
   describe "elm"
     for bin in  elm \
                 elm-test \

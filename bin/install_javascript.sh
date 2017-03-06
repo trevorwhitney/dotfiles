@@ -12,4 +12,4 @@ else
   operating_system_unsupported
 fi
 
-npm install -g purescript pulp bower elm elm-test elm-oracle elm-format
+npm install -g purescript pulp bower elm elm-test elm-oracle elm-format yarn
