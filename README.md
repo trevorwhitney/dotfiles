@@ -119,6 +119,22 @@ Normally, `:set paste` before pasting in insert mode, and `:set nopaste` when do
 Otherwise autoident really screws things up. However, this should happen automatically
 when pasting in insert mode in this configuration.
 
+## Changing a word at multiple positions
+
+Use the `gn` text object, which goes to the next occurance of the last thing you searched
+for:
+  1. Search for a word.
+  1. Type `cgn`, then make the change on the next occurance.
+  1. The `.` operator will now make your change on the next occurance.
+
+## Use the global command
+
+Global lets you run a command over the whole file. For example, if you want to apply
+the macro recorded to `m` to all files that match a pattern, you can do the following:
+```vimscript
+:global/pattern/normal @m
+```
+
 ## Tmux Integration
 
 * Use `<C-j>` and friends to move between vim panes and tmux panes.
