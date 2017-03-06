@@ -14,6 +14,7 @@ $current_dir/install_neovim.sh
 $current_dir/install_python.sh
 $current_dir/install_ruby.sh
 $current_dir/install_haskell.sh
+$current_dir/install_javascript.sh
 
 # Run Tests
 [ "$1" != '--skip-tests' ] && $current_dir/shpec
