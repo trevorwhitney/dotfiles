@@ -29,5 +29,11 @@ describe "dependencies"
     it "installs the astyle binary"
       assert present $(which astyle)
     end
+
+    it "installs universal ctags"
+      ctags -R .
+      assert equal $? 0
+      rm tags
+    end
   end
 end

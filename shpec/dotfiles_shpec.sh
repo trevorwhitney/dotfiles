@@ -27,7 +27,7 @@ esac
 
 describe "dotfile"
   describe "configuration"
-    for file in .ctags .dircolors .vimrc .ideavimrc .gitignore_global .git-completion; do
+    for file in .dircolors .vimrc .ideavimrc .gitignore_global .git-completion; do
       it "links the $file configuration"
         assert symlink $HOME/$(basename $file) $root_dir/$file
       end

@@ -20,6 +20,10 @@ if $darwin; then
     git
 
   brew link --force gettext
+
+  brew tap universal-ctags/universal-ctags
+  brew install --HEAD universal-ctags
+
   set -e
 
   function install_astyle() {
@@ -61,7 +65,10 @@ elif $ubuntu; then
     libxml2-dev \
     libssl-dev \
     libreadline6 \
-    libreadline6-dev
+    libreadline6-dev \
+    autoconf \
+    dh-autoreconf \
+    pkg-config
 
   function install_direnv() {
     sudo curl -Lk https://github.com/direnv/direnv/releases/download/v2.10.0/direnv.linux-amd64 \
@@ -84,6 +91,20 @@ elif $ubuntu; then
     rm -rf ~/tmp/astyle
   }
   if [ ! `which astyle` ]; then install_astyle; fi
+
+  function install_universal_ctags() {
+    mkdir -p ~/tmp
+    pushd ~/tmp
+      git clone https://github.com/universal-ctags/ctags.git
+      cd ctags/
+      ./autogen.sh
+      ./configure --prefix=/usr/local
+      make
+      sudo make install
+    popd
+  }
+  if [ ! `which ctags` ]; then install_universal_ctags; fi
+
 else
   operating_system_unsupported
 fi
