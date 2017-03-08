@@ -48,6 +48,7 @@ create_link() {
     ln -s "$dotfiles_dir/$1" "$HOME/$1"
 }
 
+create_link .ctags
 create_link .dircolors
 create_link .vimrc
 create_link .ideavimrc
