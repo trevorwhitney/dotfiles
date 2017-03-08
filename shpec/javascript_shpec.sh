@@ -17,6 +17,10 @@ describe "javascript"
     assert present $(which yarn)
   end
 
+  it "installs gulp"
+    assert present $(which gulp)
+  end
+
   describe "elm"
     for bin in  elm \
                 elm-test \
