@@ -30,6 +30,10 @@ describe "dependencies"
       assert present $(which astyle)
     end
 
+    it "installs the jq binary"
+      assert present $(which jq)
+    end
+
     it "installs universal ctags"
       ctags -R .
       assert equal $? 0

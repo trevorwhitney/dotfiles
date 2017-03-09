@@ -17,7 +17,8 @@ if $darwin; then
     uncrustify \
     gradle \
     gawk \
-    git
+    git \
+    jq
 
   brew link --force gettext
 
@@ -68,7 +69,8 @@ elif $ubuntu; then
     libreadline6-dev \
     autoconf \
     dh-autoreconf \
-    pkg-config
+    pkg-config \
+    jq
 
   function install_direnv() {
     sudo curl -Lk https://github.com/direnv/direnv/releases/download/v2.10.0/direnv.linux-amd64 \
