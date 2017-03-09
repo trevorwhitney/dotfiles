@@ -54,6 +54,7 @@ create_link .vimrc
 create_link .ideavimrc
 create_link .gitignore_global
 create_link .git-completion
+create_link .git_template
 
 create_link $CONFIG_FILE
 

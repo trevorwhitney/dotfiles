@@ -22,6 +22,7 @@
   squash = commit --squash
   unstage = reset HEAD
   rum = rebase
+	 ctags = !.git/hooks/ctags
 [apply]
   whitespace = nowarn
 [color]
@@ -42,3 +43,5 @@
   tool = vimdiff
 [mergetool]
 	keepBackup = false
+[init]
+	templatedir = ~/.git_template
