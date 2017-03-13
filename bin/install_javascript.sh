@@ -12,4 +12,5 @@ else
   operating_system_unsupported
 fi
 
-npm install -g purescript pulp bower elm elm-test elm-oracle elm-format yarn gulp eslint flow-bin flow-typed
+npm install -g yarn
+yarn global add purescript pulp bower elm elm-test elm-oracle elm-format yarn gulp eslint flow-bin flow-typed
