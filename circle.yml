@@ -7,7 +7,7 @@ machine:
 
 compile:
   override:
-    - ci/build.sh
+    - ci/build.sh:
         timeout: 1200
 
 test:
