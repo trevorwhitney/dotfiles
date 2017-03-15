@@ -5,15 +5,18 @@ current_dir=$(cd $(dirname $0) && pwd)
 source $current_dir/utilities.sh
 
 if $darwin; then
-  [! `which npm` ] &&  brew install node
+  [ ! `which npm` ] &&  brew install node
 elif $ubuntu; then
-  [! `which npm` ] &&  sudo apt-get install -y nodejs npm
+  if [ ! `which npm` ]; then
+    wget -qO- https://deb.nodesource.com/setup_4.x | sudo bash -
+    sudo apt-get install -y nodejs
+  fi
 else
   operating_system_unsupported
 fi
 
-[ ! `which yarn` ] && npm install -g yarn
-yarn global add \
+[ ! `which yarn` ] && sudo npm install -g yarn
+sudo yarn global add \
   purescript\
   pulp\
   bower\
