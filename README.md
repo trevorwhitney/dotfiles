@@ -99,6 +99,7 @@ These are the special keybindings I've added:
 | tq             | Haskell query type of expression under cursor                             |                      |
 | ts             | Haskell case split expression under cursor                                |                      |
 | te             | Haskell erase type query                                                  |                      |
+| <C-v>          | Prefix an auto-paired character (ie. ( or ] ) to enter it purely          | auto-pairs           |
 
 ## Project wide search and replace
 ```
