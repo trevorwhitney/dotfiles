@@ -10,6 +10,11 @@ if [ ! `which stack` ]; then
 fi
 
 pushd $dotfiles_dir
-  stack setup --allow-different-user
+  if $darwin; then
+    stack setup --allow-different-user
+  else
+    su -c 'stack setup' -- $DOTFILES_USER
+  fi
+
   stack install hlint stylish-haskell hindent ghc-mod hdevtools fast-tags
 popd

@@ -70,7 +70,8 @@ elif $ubuntu; then
     autoconf \
     dh-autoreconf \
     pkg-config \
-    jq
+    jq \
+    wget
 
   function install_direnv() {
     sudo curl -Lk https://github.com/direnv/direnv/releases/download/v2.10.0/direnv.linux-amd64 \
