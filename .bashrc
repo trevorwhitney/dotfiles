@@ -44,7 +44,7 @@ export GOPATH=$HOME/workspace/gocode
 
 RBENV_ROOT=$HOME/.rbenv
 PYENV_ROOT=$HOME/.pyenv
-PATH=$RBENV_ROOT/bin:$PYENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:$GOPATH/bin:$PATH
+PATH=$GOPATH/bin:$RBENV_ROOT/bin:$PYENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:$GOPATH/bin:$PATH
 
 # Load Bash It
 source $BASH_IT/bash_it.sh
