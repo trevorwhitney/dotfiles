@@ -15,11 +15,11 @@ function operating_system_unsupported() {
 case $OSTYPE in
   darwin*)
     export darwin=true
-    export CONFIG_FILE=.bash_profile
+    export CONFIG_FILE=bash_profile
     ;;
   *)
     export linux_flavor=`gawk -F= '/^NAME/{print $2}' /etc/os-release | tr -d '"'`
-    export CONFIG_FILE=.bashrc
+    export CONFIG_FILE=bashrc
     case $linux_flavor in
       Ubuntu)
         export ubuntu=true

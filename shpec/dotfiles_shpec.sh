@@ -27,25 +27,25 @@ esac
 
 describe "dotfile"
   describe "configuration"
-    for file in .ctags .dircolors .vimrc .ideavimrc .gitignore_global .git-completion; do
+    for file in ctags dircolors vimrc ideavimrc gitignore_global git-completion git_template; do
       it "links the $file configuration"
-        assert symlink $HOME/$(basename $file) $root_dir/$file
+        assert symlink $HOME/.$(basename $file) $root_dir/$file
       end
     done
 
     it "links the corrent tmux configuration"
       if $darwin; then
-        assert symlink $HOME/.tmux.conf $root_dir/.tmux.darwin.conf
+        assert symlink $HOME/.tmux.conf $root_dir/tmux.darwin.conf
       else
-        assert symlink $HOME/.tmux.conf $root_dir/.tmux.linux.conf
+        assert symlink $HOME/.tmux.conf $root_dir/tmux.linux.conf
       fi
     end
 
     it "links the correct bash profile"
       if $darwin; then
-        assert symlink $HOME/.bash_profile $root_dir/.bash_profile
+        assert symlink $HOME/.bash_profile $root_dir/bash_profile
       else
-        assert symlink $HOME/.bashrc $root_dir/.bashrc
+        assert symlink $HOME/.bashrc $root_dir/bashrc
       fi
     end
 
