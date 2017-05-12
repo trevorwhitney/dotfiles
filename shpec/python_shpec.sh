@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH="/root/.pyenv/bin:$PATH"
+
 describe 'python'
   it 'installs pyenv'
     pyenv --version > /dev/null

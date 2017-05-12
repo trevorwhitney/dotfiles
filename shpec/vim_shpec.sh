@@ -24,9 +24,11 @@ describe "vim binaries and configuration"
     end
 
     for file in `ls $vim_dir | grep vimrc`; do
-      it "symlinks all the vim configuration for $file"
-          assert symlink $HOME/.vim/$(basename $file) $vim_dir/$file
-      end
+      if [ "${file}" != "vimrc.minimal.bundles" ]; then
+        it "symlinks all the vim configuration for $file"
+            assert symlink $HOME/.vim/$(basename $file) $vim_dir/$file
+        end
+      fi
     done
   end
 end

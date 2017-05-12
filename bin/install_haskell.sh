@@ -9,6 +9,8 @@ if [ ! `which stack` ]; then
   curl -sSL https://get.haskellstack.org/ | sh
 fi
 
+export PATH=$HOME/.local/bin:$PATH
+
 pushd $dotfiles_dir
   if $darwin; then
     stack setup --allow-different-user

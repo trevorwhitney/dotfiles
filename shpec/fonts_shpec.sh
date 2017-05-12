@@ -26,7 +26,7 @@ describe "fonts"
     if $darwin; then
       assert file_present $HOME/Library/Fonts
     else
-      asser file_present $HOME/.local/share/fonts
+      assert file_present $HOME/.local/share/fonts
     fi
   end
 end

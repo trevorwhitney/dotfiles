@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH=$HOME/.local/bin:$PATH
+
 describe "haskell"
   describe "binaries"
     it "installs stack"
