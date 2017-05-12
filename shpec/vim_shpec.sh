@@ -20,7 +20,7 @@ describe "vim binaries and configuration"
     end
 
     it "links the neovim configuration"
-      assert symlink $XDG_CONFIG_HOME/nvim $HOME/.vim
+      assert symlink $HOME/.config/nvim $HOME/.vim
     end
 
     for file in `ls $vim_dir | grep vimrc`; do

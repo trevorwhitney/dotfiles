@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH=$HOME/.rbenv/bin:$PATH
+
 describe 'ruby'
   it 'installs rbenv'
     assert present $(which rbenv)
