@@ -19,17 +19,19 @@ An example local config is included in this repo.
 ## Edit a previous command
 
 1. Find the command using history
-2. Hit `CTRL+X``CTRL+E` to bring up the command in `$EDITOR`, which should be vim
+2. Hit `CTRL+X CTRL+E` to bring up the command in `$EDITOR`, which should be vim
 3. Command will run if vim exits with 0 exit code, you can kill it with a non-zero
 exit code by running `:cquit`
 
 This can also be acheived by using the `fc` command, which can take a number from the
 print out of the `history` command.
 
-##
+## Command Line Fu
 
 `!$` -> Last argument to previous command
 `!^` -> First argument to previous command
+`<()` -> Process substitution, put result of command in tmp file, pass tmp file as arg to outer command
+`$()` -> Use result of command as value
 
 # Vim tricks
 
@@ -103,12 +105,11 @@ These are the special keybindings I've added:
 
 ## Project wide search and replace
 ```
-:Ack findme
+:Ag findme
 :Qargs | argdo %s/findme/replacement/gc | update
 ```
 
 This can be used with [Subvert](https://github.com/tpope/vim-abolish#substitution) as well.
-Another option is the `:Acks` command, by itself
 
 ## Copy and Paste
 
@@ -142,4 +143,3 @@ the macro recorded to `m` to all files that match a pattern, you can do the foll
 * `<C-a>` is a lot easier for me to type than `<C-b>`. The tmux bind key
   for this configuration is `<C-a>`. To get a real `<C-a>`, say to increment
   a value in vim, use `<C-a>a`.
-
