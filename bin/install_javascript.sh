@@ -8,7 +8,7 @@ if $darwin; then
   [ ! `which npm` ] &&  brew install node
 elif $ubuntu; then
   if [ ! `which npm` ]; then
-    wget -qO- https://deb.nodesource.com/setup_4.x | sudo bash -
+    wget -qO- https://deb.nodesource.com/setup_7.x | sudo bash -
     sudo apt-get install -y nodejs
   fi
 else
@@ -24,7 +24,6 @@ sudo yarn global add \
   elm-test\
   elm-oracle\
   elm-format\
-  yarn\
   gulp\
   eslint\
   flow-bin\
