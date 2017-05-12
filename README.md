@@ -28,10 +28,10 @@ print out of the `history` command.
 
 ## Command Line Fu
 
-`!$` -> Last argument to previous command
-`!^` -> First argument to previous command
-`<()` -> Process substitution, put result of command in tmp file, pass tmp file as arg to outer command
-`$()` -> Use result of command as value
+* `!$` -> Last argument to previous command
+* `!^` -> First argument to previous command
+* `<()` -> Process substitution, put result of command in tmp file, pass tmp file as arg to outer command
+* `$()` -> Use result of command as value
 
 # Vim tricks
 
