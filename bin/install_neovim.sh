@@ -18,7 +18,7 @@ if [ ! `which nvim` ]; then
   elif $ubuntul; then
     sudo add-apt-repository -y ppa:neovim-ppa/unstable
     sudo apt-get update
-    sudo apt-get install neovim
+    sudo apt-get install -y neovim
   else
     operating_system_unsupported
   fi
