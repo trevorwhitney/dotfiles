@@ -2,7 +2,14 @@
 
 set -ex
 
-current_dir=$(cd $(dirname $0) && pwd)
+function find_current_dir() {
+  pushd $(dirname $0) > /dev/null
+    current_dir=$(pwd)
+  popd > /dev/null
+  echo $current_dir
+}
+current_dir=$(find_current_dir $@)
+
 source $current_dir/utilities.sh
 
 function incorrect_usage() {

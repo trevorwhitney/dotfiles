@@ -2,7 +2,14 @@
 
 set -ex
 
-current_dir=$(cd $(dirname $0) && pwd)
+function find_current_dir() {
+  pushd $(dirname $0) > /dev/null
+    current_dir=$(pwd)
+  popd > /dev/null
+  echo $current_dir
+}
+current_dir=$(find_current_dir $@)
+
 BASH_IT=$HOME/.bash_it
 source $current_dir/utilities.sh
 
@@ -67,7 +74,7 @@ fi
 
 # Copying files is good for configurations that might
 # have local overrides, since we don't want to track
-# the local overrirdes in version control
+# the local overrides in version control
 copy_file() {
     if [ -e "$HOME/.$1" ]; then
         rm -rf "$HOME/.$1";

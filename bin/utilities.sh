@@ -1,7 +1,21 @@
 #!/bin/bash
 
-bin_dir=$(cd $(dirname $0) && pwd)
-export dotfiles_dir=$(cd $bin_dir/.. && pwd)
+function find_current_dir() {
+  pushd $(dirname $0) > /dev/null
+    current_dir=$(pwd)
+  popd > /dev/null
+  echo $current_dir
+}
+
+function find_dir() {
+  pushd $1 > /dev/null
+    dir=$(pwd)
+  popd > /dev/null
+  echo $dir
+}
+
+bin_dir=$(find_current_dir $@)
+export dotfiles_dir=$(find_dir $bin_dir/..)
 
 export darwin=false
 export ubuntu=false
@@ -30,4 +44,3 @@ case $OSTYPE in
     esac
     ;;
 esac
-

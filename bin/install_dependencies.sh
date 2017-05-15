@@ -2,7 +2,14 @@
 
 set -ex
 
-current_dir=$(cd $(dirname $0) && pwd)
+function find_current_dir() {
+  pushd $(dirname $0) > /dev/null
+    current_dir=$(pwd)
+  popd > /dev/null
+  echo $current_dir
+}
+current_dir=$(find_current_dir $@)
+
 source $current_dir/utilities.sh
 
 if $darwin; then
@@ -99,11 +106,12 @@ elif $ubuntu; then
     mkdir -p ~/tmp
     pushd ~/tmp
       git clone https://github.com/universal-ctags/ctags.git
-      cd ctags/
-      ./autogen.sh
-      ./configure --prefix=/usr/local
-      make
-      sudo make install
+      pushd ctags/
+        ./autogen.sh
+        ./configure --prefix=/usr/local
+        make
+        sudo make install
+      popd
     popd
   }
   if [ ! `which ctags` ]; then install_universal_ctags; fi
