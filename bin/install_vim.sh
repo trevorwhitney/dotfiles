@@ -92,18 +92,11 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-if $darwin; then
-  sed -e 's/^colorscheme/"colorscheme/' -i ''  $dotfiles_dir/vim/vimrc.config
-else
-  sed -e 's/^colorscheme/"colorscheme/' -i''  $dotfiles_dir/vim/vimrc.config
-fi
+sed -e 's/^colorscheme/"colorscheme/' $dotfiles_dir/vim/vimrc.config > $(pwd)/vimrc.config.tmp
+mv $(pwd)/vimrc.config.tmp $dotfiles_dir/vim/vimrc.config
 
 vim --noplugin +"silent PlugInstall" +qall
 which nvim && XDG_CONFIG_HOME=$HOME/.config nvim --noplugin -c "PlugInstall" -c "UpdateRemotePlugins" -c "qall"
 
-if $darwin; then
-  sed -e 's/^"colorscheme/colorscheme/' -i ''  $dotfiles_dir/vim/vimrc.config
-else
-  sed -e 's/^"colorscheme/colorscheme/' -i''  $dotfiles_dir/vim/vimrc.config
-fi
-
+sed -e 's/^"colorscheme/colorscheme/' $dotfiles_dir/vim/vimrc.config > $(pwd)/vimrc.config.tmp
+mv $(pwd)/vimrc.config.tmp $dotfiles_dir/vim/vimrc.config
