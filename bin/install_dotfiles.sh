@@ -60,10 +60,22 @@ create_link dircolors
 create_link vimrc
 create_link ideavimrc
 create_link gitignore_global
-create_link git-completion
 create_link git_template
 
 create_link $CONFIG_FILE
+
+mkdir -p $HOME/bash_completion.d
+create_completion_link() {
+    if [ -h "$HOME/bash_completion.d/$1" ] || [ -e "$HOME/bash_completion.d/$1" ]; then
+        rm -rf "$HOME/bash_completion.d/$1";
+    fi
+
+    ln -s "$dotfiles_dir/bash_completion/$1" "$HOME/bash_completion.d/$1"
+}
+
+create_completion_link git-completion
+create_completion_link gradle-completion
+
 
 [ -h "$HOME/.tmux.conf" ] && rm -rf "$HOME/.tmux.conf"
 if $darwin; then

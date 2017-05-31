@@ -72,7 +72,9 @@ if type nvim > /dev/null 2>&1; then
 fi
 
 # Auto completion
-source $HOME/.git-completion
+for file in `ls $HOME/bash_completion.d`; do
+  source $HOME/bash_completion.d/$file
+done
 
 tmux2host() {
   if [ $# -eq 2  ]; then
