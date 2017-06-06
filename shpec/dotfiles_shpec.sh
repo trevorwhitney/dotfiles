@@ -39,6 +39,12 @@ describe "dotfile"
       end
     done
 
+    for file in default gradle; do
+      it "links the $file aliases"
+        assert symlink $HOME/aliases.d/$(basename $file) $root_dir/aliases/$file
+      end
+    done
+
     it "links the corrent tmux configuration"
       if $darwin; then
         assert symlink $HOME/.tmux.conf $root_dir/tmux.darwin.conf

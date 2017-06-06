@@ -76,6 +76,18 @@ create_completion_link() {
 create_completion_link git-completion
 create_completion_link gradle-completion
 
+mkdir -p $HOME/aliases.d
+create_alias_link() {
+    if [ -h "$HOME/aliases.d/$1" ] || [ -e "$HOME/aliases.d/$1" ]; then
+        rm -rf "$HOME/aliases.d/$1";
+    fi
+
+    ln -s "$dotfiles_dir/aliases/$1" "$HOME/aliases.d/$1"
+}
+
+create_alias_link default
+create_alias_link gradle
+
 
 [ -h "$HOME/.tmux.conf" ] && rm -rf "$HOME/.tmux.conf"
 if $darwin; then

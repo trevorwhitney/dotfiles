@@ -1,0 +1,9 @@
+alias cdws="cd ~/workspace"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi

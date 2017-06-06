@@ -65,11 +65,9 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 [ `which pyenv-virtualenv-init` ] && eval "$(pyenv virtualenv-init -)"
 
 # Aliases
-alias cdws="cd ~/workspace"
-
-if type nvim > /dev/null 2>&1; then
-  alias vim='nvim'
-fi
+for file in `ls $HOME/aliases.d`; do
+  source $HOME/aliases.d/$file
+done
 
 # Auto completion
 for file in `ls $HOME/bash_completion.d`; do

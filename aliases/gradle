@@ -1,0 +1,2 @@
+alias g="gradle"
+alias gw="./gradlew"
