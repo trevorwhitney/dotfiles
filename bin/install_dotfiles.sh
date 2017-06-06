@@ -10,40 +10,7 @@ function find_current_dir() {
 }
 current_dir=$(find_current_dir $@)
 
-BASH_IT=$HOME/.bash_it
 source $current_dir/utilities.sh
-
-function load_one() {
-  file_type=$1
-  file_to_enable=$2
-  mkdir -p "$BASH_IT/${file_type}/enabled"
-
-  dest="${BASH_IT}/${file_type}/enabled/${file_to_enable}"
-  if [ ! -e "${dest}" ]; then
-    ln -sf "../available/${file_to_enable}" "${dest}"
-  else
-    echo "File ${dest} exists, skipping"
-  fi
-}
-
-if [ ! -e "$HOME/.bash_it" ]; then
-  git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
-
-
-  if [ -e "$HOME/.$CONFIG_FILE" ]; then
-    rm -f "$HOME/.$CONFIG_FILE"
-  fi
-
-  if [ -e "$HOME/.$CONFIG_FILE.bak" ]; then
-    rm -f "$HOME/.$CONFIG_FILE.bak"
-  fi
-
-  load_one completion bash-it.completion.bash
-  load_one completion system.completion.bash
-  load_one plugins base.plugin.bash
-  load_one plugins alias-completion.plugin.bash
-  load_one aliases general.aliases.bash
-fi
 
 # Linking files is good for configurations
 # we want to track changes to
@@ -88,6 +55,19 @@ create_alias_link() {
 create_alias_link default
 create_alias_link gradle
 
+mkdir -p $HOME/.themes
+create_themes_link() {
+    theme_file="${1}.theme.bash"
+    if [ -h "$HOME/.themes/${theme_file}" ] || [ -e "$HOME/.themes/${theme_file}" ]; then
+        rm -rf "$HOME/.themes/${theme_file}";
+    fi
+
+    ln -s "$dotfiles_dir/themes/${theme_file}" "$HOME/.themes/${theme_file}"
+}
+
+create_themes_link base
+create_themes_link colors
+create_themes_link bobby
 
 [ -h "$HOME/.tmux.conf" ] && rm -rf "$HOME/.tmux.conf"
 if $darwin; then

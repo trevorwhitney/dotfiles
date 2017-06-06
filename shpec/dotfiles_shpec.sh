@@ -45,6 +45,12 @@ describe "dotfile"
       end
     done
 
+    for file in base bobby colors; do
+      it "links the $file theme"
+        assert symlink "${HOME}/.themes/$(basename $file).theme.bash" "${root_dir}/themes/${file}.theme.bash"
+      end
+    done
+
     it "links the corrent tmux configuration"
       if $darwin; then
         assert symlink $HOME/.tmux.conf $root_dir/tmux.darwin.conf
@@ -59,10 +65,6 @@ describe "dotfile"
       else
         assert symlink $HOME/.bashrc $root_dir/bashrc
       fi
-    end
-
-    it "installs bash_it"
-      assert file_present $HOME/.bash_it
     end
   end
 end

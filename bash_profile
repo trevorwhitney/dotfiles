@@ -1,33 +1,22 @@
 # Uncomment to debug slow performance
 # set -x
 
-# Path to the bash it configuration
-export BASH_IT="$HOME/.bash_it"
 export EDITOR="vim"
 
-# Lock and Load a custom theme file
-# location /.bash_it/themes/
-export BASH_IT_THEME='bobby'
+### Themes
 export THEME_SHOW_CLOCK_CHAR=false
+# Set this to false to turn off version control status checking within the prompt for all themes
+export SCM_CHECK=true
 
-# (Advanced): Change this to the name of your remote repo if you
-# cloned bash-it with a remote other than origin such as `bash-it`.
-# export BASH_IT_REMOTE='bash-it'
-
-# Your place for hosting Git repos. I use this for private repos.
-export GIT_HOSTING='git@git.domain.com'
+source $HOME/.themes/base.theme.bash
+source $HOME/.themes/colors.theme.bash
+source $HOME/.themes/bobby.theme.bash
 
 # Don't check mail when opening terminal.
 unset MAILCHECK
 
 # Change this to your console based IRC client of choice.
 export IRC_CLIENT='irssi'
-
-# Set this to the command you use for todo.txt-cli
-export TODO="t"
-
-# Set this to false to turn off version control status checking within the prompt for all themes
-export SCM_CHECK=true
 
 # UTF-8
 export LC_ALL=en_US.utf-8
@@ -49,9 +38,6 @@ export GOPATH=$HOME/workspace/gocode
 RBENV_ROOT=$HOME/.rbenv
 PYENV_ROOT=$HOME/.pyenv
 PATH=$GOPATH/bin:$RBENV_ROOT/bin:$PYENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:$GOPATH/bin:$PATH
-
-# Load Bash It
-source $BASH_IT/bash_it.sh
 
 # Load Rbenv
 [ `which rbenv` ] && eval "$(rbenv init -)"
