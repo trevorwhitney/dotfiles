@@ -54,6 +54,7 @@ create_alias_link() {
 
 create_alias_link default
 create_alias_link gradle
+create_alias_link git
 
 mkdir -p $HOME/.themes
 create_themes_link() {

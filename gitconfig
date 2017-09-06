@@ -22,7 +22,8 @@
   squash = commit --squash
   unstage = reset HEAD
   rum = rebase
-	 ctags = !.git/hooks/ctags
+	ctags = !.git/hooks/ctags
+  sur = submodule update --recursive
 [apply]
   whitespace = nowarn
 [color]
