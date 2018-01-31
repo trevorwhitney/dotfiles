@@ -33,7 +33,7 @@ export GOPATH=$HOME/workspace/gocode
 
 RBENV_ROOT=$HOME/.rbenv
 PYENV_ROOT=$HOME/.pyenv
-PATH=$GOPATH/bin:$RBENV_ROOT/bin:$PYENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:$GOPATH/bin:$PATH
+PATH=$GOPATH/bin:$RBENV_ROOT/bin:$PYENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:$STACK_COMPILER_BIN:$PYTHON_HOME/bin:/usr/local/go/bin:$PATH
 
 # Load Rbenv
 [ `which rbenv` ] && eval "$(rbenv init -)"
