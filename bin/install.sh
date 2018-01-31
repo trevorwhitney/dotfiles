@@ -9,7 +9,6 @@ function find_current_dir() {
   echo $current_dir
 }
 current_dir=$(find_current_dir $@)
-vimfiles_dir=$(cd $current_dir/../vendor/luan/vimfiles && pwd)
 
 source $current_dir/utilities.sh
 
@@ -29,7 +28,7 @@ function full_installation() {
     $current_dir/install_python.sh
     $current_dir/install_javascript.sh
 #    $current_dir/install_ruby.sh
-    PYENV_VERSION=3.4.4 $vimfiles_dir/bin/install
+    curl -sLf https://spacevim.org/install.sh | bash
 
     # Run Tests
     [ "$2" != '--skip-tests' ] && $current_dir/shpec
@@ -45,7 +44,7 @@ function minimal_installation() {
     fi
 
     $current_dir/install_dotfiles.sh
-    $vimfiles_dir/bin/install
+    curl -sLf https://spacevim.org/install.sh | bash
 }
 
 function incorrect_usage() {
@@ -56,10 +55,6 @@ function incorrect_usage() {
 if [ $# -lt 1 ]; then
     incorrect_usage
 fi
-
-pushd $current_dir/..
-  git submodule update --init
-popd
 
 if [ "$1" == "full" ]; then
     full_installation

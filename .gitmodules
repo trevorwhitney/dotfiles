@@ -1,3 +1,0 @@
-[submodule "vendor/luan/vimfiles"]
-	path = vendor/luan/vimfiles
-	url = https://github.com/luan/vimfiles.git

@@ -24,8 +24,6 @@ create_link() {
 
 create_link ctags
 create_link dircolors
-create_link vimrc.local.plugins
-create_link vimrc.local
 create_link gitignore_global
 create_link git_template
 

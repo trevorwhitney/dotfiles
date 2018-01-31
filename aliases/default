@@ -5,5 +5,5 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 if type nvim > /dev/null 2>&1; then
-  alias vim='nvim'
+  alias nvim='PYTHON_VERSION=neovim3 nvim'
 fi
