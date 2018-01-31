@@ -1,5 +1,0 @@
-Plug 'thoughtbot/vim-rspec'
-Plug 'vim-ruby/vim-ruby'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-endwise'
-Plug 'ecomba/vim-ruby-refactoring'

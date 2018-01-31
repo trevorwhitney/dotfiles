@@ -34,21 +34,6 @@ if $darwin; then
 
   set -e
 
-  function install_astyle() {
-    mkdir -p ~/tmp/astyle
-    curl -L https://sourceforge.net/projects/astyle/files/astyle/astyle%202.06/astyle_2.06_macos.tar.gz/download -o ~/tmp/astyle/astyle.tar.gz
-    pushd ~/tmp/astyle
-      tar -xzf astyle.tar.gz
-      pushd astyle/build/mac
-        make
-        cp bin/AStyle /usr/local/bin/astyle
-        chmod a+x /usr/local/bin/astyle
-      popd
-    popd
-    rm -rf ~/tmp/astyle
-  }
-  if [ ! `which astyle` ]; then install_astyle; fi
-
 elif $ubuntu; then
   sudo apt-get install -y \
     software-properties-common \
@@ -89,7 +74,7 @@ elif $ubuntu; then
 
   function install_astyle() {
     mkdir -p $HOME/tmp/astyle
-    curl -L https://sourceforge.net/projects/astyle/files/astyle/astyle%202.06/astyle_2.06_linux.tar.gz/download -o ~/tmp/astyle/astyle.tar.gz
+    curl -L https://sourceforge.net/projects/astyle/files/astyle/astyle%202.06/astyle_2.06_linux.tar.gz/download -o $HOME/tmp/astyle/astyle.tar.gz
     pushd $HOME/tmp/astyle
       tar -xzf astyle.tar.gz
       pushd astyle/build/gcc

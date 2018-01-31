@@ -1,6 +1,0 @@
-Plug 'bitc/vim-hdevtools'
-Plug 'eagletmt/neco-ghc'
-Plug 'lukerandall/haskellmode-vim'
-Plug 'Twinside/vim-haskellConceal'
-Plug 'Twinside/vim-haskellFold'
-Plug 'dag/vim2hs'

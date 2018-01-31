@@ -24,10 +24,12 @@ create_link() {
 
 create_link ctags
 create_link dircolors
-create_link vimrc
-create_link ideavimrc
+create_link vimrc.local.plugins
+create_link vimrc.local
 create_link gitignore_global
 create_link git_template
+
+[ ! -h $HOME/.vim/style ] && ln -s $dotfiles_dir/style $HOME/.vim/style
 
 create_link $CONFIG_FILE
 

@@ -1,4 +1,0 @@
-Plug 'neomake/neomake'
-Plug 'sbdchd/neoformat'
-Plug 'Shougo/deoplete.nvim'
-Plug 'Shougo/denite.nvim'

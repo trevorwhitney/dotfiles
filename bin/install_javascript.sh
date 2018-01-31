@@ -15,7 +15,7 @@ if $darwin; then
   [ ! `which npm` ] &&  brew install node
 elif $ubuntu; then
   if [ ! `which npm` ]; then
-    wget -qO- https://deb.nodesource.com/setup_7.x | sudo bash -
+    wget -qO- https://deb.nodesource.com/setup_9.x | sudo bash -
     sudo apt-get install -y nodejs
   fi
 else

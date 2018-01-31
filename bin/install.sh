@@ -9,6 +9,7 @@ function find_current_dir() {
   echo $current_dir
 }
 current_dir=$(find_current_dir $@)
+vimfiles_dir=$(cd $current_dir/../vendor/luan/vimfiles && pwd)
 
 source $current_dir/utilities.sh
 
@@ -24,12 +25,11 @@ function full_installation() {
     $current_dir/install_dotfiles.sh
     $current_dir/install_powerline_fonts.sh
     $current_dir/os_specific.sh
-    $current_dir/install_vim.sh full
     $current_dir/install_neovim.sh
     $current_dir/install_python.sh
-    $current_dir/install_ruby.sh
-    $current_dir/install_haskell.sh
     $current_dir/install_javascript.sh
+#    $current_dir/install_ruby.sh
+    $vimfiles_dir/bin/install
 
     # Run Tests
     [ "$2" != '--skip-tests' ] && $current_dir/shpec
@@ -45,7 +45,7 @@ function minimal_installation() {
     fi
 
     $current_dir/install_dotfiles.sh
-    $current_dir/install_vim.sh minimal
+    $vimfiles_dir/bin/install
 }
 
 function incorrect_usage() {
@@ -56,6 +56,10 @@ function incorrect_usage() {
 if [ $# -lt 1 ]; then
     incorrect_usage
 fi
+
+pushd $current_dir/..
+  git submodule update --recursive
+popd
 
 if [ "$1" == "full" ]; then
     full_installation
