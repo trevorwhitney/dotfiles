@@ -29,7 +29,7 @@ function full_installation() {
     $current_dir/install_python.sh
     $current_dir/install_javascript.sh
 #    $current_dir/install_ruby.sh
-    $vimfiles_dir/bin/install
+    PYENV_VERSION=3.4.4 $vimfiles_dir/bin/install
 
     # Run Tests
     [ "$2" != '--skip-tests' ] && $current_dir/shpec
@@ -58,7 +58,7 @@ if [ $# -lt 1 ]; then
 fi
 
 pushd $current_dir/..
-  git submodule update --recursive
+  git submodule update --init
 popd
 
 if [ "$1" == "full" ]; then

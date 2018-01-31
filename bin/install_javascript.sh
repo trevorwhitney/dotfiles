@@ -23,8 +23,8 @@ else
 fi
 
 # Needs to not be root on OSX, unsure about Ubuntu
-[ ! `which yarn` ] && npm install -g yarn
-yarn global add \
+[ ! `which yarn` ] && sudo npm install -g yarn
+sudo yarn global add \
   purescript\
   pulp\
   bower\
