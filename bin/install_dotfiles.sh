@@ -42,6 +42,7 @@ create_completion_link() {
 
 create_completion_link git-completion
 create_completion_link gradle-completion
+create_completion_link gulp-completion
 
 mkdir -p $HOME/aliases.d
 create_alias_link() {
@@ -55,6 +56,7 @@ create_alias_link() {
 create_alias_link default
 create_alias_link gradle
 create_alias_link git
+create_alias_link cf
 
 mkdir -p $HOME/.themes
 create_themes_link() {

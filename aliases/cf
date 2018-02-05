@@ -1,0 +1,1 @@
+alias boshtime="source ~/workspace/deployments-metrics/scripts/set-bosh-env.sh ~/workspace/deployments-metrics/gcp-environments/versace/"
