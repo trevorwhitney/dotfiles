@@ -1,7 +1,7 @@
 # Uncomment to debug slow performance
 # set -x
 
-export EDITOR="vim"
+export EDITOR="nvim"
 
 ### Themes
 export THEME_SHOW_CLOCK_CHAR=false
