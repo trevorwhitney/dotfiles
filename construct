@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e # Exit if any command fails
+
+# Keep us from getting verify authenticity prompts from GitHub
+mkdir -p $HOME/.ssh && chmod 0700 $HOME/.ssh
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+# Install the priority units in the order they are listed
+priority_units=`cat priority-units | grep -v '^#'`
+./install-unit $priority_units
+
+# Then install the rest of the units
+all_units=`ls -d */ | grep -v '^_' | sed 's/\///'`
+./install-unit $all_units
+
+osascript -e 'tell application "iTerm" to activate'
+osascript iterm.script

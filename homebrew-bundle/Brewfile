@@ -1,0 +1,72 @@
+cask_args appdir: "/Applications"
+
+tap "caskroom/versions"
+
+brew "awscli"
+brew "aws-shell"
+brew "rbenv"
+brew "cmake"
+brew "direnv"
+brew "dockutil"
+brew "git"
+brew "gawk"
+brew "gettext", link: true
+brew "go@1.9", link: true
+brew "htop"
+brew "jq"
+brew "lastpass-cli"
+brew "mysql"
+brew "node@8", link: true
+brew "postgresql@9.6"
+brew "redis@3.2"
+brew "pwgen"
+brew "ruby-install"
+brew "the_silver_searcher"
+brew "tmux"
+brew "tree"
+brew "watch"
+brew "wget"
+brew "yarn", args: ["without-node"]
+brew "vim"
+
+tap "cloudfoundry/tap"
+brew "cf-cli"
+brew "bosh-cli"
+brew "bbl"
+brew "credhub-cli"
+
+tap "git-duet/tap"
+brew "git-duet"
+
+cask "java"
+brew "gradle"
+brew "gradle-completion"
+
+tap "caskroom/cask"
+cask "atom"
+cask "docker"
+cask "firefox"
+cask "flycut"
+cask "istat-menus"
+cask "iterm2"
+cask "slack"
+cask "sublime-text"
+cask "time-out"
+cask "tunnelblick"
+cask "xscreensaver"
+cask "zoomus"
+cask "chromedriver"
+cask "lastpass"
+cask "google-cloud-sdk"
+cask "insomnia"
+
+tap "universal-ctags/universal-ctags"
+brew "universal-ctags"
+
+#flyway needs to be after java
+brew "flyway"
+
+#these may or may not be installed depending on image
+cask "shiftit" unless system "[ -d /Applications/ShiftIt.app/ ]"
+cask "google-chrome" unless system "[ -d '/Applications/Google\ Chrome.app/' ]"
+cask "intellij-idea" unless system "[ -d '/Applications/IntelliJ\ IDEA.app/' ]"
