@@ -1,3 +1,0 @@
-if [ -z `git config --get user.email`  ]; then 
-  git config --global user.email 'twhitney@pivotal.io'
-fi

@@ -1,9 +1,0 @@
-alias cdws="cd ~/workspace"
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-
-if type nvim > /dev/null 2>&1; then
-  alias nvim='PYTHON_VERSION=neovim3 nvim'
-fi

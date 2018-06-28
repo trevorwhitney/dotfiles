@@ -2,5 +2,3 @@
 .vagrant
 .stack-work
 containers/dotfiles/*.tar.gz
-bin/elm-format
-tags

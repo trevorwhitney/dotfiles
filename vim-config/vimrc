@@ -1,0 +1,25 @@
+let mapleader = " "
+
+set nocompatible
+filetype off
+
+let s:editor_root=expand("$HOME/.vim")
+
+call plug#begin()
+
+for bundle in [ s:editor_root . '/vimrc.bundles' ]
+  if filereadable(expand(bundle))
+    execute "source " . expand(bundle)
+  endif
+endfor
+
+call plug#end()
+
+filetype plugin indent on
+syntax on
+
+for config in [ s:editor_root . '/vimrc.config' ]
+  if filereadable(expand(config))
+    execute "source " . expand(config)
+  endif
+endfor
