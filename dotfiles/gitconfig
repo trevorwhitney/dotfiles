@@ -1,6 +1,7 @@
 [user]
-  name = Trevor Whitney
+	name = Trevor Whitney
   initials = tw
+	email = trevorjwhitney@gmail.com
 [core]
   pager = less -FXRS -x2
 	editor = vim
