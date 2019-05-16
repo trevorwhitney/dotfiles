@@ -69,12 +69,6 @@ sudo apt-get install -y \
 ```
 
 ```bash
-sudo add-apt-repository -y ppa:neovim-ppa/unstable
-    sudo apt-get update
-    sudo apt-get install -y neovim
-```
-
-```bash
 [ -h "$HOME/.tmux.conf" ] && rm -rf "$HOME/.tmux.conf"
 ln -s "$dotfiles_dir/tmux.linux.conf" "$HOME/.tmux.conf"
 ```
