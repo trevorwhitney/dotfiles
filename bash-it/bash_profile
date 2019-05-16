@@ -1,7 +1,7 @@
 # Uncomment to debug slow performance
 # set -x
 
-export EDITOR="nvim"
+export EDITOR="vim"
 
 ### Themes
 export THEME_SHOW_CLOCK_CHAR=false
@@ -21,23 +21,16 @@ export LANG="$LC_ALL"
 export JAVA_HOME=$(/usr/libexec/java_home)
 export XDG_CONFIG_HOME=$HOME/.config
 
-export PYTHON_HOME=$HOME/Library/Python/2.7
 export GOPATH=$HOME/workspace/gocode
 
 RBENV_ROOT=$HOME/.rbenv
-PYENV_ROOT=$HOME/.pyenv
-PATH=$GOPATH/bin:$RBENV_ROOT/bin:$PYENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:$PYTHON_HOME/bin:$PATH
+PATH=$GOPATH/bin:$RBENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH
 
 # Load Rbenv
 [ `which rbenv` ] && eval "$(rbenv init -)"
 
 # Load direnv
 [ `which direnv` ] && eval "$(direnv hook bash)"
-
-# Load pyenv
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-[ `which pyenv` ] && eval "$(pyenv init -)"
-[ `which pyenv-virtualenv-init` ] && eval "$(pyenv virtualenv-init -)"
 
 tmux2host() {
   if [ $# -eq 2  ]; then

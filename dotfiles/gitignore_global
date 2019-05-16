@@ -1,8 +1,5 @@
+.DS_Store
 .idea
 *.iml
-.envrc
 .gradle
 .vagrant
-.DS_Store
-tags
-.tern-port

@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+set -euf
+
 current_dir=$(cd $(dirname $0) && pwd)
 
 create_link() {
-    if [ -h "$HOME/.$1" ] || [ -e "$HOME/.$1" ]; then
+    if [[ -h "$HOME/.$1" ]] || [[ -e "$HOME/.$1" ]]; then
         rm -rf "$HOME/.$1";
     fi
 
@@ -11,11 +13,14 @@ create_link() {
 }
 
 create_vim_link() {
-  [ -h "$HOME/.vim/$1" ] && rm -rf "$HOME/.vim/$1"
+  if [[ -h "$HOME/.vim/$1" ]] || [[ -e "$HOME/.vim/$1" ]]; then
+    rm -rf "$HOME/.vim/$1"
+  fi
 
   ln -s "$current_dir/$1" "$HOME/.vim/$1"
 }
 
+mkdir -p $HOME/.vim
 create_vim_link vimrc.bundles
 create_vim_link vimrc.config
 create_vim_link style

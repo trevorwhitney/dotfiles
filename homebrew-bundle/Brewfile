@@ -11,14 +11,9 @@ brew "dockutil"
 brew "git"
 brew "gawk"
 brew "gettext", link: true
-brew "go@1.9", link: true
 brew "htop"
 brew "jq"
 brew "lastpass-cli"
-brew "mysql"
-brew "node@8", link: true
-brew "postgresql@9.6"
-brew "redis@3.2"
 brew "pwgen"
 brew "ruby-install"
 brew "the_silver_searcher"
@@ -56,7 +51,6 @@ cask "tunnelblick"
 cask "xscreensaver"
 cask "zoomus"
 cask "chromedriver"
-cask "lastpass"
 cask "google-cloud-sdk"
 cask "insomnia"
 
