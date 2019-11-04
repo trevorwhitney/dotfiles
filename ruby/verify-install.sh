@@ -1,1 +1,1 @@
-test -d $HOME/.rbenv/versions/2.5.1
+test -d $HOME/.rbenv/versions/2.4.1

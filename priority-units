@@ -1,5 +1,6 @@
 commandline-tools
 homebrew
 homebrew-bundle
+apt
 dotfiles
 vim-config

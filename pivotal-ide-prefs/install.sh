@@ -6,5 +6,5 @@ cd ~/workspace/pivotal_ide_prefs/cli
 
 bin/ide_prefs install --ide=intellij
 bin/ide_prefs install --ide=webstorm
-bin/ide_prefs install --ide=gogland
+bin/ide_prefs install --ide=goland
 
