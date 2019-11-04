@@ -2,7 +2,7 @@
 
 set -euf
 
-current_dir=$(cd $(dirname $0) && pwd)
+current_dir=$(cd "$(dirname "$0")" && pwd)
 
 create_link() {
     if [[ -h "$HOME/.$1" ]] || [[ -e "$HOME/.$1" ]]; then
@@ -33,8 +33,8 @@ function install_astyle() {
       tar -xzf astyle.tar.gz
       pushd astyle/build/mac
         make
-        cp bin/AStyle /usr/local/bin/astyle
-        chmod a+x /usr/local/bin/astyle
+        sudo cp bin/AStyle /usr/local/bin/astyle
+        sudo chmod a+x /usr/local/bin/astyle
       popd
     popd
     rm -rf ~/tmp/astyle

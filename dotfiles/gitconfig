@@ -1,11 +1,11 @@
 [user]
-	name = Trevor Whitney
+  name = Trevor Whitney
   initials = tw
-	email = trevorjwhitney@gmail.com
+  email = trevorjwhitney@gmail.com
 [core]
   pager = less -FXRS -x2
-	editor = vim
-	excludesfile = /Users/twhitney/.gitignore_global
+  editor = vim
+  excludesfile = "$HOME/.gitignore_global"
 [alias]
   st = status
   di = diff
@@ -24,7 +24,7 @@
   squash = commit --squash
   unstage = reset HEAD
   rum = rebase
-	ctags = !.git/hooks/ctags
+  ctags = !.git/hooks/ctags
   sur = submodule update --recursive
 [apply]
   whitespace = nowarn
@@ -39,12 +39,12 @@
 [rebase]
   autosquash = true
 [push]
-	default = simple
+  default = simple
 [merge]
   tool = vimdiff
 [diff]
   tool = vimdiff
 [mergetool]
-	keepBackup = false
+  keepBackup = false
 [init]
-	templatedir = ~/.git_template
+  templatedir = ~/.git_template

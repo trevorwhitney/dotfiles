@@ -34,6 +34,12 @@ fi
 
 mkdir -p $HOME/.bash_it/custom/themes
 
-create_link bash_profile
+if [[ $(uname) =~ 'Darwin' ]]; then
+  create_link bash_profile
+else
+  create_link bashrc
+fi
+
+create_link bash_aliases
 create_custom_link alias-git.bash
 create_theme_link bobby.theme.bash

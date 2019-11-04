@@ -2,4 +2,4 @@
 
 set -euf
 
-npm install -g gulp-cli
+sudo npm install -g gulp-cli

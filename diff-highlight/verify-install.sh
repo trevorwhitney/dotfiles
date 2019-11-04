@@ -1,1 +1,3 @@
-which -s diff-highlight
+#!/usr/bin/env bash
+
+command -v diff-highlight

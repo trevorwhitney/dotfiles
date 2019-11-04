@@ -1,1 +1,1 @@
-rbenv install 2.5.1
+rbenv install 2.4.1
