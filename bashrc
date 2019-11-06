@@ -1,8 +1,6 @@
 # Uncomment to debug slow performance
 # set -x
 
-export EDITOR="vim"
-
 ### Themes
 export THEME_SHOW_CLOCK_CHAR=false
 # Set this to false to turn off version control status checking within the prompt for all themes

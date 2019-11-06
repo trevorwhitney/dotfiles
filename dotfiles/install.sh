@@ -17,6 +17,7 @@ create_link dircolors
 create_link gitignore_global
 create_link git_template
 create_link tmux.conf
+create_link emacs
 
 # Copying files is good for configurations that might
 # have local overrides, since we don't want to track

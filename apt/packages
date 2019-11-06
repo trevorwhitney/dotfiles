@@ -1,8 +1,9 @@
 build-essential
 clang
-emacs-nox
+emacs-gtk
 nodejs
 npm
 rbenv
 ruby-build
-vim
+tmux
+vim-gtk
