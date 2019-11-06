@@ -22,11 +22,9 @@ create_link tmux.conf
 # have local overrides, since we don't want to track
 # the local overrides in version control
 copy_file() {
-    if [ -e "$HOME/.$1" ]; then
-        rm -rf "$HOME/.$1";
+    if [ ! -e "$HOME/.$1" ]; then
+        cp "$current_dir/$1" "$HOME/.$1"
     fi
-
-    cp "$current_dir/$1" "$HOME/.$1"
 }
 
 copy_file gitconfig
