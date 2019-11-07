@@ -27,3 +27,4 @@
 (server-start)
 (ido-mode 1)
 (setq visible-bell 1)
+(ffap-bindings)
