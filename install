@@ -13,8 +13,3 @@ priority_units=`cat priority-units | grep -v '^#'`
 # Then install the rest of the units
 all_units=`ls -d */ | grep -v '^_' | sed 's/\///'`
 ./install-unit $all_units
-
-if [[ $(uname) =~ 'Darwin' ]]; then
-  osascript -e 'tell application "iTerm" to activate'
-  osascript iterm.script
-fi
