@@ -1,7 +1,9 @@
 # Uncomment to debug slow performance
 # set -x
 
-export EDITOR="vim"
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 # Path to the bash it configuration
 export BASH_IT="/Users/twhitney/.bash_it"

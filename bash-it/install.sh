@@ -1,14 +1,9 @@
 #!/bin/bash
 
-current_dir=$(cd $(dirname $0) && pwd)
+current_dir=$(cd $(dirname "$0") && pwd)
+dot_files_dir=$(cd "$current_dir/.." && pwd)
 
-create_link() {
-    if [[ -h "$HOME/.$1" ]] || [[ -e "$HOME/.$1" ]]; then
-        rm -rf "$HOME/.$1";
-    fi
-
-    ln -s "$current_dir/$1" "$HOME/.$1"
-}
+source "$dot_files_dir/lib.sh"
 
 create_custom_link() {
     if [[ -h "$HOME/.bash_it/custom/$1" ]] || [[ -e "$HOME/.bash_it/custom/$1" ]]; then
@@ -32,14 +27,13 @@ if [[ ! -e ~/.bash_it ]]; then
   $HOME/.bash_it/install.sh
 fi
 
-mkdir -p $HOME/.bash_it/custom/themes
+mkdir -p "$HOME/.bash_it/custom/themes"
 
 if [[ $(uname) =~ 'Darwin' ]]; then
-  create_link bash_profile
+  create_link "$current_dir/bash_profile"
 else
-  create_link bashrc
+  create_link "$current_dir/bashrc"
 fi
 
-create_link bash_aliases
 create_custom_link alias-git.bash
 create_theme_link bobby.theme.bash
