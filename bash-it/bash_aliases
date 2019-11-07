@@ -1,1 +1,2 @@
 alias open="xdg-open"
+alias emc="emacsclient -n"
