@@ -26,3 +26,4 @@
 (tool-bar-mode -1)
 (server-start)
 (ido-mode 1)
+(setq visible-bell 1)
