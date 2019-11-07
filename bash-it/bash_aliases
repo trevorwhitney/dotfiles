@@ -1,2 +1,6 @@
 alias open="xdg-open"
 alias emc="emacsclient -n"
+
+function idea() {
+  /usr/local/bin/idea "$@" > /dev/null 2>&1 &
+}
