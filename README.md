@@ -69,3 +69,4 @@ the macro recorded to `m` to all files that match a pattern, you can do the foll
 * `<C-a>` is a lot easier for me to type than `<C-b>`. The tmux bind key
   for this configuration is `<C-a>`. To get a real `<C-a>`, say to increment
   a value in vim, use `<C-a>a`.
+* On OSX hold down the 'Option' key to select text with the mouse
