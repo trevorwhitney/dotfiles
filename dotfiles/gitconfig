@@ -4,8 +4,8 @@
   email = trevorjwhitney@gmail.com
 [core]
   pager = less -FXRS -x2
-  editor = vim
-  excludesfile = "$HOME/.gitignore_global"
+  editor = emacs
+  excludesfile = "/home/twhitney/.gitignore_global"
 [alias]
   st = status
   di = diff
