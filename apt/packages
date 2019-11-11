@@ -1,6 +1,6 @@
 build-essential
 clang
-emacs-gtk
+emacs-nox
 nodejs
 npm
 rbenv
