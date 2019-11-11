@@ -5,6 +5,8 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+export EDITOR="emacs"
+
 # Path to the bash it configuration
 export BASH_IT="/Users/twhitney/.bash_it"
 
