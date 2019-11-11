@@ -5,5 +5,14 @@ dot_files_dir=$(cd "$current_dir/.." && pwd)
 
 source "$dot_files_dir/lib.sh"
 
-create_link "$current_dir/emacs"
+mkdir -p "$HOME/.emacs.d"
+
+for file in `ls $current_dir/emacs.d`; do
+    file_name=$(basename "$file")
+    if [ -h "$HOME/.emacs.d/$file_name" ] || [ -e "$HOME/.emacs.d/$file_name" ]; then
+      rm -rf "$HOME/.emacs.d/$file_name";
+    fi
+
+    ln -s "$current_dir/emacs.d/$file" "$HOME/.emacs.d/$file_name"
+done
 
