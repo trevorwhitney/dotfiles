@@ -2,6 +2,10 @@
 
 set -e # Exit if any command fails
 
+current_dir=$(cd "$(dirname $BASH_SOURCE[0])" && pwd)
+pushd $current_dir
+git submodule update --init --recursive
+
 # Keep us from getting verify authenticity prompts from GitHub
 mkdir -p $HOME/.ssh && chmod 0700 $HOME/.ssh
 ssh-keyscan github.com >> ~/.ssh/known_hosts
