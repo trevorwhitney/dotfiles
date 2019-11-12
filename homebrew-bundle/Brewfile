@@ -1,18 +1,21 @@
 cask_args appdir: "/Applications"
 
-tap "caskroom/versions"
+tap "homebrew/cask-versions"
 
 brew "aws-shell"
 brew "awscli"
 brew "cmake"
 brew "direnv"
 brew "dockutil"
+brew "emacs"
 brew "gawk"
 brew "gettext", link: true
 brew "git"
 brew "htop"
 brew "jq"
 brew "lastpass-cli"
+brew "node@10"
+brew "npm"
 brew "pwgen"
 brew "rbenv"
 brew "reattach-to-user-namespace"
@@ -23,16 +26,16 @@ brew "tree"
 brew "vim"
 brew "watch"
 brew "wget"
-brew "yarn", args: ["without-node"]
+brew "yarn", args: ["ignore-dependencies"]
 
 tap "git-duet/tap"
 brew "git-duet"
 
-cask "java"
+cask "adoptopenjdk"
 brew "gradle"
 brew "gradle-completion"
 
-tap "caskroom/cask"
+cask "1password"
 cask "atom"
 cask "aquamacs"
 cask "chromedriver"
@@ -51,10 +54,12 @@ cask "xscreensaver"
 cask "zoomus"
 
 tap "universal-ctags/universal-ctags"
-brew "universal-ctags"
-
+brew "universal-ctags", args: ["HEAD"]
 #flyway needs to be after java
 brew "flyway"
+
+tap "homebrew/cask-fonts"
+cask "font-fira-code"
 
 #these may or may not be installed depending on image
 cask "shiftit" unless system "[ -d /Applications/ShiftIt.app/ ]"
