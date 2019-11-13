@@ -37,3 +37,5 @@ rbenv shell 2.4.1
 
 # Direnv hook
 eval "$(direnv hook zsh)"
+
+export GROOVY_HOME=/usr/local/opt/groovy/libexec
