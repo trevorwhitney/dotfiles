@@ -36,7 +36,7 @@ cask "adoptopenjdk8"
 cask "adoptopenjdk11"
 brew "gradle"
 brew "gradle-completion"
-brew "groovy"
+brew "groovysdk"
 brew "maven"
 
 cask "1password"
