@@ -31,9 +31,13 @@ brew "yarn", args: ["ignore-dependencies"]
 tap "git-duet/tap"
 brew "git-duet"
 
-cask "adoptopenjdk"
+tap "AdoptOpenJDK/openjdk"
+cask "adoptopenjdk8"
+cask "adoptopenjdk11"
 brew "gradle"
 brew "gradle-completion"
+brew "groovy"
+brew "maven"
 
 cask "1password"
 cask "atom"
