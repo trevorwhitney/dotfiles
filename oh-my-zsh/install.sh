@@ -3,14 +3,9 @@
 set -e
 
 current_dir=$(cd $(dirname $0) && pwd)
+dot_files_dir=$(cd "$current_dir/.." && pwd)
 
-create_link() {
-    if [ -h "$HOME/.$1" ] || [ -e "$HOME/.$1" ]; then
-        rm -rf "$HOME/.$1";
-    fi
-
-    ln -s "$current_dir/$1" "$HOME/.$1"
-}
+source "$dot_files_dir/lib.sh"
 
 create_custom_zsh_link() {
     if [ -h "$HOME/.oh-my-zsh/custom/$1" ] || [ -e "$HOME/.oh-my-zsh/custom/$1" ]; then
@@ -28,8 +23,9 @@ else
     git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 fi
 
-create_link zshrc
+create_link "$current_dir/zshrc"
 touch $HOME/.zprofile
 
 create_custom_zsh_link aliases.zsh
 create_custom_zsh_link gulp-completion.zsh
+create_custom_zsh_link rachio-functions.zsh
