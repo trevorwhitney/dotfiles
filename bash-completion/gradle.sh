@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+### These are not working, using the brew gradle-completion package instead, kept here for posterity
+
 __gradle-completion-print-timestamp() {
     echo "$(($(gdate +'%s * 1000 + %-N / 1000000'))) - $1"
 }

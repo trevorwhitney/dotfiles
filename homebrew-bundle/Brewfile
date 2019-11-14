@@ -38,6 +38,7 @@ brew "gradle"
 brew "gradle-completion"
 brew "groovysdk"
 brew "maven"
+brew "maven-completion"
 
 cask "1password"
 cask "atom"

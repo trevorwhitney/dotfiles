@@ -14,6 +14,12 @@ autoload bashcompinit
 bashcompinit
 source $ZSH/oh-my-zsh.sh
 
+if [ -d "$HOME/.bash_completion.d" ]; then
+  for completion in `ls $HOME/.bash_completion.d`; do
+    source "$HOME/.bash_completion.d/$completion"
+  done
+fi
+
 # RPROMPT="hay"
 # Stop zsh from autocompleting CD operations without typing cd
 unsetopt AUTO_CD
