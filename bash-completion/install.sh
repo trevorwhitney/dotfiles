@@ -15,4 +15,5 @@ create_link() {
 
 
 mkdir -p ${BASH_COMPLETION_DIR}
-create_link gradle
+create_link git.sh
+create_link maven.sh
