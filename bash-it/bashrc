@@ -122,7 +122,7 @@ case $- in
     *) return;;
 esac
 
-export EDITOR="emacs"
+export EDITOR="vim"
 # Path to the bash it configuration
 export BASH_IT="/home/twhitney/.bash_it"
 

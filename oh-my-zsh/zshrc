@@ -45,3 +45,6 @@ rbenv shell 2.4.1
 eval "$(direnv hook zsh)"
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
+
+export EDITOR=vim
+bindkey -v
