@@ -5,7 +5,7 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-export EDITOR="emacs"
+export EDITOR="vim"
 
 # Path to the bash it configuration
 export BASH_IT="/Users/twhitney/.bash_it"
@@ -67,5 +67,4 @@ if [ -f /usr/local/opt/google-cloud-sdk/completion.bash.inc ]; then
 fi
 
 source "$BASH_IT"/bash_it.sh
-
 export PATH="$HOME/.cargo/bin:$PATH"

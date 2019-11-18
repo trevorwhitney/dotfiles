@@ -3,28 +3,26 @@
 set -euf
 
 current_dir=$(cd "$(dirname "$0")" && pwd)
+dot_files_dir=$(cd "$current_dir/.." && pwd)
 
-create_link() {
-    if [[ -h "$HOME/.$1" ]] || [[ -e "$HOME/.$1" ]]; then
-        rm -rf "$HOME/.$1";
-    fi
-
-    ln -s "$current_dir/$1" "$HOME/.$1"
-}
+source "$dot_files_dir/lib.sh"
 
 create_vim_link() {
-  if [[ -h "$HOME/.vim/$1" ]] || [[ -e "$HOME/.vim/$1" ]]; then
-    rm -rf "$HOME/.vim/$1"
+  file_name="$(basename "$1" | sed "s/^\.//g")"
+  if [[ -h "$HOME/.vim/$file_name" ]] || [[ -e "$HOME/.vim/$file_name" ]]; then
+    rm -rf "$HOME/.vim/$file_name"
   fi
 
-  ln -s "$current_dir/$1" "$HOME/.vim/$1"
+  ln -s "$1" "$HOME/.vim/$file_name"
 }
 
 mkdir -p $HOME/.vim
-create_vim_link vimrc.bundles
-create_vim_link vimrc.config
+create_vim_link "$current_dir/vimrc.bundles"
+create_vim_link "$current_dir/vimrc.config"
 create_vim_link style
-create_link vimrc
+
+create_link "$current_dir/vimrc"
+create_link "$current_dir/ideavimrc"
 
 function install_astyle() {
     mkdir -p ~/tmp/astyle

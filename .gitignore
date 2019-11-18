@@ -2,3 +2,4 @@
 .vagrant
 .stack-work
 containers/dotfiles/*.tar.gz
+.idea
