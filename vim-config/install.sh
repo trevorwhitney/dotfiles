@@ -19,7 +19,27 @@ create_vim_link() {
 mkdir -p $HOME/.vim
 create_vim_link "$current_dir/vimrc.bundles"
 create_vim_link "$current_dir/vimrc.config"
-create_vim_link style
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+sed -e 's/^colorscheme/"colorscheme/' "$HOME/.vim/vimrc.config" > "$current_dir/vimrc.config.tmp"
+mv "$current_dir/vimrc.config.tmp" "$HOME/.vim/vimrc.config"
+
+set +e
+vim --noplugin +"silent PlugInstall" +qall
+set -e
+
+sed -e 's/^"colorscheme/colorscheme/' "$HOME/.vim/vimrc.config" > "$current_dir/vimrc.config.tmp"
+mv "$current_dir/vimrc.config.tmp" "$HOME/.vim/vimrc.config"
+
+# need to create the line again to override the moved file
+create_vim_link "$current_dir/vimrc.config"
+
+if [[ -h "$HOME/.vim/style" ]] || [[ -d "$HOME/.vim/style" ]]; then
+  rm -rf "$HOME/.vim/style"
+fi
+ln -s "$current_dir/style" "$HOME/.vim/style"
 
 create_link "$current_dir/vimrc"
 create_link "$current_dir/ideavimrc"
@@ -39,15 +59,3 @@ function install_astyle() {
 }
 if [ ! `which astyle` ]; then install_astyle; fi
 
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-sed -e 's/^colorscheme/"colorscheme/' $HOME/.vim/vimrc.config > $(pwd)/vimrc.config.tmp
-mv $(pwd)/vimrc.config.tmp $HOME/.vim/vimrc.config
-
-set +e
-vim --noplugin +"silent PlugInstall" +qall
-set -e
-
-sed -e 's/^"colorscheme/colorscheme/' $HOME/.vim/vimrc.config > $(pwd)/vimrc.config.tmp
-mv $(pwd)/vimrc.config.tmp $HOME/.vim/vimrc.config

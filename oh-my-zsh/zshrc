@@ -46,7 +46,7 @@ eval "$(direnv hook zsh)"
 
 export GROOVY_HOME=/usr/local/opt/groovy/libexec
 
-export EDITOR=emacs
+export EDITOR=vim
 
 bindkey -M viins 'jj' vi-cmd-mode
 
