@@ -6,6 +6,7 @@ dot_files_dir=$(cd "$current_dir/.." && pwd)
 source "$dot_files_dir/lib.sh"
 
 mkdir -p "$HOME/.emacs.d"
+git clone --depth 1 https://github.com/emacs-evil/evil ~/.emacs.d/evil
 
 for file in `ls $current_dir/emacs.d`; do
     file_name=$(basename "$file")
