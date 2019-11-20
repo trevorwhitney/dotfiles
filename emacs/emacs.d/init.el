@@ -29,6 +29,7 @@
 (ido-mode 1)
 (setq visible-bell 1)
 (ffap-bindings)
+(global-linum-mode 1)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
