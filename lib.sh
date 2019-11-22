@@ -21,3 +21,12 @@ copy_file() {
       cp "$1" "$HOME/.$file_name"
     fi
 }
+
+create_alias_link() {
+    file_name="$(basename "$1" | sed "s/^\.//g")"
+    if [ -h "$HOME/.bash_aliases.d/$file_name" ] || [ -e "$HOME/.bash_aliases.d/$file_name" ]; then
+      rm -rf "$HOME/.bash_aliases.d/$file_name";
+    fi
+
+    ln -s "$1" "$HOME/.bash_aliases.d/$file_name"
+}
