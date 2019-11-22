@@ -1,14 +1,14 @@
 <scheme name="Solarized Light Better" version="142" parent_scheme="Default">
   <option name="FONT_SCALE" value="1.0" />
   <metaInfo>
-    <property name="created">2019-05-23T08:29:29</property>
+    <property name="created">2019-11-21T08:29:54</property>
     <property name="ide">idea</property>
-    <property name="ideVersion">2019.1.2.0.0</property>
-    <property name="modified">2019-05-23T08:29:38</property>
+    <property name="ideVersion">2019.2.4.0.0</property>
+    <property name="modified">2019-11-21T08:30:04</property>
     <property name="originalScheme">Solarized Light Better</property>
   </metaInfo>
   <option name="LINE_SPACING" value="1.0" />
-  <option name="EDITOR_FONT_SIZE" value="22" />
+  <option name="EDITOR_FONT_SIZE" value="16" />
   <option name="EDITOR_FONT_NAME" value="Fira Code" />
   <option name="EDITOR_LIGATURES" value="true" />
   <colors>

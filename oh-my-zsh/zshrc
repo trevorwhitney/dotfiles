@@ -28,6 +28,12 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -d "$HOME/.bash_aliases.d" ]; then
+  for alias in `ls $HOME/.bash_aliases.d`; do
+    source "$HOME/.bash_aliases.d/$alias"
+  done
+fi
+
 # This sets the characters that zsh understands as part of a word. Essentially,
 # when you hit CTRL-w to delete a word, it will eat these characters too. Most
 # importantly, the dash character. So with a path with dashes in it, you can
