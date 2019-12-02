@@ -16,7 +16,7 @@ function graalvm_home() {
 function openjdk_home() {
     local version="$1"
 
-    if [[ $version -gt 11 ]]; then
+    if [[ "$version" == "1.8" ]] || [[ "$version" == "11" ]]; then
         java_home "OpenJDK" "$version"
     else
         java_home "AdoptOpenJDK" "$version"
