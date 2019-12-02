@@ -40,8 +40,8 @@ brew "groovysdk"
 brew "maven"
 brew "maven-completion"
 
-cask "graalvm/tap/graalvm-ce-java11"
-cask "graalvm/tap/graalvm-ce-java8"
+#cask "graalvm/tap/graalvm-ce-java11"
+#cask "graalvm/tap/graalvm-ce-java8"
 
 cask "1password"
 cask "atom"
