@@ -5,10 +5,16 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -d "$HOME/.bash_completion.d" ]; then
+  for completion in `ls $HOME/.bash_completion.d`; do
+    source "$HOME/.bash_completion.d/$completion"
+  done
+fi
+
 export EDITOR="vim"
 
 # Path to the bash it configuration
-export BASH_IT="/Users/twhitney/.bash_it"
+export BASH_IT="$HOME/.bash_it"
 
 # Lock and Load a custom theme file
 # location /.bash_it/themes/
