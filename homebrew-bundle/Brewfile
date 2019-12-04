@@ -38,7 +38,6 @@ brew "gradle"
 brew "gradle-completion"
 brew "groovysdk"
 brew "maven"
-brew "maven-completion"
 brew "liquibase"
 
 # As of writing this installs 19.3.0 which is working with vertx/quarkus yet

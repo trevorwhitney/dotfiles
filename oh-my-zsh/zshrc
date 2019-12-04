@@ -4,21 +4,13 @@ ZSH_THEME="philips"
 
 HYPHEN_INSENSITIVE="true"
 
-plugins=(git ruby emacs vi-mode)
+plugins=(git ruby vi-mode mvn)
 
 # User configuration
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/go@1.9/bin:$PATH"
 source $HOME/.zprofile
 
-autoload bashcompinit
-bashcompinit
 source $ZSH/oh-my-zsh.sh
-
-if [ -d "$HOME/.bash_completion.d" ]; then
-  for completion in `ls $HOME/.bash_completion.d`; do
-    source "$HOME/.bash_completion.d/$completion"
-  done
-fi
 
 # RPROMPT="hay"
 # Stop zsh from autocompleting CD operations without typing cd
