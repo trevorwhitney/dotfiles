@@ -10,6 +10,7 @@ plugins=(git ruby vi-mode mvn)
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/go@1.9/bin:$PATH"
 source $HOME/.zprofile
 
+autoload bashcompinit && bashcompinit
 source $ZSH/oh-my-zsh.sh
 
 # RPROMPT="hay"
