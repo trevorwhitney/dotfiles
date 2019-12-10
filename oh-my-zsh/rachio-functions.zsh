@@ -76,3 +76,8 @@ function log-level() {
   fi
   return 0
 }
+
+function aws-login() {
+  local code="${1}"
+  aws sts get-session-token --serial-number arn:aws:iam::170902677803:mfa/twhitney --token-code ${code}
+}
