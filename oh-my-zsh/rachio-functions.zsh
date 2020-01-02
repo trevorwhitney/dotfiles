@@ -85,7 +85,11 @@ function aws-creds () {
         return 99
     fi
 
-    export AWS_SESSION_TOKEN
+    unset AWS_SESSION_TOKEN
+    unset AWS_ACCESS_KEY_ID
+    unset AWS_SECRET_ACCESS_KEY
+    unset AWS_SECRET_KEY
+
     local iam_user=${AWS_IAM_USER}
     local aws_account=${AWS_ACCOUNT}
     local rv creds_json
@@ -119,6 +123,14 @@ function aws-creds () {
     cat <<ENV
 export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
 export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+export AWS_SECRET_KEY=$AWS_SECRET_ACCESS_KEY
 export AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
 ENV
+}
+
+function clear-aws-creds() {
+  unset AWS_ACCESS_KEY_ID
+  unset AWS_SECRET_ACCESS_KEY
+  unset AWS_SECRET_KEY
+  unset AWS_SESSION_TOKEN
 }
