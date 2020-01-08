@@ -295,12 +295,3 @@ set -g mouse on
 # move status line to top
 #set -g status-position top
 
-# reset C-n and C-p for window navigation
-# bind -r p previous-window # select previous window
-# bind -r n next-window     # select next window
-
-# smart pane switching with awareness of vim splits
-bind -r h run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-h) || tmux select-pane -L"
-bind -r j run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-j) || tmux select-pane -D"
-bind -r k run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-k) || tmux select-pane -U"
-bind -r l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"
