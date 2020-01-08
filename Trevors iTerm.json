@@ -14,7 +14,12 @@
     "Blue Component" : 0.58823529411764708,
     "Green Component" : 0.58039215686274515
   },
-  "Custom Directory" : "No",
+  "Ansi 2 Color" : {
+    "Red Component" : 0.52156862745098043,
+    "Color Space" : "sRGB",
+    "Blue Component" : 0,
+    "Green Component" : 0.59999999999999998
+  },
   "Draw Powerline Glyphs" : true,
   "Bold Color" : {
     "Red Component" : 0.34509803921568627,
@@ -49,7 +54,7 @@
     "Alpha Component" : 1,
     "Green Component" : 0.35916060209274292
   },
-  "Horizontal Spacing" : 1,
+  "Custom Directory" : "No",
   "Cursor Guide Color" : {
     "Red Component" : 0.70213186740875244,
     "Color Space" : "sRGB",
@@ -327,14 +332,14 @@
             "iTermStatusBarSpringComponentSizeMultipleKey" : 1,
             "base: priority" : 5,
             "iTermStatusBarSpringComponentSpringConstantKey" : 0.01,
+            "base: compression resistance" : 1,
             "shared text color" : {
               "Red Component" : 0.5,
               "Color Space" : "sRGB",
               "Blue Component" : 0.25,
               "Alpha Component" : 1,
               "Green Component" : 0.25
-            },
-            "base: compression resistance" : 1
+            }
           },
           "layout advanced configuration dictionary value" : {
             "background color" : {
@@ -495,12 +500,7 @@
     "Blue Component" : 0.18431372549019609,
     "Green Component" : 0.19607843137254902
   },
-  "Ansi 2 Color" : {
-    "Red Component" : 0.52156862745098043,
-    "Color Space" : "sRGB",
-    "Blue Component" : 0,
-    "Green Component" : 0.59999999999999998
-  },
+  "Horizontal Spacing" : 1,
   "Ansi 3 Color" : {
     "Red Component" : 0.70980392156862748,
     "Color Space" : "sRGB",
@@ -516,7 +516,7 @@
   "Right Option Key Sends" : 2,
   "Use Non-ASCII Font" : false,
   "Has Hotkey" : false,
-  "Normal Font" : "FiraCode-Retina 18",
+  "Normal Font" : "FiraCode-Retina 16",
   "Ansi 6 Color" : {
     "Red Component" : 0.16470588235294117,
     "Color Space" : "sRGB",
