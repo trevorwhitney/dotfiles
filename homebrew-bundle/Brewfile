@@ -79,3 +79,6 @@ cask "font-fira-code"
 cask "shiftit" unless system "[ -d /Applications/ShiftIt.app/ ]"
 cask "google-chrome" unless system "[ -d '/Applications/Google\ Chrome.app/' ]"
 cask "jetbrains-toolbox" unless system "[ -d '/Applications/JetBrains\ Toolbox.app/' ]"
+
+tap "aws/tap"
+brew "aws-sam-cli"
