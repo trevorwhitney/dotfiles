@@ -28,4 +28,3 @@ touch $HOME/.zprofile
 
 create_custom_zsh_link aliases.zsh
 create_custom_zsh_link gulp-completion.zsh
-create_custom_zsh_link rachio-functions.zsh
