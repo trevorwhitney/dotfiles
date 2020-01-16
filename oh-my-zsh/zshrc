@@ -67,7 +67,7 @@ zle -N zle-keymap-select
 
 export KEYTIMEOUT=20
 
-rachio_functions="$HOME/workspace/rachio/scripts/rachio-functions.sh"
+rachio_functions="$HOME/workspace/rachio/scripts/rachio-functions.zsh"
 if [[ -e  $rachio_functions ]]; then
   source $rachio_functions
 fi
