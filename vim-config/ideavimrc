@@ -31,6 +31,7 @@ nmap <Leader>b   :action RecentFiles<CR>
 nmap <Leader>t   :action Refactorings.QuickListPopupAction<CR>
 nmap <Leader>l   :action MoveEditorToOppositeTabGroup<CR>
 nmap <Leader>h   :action MoveEditorToOppositeTabGroup<CR>
+nmap <Leader>g   :action Annotate<CR>
 
 "<C-R> is reserved for running tests in IntelliJ, so we need redo on Leader-R
 noremap <Leader>r <C-R>
