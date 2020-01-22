@@ -7,7 +7,8 @@ HYPHEN_INSENSITIVE="true"
 plugins=(git ruby vi-mode mvn aws)
 
 # User configuration
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/opt/go@1.9/bin:$PATH"
+export GOPATH="$HOME/go"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$PATH"
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit

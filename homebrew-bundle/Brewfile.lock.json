@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask-versions": {
-        "revision": "d2f5c86c783e303b7b594d9aae7fb523384575fe"
+        "revision": "ffb2c0eff7f7a6b237f54cfe99cb49d7b708fb97"
       },
       "git-duet/tap": {
         "revision": "96bb54b92eec8c751b086be769511a9f2181bdf9"
@@ -11,7 +11,7 @@
         "revision": "a63986ba838043d651d09e3ab6de70388eeaf876"
       },
       "homebrew/cask-fonts": {
-        "revision": "7b213ee5ddf324cc9f55203aaaa8fc11844260e0"
+        "revision": "dffcec566e99539f44a0eef812fee18b38c5fb0d"
       },
       "adoptopenjdk/openjdk": {
         "revision": "19d716f1c9ebc325ed23c5df580e0d2b027285a1"
@@ -842,6 +842,31 @@
             }
           }
         }
+      },
+      "nmap": {
+        "version": "7.80_1",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/nmap-7.80_1.catalina.bottle.tar.gz",
+              "sha256": "ada1fae22e64234618a2df68d1ef43f4f0a186b80fb80ccce927c1679df9d66f"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/nmap-7.80_1.mojave.bottle.tar.gz",
+              "sha256": "bc12b9340cf3c23ac9f5a4eb6102884baf556b2347f46c3971600b91fb081125"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/nmap-7.80_1.high_sierra.bottle.tar.gz",
+              "sha256": "3cbc937428a7db08be8fa106b3a70ffad16f4a4d80808d2113490dd9ab60786c"
+            },
+            "sierra": {
+              "url": "https://homebrew.bintray.com/bottles/nmap-7.80_1.sierra.bottle.tar.gz",
+              "sha256": "afa1fde2e44927ccb36447a0ce1dde08927ae67fd789afeb3883a95bd61edbc4"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -1060,7 +1085,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.2.4",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "a3f99229e70c970a9c3e8c1d92f477c561e06cda",
+        "Homebrew/homebrew-core": "07fcb96b558b7ad18f36a9ba9a90752822fe988e",
         "CLT": "11.3.1.0.1.1576735732",
         "Xcode": "11.3",
         "macOS": "10.15.2"
