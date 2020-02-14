@@ -70,3 +70,15 @@ the macro recorded to `m` to all files that match a pattern, you can do the foll
   for this configuration is `<C-a>`. To get a real `<C-a>`, say to increment
   a value in vim, use `<C-a>a`.
 * On OSX hold down the 'Option' key to select text with the mouse
+
+### Tmux Trics
+
+Because I keep forgetting them
+
+* Redistrubte panes Vertically
+  `select-layout even-vertical`
+  Usually assigned to: Ctrl+b, Alt+2
+
+* Redistrubte panes Horizontally
+  `select-layout even-horizontal`
+  Usually assigned to: Ctrl+b, Alt+1
