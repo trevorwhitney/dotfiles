@@ -72,3 +72,7 @@ rachio_functions="$HOME/workspace/rachio/scripts/rachio-functions.zsh"
 if [[ -e  $rachio_functions ]]; then
   source $rachio_functions
 fi
+rachio_aliases="$HOME/workspace/rachio/scripts/rachio-aliases.zsh"
+if [[ -e  $rachio_aliases ]]; then
+  source $rachio_aliases
+fi
