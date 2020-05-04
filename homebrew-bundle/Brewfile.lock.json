@@ -2,16 +2,16 @@
   "entries": {
     "tap": {
       "homebrew/cask-versions": {
-        "revision": "7557a605b9881a26b24506b053e94ecc6281a565"
+        "revision": "2daf961759b611ce7c557a82c7bf5b36f13d4baf"
       },
       "git-duet/tap": {
         "revision": "94b01a0f01d4504c12eb6fa6b225c4626093e50c"
       },
       "universal-ctags/universal-ctags": {
-        "revision": "a63986ba838043d651d09e3ab6de70388eeaf876"
+        "revision": "057a72691574ab09d500bf15ac6ba625c8a5c74d"
       },
       "homebrew/cask-fonts": {
-        "revision": "f8551cec9eca212d72c0b5f559c0ae0365a9729f"
+        "revision": "5c1d98b8e2d2212ef561ef3d4232a2291a055539"
       },
       "adoptopenjdk/openjdk": {
         "revision": "19d716f1c9ebc325ed23c5df580e0d2b027285a1"
@@ -439,22 +439,22 @@
         }
       },
       "tmux": {
-        "version": "3.1a",
+        "version": "3.1b",
         "bottle": {
           "cellar": ":any",
           "prefix": "/usr/local",
           "files": {
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/tmux-3.1a.catalina.bottle.tar.gz",
-              "sha256": "62ca6f2c2c7c06ddbcb535daa4c7b163cb10cce51a381cabb8b15d2e756e60f1"
+              "url": "https://homebrew.bintray.com/bottles/tmux-3.1b.catalina.bottle.tar.gz",
+              "sha256": "f26bd0c3f5696350dcaf229d0fadaf6ab677c0ebbb550fc499ca0a37da59ab55"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/tmux-3.1a.mojave.bottle.tar.gz",
-              "sha256": "1bf482fdb31919d337e652842a40d4622910a70c5c0a8eaa550ae5f2270ce3d8"
+              "url": "https://homebrew.bintray.com/bottles/tmux-3.1b.mojave.bottle.tar.gz",
+              "sha256": "e9995ca765078be9cfdef4f1b6a628bcded0e96e36649e084a7f5480d165547a"
             },
             "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/tmux-3.1a.high_sierra.bottle.tar.gz",
-              "sha256": "66a01e075ecdb88908ffc08175b17ee68d185293332ee5f1ebc02da262f08948"
+              "url": "https://homebrew.bintray.com/bottles/tmux-3.1b.high_sierra.bottle.tar.gz",
+              "sha256": "7a04ece8143c0647be18bb14c160a984a5a9f855fa2ee888d21fc19374790ee5"
             }
           }
         }
@@ -569,7 +569,7 @@
         "bottle": false
       },
       "universal-ctags": {
-        "version": "HEAD-ee1d15d",
+        "version": "HEAD-68da03a",
         "bottle": false,
         "options": {
           "args": [
@@ -871,7 +871,7 @@
         }
       },
       "1password": {
-        "version": "7.4.3",
+        "version": "7.4.1",
         "options": {
           "full_name": "1password",
           "args": {
@@ -880,7 +880,7 @@
         }
       },
       "atom": {
-        "version": "1.28.0",
+        "version": "1.42.0",
         "options": {
           "full_name": "atom",
           "args": {
@@ -906,7 +906,7 @@
         }
       },
       "docker": {
-        "version": "18.03.1-ce-mac65,24312",
+        "version": "2.1.0.5,40693",
         "options": {
           "full_name": "docker",
           "args": {
@@ -915,7 +915,7 @@
         }
       },
       "firefox": {
-        "version": "61.0",
+        "version": "71.0",
         "options": {
           "full_name": "firefox",
           "args": {
@@ -942,7 +942,7 @@
         }
       },
       "insomnia": {
-        "version": "5.16.6",
+        "version": "7.0.6",
         "options": {
           "full_name": "insomnia",
           "args": {
@@ -951,7 +951,7 @@
         }
       },
       "istat-menus": {
-        "version": "6.11",
+        "version": "6.40",
         "options": {
           "full_name": "istat-menus",
           "args": {
@@ -960,7 +960,7 @@
         }
       },
       "iterm2": {
-        "version": "3.1.6",
+        "version": "3.3.7",
         "options": {
           "full_name": "iterm2",
           "args": {
@@ -969,7 +969,7 @@
         }
       },
       "slack": {
-        "version": "3.2.0",
+        "version": "4.2.0",
         "options": {
           "full_name": "slack",
           "args": {
@@ -978,7 +978,7 @@
         }
       },
       "sublime-text": {
-        "version": "3.176",
+        "version": "3.211",
         "options": {
           "full_name": "sublime-text",
           "args": {
@@ -996,7 +996,7 @@
         }
       },
       "tunnelblick": {
-        "version": "3.7.6a,5080",
+        "version": "3.8.1,5400",
         "options": {
           "full_name": "tunnelblick",
           "args": {
@@ -1014,7 +1014,7 @@
         }
       },
       "zoomus": {
-        "version": "4.1.25233.0525",
+        "version": "4.6.14751.1216",
         "options": {
           "full_name": "zoomus",
           "args": {
@@ -1040,7 +1040,7 @@
         }
       },
       "adoptopenjdk11": {
-        "version": "11.0.7,10.1",
+        "version": "11.0.5,10",
         "options": {
           "full_name": "adoptopenjdk11",
           "args": {
@@ -1049,7 +1049,7 @@
         }
       },
       "authy": {
-        "version": "1.8.0",
+        "version": "1.7.2",
         "options": {
           "full_name": "authy",
           "args": {
@@ -1074,7 +1074,7 @@
         }
       },
       "postman": {
-        "version": "7.20.0",
+        "version": "7.14.0",
         "options": {
           "full_name": "postman",
           "args": {
@@ -1083,7 +1083,7 @@
         }
       },
       "postgres": {
-        "version": "2.3.3e",
+        "version": "2.3.3c",
         "options": {
           "full_name": "postgres",
           "args": {
@@ -1123,10 +1123,10 @@
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "2.2.14",
+        "HOMEBREW_VERSION": "2.2.15",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "7b8f3702ad574126a92c1f030173036d939f0c44",
-        "CLT": "",
+        "Homebrew/homebrew-core": "e596105beb01398ff2eeabb798cdb010ddff75c1",
+        "CLT": "11.0.33.17",
         "Xcode": "11.4.1",
         "macOS": "10.15.4"
       },
