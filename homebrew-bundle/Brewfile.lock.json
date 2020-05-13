@@ -2,16 +2,16 @@
   "entries": {
     "tap": {
       "homebrew/cask-versions": {
-        "revision": "2daf961759b611ce7c557a82c7bf5b36f13d4baf"
+        "revision": "3a137686c8051d604f0732b11aabc959167c6ae8"
       },
       "git-duet/tap": {
         "revision": "94b01a0f01d4504c12eb6fa6b225c4626093e50c"
       },
       "universal-ctags/universal-ctags": {
-        "revision": "057a72691574ab09d500bf15ac6ba625c8a5c74d"
+        "revision": "faaef55ab7b513529e06d454d49d973ede007151"
       },
       "homebrew/cask-fonts": {
-        "revision": "5c1d98b8e2d2212ef561ef3d4232a2291a055539"
+        "revision": "2997a377d214b56d9f5ee864bea6b5c7f2581ca6"
       },
       "adoptopenjdk/openjdk": {
         "revision": "19d716f1c9ebc325ed23c5df580e0d2b027285a1"
@@ -485,22 +485,22 @@
         }
       },
       "vim": {
-        "version": "8.2.0654",
+        "version": "8.2.0700",
         "bottle": {
           "cellar": "/usr/local/Cellar",
           "prefix": "/usr/local",
           "files": {
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/vim-8.2.0654.catalina.bottle.tar.gz",
-              "sha256": "6a7524e47eb80df02d815858562410a4b0f7ea691f34a3b2470d77995e062682"
+              "url": "https://homebrew.bintray.com/bottles/vim-8.2.0700.catalina.bottle.tar.gz",
+              "sha256": "ec7ec0d1b65fa9c3e62ab1fc74afdfd7c3e9f317c89c301e7d677ed2b6ea2368"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/vim-8.2.0654.mojave.bottle.tar.gz",
-              "sha256": "23ca312b2b69d2b0f89a7560aa88f4e2df5ecd8d913a19e5d7845e32807a1b2c"
+              "url": "https://homebrew.bintray.com/bottles/vim-8.2.0700.mojave.bottle.tar.gz",
+              "sha256": "ff7b2b21fb1c7fb81ccddaf23a4b68e73ad7aa26bd68badb77b4af79a5872a05"
             },
             "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/vim-8.2.0654.high_sierra.bottle.tar.gz",
-              "sha256": "bd46bc3727bce808c5a6a66ad339440be3bf786e4ad06dfd3f360fa3663f39ba"
+              "url": "https://homebrew.bintray.com/bottles/vim-8.2.0700.high_sierra.bottle.tar.gz",
+              "sha256": "613ebe4b292b08d1259c121d45367715bac0512c061c086c99e2b336504eb761"
             }
           }
         }
@@ -561,7 +561,7 @@
         "bottle": false
       },
       "gradle": {
-        "version": "6.3",
+        "version": "6.4",
         "bottle": false
       },
       "gradle-completion": {
@@ -569,7 +569,7 @@
         "bottle": false
       },
       "universal-ctags": {
-        "version": "HEAD-68da03a",
+        "version": "HEAD-ee1d15d",
         "bottle": false,
         "options": {
           "args": [
@@ -623,7 +623,7 @@
         }
       },
       "openapi-generator": {
-        "version": "4.3.0",
+        "version": "4.3.1",
         "bottle": false
       },
       "terraform@0.11": {
@@ -871,7 +871,7 @@
         }
       },
       "1password": {
-        "version": "7.4.1",
+        "version": "7.4.3",
         "options": {
           "full_name": "1password",
           "args": {
@@ -880,7 +880,7 @@
         }
       },
       "atom": {
-        "version": "1.42.0",
+        "version": "1.28.0",
         "options": {
           "full_name": "atom",
           "args": {
@@ -897,7 +897,7 @@
         }
       },
       "chromedriver": {
-        "version": "81.0.4044.69",
+        "version": "81.0.4044.138",
         "options": {
           "full_name": "chromedriver",
           "args": {
@@ -906,7 +906,7 @@
         }
       },
       "docker": {
-        "version": "2.1.0.5,40693",
+        "version": "18.03.1-ce-mac65,24312",
         "options": {
           "full_name": "docker",
           "args": {
@@ -915,7 +915,7 @@
         }
       },
       "firefox": {
-        "version": "71.0",
+        "version": "61.0",
         "options": {
           "full_name": "firefox",
           "args": {
@@ -942,7 +942,7 @@
         }
       },
       "insomnia": {
-        "version": "7.0.6",
+        "version": "5.16.6",
         "options": {
           "full_name": "insomnia",
           "args": {
@@ -951,7 +951,7 @@
         }
       },
       "istat-menus": {
-        "version": "6.40",
+        "version": "6.11",
         "options": {
           "full_name": "istat-menus",
           "args": {
@@ -960,7 +960,7 @@
         }
       },
       "iterm2": {
-        "version": "3.3.7",
+        "version": "3.1.6",
         "options": {
           "full_name": "iterm2",
           "args": {
@@ -969,7 +969,7 @@
         }
       },
       "slack": {
-        "version": "4.2.0",
+        "version": "3.2.0",
         "options": {
           "full_name": "slack",
           "args": {
@@ -978,7 +978,7 @@
         }
       },
       "sublime-text": {
-        "version": "3.211",
+        "version": "3.176",
         "options": {
           "full_name": "sublime-text",
           "args": {
@@ -996,7 +996,7 @@
         }
       },
       "tunnelblick": {
-        "version": "3.8.1,5400",
+        "version": "3.7.6a,5080",
         "options": {
           "full_name": "tunnelblick",
           "args": {
@@ -1014,7 +1014,7 @@
         }
       },
       "zoomus": {
-        "version": "4.6.14751.1216",
+        "version": "4.1.25233.0525",
         "options": {
           "full_name": "zoomus",
           "args": {
@@ -1040,7 +1040,7 @@
         }
       },
       "adoptopenjdk11": {
-        "version": "11.0.5,10",
+        "version": "11.0.7,10.1",
         "options": {
           "full_name": "adoptopenjdk11",
           "args": {
@@ -1049,7 +1049,7 @@
         }
       },
       "authy": {
-        "version": "1.7.2",
+        "version": "1.8.0",
         "options": {
           "full_name": "authy",
           "args": {
@@ -1074,7 +1074,7 @@
         }
       },
       "postman": {
-        "version": "7.14.0",
+        "version": "7.20.0",
         "options": {
           "full_name": "postman",
           "args": {
@@ -1083,7 +1083,7 @@
         }
       },
       "postgres": {
-        "version": "2.3.3c",
+        "version": "2.3.3e",
         "options": {
           "full_name": "postgres",
           "args": {
@@ -1125,8 +1125,8 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.2.15",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "e596105beb01398ff2eeabb798cdb010ddff75c1",
-        "CLT": "11.0.33.17",
+        "Homebrew/homebrew-core": "88b65a0c80366208e1e16f1266b13c946d32b5af",
+        "CLT": "",
         "Xcode": "11.4.1",
         "macOS": "10.15.4"
       },
