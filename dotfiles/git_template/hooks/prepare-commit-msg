@@ -1,0 +1,26 @@
+#!/bin/bash
+
+##########################################
+# This script will prepend a jira ticket #
+# to a commit message when you are on a  #
+# feature branch                         #
+##########################################
+
+# This way you can customize which branches should be skipped when
+# prepending commit message.
+if [ -z "$BRANCHES_TO_SKIP" ]; then
+  BRANCHES_TO_SKIP=(master develop test)
+fi
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+BRANCH_NAME="${BRANCH_NAME##*/}"
+STORY_ID=$(echo "$BRANCH_NAME" | grep -o "[a-zA-Z]\+-[0-9]\+")
+
+BRANCH_EXCLUDED=$(printf "%s\n" "${BRANCHES_TO_SKIP[@]}" | grep -c "^$BRANCH_NAME$")
+BRANCH_IN_COMMIT=$(grep -c "\[$BRANCH_NAME\]" "$1")
+
+if [ -n "$BRANCH_NAME" ] && ! [[ $BRANCH_EXCLUDED -eq 1 ]] && ! [[ $BRANCH_IN_COMMIT -ge 1 ]]; then
+  if cat "$1" | grep -v "$STORY_ID"; then
+    sed -i.bak -e "1s/^/$STORY_ID: /" "$1"
+  fi
+fi
