@@ -8,7 +8,8 @@ plugins=(git ruby vi-mode mvn aws)
 
 # User configuration
 export GOPATH="$HOME/go"
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$PATH"
+export PYTHON_HOME="/usr/local/opt/python3/libexec"
+export PATH="$PYTHON_HOME/bin:$GOPATH/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
