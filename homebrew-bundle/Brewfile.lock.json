@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask-versions": {
-        "revision": "3b220026090c3e6e9347ed728cb7daa887333a91"
+        "revision": "1a708065302ad22420f46461d3004bd0f44ca6e1"
       },
       "git-duet/tap": {
         "revision": "94b01a0f01d4504c12eb6fa6b225c4626093e50c"
@@ -890,6 +890,27 @@
             }
           }
         }
+      },
+      "psqlodbc": {
+        "version": "12.02.0000",
+        "bottle": {
+          "cellar": ":any",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/psqlodbc-12.02.0000.catalina.bottle.tar.gz",
+              "sha256": "6ecd918abfb4e8bc95299a8efaeb2d9b2d772caee48d14108a6eeb9781f84776"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/psqlodbc-12.02.0000.mojave.bottle.tar.gz",
+              "sha256": "34900a66170b407b00a65824165fb0ddb2bc6d585ef4c9bba75729d73ee32775"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/psqlodbc-12.02.0000.high_sierra.bottle.tar.gz",
+              "sha256": "3cb37c6a2885d5abbd75b74167b0e6a93f29edbd1d36ad074bdf438bd7d1cb39"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -1175,6 +1196,15 @@
             "appdir": "/Applications"
           }
         }
+      },
+      "xquartz": {
+        "version": "2.7.11",
+        "options": {
+          "full_name": "xquartz",
+          "args": {
+            "appdir": "/Applications"
+          }
+        }
       }
     }
   },
@@ -1183,7 +1213,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.4.7",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "61d4909ec2d39fff46b98a7176282639fbc08736",
+        "Homebrew/homebrew-core": "680cc3b51a9260d6ca7d0262ac135f2f1b15a2a8",
         "CLT": "",
         "Xcode": "11.5",
         "macOS": "10.15.5"
