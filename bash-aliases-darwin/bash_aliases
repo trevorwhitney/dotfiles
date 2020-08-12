@@ -1,6 +1,7 @@
 alias aq="aquamacs"
 alias be="bundle exec"
 alias gravatar="curl \"https://www.gravatar.com/avatar/$(md5 -qs trevorjwhitney@gmail.com)?s=250\" -o gravatar.jpg"
+alias please='sudo $(fc -ln -1)'
 
 function java_home() {
     local jvm_type="$1"
