@@ -105,7 +105,7 @@ tap "homebrew/cask-fonts"
 cask "font-fira-code"
 
 #these may or may not be installed depending on image
-cask "shiftit" unless system "[ -d /Applications/ShiftIt.app/ ]"
+#cask "shiftit" unless system "[ -d /Applications/ShiftIt.app/ ]"
 cask "google-chrome" unless system "[ -d '/Applications/Google\ Chrome.app/' ]"
 cask "jetbrains-toolbox" unless system "[ -d '/Applications/JetBrains\ Toolbox.app/' ]"
 
