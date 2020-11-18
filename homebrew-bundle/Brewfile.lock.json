@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask-versions": {
-        "revision": "c601f1dc61569a5246177622131827f3eafd9e43"
+        "revision": "c91463f2b35a19c8ecaf5b25c485a1334b89fd37"
       },
       "git-duet/tap": {
         "revision": "94b01a0f01d4504c12eb6fa6b225c4626093e50c"
@@ -712,17 +712,17 @@
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
+            "big_sur": {
+              "url": "https://homebrew.bintray.com/bottles/vault-1.6.0.big_sur.bottle.1.tar.gz",
+              "sha256": "3598ed488978ce4fd61e1e5fe52b2dbc0df5c7ffda92d42f97eb5c078b8a8f43"
+            },
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/vault-1.6.0.catalina.bottle.tar.gz",
-              "sha256": "c08407834227377e70b5bdfc3d37c34c979802422e68258fae52c3f60edcf640"
+              "url": "https://homebrew.bintray.com/bottles/vault-1.6.0.catalina.bottle.1.tar.gz",
+              "sha256": "2bbff9f9a7826fd4c16d569f25b146d009c946e6c977e148ee48bd8676aaf012"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/vault-1.6.0.mojave.bottle.tar.gz",
-              "sha256": "f5201fe3cfb3d2611a60ccaf9408115fd291ff591fca714e0c239be304da5d0b"
-            },
-            "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/vault-1.6.0.high_sierra.bottle.tar.gz",
-              "sha256": "5a6051ee29c5a9ec0aee723e2b36e7334b88788952f48db250c19be6c83d7bcc"
+              "url": "https://homebrew.bintray.com/bottles/vault-1.6.0.mojave.bottle.1.tar.gz",
+              "sha256": "314868275bdfb1d4bc696a0dc28fac078417b4255cc427c23f05fb5915a52108"
             }
           }
         }
@@ -994,6 +994,10 @@
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
+            "big_sur": {
+              "url": "https://homebrew.bintray.com/bottles/pandoc-2.11.1.1.big_sur.bottle.tar.gz",
+              "sha256": "10f88e0f6d822432a7500de9b256b2a3304901256a0abbdeee4e4091218fc5c7"
+            },
             "catalina": {
               "url": "https://homebrew.bintray.com/bottles/pandoc-2.11.1.1.catalina.bottle.tar.gz",
               "sha256": "7cdcf09a97ea9156a2450f67f597099b31f6e9826d4e3cbcd1312871f05964f9"
@@ -1420,7 +1424,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "2.5.11",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "cb1e20a637fad1b383f289b6a813ef56b57f7a2e",
+        "Homebrew/homebrew-core": "bdb039cc19d85bc8b5e451378db266b1c8168a56",
         "CLT": "",
         "Xcode": "12.2",
         "macOS": "11.0.1"

@@ -147,21 +147,18 @@
 #           yabai -m window --toggle topmost;\
 #           yabai -m window --toggle pip
 
-:: default
-:: prefix @
+# :: default
+# :: prefix @
 
-ctrl - q ; prefix
-prefix < return; default
-prefix < escape; default
+# ctrl - q ; prefix
+# prefix < return; default
+# prefix < escape; default
 
-# balance size of windows
-# prefix < 0 : yabai -m space --balance
-# prefix < space : yabai -m space --rotate 90
-
+# reorganize windows
 ctrl + alt - 0 : yabai -m space --balance
 ctrl + alt - space : yabai -m space --rotate 90
 
-# zoom window
+# zoom window, # alt - +
 alt + shift - 0x18 : yabai -m window --toggle zoom-parent
 
 # float window
@@ -172,48 +169,27 @@ alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 4:4:1:1:2:2
 
 # toggle sticky(+float), topmost, picture-in-picture
-alt - p : yabai -m window --toggle sticky;\
-          yabai -m window --toggle topmost;\
-          yabai -m window --toggle pip
+# alt - p : yabai -m window --toggle sticky;\
+#           yabai -m window --toggle topmost;\
+#           yabai -m window --toggle pip
 
 # move window
-# alt + shift - 0x2B : yabai -m window --swap prev
-# alt + shift - 0x2F : yabai -m window --swap next
-
 ctrl + shift - 0x2B : yabai -m window --swap prev
 ctrl + shift - 0x2F : yabai -m window --swap next
 
 # change window size
-# prefix < shift - h : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
-# prefix < shift - j : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
-# prefix < shift - k : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
-# prefix < shift - l : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
-
 ctrl + shift - h : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
 ctrl + shift - j : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
 ctrl + shift - k : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
 ctrl + shift - l : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
 
 # focus window
-# prefix < h : yabai -m window --focus west
-# prefix < j : yabai -m window --focus south
-# prefix < k : yabai -m window --focus north
-# prefix < l : yabai -m window --focus east
-
-# alt - h : yabai -m window --focus west
-# alt - j : yabai -m window --focus south
-# alt - k : yabai -m window --focus north
-# alt - l : yabai -m window --focus east
-
 ctrl - h : yabai -m window --focus west
 ctrl - j : yabai -m window --focus south
 ctrl - k : yabai -m window --focus north
 ctrl - l : yabai -m window --focus east
 
 # navigate displays
-# prefix < n : yabai -m display --focus next
-# prefix < p : yabai -m display --focus prev
-
 alt + ctrl - l : yabai -m display --focus next
 alt + ctrl - h : yabai -m display --focus prev
 
@@ -224,8 +200,5 @@ ctrl + cmd + alt - 3 : yabai -m window --space 3
 ctrl + cmd + alt - 4 : yabai -m window --space 4
 
 # set insertion point for new app
-# alt + shift - 0x1B : yabai -m window --insert north
-# alt - 0x1B : yabai -m window --insert east
-
 ctrl + shift - 0x1B : yabai -m window --insert north
 ctrl - 0x1B : yabai -m window --insert east
