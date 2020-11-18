@@ -11,5 +11,6 @@ create_link "$current_dir/gitignore_global"
 create_link "$current_dir/git_template"
 create_link "$current_dir/yabairc"
 create_link "$current_dir/skhdrc"
+create_link "$current_dir/limelightrc"
 
 copy_file "$current_dir/gitconfig"

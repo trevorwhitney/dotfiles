@@ -155,11 +155,11 @@
 # prefix < escape; default
 
 # reorganize windows
-ctrl + alt - 0 : yabai -m space --balance
+ctrl + cmd - 0 : yabai -m space --balance
 ctrl + alt - space : yabai -m space --rotate 90
 
 # zoom window, # alt - +
-alt + shift - 0x18 : yabai -m window --toggle zoom-parent
+alt + shift - 0x18 : yabai -m window --toggle zoom-fullscreen
 
 # float window
 alt - f : yabai -m window --toggle float
@@ -178,10 +178,10 @@ ctrl + shift - 0x2B : yabai -m window --swap prev
 ctrl + shift - 0x2F : yabai -m window --swap next
 
 # change window size
-ctrl + shift - h : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
-ctrl + shift - j : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
-ctrl + shift - k : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
-ctrl + shift - l : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
+alt + shift - h : yabai -m window --resize left:-12:0; yabai -m window --resize right:-10:0
+alt + shift - j : yabai -m window --resize top:0:-12; yabai -m window --resize bottom:0:-10
+alt + shift - k : yabai -m window --resize top:0:12; yabai -m window --resize bottom:0:10
+alt + shift - l : yabai -m window --resize left:12:0; yabai -m window --resize right:10:0
 
 # focus window
 ctrl - h : yabai -m window --focus west
@@ -190,8 +190,8 @@ ctrl - k : yabai -m window --focus north
 ctrl - l : yabai -m window --focus east
 
 # navigate displays
-alt + ctrl - l : yabai -m display --focus next
-alt + ctrl - h : yabai -m display --focus prev
+cmd + ctrl - l : yabai -m display --focus next
+cmd + ctrl - h : yabai -m display --focus prev
 
 # move containers to spaces
 ctrl + cmd + alt - 1 : yabai -m window --space 1
