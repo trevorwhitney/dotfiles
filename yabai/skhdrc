@@ -136,3 +136,5 @@ ctrl + cmd + alt - 4 : yabai -m window --space 4
 # set insertion point for new app
 ctrl + shift - 0x1B : yabai -m window --insert east # ctrl+_
 ctrl - 0x1B : yabai -m window --insert north # ctrl+-
+alt + shift - 0x1B : yabai -m window --insert east # ctrl+_
+alt - 0x1B : yabai -m window --insert north # ctrl+-
