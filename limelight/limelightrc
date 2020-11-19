@@ -1,5 +1,5 @@
 limelight -m config width            4
-limelight -m config radius           0
+limelight -m config radius           4
 limelight -m config placement        interior
 limelight -m config active_color     0xff775759
 limelight -m config normal_color     0xff555555
