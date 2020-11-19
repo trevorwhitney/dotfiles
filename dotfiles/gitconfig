@@ -26,6 +26,7 @@
   rum = rebase
   ctags = !.git/hooks/ctags
   sur = submodule update --recursive
+  cane = commit --amend --no-edit
 [apply]
   whitespace = nowarn
 [color]
