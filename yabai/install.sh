@@ -4,8 +4,8 @@ dot_files_dir=$(cd "$current_dir/.." && pwd)
 
 echo "installing yabai and skhd"
 # tiling window manager, pre-req: https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
-brew install "koekeishiya/formulae/yabai" # tiling window manager, pre-req: https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
-brew install "koekeishiya/formulae/skhd" #hotkey deamon for use with yabai
+brew install koekeishiya/formulae/yabai # tiling window manager, pre-req: https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
+brew install koekeishiya/formulae/skhd #hotkey deamon for use with yabai
 
 sudo yabai --install-sa
 brew services start yabai
