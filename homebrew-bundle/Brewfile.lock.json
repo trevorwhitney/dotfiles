@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/cask-versions": {
-        "revision": "c91463f2b35a19c8ecaf5b25c485a1334b89fd37"
+        "revision": "0ade5dcf5ab53fb452c859e5326ba4e49ed362c9"
       },
       "git-duet/tap": {
         "revision": "94b01a0f01d4504c12eb6fa6b225c4626093e50c"
@@ -11,7 +11,7 @@
         "revision": "841bdf137939c293c0a26a068c0bbc0e5be3fc1a"
       },
       "homebrew/cask-fonts": {
-        "revision": "a6b5503ecab081fca3b6e084d718ec17a5446315"
+        "revision": "4f65d0605eb215621fb24d34342e54c1f5470488"
       },
       "adoptopenjdk/openjdk": {
         "revision": "19d716f1c9ebc325ed23c5df580e0d2b027285a1"
@@ -20,7 +20,7 @@
         "revision": "6b961eb87c579d62144bc9afd8c447f367475bc9"
       },
       "heroku/brew": {
-        "revision": "b0f530c74bbc1b227a6b6d4ad6cb01775a9baa82"
+        "revision": "4b3ead860620693ce05806086ed1d9e94e65ef9a"
       }
     },
     "brew": {
@@ -71,26 +71,22 @@
         }
       },
       "cmake": {
-        "version": "3.18.4",
+        "version": "3.19.0",
         "bottle": {
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
             "big_sur": {
-              "url": "https://homebrew.bintray.com/bottles/cmake-3.18.4.big_sur.bottle.tar.gz",
-              "sha256": "e812869b03bb867cafd5b71fa36afb795b44a59a907f132f1b6837ea72860a0c"
+              "url": "https://homebrew.bintray.com/bottles/cmake-3.19.0.big_sur.bottle.tar.gz",
+              "sha256": "dbefaa3219729cf9a8ad2bf959f58e3a5e8626839b0b9def2e76e7175fc92ac4"
             },
             "catalina": {
-              "url": "https://homebrew.bintray.com/bottles/cmake-3.18.4.catalina.bottle.tar.gz",
-              "sha256": "c7c42e66c63448e4aee44498b374c9985f477b129fccca5dd9c13530d1e680ef"
+              "url": "https://homebrew.bintray.com/bottles/cmake-3.19.0.catalina.bottle.tar.gz",
+              "sha256": "504c4d8e36da1d87ad14f89595f585d8038f34e9668e2f25af4fbbe3794c4c1c"
             },
             "mojave": {
-              "url": "https://homebrew.bintray.com/bottles/cmake-3.18.4.mojave.bottle.tar.gz",
-              "sha256": "a0b167ad7f2fbf6f6dbcca9d74cb09acbd7822c54873803e940abf04272f8028"
-            },
-            "high_sierra": {
-              "url": "https://homebrew.bintray.com/bottles/cmake-3.18.4.high_sierra.bottle.tar.gz",
-              "sha256": "98704ab50ed76df9214083c01e373277ba02aad43c858182be7ed1466d005326"
+              "url": "https://homebrew.bintray.com/bottles/cmake-3.19.0.mojave.bottle.tar.gz",
+              "sha256": "0e0d838403a56af19548b0994fc265bd81f727f5fb30fda8d7723926bb45d0de"
             }
           }
         }
@@ -404,6 +400,10 @@
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
+            "big_sur": {
+              "url": "https://homebrew.bintray.com/bottles/reattach-to-user-namespace-2.9.big_sur.bottle.tar.gz",
+              "sha256": "8b715171e1c8ce8f86cddc241340a7a6f4f263e770d912894cf580790f8d8aa4"
+            },
             "catalina": {
               "url": "https://homebrew.bintray.com/bottles/reattach-to-user-namespace-2.9.catalina.bottle.tar.gz",
               "sha256": "8ab11a5fa7512f5d7ef8fe62a5275325f3721e13fde2b0831d1f615e8820c341"
@@ -620,7 +620,7 @@
         "bottle": false
       },
       "universal-ctags": {
-        "version": "HEAD-ee1d15d",
+        "version": "HEAD-68da03a",
         "bottle": false,
         "options": {
           "args": [
@@ -629,7 +629,7 @@
         }
       },
       "flyway": {
-        "version": "7.2.0",
+        "version": "7.2.1",
         "bottle": false
       },
       "groovy": {
@@ -1014,7 +1014,7 @@
         }
       },
       "heroku": {
-        "version": "7.47.2",
+        "version": "7.47.3",
         "bottle": false
       },
       "gh": {
@@ -1055,7 +1055,7 @@
         }
       },
       "1password": {
-        "version": "7.4.3",
+        "version": "7.4.1",
         "options": {
           "full_name": "1password",
           "args": {
@@ -1064,7 +1064,7 @@
         }
       },
       "atom": {
-        "version": "1.28.0",
+        "version": "1.42.0",
         "options": {
           "full_name": "atom",
           "args": {
@@ -1081,7 +1081,7 @@
         }
       },
       "chromedriver": {
-        "version": "85.0.4183.87",
+        "version": "87.0.4280.20",
         "options": {
           "full_name": "chromedriver",
           "args": {
@@ -1090,7 +1090,7 @@
         }
       },
       "docker": {
-        "version": "18.03.1-ce-mac65,24312",
+        "version": "2.1.0.5,40693",
         "options": {
           "full_name": "docker",
           "args": {
@@ -1099,7 +1099,7 @@
         }
       },
       "firefox": {
-        "version": "61.0",
+        "version": "71.0",
         "options": {
           "full_name": "firefox",
           "args": {
@@ -1126,7 +1126,7 @@
         }
       },
       "insomnia": {
-        "version": "5.16.6",
+        "version": "7.0.6",
         "options": {
           "full_name": "insomnia",
           "args": {
@@ -1135,7 +1135,7 @@
         }
       },
       "istat-menus": {
-        "version": "6.11",
+        "version": "6.40",
         "options": {
           "full_name": "istat-menus",
           "args": {
@@ -1144,7 +1144,7 @@
         }
       },
       "iterm2": {
-        "version": "3.1.6",
+        "version": "3.3.7",
         "options": {
           "full_name": "iterm2",
           "args": {
@@ -1153,7 +1153,7 @@
         }
       },
       "slack": {
-        "version": "3.2.0",
+        "version": "4.2.0",
         "options": {
           "full_name": "slack",
           "args": {
@@ -1162,7 +1162,7 @@
         }
       },
       "sublime-text": {
-        "version": "3.176",
+        "version": "3.211",
         "options": {
           "full_name": "sublime-text",
           "args": {
@@ -1180,7 +1180,7 @@
         }
       },
       "tunnelblick": {
-        "version": "3.7.6a,5080",
+        "version": "3.8.1,5400",
         "options": {
           "full_name": "tunnelblick",
           "args": {
@@ -1198,7 +1198,7 @@
         }
       },
       "zoomus": {
-        "version": "4.1.25233.0525",
+        "version": "5.4.58887.1115",
         "options": {
           "full_name": "zoomus",
           "args": {
@@ -1224,7 +1224,7 @@
         }
       },
       "adoptopenjdk11": {
-        "version": "11.0.9,11",
+        "version": "11.0.5,10",
         "options": {
           "full_name": "adoptopenjdk11",
           "args": {
@@ -1233,7 +1233,7 @@
         }
       },
       "authy": {
-        "version": "1.8.0",
+        "version": "1.7.2",
         "options": {
           "full_name": "authy",
           "args": {
@@ -1258,7 +1258,7 @@
         }
       },
       "postman": {
-        "version": "7.20.0",
+        "version": "7.14.0",
         "options": {
           "full_name": "postman",
           "args": {
@@ -1267,7 +1267,7 @@
         }
       },
       "postgres": {
-        "version": "2.3.3e",
+        "version": "2.3.3c",
         "options": {
           "full_name": "postgres",
           "args": {
@@ -1303,7 +1303,7 @@
         }
       },
       "visual-studio-code": {
-        "version": "1.46.0",
+        "version": "1.46.1",
         "options": {
           "full_name": "visual-studio-code",
           "args": {
@@ -1366,7 +1366,7 @@
         }
       },
       "wireshark": {
-        "version": "3.2.5",
+        "version": "3.2.6",
         "options": {
           "full_name": "wireshark",
           "args": {
@@ -1384,7 +1384,7 @@
         }
       },
       "signal": {
-        "version": "1.36.3",
+        "version": "1.38.1",
         "options": {
           "full_name": "signal",
           "args": {
@@ -1424,9 +1424,9 @@
       "big_sur": {
         "HOMEBREW_VERSION": "2.5.11",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "bdb039cc19d85bc8b5e451378db266b1c8168a56",
-        "CLT": "",
-        "Xcode": "12.2",
+        "Homebrew/homebrew-core": "78e9b801ab19863b74d98d71a822990b5c3c4a6d",
+        "CLT": "12.2.0.0.1.1604076827",
+        "Xcode": "12.0",
         "macOS": "11.0.1"
       }
     }
