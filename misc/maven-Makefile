@@ -1,0 +1,43 @@
+.PHONY: build
+.PHONY: compile
+.PHONY: deploy
+.PHONY: install
+.PHONY: migrate
+.PHONY: push
+.PHONY: test
+
+branch = "$$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')"
+proto_module = "$$(ls | grep proto$$)"
+db_module = "$$(ls | grep db$$)"
+
+build:
+	mvn clean install
+
+compile:
+	mvn clean compile
+
+deploy:
+	mvn clean compile deploy -DskipTests -DskipITs -Pdeploy-dev
+
+install:
+	mvn clean install -DskipTests -DskipITs
+
+migrate:
+	mvn clean compile liquibase:update -pl $(call db_module)
+
+pr: test
+	git push -u origin $(call branch)
+
+proto:
+	mvn clean compile -pl $(call proto_module)
+
+push: test
+	git push
+
+rollback:
+	mvn clean compile liquibase:rollback -pl $(call db_module) -Dliquibase.rollbackCount=1
+
+test:
+	mvn clean install -DskipITs
+
+
