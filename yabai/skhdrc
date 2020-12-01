@@ -71,9 +71,7 @@
 #               an EOL character signifies the end of the bind.
 
 # ############################################################### #
-# THE FOLLOWING SECTION CONTAIN SIMPLE MAPPINGS DEMONSTRATING HOW #
-# TO INTERACT WITH THE YABAI WM. THESE ARE SUPPOSED TO BE USED AS #
-# A REFERENCE ONLY, WHEN MAKING YOUR OWN CONFIGURATION..          #
+# Yabai WM Section
 # ############################################################### #
 #
 # This config was setup to mimic the default i3 config as much as it
@@ -81,6 +79,17 @@
 #
 # mod is alt
 #
+# ##################
+# restart yabai
+# #################
+alt + shift - y : brew services restart yabai
+# ##################
+# change layout
+# #################
+alt + shift - b : yabai -m space --layout bsp
+alt + shift - s : yabai -m space --layout stack
+alt + shift - f : yabai -m space --layout float
+
 # ##########################################################
 # mod - h,j,k,l -> change window focus
 # mod - 1,2,3,4 -> change space focus
@@ -124,7 +133,12 @@ alt + shift - 0x18 : yabai -m window --toggle zoom-fullscreen # alt - +
 alt - f : yabai -m window --toggle float
 # change split orienation (ie. vertical -> horizontal)
 alt - e : yabai -m window --toggle split
-alt - e : yabai -m window --toggle split
+
+# ####################################
+# moving windows in stack mode
+# ###################################
+alt + shift - 0x2B : yabai -m window --layer above
+alt + shift - 0x2F : yabai -m window --layer below
 
 # #######################################
 # mimic shifit beavhior
@@ -185,3 +199,15 @@ alt - n : yabai -m space --focus next
 # set insertion point for new app
 alt + shift - 0x1B : yabai -m window --insert east # alt+_
 alt - 0x1B : yabai -m window --insert north # alt+-
+
+
+# ############################################################### #
+# Other stuff
+# ############################################################### #
+
+# Change audio output device
+alt + shift - o : SwitchAudioSource -s "Built-in Output"
+alt + shift - p : SwitchAudioSource -s "Turtle Beach USB Audio"
+ctrl + cmd + alt - j : spotify vol down
+ctrl + cmd + alt - l : spotify vol up
+ctrl + cmd + alt - k : spotify pause
