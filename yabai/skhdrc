@@ -208,6 +208,12 @@ alt - 0x1B : yabai -m window --insert north # alt+-
 # Change audio output device
 alt + shift - o : SwitchAudioSource -s "Built-in Output"
 alt + shift - p : SwitchAudioSource -s "Turtle Beach USB Audio"
+
+# #########
+# Spotify
+# #########
+ctrl + cmd + alt - h : spotify prev
 ctrl + cmd + alt - j : spotify vol down
-ctrl + cmd + alt - l : spotify vol up
-ctrl + cmd + alt - k : spotify pause
+ctrl + cmd + alt - k : spotify vol up
+ctrl + cmd + alt - l : spotify next
+ctrl + cmd + alt - space : spotify pause
