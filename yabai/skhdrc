@@ -86,9 +86,12 @@ alt + shift - y : brew services restart yabai
 # ##################
 # change layout
 # #################
-alt + shift - b : yabai -m space --layout bsp
-alt + shift - s : yabai -m space --layout stack
-alt + shift - f : yabai -m space --layout float
+alt + shift - b : yabai -m space --layout bsp; \
+                  osascript -e 'display notification "Space layout set to BSP" with title "Yabai"'
+alt + shift - s : yabai -m space --layout stack; \
+                  osascript -e 'display notification "Space layout set to Stack" with title "Yabai"'
+alt + shift - f : yabai -m space --layout float; \
+                  osascript -e 'display notification "Space layout set to Float" with title "Yabai"'
 
 # ##########################################################
 # mod - h,j,k,l -> change window focus
