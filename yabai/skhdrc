@@ -92,6 +92,10 @@ alt + shift - s : yabai -m space --layout stack; \
                   osascript -e 'display notification "Space layout set to Stack" with title "Yabai"'
 alt + shift - f : yabai -m space --layout float; \
                   osascript -e 'display notification "Space layout set to Float" with title "Yabai"'
+# #############
+# show desktop
+# ############
+alt + shift - d : yabai -m space --toggle show-desktop
 
 # ##########################################################
 # mod - h,j,k,l -> change window focus

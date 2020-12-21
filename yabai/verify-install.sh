@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-command -v yabai && yabai --check-sa
+command -v yabai && yabai --check-sa:q
+
