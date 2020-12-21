@@ -7,9 +7,12 @@ echo "installing yabai and skhd"
 brew install koekeishiya/formulae/yabai # tiling window manager, pre-req: https://github.com/koekeishiya/yabai/wiki/Disabling-System-Integrity-Protection
 brew install koekeishiya/formulae/skhd #hotkey deamon for use with yabai
 
+brew services stop yabai
+brew upgrade yabai
+sudo yabai --uninstall-sa
 sudo yabai --install-sa
 brew services start yabai
-brew services start skhd
+brew services restart skhd
 
 echo "Linking yabai and skhd configs"
 source "$dot_files_dir/lib.sh"
