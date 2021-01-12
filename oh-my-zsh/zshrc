@@ -77,3 +77,7 @@ rachio_aliases="$HOME/workspace/rachio/scripts/rachio-aliases.zsh"
 if [[ -e  $rachio_aliases ]]; then
   source $rachio_aliases
 fi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/root/.sdkman"
+[[ -s "/root/.sdkman/bin/sdkman-init.sh" ]] && source "/root/.sdkman/bin/sdkman-init.sh"

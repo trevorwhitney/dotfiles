@@ -39,7 +39,7 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 export XDG_CONFIG_HOME=$HOME/.config
 
 RBENV_ROOT=$HOME/.rbenv
-PATH=$HOME/go/bin:$RBENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:$PATH
+PATH=$HOME/go/bin:$RBENV_ROOT/bin:$HOME/bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/go/bin:$PATH
 
 # Load Rbenv
 [ `which rbenv` ] && eval "$(rbenv init -)"
