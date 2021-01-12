@@ -1,6 +1,6 @@
 * ~gh -- github command line tool~
 * ~vault~
-* go
+* ~go~
 * ~node and npm~
 * yarn
 * ~gradle~
