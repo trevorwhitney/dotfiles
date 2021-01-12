@@ -1,5 +1,4 @@
 alias open="xdg-open"
-alias emc="emacsclient -n"
 alias be="bundle exec"
 
 function idea() {
