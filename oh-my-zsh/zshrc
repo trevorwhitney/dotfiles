@@ -10,7 +10,7 @@ plugins=(git ruby vi-mode mvn aws)
 export GOROOT="/usr/local/go"
 export GOPATH="$HOME/go"
 export PYTHON_HOME="/usr/local/opt/python3/libexec"
-export PATH="$PYTHON_HOME/bin:$GOPATH/bin:$GOROOT/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export PATH="$GOPATH/bin:$GOROOT/bin:$PYTHON_HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
@@ -77,6 +77,10 @@ fi
 rachio_aliases="$HOME/workspace/rachio/scripts/rachio-aliases.zsh"
 if [[ -e  $rachio_aliases ]]; then
   source $rachio_aliases
+fi
+
+if [[ -e "$HOME/.cargo/env" ]]; then
+  source "$HOME/.cargo/env"
 fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
