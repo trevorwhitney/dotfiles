@@ -23,16 +23,22 @@ set encoding=utf-8
 "========== Keybindings ==========
 imap jj          <Esc>
 cmap w!!         w !sudo tee > /dev/null %
-nmap <Leader>p   :action GotoSymbol<CR>
-nmap <Leader>f   :action GotoFile<CR>
-nmap <Leader>c   :action GotoClass<CR>
-nmap <Leader>a   :action GotoAction<CR>
+
+" File/symbol navigation
+nmap <Leader>ff   :action GotoFile<CR>
+nmap <Leader>fs   :action GotoSymbol<CR>
+nmap <Leader>fc   :action GotoClass<CR>
+nmap <Leader>fa   :action GotoAction<CR>
+
+" tab/buffer navigation
 nmap <Leader>b   :action RecentFiles<CR>
-nmap <Leader>t   :action Refactorings.QuickListPopupAction<CR>
-nmap <Leader>l   :action MoveEditorToOppositeTabGroup<CR>
-nmap <Leader>h   :action MoveEditorToOppositeTabGroup<CR>
-nmap <Leader>gb  :action Annotate<CR>
-nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
+" move pane to right
+" nmap <Leader><S-L>  :action MoveEditorToOppositeTabGroup<CR>
+" move pane to left
+" map <Leader><S-H>  :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<CR>
+
 " run last
 nmap <Leader>rl  :action Run<CR>
 " run this
@@ -44,32 +50,51 @@ nmap <Leader>dl  :action Debug<CR>
 " debug this
 nmap <Leader>dt  :action DebugClass<CR>
 
-" move pane to right
-nmap <Leader><S-L>  :action MoveEditorToOppositeTabGroup<CR>
-" move pane to left
-nmap <Leader><S-H>  :action MoveEditorToOppositeTabGroup<CR>
-
 " git blame
 nmap <Leader>gb  :action Annotate<CR>
 " git history
 nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
 
 nmap <Leader>l  :action ReformatCode<CR>
+vmap <Leader>l  :action ReformatCode<CR>
 
 " go to current file in file tree
 nmap <Leader><F1>  :action ActivateProjectToolWindow<CR>
+" go to test file for source (and vice-versa)
+nmap <Leader>gt  :action GotoTest<CR>
 
-nmap <Leader>sr :%s/\<<C-r><C-w>\>/
+" ### Refactoring ###
+" show intentions
+nmap <Leader>i  :action ShowIntentionActions<CR>
+" refactor this
+nmap <Leader>t   :action Refactorings.QuickListPopupAction<CR>
+vmap <Leader>t   :action Refactorings.QuickListPopupAction<CR>
+" introduce variable
+nmap <Leader>v  :action IntroduceVariable<CR>
+vmap <Leader>v  :action IntroduceVariable<CR>
+" inline
+nmap <Leader>n  :action Inline<CR>
+vmap <Leader>n  :action Inline<CR>
+" extract method
+nmap <Leader>m  :action ExtractMethod<CR>
+vmap <Leader>m  :action ExtractMethod<CR>
+" override method
+nmap <Leader>o  :action OverrideMethods<CR>
+" gEnerate
+nmap <Leader>e  :action Generate<CR>
+
+" paste the 0 buffer
 nnoremap <leader>p "0p
 nnoremap <leader>P "0P
+
+" old stuff I don't really use
+nmap <Leader>sr :%s/\<<C-r><C-w>\>/
 
 "========== Folding ==========
 set foldmethod=indent   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
-
-"======== Helpful Shortcuts =========
 
 "======== IdeaVim Emulated Plugins =======
 set surround
