@@ -25,10 +25,21 @@ imap jj          <Esc>
 cmap w!!         w !sudo tee > /dev/null %
 
 " File/symbol navigation
-nmap <Leader>ff   :action GotoFile<CR>
-nmap <Leader>fs   :action GotoSymbol<CR>
-nmap <Leader>fc   :action GotoClass<CR>
-nmap <Leader>fa   :action GotoAction<CR>
+nmap <Leader>gf   :action GotoFile<CR>
+nmap <Leader>gs   :action GotoSymbol<CR>
+nmap <Leader>gc   :action GotoClass<CR>
+nmap <Leader>ga   :action GotoAction<CR>
+" go to test file for source (and vice-versa)
+nmap <Leader>gt  :action GotoTest<CR>
+" go to next error
+nmap <Leader>ge  :action GotoNextError<CR>
+" go to member
+nmap <Leader>gm  :action FileStructurePopup<CR>
+
+" git blame
+nmap <Leader>gb  :action Annotate<CR>
+" git history
+nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
 
 " tab/buffer navigation
 nmap <Leader>b   :action RecentFiles<CR>
@@ -50,38 +61,29 @@ nmap <Leader>dl  :action Debug<CR>
 " debug this
 nmap <Leader>dt  :action DebugClass<CR>
 
-" git blame
-nmap <Leader>gb  :action Annotate<CR>
-" git history
-nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
-
 nmap <Leader>l  :action ReformatCode<CR>
 vmap <Leader>l  :action ReformatCode<CR>
 
 " go to current file in file tree
-nmap <Leader><F1>  :action ActivateProjectToolWindow<CR>
-" go to test file for source (and vice-versa)
-nmap <Leader>gt  :action GotoTest<CR>
+nmap <Leader><F1>  :action SelectIn<CR>
 
 " ### Refactoring ###
 " show intentions
-nmap <Leader>i  :action ShowIntentionActions<CR>
+map <Leader>i  :action ShowIntentionActions<CR>
 " refactor this
-nmap <Leader>t   :action Refactorings.QuickListPopupAction<CR>
-vmap <Leader>t   :action Refactorings.QuickListPopupAction<CR>
+map <Leader>t   :action Refactorings.QuickListPopupAction<CR>
 " introduce variable
-nmap <Leader>v  :action IntroduceVariable<CR>
-vmap <Leader>v  :action IntroduceVariable<CR>
+map <Leader>v  :action IntroduceVariable<CR>
 " inline
-nmap <Leader>n  :action Inline<CR>
-vmap <Leader>n  :action Inline<CR>
+map <Leader>n  :action Inline<CR>
 " extract method
-nmap <Leader>m  :action ExtractMethod<CR>
-vmap <Leader>m  :action ExtractMethod<CR>
+map <Leader>m  :action ExtractMethod<CR>
 " override method
-nmap <Leader>o  :action OverrideMethods<CR>
+map <Leader>o  :action OverrideMethods<CR>
 " gEnerate
-nmap <Leader>e  :action Generate<CR>
+map <Leader>e  :action Generate<CR>
+" rename
+map <Leader><F6>  :action RenameElement<CR>
 
 " paste the 0 buffer
 nnoremap <leader>p "0p
@@ -99,4 +101,8 @@ set foldlevel=1         "this is just what i use
 "======== IdeaVim Emulated Plugins =======
 set surround
 set commentary
+set easymotion
+set exchange
+set highlightedyank
+set textobj-entire
 
