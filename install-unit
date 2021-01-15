@@ -38,16 +38,32 @@ if [[ -f $kernel_file ]] && [[ -n "$(cat "${kernel_file}")" ]] && [[ ! $(uname) 
   exit
 fi
 
-# Skip if this unit or any deps are blacklisted
-test -f _blacklist && {
-  (grep -v '^#' _blacklist | grep -x -q "^$unit_name\$" -) && {
-    msg "-* skipping blacklisted $unit_name"
+# Skip if this unit or any deps are excluded
+test -f _excluded && {
+  (grep -v '^#' _excluded | grep -x -q "^$unit_name\$" -) && {
+    msg "-* skipping excluded $unit_name"
     exit
   }
   test -f $deps_file && {
     for dep_name in `<$deps_file` ; do
-      (grep -v '^#' _blacklist | grep -x -q $dep_name -) && {
-        msg "-* skipping $unit_name due to blacklisted dep $dep_name"
+      (grep -v '^#' _excluded | grep -x -q $dep_name -) && {
+        msg "-* skipping $unit_name due to excluded dep $dep_name"
+        exit
+      }
+    done
+  }
+}
+
+# Skip if this unit or any deps are excluded locally
+test -f "${HOME}/.dotexclude" && {
+  (grep -v '^#' "${HOME}/.dotexclude" | grep -x -q "^$unit_name\$" -) && {
+    msg "-* skipping excluded $unit_name"
+    exit
+  }
+  test -f $deps_file && {
+    for dep_name in `<$deps_file` ; do
+      (grep -v '^#' "${HOME}/.dotexclude" | grep -x -q $dep_name -) && {
+        msg "-* skipping $unit_name due to excluded dep $dep_name"
         exit
       }
     done
