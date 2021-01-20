@@ -3,11 +3,13 @@ aws-shell
 awscli
 build-essential
 clang
+curl
 direnv
 gawk
 gettext
 git
 gnupg
+gnupg2
 gradle
 grok
 htop
