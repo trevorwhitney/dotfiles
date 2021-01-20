@@ -2,6 +2,7 @@ apt-transport-https
 aws-shell
 awscli
 build-essential
+ca-certificates
 clang
 curl
 direnv
@@ -16,6 +17,7 @@ htop
 jq
 libtool
 lnav
+lsb-release
 nodejs
 npm
 pandoc

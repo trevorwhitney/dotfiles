@@ -5,6 +5,7 @@ tap "heroku/brew"
 
 brew "aws-shell"
 brew "awscli"
+brew "azure-cli"
 brew "cmake"
 brew "direnv"
 brew "dockutil"
