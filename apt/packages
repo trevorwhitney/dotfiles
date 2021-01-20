@@ -23,6 +23,7 @@ npm
 pandoc
 python3
 rbenv
+redshift-gtk
 ruby-build
 silversearcher-ag
 tmux
