@@ -11,3 +11,6 @@ alias gpp="git pull --rebase && git push"
 #Gradle
 alias g="gradle"
 alias gw="./gradlew"
+
+#Kubectl
+alias k="kubectl"

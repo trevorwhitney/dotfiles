@@ -14,6 +14,7 @@ brew "gettext", link: true
 brew "git"
 brew "gh"
 brew "go"
+brew "go@1.14"
 brew "grok"
 brew "heroku"
 brew "htop"
