@@ -8,8 +8,8 @@ plugins=(git ruby vi-mode mvn aws)
 
 # User configuration
 HOMEBREW_GOROOT="/usr/local/Cellar/go/1.15.6/libexec"
-LINUX_GOROOT="/usr/local/go"
-export GOROOT="$(if [[ uname -eq "Darwin" ]]; then echo "$HOMEBREW_GOROOT"; else echo "$LINUX_GOROOT"; fi)"
+LINUX_GOROOT="/usr/local/go@1.15"
+export GOROOT="$(if [[ $(uname) = "Darwin" ]]; then echo "$HOMEBREW_GOROOT"; else echo "$LINUX_GOROOT"; fi)"
 export GOPATH="$HOME/go"
 export PYTHON_HOME="/usr/local/opt/python3/libexec"
 export PATH="$GOPATH/bin:$GOROOT/bin:$PYTHON_HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
