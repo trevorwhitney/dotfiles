@@ -10,7 +10,7 @@
   st = status
   di = diff
   co = checkout
-  ci = commit
+  ci = commit --sign
   br = branch
   sta = stash
   llog = log --date=local
