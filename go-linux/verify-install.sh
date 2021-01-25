@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-/usr/local/go/bin/go version
+command -v go
+go version
