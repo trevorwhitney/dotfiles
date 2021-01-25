@@ -28,6 +28,8 @@ create_link "$current_dir/zshrc"
 touch "$HOME/.zprofile"
 
 create_custom_zsh_link aliases.zsh
+create_custom_zsh_link docker-completion.zsh
+create_custom_zsh_link docker-compose-completion.zsh
 create_custom_zsh_link gulp-completion.zsh
 create_custom_zsh_link k3d-completion.zsh
 create_custom_zsh_link kubectl-completion.zsh
