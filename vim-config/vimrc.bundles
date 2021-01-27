@@ -1,4 +1,3 @@
-" Plug 'tpope/vim-fugitive'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
 Plug 'edkolev/tmuxline.vim'
