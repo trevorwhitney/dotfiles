@@ -43,6 +43,11 @@ nmap <Leader>gs :action GotoSuperMethod<CR>
 nnoremap <silent> gi :action GotoImplementation<CR>
 nnoremap <silent> gs :action GotoSuperMethod<CR>
 
+" show parameter info
+nnoremap <silent> <C-p> :action ParameterInfo<CR>
+" if this starts acting weird, investigate what gi originally used to do and maybe use that?
+inoremap <silent> <C-p> <esc> :action ParameterInfo<CR>i
+
 " git blame
 nmap <Leader>gb  :action Annotate<CR>
 " git history
