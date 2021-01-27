@@ -13,3 +13,5 @@ for package in $packages; do
     exit 1;
   fi
 done
+
+golangci-lint --version > /dev/null

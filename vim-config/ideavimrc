@@ -26,15 +26,22 @@ cmap w!!         w !sudo tee > /dev/null %
 
 " File/symbol navigation
 nmap <Leader>gf   :action GotoFile<CR>
-nmap <Leader>gs   :action GotoSymbol<CR>
+nmap <Leader>gy   :action GotoSymbol<CR>
 nmap <Leader>gc   :action GotoClass<CR>
 nmap <Leader>ga   :action GotoAction<CR>
 " go to test file for source (and vice-versa)
 nmap <Leader>gt  :action GotoTest<CR>
 " go to next error
 nmap <Leader>ge  :action GotoNextError<CR>
-" go to member
+" go to member/method
 nmap <Leader>gm  :action FileStructurePopup<CR>
+" go to implementations
+nmap <Leader>gi :action GotoImplementation<CR>
+" go to super/interfaces
+nmap <Leader>gs :action GotoSuperMethod<CR>
+" non-leader equivalents ala gd
+nnoremap <silent> gi :action GotoImplementation<CR>
+nnoremap <silent> gs :action GotoSuperMethod<CR>
 
 " git blame
 nmap <Leader>gb  :action Annotate<CR>
@@ -54,6 +61,8 @@ nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<CR>
 nmap <Leader>rl  :action Run<CR>
 " run this
 nmap <Leader>rt  :action RunClass<CR>
+" run all
+nmap <Leader>ra  :action EditorMoveToPageTop<CR> :action RunClass<CR>
 " run failed
 nmap <Leader>rf  :action RerunFailedTests<CR>
 " debug last
@@ -105,4 +114,4 @@ set easymotion
 set exchange
 set highlightedyank
 set textobj-entire
-
+set multiple-cursors
