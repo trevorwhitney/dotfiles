@@ -7,4 +7,3 @@
 .vagrant
 .envrc
 .idea
-Makefile

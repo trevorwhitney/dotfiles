@@ -48,6 +48,11 @@ nmap <Leader>gs :action GotoSuperMethod<CR>
 nnoremap <silent> gi :action GotoImplementation<CR>
 nnoremap <silent> gs :action GotoSuperMethod<CR>
 
+" find usages
+nmap <Leader>u :action FindUsages<CR>
+" to mimic <A-F7>, the default
+nmap <Leader><F7> :action FindUsages<CR>
+
 " show parameter info
 nnoremap <silent> <M-p> :action ParameterInfo<CR>
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
