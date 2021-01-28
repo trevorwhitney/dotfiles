@@ -61,6 +61,10 @@ inoremap <silent> <A-p> <esc> :action ParameterInfo<CR>i
 nmap <Leader>gb  :action Annotate<CR>
 " git history
 nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
+" git open in browser
+nmap <Leader>go  :action Github.Open.In.Browser<CR>
+" git commit
+nmap <Leader>gk  :action CheckinProject
 
 " quick docs
 nmap <Leader>/ :action QuickJavaDoc<CR>
@@ -106,6 +110,9 @@ map <Leader>o  :action OverrideMethods<CR>
 map <Leader>e  :action Generate<CR>
 " rename
 map <Leader><F6>  :action RenameElement<CR>
+
+nmap <Leader>k  :action EditorCloneCaretAbove<CR>
+nmap <Leader>j  :action EditorCloneCaretBelow<CR>
 
 " paste the 0 buffer
 nnoremap <leader>p "0p
