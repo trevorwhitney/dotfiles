@@ -111,6 +111,19 @@ map <Leader>e  :action Generate<CR>
 " rename
 map <Leader><F6>  :action RenameElement<CR>
 
+" vim-visual-mutli equivalents
+nnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
+vnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
+inoremap <silent> <C-n> <esc> :action SelectNextOccurrence<CR>i
+
+nnoremap <silent> <C-S-n> :action UnselectPreviousOccurrence<CR>
+vnoremap <silent> <C-S-n> :action UnselectPreviousOccurrence<CR>
+inoremap <silent> <C-S-n> <esc> :action UnselectPreviousOccurrence<CR>i
+
+nnoremap <silent> <C-A-S-n> :action SelectAllOccurrences<CR>
+vnoremap <silent> <C-A-S-n> :action SelectAllOccurrences<CR>
+inoremap <silent> <C-A-S-n> <esc> :action SelectAllOccurrences<CR>i
+
 nmap <Leader>k  :action EditorCloneCaretAbove<CR>
 nmap <Leader>j  :action EditorCloneCaretBelow<CR>
 
