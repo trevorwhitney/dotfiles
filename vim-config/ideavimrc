@@ -109,9 +109,9 @@ map <Leader>o  :action OverrideMethods<CR>
 " gEnerate
 map <Leader>e  :action Generate<CR>
 " rename
-map <Leader><F6>  :action RenameElement<CR>
+map <Leader>re :action RenameElement<CR>
 
-" vim-visual-mutli equivalents
+" vim-visual-multi equivalents
 nnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
 vnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
 inoremap <silent> <C-n> <esc> :action SelectNextOccurrence<CR>i
