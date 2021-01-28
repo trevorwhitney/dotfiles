@@ -196,8 +196,8 @@ alt + ctrl - left : yabai -m display --focus prev
 # mod - p,n -> for previous,next
 # #######################################
 # navigate spaces
-alt - p : yabai -m space --focus prev
-alt - n : yabai -m space --focus next
+#alt - p : yabai -m space --focus prev
+#alt - n : yabai -m space --focus next
 
 # #######################################
 # set insertion point for new window
