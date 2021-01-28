@@ -104,7 +104,9 @@ vmap <Leader>l  :action ReformatCode<CR>
 " show intentions
 map <Leader>i  :action ShowIntentionActions<CR>
 " refactor this
-map <Leader>t   :action Refactorings.QuickListPopupAction<CR>
+map <Leader>th   :action Refactorings.QuickListPopupAction<CR>
+" insert live template
+map <Leader>te   :action InsertLiveTemplate<CR>
 " introduce variable
 map <Leader>v  :action IntroduceVariable<CR>
 " inline
@@ -133,6 +135,14 @@ inoremap <silent> <C-A-S-n> <esc> :action SelectAllOccurrences<CR>i
 
 nmap <Leader>k  :action EditorCloneCaretAbove<CR>
 nmap <Leader>j  :action EditorCloneCaretBelow<CR>
+
+nnoremap <silent> <C-k> :action EditorSelectWord<CR>
+vnoremap <silent> <C-k> :action EditorSelectWord<CR>
+inoremap <silent> <C-k> <esc> :action EditorSelectWord<CR>i
+
+nnoremap <silent> <C-j> :action EditorUnSelectWord<CR>
+vnoremap <silent> <C-j> :action EditorUnSelectWord<CR>
+inoremap <silent> <C-j> <esc> :action EditorUnSelectWord<CR>i
 
 " paste the 0 buffer
 nnoremap <leader>p "0p
