@@ -25,7 +25,6 @@ imap jj          <Esc>
 cmap w!!         w !sudo tee > /dev/null %
 
 " File/symbol navigation
-nmap <Leader>gf   :action GotoFile<CR>
 " mimic <C-p> in vim
 nnoremap <silent> <C-p> :action GotoFile<CR>
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
@@ -34,6 +33,8 @@ inoremap <silent> <C-p> <esc> :action GotoFile<CR>i
 nmap <Leader>gy   :action GotoSymbol<CR>
 nmap <Leader>gc   :action GotoClass<CR>
 nmap <Leader>ga   :action GotoAction<CR>
+" go to current file in file tree
+nmap <Leader>gf :action SelectIn<CR>
 " go to test file for source (and vice-versa)
 nmap <Leader>gt  :action GotoTest<CR>
 " go to next error
@@ -50,13 +51,11 @@ nnoremap <silent> gs :action GotoSuperMethod<CR>
 
 " find usages
 nmap <Leader>u :action FindUsages<CR>
-" to mimic <A-F7>, the default
-nmap <Leader><F7> :action FindUsages<CR>
 
 " show parameter info
-nnoremap <silent> <M-p> :action ParameterInfo<CR>
+nnoremap <silent> <A-p> :action ParameterInfo<CR>
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <M-p> <esc> :action ParameterInfo<CR>i
+inoremap <silent> <A-p> <esc> :action ParameterInfo<CR>i
 
 " git blame
 nmap <Leader>gb  :action Annotate<CR>
@@ -87,9 +86,6 @@ nmap <Leader>dt  :action DebugClass<CR>
 
 nmap <Leader>l  :action ReformatCode<CR>
 vmap <Leader>l  :action ReformatCode<CR>
-
-" go to current file in file tree
-nmap <Leader><F1>  :action SelectIn<CR>
 
 " ### Refactoring ###
 " show intentions
