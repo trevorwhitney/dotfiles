@@ -62,13 +62,15 @@ nmap <Leader>gb  :action Annotate<CR>
 " git history
 nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
 
+" quick docs
+nmap <Leader>/ :action QuickJavaDoc<CR>
+nmap <Leader>? :action QuickImplementations<CR>
+
 " tab/buffer navigation
 nmap <Leader>b   :action RecentFiles<CR>
-" move pane to right
-" nmap <Leader><S-L>  :action MoveEditorToOppositeTabGroup<CR>
 " move pane to left
-" map <Leader><S-H>  :action MoveEditorToOppositeTabGroup<CR>
 nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<CR>
+" move pane to right
 nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<CR>
 
 " run last
