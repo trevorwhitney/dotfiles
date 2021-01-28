@@ -6,3 +6,4 @@ dot_files_dir=$(cd "$current_dir/.." && pwd)
 source "$dot_files_dir/lib.sh"
 
 create_link "$current_dir/tmux.conf"
+create_link "$current_dir/tmux.conf.local"
