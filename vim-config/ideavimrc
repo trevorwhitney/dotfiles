@@ -48,16 +48,23 @@ nmap <Leader>gt  :action GotoTest<CR>
 nmap <Leader>ge  :action GotoNextError<CR>
 " go to member/method
 nmap <Leader>gm  :action FileStructurePopup<CR>
-" go to implementations
-nmap <Leader>gi :action GotoImplementation<CR>
-" go to super/interfaces
-nmap <Leader>gs :action GotoSuperMethod<CR>
 " non-leader equivalents ala gd
 nnoremap <silent> gi :action GotoImplementation<CR>
 nnoremap <silent> gs :action GotoSuperMethod<CR>
 
-" find usages
-nmap <Leader>u :action FindUsages<CR>
+" Show me the...
+" usages
+nmap <Leader>su :action FindUsages<CR>
+" implementations
+nmap <Leader>si :action GotoImplementation<CR>
+" super/interfaces
+nmap <Leader>ss :action GotoSuperMethod<CR>
+" help
+nmap <Leader>sh :action QuickJavaDoc<CR>
+
+" quick docs
+nmap <Leader>/ :action QuickJavaDoc<CR>
+nmap <Leader>? :action QuickImplementations<CR>
 
 " show parameter info
 nnoremap <silent> <A-p> :action ParameterInfo<CR>
@@ -72,10 +79,6 @@ nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
 nmap <Leader>go  :action Github.Open.In.Browser<CR>
 " git commit
 nmap <Leader>gk  :action CheckinProject
-
-" quick docs
-nmap <Leader>/ :action QuickJavaDoc<CR>
-nmap <Leader>? :action QuickImplementations<CR>
 
 " tab/buffer navigation
 nmap <Leader>b   :action RecentFiles<CR>
@@ -104,9 +107,7 @@ vmap <Leader>l  :action ReformatCode<CR>
 " show intentions
 map <Leader>i  :action ShowIntentionActions<CR>
 " refactor this
-map <Leader>th   :action Refactorings.QuickListPopupAction<CR>
-" insert live template
-map <Leader>te   :action InsertLiveTemplate<CR>
+map <Leader>t   :action Refactorings.QuickListPopupAction<CR>
 " introduce variable
 map <Leader>v  :action IntroduceVariable<CR>
 " inline
@@ -117,6 +118,7 @@ map <Leader>m  :action ExtractMethod<CR>
 map <Leader>o  :action OverrideMethods<CR>
 " gEnerate
 map <Leader>e  :action Generate<CR>
+
 " rename
 map <Leader>re :action RenameElement<CR>
 

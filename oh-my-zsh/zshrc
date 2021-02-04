@@ -53,6 +53,9 @@ export GLOBAL_GIT_HOOK_DIR="$HOME/.git/hooks"
 export EDITOR=vim
 
 bindkey -M viins 'jj' vi-cmd-mode
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
 
 bindkey '^P' up-history
 bindkey '^N' down-history
@@ -85,4 +88,8 @@ if [[ -e "$HOME/.cargo/env" ]]; then
   source "$HOME/.cargo/env"
 fi
 
+# completions
 complete -F __start_kubectl k
+
+
+
