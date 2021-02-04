@@ -61,6 +61,8 @@ nmap <Leader>si :action GotoImplementation<CR>
 nmap <Leader>ss :action GotoSuperMethod<CR>
 " help
 nmap <Leader>sh :action QuickJavaDoc<CR>
+" error
+nmap <Leader>se  :action ShowErrorDescription<CR>
 
 " quick docs
 nmap <Leader>/ :action QuickJavaDoc<CR>
