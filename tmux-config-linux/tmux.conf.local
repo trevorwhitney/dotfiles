@@ -36,6 +36,8 @@ tmux_conf_new_pane_reconnect_ssh=false
 #   - false (default)
 tmux_conf_new_session_prompt=false
 
+bind | split-window -h
+
 
 # -- display -------------------------------------------------------------------
 

@@ -13,6 +13,7 @@ export GOROOT="$(if [[ $(uname) = "Darwin" ]]; then echo "$HOMEBREW_GOROOT"; els
 export GOPATH="$HOME/go"
 export PYTHON_HOME="/usr/local/opt/python3/libexec"
 export PATH="$GOPATH/bin:$GOROOT/bin:$PYTHON_HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export TERM="xterm-256color"
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
