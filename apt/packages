@@ -33,4 +33,5 @@ tmux
 tree
 vim-gtk
 wget
+xclip
 zsh

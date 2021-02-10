@@ -3,4 +3,5 @@ homebrew
 homebrew-bundle
 apt
 dotfiles
+oh-my-zsh
 vim-config
