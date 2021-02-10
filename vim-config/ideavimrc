@@ -36,6 +36,10 @@ cmap w!!         w !sudo tee > /dev/null %
 nnoremap <silent> <C-p> :action GotoFile<CR>
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
 inoremap <silent> <C-p> <esc> :action GotoFile<CR>i
+" mimic <C-S-p> in vim to open symbols
+nnoremap <silent> <C-S-p> :action GotoSymbol<CR>
+" if this starts acting weird, investigate what gi originally used to do and maybe use that?
+inoremap <silent> <C-S-p> <esc> :action GotoSymbol<CR>i
 
 nmap <Leader>gy   :action GotoSymbol<CR>
 nmap <Leader>gc   :action GotoClass<CR>
