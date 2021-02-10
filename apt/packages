@@ -6,9 +6,11 @@ ca-certificates
 clang
 curl
 direnv
+evolution
 gawk
 gettext
 git
+gnome-tweaks
 gnupg
 gnupg-agent
 gnupg2
