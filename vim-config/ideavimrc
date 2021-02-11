@@ -31,6 +31,10 @@ set foldlevel=1         "this is just what i use
 imap jj          <Esc>
 cmap w!!         w !sudo tee > /dev/null %
 
+" nerd tree equivalence
+map \ :action ActivateProjectToolWindow<CR>
+map \| :action SelectInProjectView<CR>
+
 " File/symbol navigation
 " mimic <C-p> in vim
 nnoremap <silent> <C-p> :action GotoFile<CR>

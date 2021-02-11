@@ -6,7 +6,6 @@ ca-certificates
 clang
 curl
 direnv
-evolution
 gawk
 gettext
 git
@@ -36,4 +35,5 @@ tree
 vim-gtk
 wget
 xclip
+xsel
 zsh
