@@ -23,6 +23,8 @@ lsb-release
 nodejs
 npm
 pandoc
+pavucontrol
+pulseaudio
 python3
 rbenv
 redshift-gtk

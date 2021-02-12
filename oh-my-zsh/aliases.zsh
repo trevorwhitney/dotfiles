@@ -14,3 +14,6 @@ alias gw="./gradlew"
 
 #Kubectl
 alias k="kubectl"
+
+#misc
+alias gravatar="curl 'https://www.gravatar.com/avatar/b1bbe91daa315e28b6fb3a7e06db42eb?s=500' -o gravatar.jpg"
