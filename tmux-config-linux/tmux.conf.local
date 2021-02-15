@@ -3,6 +3,9 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
+# TPM
+set -g @plugin 'egel/tmux-gruvbox'
+set -g @tmux-gruvbox 'light' # or 'dark'
 
 # -- navigation ----------------------------------------------------------------
 
