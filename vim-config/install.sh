@@ -16,9 +16,20 @@ create_vim_link() {
   ln -s "$1" "$HOME/.vim/$file_name"
 }
 
+create_custom_vim_link() {
+    if [ -h "$HOME/.vim/$1" ] || [ -e "$HOME/.vim/$1" ]; then
+        rm -rf "$HOME/.vim/$1";
+    fi
+
+    ln -s "$current_dir/$1" "$HOME/.vim/$1"
+}
+
 mkdir -p $HOME/.vim
+mkdir -p $HOME/.vim/colors
 create_vim_link "$current_dir/vimrc.bundles"
 create_vim_link "$current_dir/vimrc.config"
+create_custom_vim_link "colors/gruvbox.vim"
+create_custom_vim_link "colors/gruvbox_less_red.vim"
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

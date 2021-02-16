@@ -106,15 +106,18 @@ prompt_git() {
     PL_BRANCH_CHAR=$'\ue0a0'         # 
   }
   local ref dirty mode repo_path
+  local green="#79740e"
+  local yellow="#b57614"
+  local white="#f9f5d7"
 
    if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
     repo_path=$(git rev-parse --git-dir 2>/dev/null)
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
     if [[ -n $dirty ]]; then
-      prompt_segment yellow black
+      prompt_segment $yellow $white
     else
-      prompt_segment green $CURRENT_FG
+      prompt_segment $green $white
     fi
 
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
@@ -205,8 +208,10 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
+  local blue="#076678"
+  local white="#f9f5d7"
   # prompt_segment cyan $CURRENT_FG '%~'
-  prompt_segment blue default '%2~'
+  prompt_segment $blue $white '%2~'
 }
 
 # Virtualenv: current working virtualenv
@@ -218,10 +223,13 @@ prompt_virtualenv() {
 }
 
 prompt_time() {
+  local white="#f9f5d7"
+  local magenta="#8f3f71"
+  local red="#9d0006"
   if [[ $RETVAL -eq 0 ]]; then
-    prompt_segment magenta default '%*'
+    prompt_segment $magenta $white '%*'
   else
-    prompt_segment red default '%*'
+    prompt_segment $red $white '%*'
   fi
 }
 
@@ -253,6 +261,7 @@ prompt_aws() {
     *) prompt_segment green black "AWS: $AWS_PROFILE" ;;
   esac
 }
+
 
 
 ## Main prompt
