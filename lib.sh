@@ -9,7 +9,7 @@ create_link() {
       rm -rf "$HOME/.$file_name";
     fi
 
-    ln -s "$1" "$HOME/.$file_name"
+    ln -sf "$1" "$HOME/.$file_name"
 }
 
 # Copying files is good for configurations that might
@@ -28,5 +28,5 @@ create_alias_link() {
       rm -rf "$HOME/.bash_aliases.d/$file_name";
     fi
 
-    ln -s "$1" "$HOME/.bash_aliases.d/$file_name"
+    ln -sf "$1" "$HOME/.bash_aliases.d/$file_name"
 }

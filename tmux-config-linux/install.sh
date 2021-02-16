@@ -16,7 +16,7 @@ pushd "$HOME" || exit 1
     git clone https://github.com/gpakosz/.tmux.git
   fi
 
-  ln -s -f .tmux/.tmux.conf
+  ln -sf .tmux/.tmux.conf
 popd || exit 1
 
 create_link "$current_dir/tmux.conf.local"
