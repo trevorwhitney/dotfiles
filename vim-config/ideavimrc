@@ -31,6 +31,11 @@ set foldlevel=1         "this is just what i use
 imap jj          <Esc>
 cmap w!!         w !sudo tee > /dev/null %
 
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " nerd tree equivalence
 map \ :action ActivateProjectToolWindow<CR>
 map \| :action SelectInProjectView<CR>
@@ -45,6 +50,10 @@ nnoremap <silent> <C-S-p> :action GotoSymbol<CR>
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
 inoremap <silent> <C-S-p> <esc> :action GotoSymbol<CR>i
 
+" format code
+map <Leader>l    :action ReformatCode<CR>
+
+" Go to...
 nmap <Leader>gy   :action GotoSymbol<CR>
 nmap <Leader>gc   :action GotoClass<CR>
 nmap <Leader>ga   :action GotoAction<CR>
@@ -60,7 +69,7 @@ nmap <Leader>gm  :action FileStructurePopup<CR>
 nnoremap <silent> gi :action GotoImplementation<CR>
 nnoremap <silent> gs :action GotoSuperMethod<CR>
 
-" Show me the...
+" Show me...
 " usages
 nmap <Leader>su :action FindUsages<CR>
 " implementations
@@ -97,6 +106,7 @@ nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<CR>
 " move pane to right
 nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<CR>
 
+" Run...
 " run last
 nmap <Leader>rl  :action Run<CR>
 " run this
@@ -110,27 +120,23 @@ nmap <Leader>dl  :action Debug<CR>
 " debug this
 nmap <Leader>dt  :action DebugClass<CR>
 
-nmap <Leader>l  :action ReformatCode<CR>
-vmap <Leader>l  :action ReformatCode<CR>
-
 " ### Refactoring ###
 " show intentions
 map <Leader>i  :action ShowIntentionActions<CR>
 " refactor this
-map <Leader>t   :action Refactorings.QuickListPopupAction<CR>
+map <Leader>tt  :action Refactorings.QuickListPopupAction<CR>
 " introduce variable
-map <Leader>v  :action IntroduceVariable<CR>
+map <Leader>tv  :action IntroduceVariable<CR>
 " inline
-map <Leader>n  :action Inline<CR>
+map <Leader>tn  :action Inline<CR>
 " extract method
-map <Leader>m  :action ExtractMethod<CR>
+map <Leader>tm  :action ExtractMethod<CR>
 " override method
-map <Leader>o  :action OverrideMethods<CR>
+map <Leader>to  :action OverrideMethods<CR>
 " gEnerate
-map <Leader>e  :action Generate<CR>
-
+map <Leader>te  :action Generate<CR>
 " rename
-map <Leader>re :action RenameElement<CR>
+map <Leader>tr  :action RenameElement<CR>
 
 " vim-visual-multi equivalents
 nnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
@@ -145,8 +151,12 @@ nnoremap <silent> <C-A-S-n> :action SelectAllOccurrences<CR>
 vnoremap <silent> <C-A-S-n> :action SelectAllOccurrences<CR>
 inoremap <silent> <C-A-S-n> <esc> :action SelectAllOccurrences<CR>i
 
-nmap <Leader>k  :action EditorCloneCaretAbove<CR>
-nmap <Leader>j  :action EditorCloneCaretBelow<CR>
+nnoremap <silent> <C-up>    :action EditorCloneCaretAbove<CR>
+vnoremap <silent> <C-up>    :action EditorCloneCaretAbove<CR>
+inoremap <silent> <C-up>    <esc>:action EditorCloneCaretAbove<CR>i
+nnoremap <silent> <C-down>  :action EditorCloneCaretBelow<CR>
+vnoremap <silent> <C-down>  :action EditorCloneCaretBelow<CR>
+inoremap <silent> <C-down>  <esc>:action EditorCloneCaretBelow<CR>i
 
 nnoremap <silent> <C-k> :action EditorSelectWord<CR>
 vnoremap <silent> <C-k> :action EditorSelectWord<CR>
