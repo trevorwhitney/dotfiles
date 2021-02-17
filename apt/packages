@@ -21,6 +21,7 @@ libtool
 lm-sensors
 lnav
 lsb-release
+neofetch
 nodejs
 npm
 pandoc
