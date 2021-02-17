@@ -25,6 +25,7 @@ nodejs
 npm
 pandoc
 pavucontrol
+protobuf-compiler
 pulseaudio
 python3
 rbenv
