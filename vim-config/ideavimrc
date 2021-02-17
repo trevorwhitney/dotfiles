@@ -8,7 +8,7 @@ set smarttab                    " Use shiftwidth to tab at line beginning
 set shiftwidth=2                " Width of autoindent
 set backspace=indent,eol,start  " Let backspace work over anything.
 set showmatch                   " Show matching brackets/braces
-set mouse=a                     " enable moude in all modes
+set mouse=a                     " enable mouse in all modes
 set incsearch
 set clipboard+=unnamed
 
