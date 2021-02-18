@@ -128,7 +128,7 @@ map <Leader>tt  :action Refactorings.QuickListPopupAction<CR>
 " introduce variable
 map <Leader>tv  :action IntroduceVariable<CR>
 " inline
-map <Leader>tn  :action Inline<CR>
+map <Leader>ti  :action Inline<CR>
 " extract method
 map <Leader>tm  :action ExtractMethod<CR>
 " override method
