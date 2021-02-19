@@ -35,5 +35,3 @@ create_custom_zsh_link k3d-completion.zsh
 create_custom_zsh_link kubectl-completion.zsh
 create_custom_zsh_link themes/philips.zsh-theme
 create_custom_zsh_link themes/agnoster-gruvbox.zsh-theme
-
-ln -sf "$current_dir/tmux-mouse-state.sh" /usr/local/bin/tmux-mouse-state
