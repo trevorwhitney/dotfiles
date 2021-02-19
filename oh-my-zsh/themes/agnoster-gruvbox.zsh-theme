@@ -263,9 +263,10 @@ prompt_aws() {
 }
 
 prompt_vi_mode() {
+  local white="#f9f5d7"
   case $KEYMAP in
     vicmd) prompt_segment "#d65d0e" $white normal;;
-    viins|main) prompt_segment "#d5c4a1" $black ✎;;
+    viins|main) prompt_segment "#8f3f71" $white ✎;;
   esac
 }
 
@@ -279,13 +280,11 @@ prompt_ret_val() {
   prompt_segment $background $white $RETVAL
 }
 
-
-
-
 ## Main prompt
 build_prompt() {
   RETVAL=$?
   prompt_ret_val
+  # time was moved to the right side prompt
   # prompt_time
   prompt_status
   prompt_virtualenv
