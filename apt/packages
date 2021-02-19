@@ -21,6 +21,7 @@ libtool
 lm-sensors
 lnav
 lsb-release
+moreutils
 neofetch
 nmap
 nodejs
