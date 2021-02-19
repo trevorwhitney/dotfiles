@@ -264,20 +264,18 @@ prompt_aws() {
 
 prompt_vi_mode() {
   local white="#f9f5d7"
+  local black="#3c3836"
   case $KEYMAP in
-    vicmd) prompt_segment "#d65d0e" $white normal;;
-    viins|main) prompt_segment "#8f3f71" $white ✎;;
+    vicmd) prompt_segment "#8f3f71" $white normal;;
+    viins|main) prompt_segment "#d5c4a1" $black ✎;;
   esac
 }
 
 prompt_ret_val() {
-  local background="#79740e"
   local white="#f9f5d7"
   if [[ $RETVAL -ne 0 ]]; then
-    background="#9d0006"
+    prompt_segment "#9d0006" $white $RETVAL
   fi
-
-  prompt_segment $background $white $RETVAL
 }
 
 ## Main prompt
