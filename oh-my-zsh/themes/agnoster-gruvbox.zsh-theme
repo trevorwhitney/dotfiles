@@ -265,7 +265,7 @@ prompt_aws() {
 prompt_vi_mode() {
   case $KEYMAP in
     vicmd) prompt_segment "#d65d0e" $white normal;;
-    viins|main) prompt_segment "#d5c4a1" $black insert;;
+    viins|main) prompt_segment "#d5c4a1" $black ✎;;
   esac
 }
 
