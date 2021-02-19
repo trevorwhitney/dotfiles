@@ -70,3 +70,5 @@ function install_astyle() {
 }
 if [ ! `which astyle` ]; then install_astyle; fi
 
+sudo pip3 install --upgrade -r "$HOME/.vim/plugged/taskwiki/requirements.txt"
+
