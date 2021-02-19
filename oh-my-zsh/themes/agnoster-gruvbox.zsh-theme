@@ -35,25 +35,25 @@
 CURRENT_BG='NONE'
 
 case ${SOLARIZED_THEME:-dark} in
-    light) CURRENT_FG='white';;
-    *)     CURRENT_FG='black';;
+  light) CURRENT_FG='white';;
+  *)     CURRENT_FG='black';;
 esac
 
 # Special Powerline characters
 
 () {
-  local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-  # NOTE: This segment separator character is correct.  In 2012, Powerline changed
-  # the code points they use for their special characters. This is the new code point.
-  # If this is not working for you, you probably have an old version of the
-  # Powerline-patched fonts installed. Download and install the new version.
-  # Do not submit PRs to change this unless you have reviewed the Powerline code point
-  # history and have new information.
-  # This is defined using a Unicode escape sequence so it is unambiguously readable, regardless of
-  # what font the user is viewing this source code in. Do not replace the
-  # escape sequence with a single literal character.
-  # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
-  SEGMENT_SEPARATOR=$'\ue0b0'
+local LC_ALL="" LC_CTYPE="en_US.UTF-8"
+# NOTE: This segment separator character is correct.  In 2012, Powerline changed
+# the code points they use for their special characters. This is the new code point.
+# If this is not working for you, you probably have an old version of the
+# Powerline-patched fonts installed. Download and install the new version.
+# Do not submit PRs to change this unless you have reviewed the Powerline code point
+# history and have new information.
+# This is defined using a Unicode escape sequence so it is unambiguously readable, regardless of
+# what font the user is viewing this source code in. Do not replace the
+# escape sequence with a single literal character.
+# Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
+SEGMENT_SEPARATOR=$'\ue0b0'
 }
 
 # Begin a segment
@@ -102,45 +102,45 @@ prompt_git() {
   fi
   local PL_BRANCH_CHAR
   () {
-    local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-    PL_BRANCH_CHAR=$'\ue0a0'         # 
-  }
-  local ref dirty mode repo_path
-  local green="#79740e"
-  local yellow="#b57614"
-  local white="#f9f5d7"
+  local LC_ALL="" LC_CTYPE="en_US.UTF-8"
+  PL_BRANCH_CHAR=$'\ue0a0'         # 
+}
+local ref dirty mode repo_path
+local green="#79740e"
+local yellow="#b57614"
+local white="#f9f5d7"
 
-   if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
-    repo_path=$(git rev-parse --git-dir 2>/dev/null)
-    dirty=$(parse_git_dirty)
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
-    if [[ -n $dirty ]]; then
-      prompt_segment $yellow $white
-    else
-      prompt_segment $green $white
-    fi
-
-    if [[ -e "${repo_path}/BISECT_LOG" ]]; then
-      mode=" <B>"
-    elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
-      mode=" >M<"
-    elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
-      mode=" >R>"
-    fi
-
-    setopt promptsubst
-    autoload -Uz vcs_info
-
-    zstyle ':vcs_info:*' enable git
-    zstyle ':vcs_info:*' get-revision true
-    zstyle ':vcs_info:*' check-for-changes true
-    zstyle ':vcs_info:*' stagedstr '✚'
-    zstyle ':vcs_info:*' unstagedstr '±'
-    zstyle ':vcs_info:*' formats ' %u%c'
-    zstyle ':vcs_info:*' actionformats ' %u%c'
-    vcs_info
-    echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
+  repo_path=$(git rev-parse --git-dir 2>/dev/null)
+  dirty=$(parse_git_dirty)
+  ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
+  if [[ -n $dirty ]]; then
+    prompt_segment $yellow $white
+  else
+    prompt_segment $green $white
   fi
+
+  if [[ -e "${repo_path}/BISECT_LOG" ]]; then
+    mode=" <B>"
+  elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
+    mode=" >M<"
+  elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
+    mode=" >R>"
+  fi
+
+  setopt promptsubst
+  autoload -Uz vcs_info
+
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:*' get-revision true
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' stagedstr '✚'
+  zstyle ':vcs_info:*' unstagedstr '±'
+  zstyle ':vcs_info:*' formats ' %u%c'
+  zstyle ':vcs_info:*' actionformats ' %u%c'
+  vcs_info
+  echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+fi
 }
 
 prompt_bzr() {
@@ -262,12 +262,31 @@ prompt_aws() {
   esac
 }
 
+prompt_vi_mode() {
+  case $KEYMAP in
+    vicmd) prompt_segment "#d65d0e" $white normal;;
+    viins|main) prompt_segment "#d5c4a1" $black insert;;
+  esac
+}
+
+prompt_ret_val() {
+  local background="#79740e"
+  local white="#f9f5d7"
+  if [[ $RETVAL -ne 0 ]]; then
+    background="#9d0006"
+  fi
+
+  prompt_segment $background $white $RETVAL
+}
+
+
 
 
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  prompt_time
+  prompt_ret_val
+  # prompt_time
   prompt_status
   prompt_virtualenv
   prompt_aws
@@ -277,7 +296,9 @@ build_prompt() {
   prompt_git
   prompt_bzr
   prompt_hg
+  prompt_vi_mode
   prompt_end
 }
 
+RPS1="$EPS1 %{$fg_bold[blue]%}[%*]%{$reset_color%}"
 PROMPT='%{%f%b%k%}$(build_prompt) '
