@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-command -v vault
-vault --version
+command -v vault > /dev/null
+vault --version > /dev/null

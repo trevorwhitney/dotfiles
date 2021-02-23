@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-command -v op
-op --version
+command -v op > /dev/null
+op --version > /dev/null

@@ -1,5 +1,5 @@
 #!/bin/bash
 
 source $HOME/.cargo/env
-command -v rustc
-rustc --version
+command -v rustc > /dev/null
+rustc --version > /dev/null
