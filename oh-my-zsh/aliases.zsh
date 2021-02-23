@@ -28,4 +28,3 @@ function task_url() {
 
 #grafana
 alias backend="cd ~/workspace/grafana/backend-enterprise"
-
