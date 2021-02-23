@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-command -v k3d
-k3d --version
+command -v k3d > /dev/null
+k3d --version > /dev/null

@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-command -v go
-go version
+command -v go > /dev/null
+go version > /dev/null

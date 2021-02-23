@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-command -v spotify
-spotify --version
+command -v spotify > /dev/null
+spotify --version > /dev/null
