@@ -118,9 +118,9 @@ nmap <Leader>gk  <Action>(CheckinProject)
 " tab/buffer navigation
 nmap <Leader>b   <Action>(RecentFiles)
 " move pane to left
-nnoremap <silent> <A-Left> <Action>(MoveEditorToOppositeTabGroup)
+nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<CR>
 " move pane to right
-nnoremap <silent> <A-Right> <Action>(MoveEditorToOppositeTabGroup)
+nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<CR>
 
 " Run...
 " run last
