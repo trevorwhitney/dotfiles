@@ -1,5 +1,14 @@
 let mapleader = " "
 
+"======== IdeaVim Emulated Plugins =======
+set surround
+set commentary
+set easymotion
+set exchange
+set highlightedyank
+set textobj-entire
+set NERDTree
+
 "========== General ==========
 set expandtab                   " Use soft tabs
 set tabstop=2                   " Tab settings
@@ -10,7 +19,11 @@ set backspace=indent,eol,start  " Let backspace work over anything.
 set showmatch                   " Show matching brackets/braces
 set mouse=a                     " enable mouse in all modes
 set incsearch
-set clipboard+=unnamed
+set clipboard+=unnamed,ideaput
+set idearefactormode=visual
+set ideajoin=true
+set ideamarks=true
+set scrolloff=5
 
 " Spell checking
 set spelllang=en_us
@@ -37,140 +50,139 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " nerd tree equivalence
-map \ :action ActivateProjectToolWindow<CR>
-map \| :action SelectInProjectView<CR>
+map \ <Action>(ActivateProjectToolWindow)
+map \| <Action>(SelectInProjectView)
 
 " File/symbol navigation
 " mimic <C-p> in vim
-nnoremap <silent> <C-p> :action GotoFile<CR>
+nnoremap <silent> <C-p> <Action>(GotoFile)
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <C-p> <esc> :action GotoFile<CR>i
+inoremap <silent> <C-p> <esc> <Action>(GotoFile)i
 " mimic <C-S-p> in vim to open symbols
-nnoremap <silent> <C-S-p> :action GotoSymbol<CR>
+nnoremap <silent> <C-S-p> <Action>(GotoSymbol)
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <C-S-p> <esc> :action GotoSymbol<CR>i
+inoremap <silent> <C-S-p> <esc> <Action>(GotoSymbol)i
 
 " Open actions menu
-nnoremap <silent> <C-S-a> :action GotoAction<CR>
+nnoremap <silent> <C-S-a> <Action>(GotoAction)
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <C-S-a> <esc> :action GotoAction<CR>i
+inoremap <silent> <C-S-a> <esc> <Action>(GotoAction)i
 
 " format code
-map <Leader>l    :action ReformatCode<CR>
+map <Leader>l    <Action>(ReformatCode)
 
 " go to next error
-nmap <Leader>e  :action GotoNextError<CR>
+nmap <Leader>e  <Action>(GotoNextError)
 
 " Go to...
 " go to current file in file tree
-nmap <Leader>gf :action SelectIn<CR>
+nmap <Leader>gf <Action>(SelectIn)
 " go to test file for source (and vice-versa)
-nmap <Leader>gt  :action GotoTest<CR>
+nmap <Leader>gt  <Action>(GotoTest)
 
 " file structure
-nmap <Leader>fs  :action FileStructurePopup<CR>
+nmap <Leader>fs  <Action>(FileStructurePopup)
 
 " Show me...
 " usages
-nmap <Leader>su :action FindUsages<CR>
+nmap <Leader>su <Action>(FindUsages)
 " implementations
-nmap <Leader>sm :action GotoImplementation<CR>
+nmap <Leader>sm <Action>(GotoImplementation)
 " super/interfaces
-nmap <Leader>ss :action GotoSuperMethod<CR>
-nmap <Leader>si :action GotoSuperMethod<CR>
+nmap <Leader>ss <Action>(GotoSuperMethod)
+nmap <Leader>si <Action>(GotoSuperMethod)
 " help
-nmap <Leader>sh :action QuickJavaDoc<CR>
-nmap <Leader>sH :action QuickImplementations<CR>
+nmap <Leader>sh <Action>(QuickJavaDoc)
+nmap <Leader>sH <Action>(QuickImplementations)
 " error
-nmap <Leader>se  :action ShowErrorDescription<CR>
+nmap <Leader>se  <Action>(ShowErrorDescription)
 
 " quick docs, is this still needed?
-nmap <Leader>/ :action QuickJavaDoc<CR>
-nmap <Leader>? :action QuickImplementations<CR>
+nmap <Leader>/ <Action>(QuickJavaDoc)
+nmap <Leader>? <Action>(QuickImplementations)
 
 " show parameter info
-nnoremap <silent> <A-p> :action ParameterInfo<CR>
+nnoremap <silent> <A-p> <Action>(ParameterInfo)
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <A-p> <esc> :action ParameterInfo<CR>i
+inoremap <silent> <A-p> <esc> <Action>(ParameterInfo)i
 
 " git blame
-nmap <Leader>gb  :action Annotate<CR>
+nmap <Leader>gb  <Action>(Annotate)
 " git history
-nmap <Leader>gh  :action Vcs.ShowTabbedFileHistory<CR>
+nmap <Leader>gh  <Action>(Vcs.ShowTabbedFileHistory)
 " git open in browser
-nmap <Leader>go  :action Github.Open.In.Browser<CR>
+nmap <Leader>go  <Action>(Github.Open.In.Browser)
 " git commit
-nmap <Leader>gk  :action CheckinProject
+nmap <Leader>gk  <Action>(CheckinProject)
 
 " tab/buffer navigation
-nmap <Leader>b   :action RecentFiles<CR>
+nmap <Leader>b   <Action>(RecentFiles)
 " move pane to left
-nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <silent> <A-Left> <Action>(MoveEditorToOppositeTabGroup)
 " move pane to right
-nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <silent> <A-Right> <Action>(MoveEditorToOppositeTabGroup)
 
 " Run...
 " run last
-nmap <Leader>rl  :action Run<CR>
+nmap <Leader>rl  <Action>(Run)
 " run this
-nmap <Leader>rt  :action RunClass<CR>
+nmap <Leader>rt  <Action>(RunClass)
 " run all
-nmap <Leader>ra  :action EditorMoveToPageTop<CR> :action RunClass<CR>
+nmap <Leader>ra  <Action>(EditorMoveToPageTop) <Action>(RunClass)
 " run failed
-nmap <Leader>rf  :action RerunFailedTests<CR>
+nmap <Leader>rf  <Action>(RerunFailedTests)
 " debug last
-nmap <Leader>dl  :action Debug<CR>
+nmap <Leader>dl  <Action>(Debug)
 " debug this
-nmap <Leader>dt  :action DebugClass<CR>
+nmap <Leader>dt  <Action>(DebugClass)
 
 " ### Refactoring ###
 " show intentions
-map <Leader>i  :action ShowIntentionActions<CR>
+map <Leader>i  <Action>(ShowIntentionActions)
 " refactor this
-map <Leader>tt  :action Refactorings.QuickListPopupAction<CR>
+map <Leader>tt  <Action>(Refactorings.QuickListPopupAction)
 " introduce variable
-map <Leader>tv  :action IntroduceVariable<CR>
+map <Leader>tv  <Action>(IntroduceVariable)
 " inline
-map <Leader>ti  :action Inline<CR>
+map <Leader>ti  <Action>(Inline)
 " extract method
-map <Leader>tm  :action ExtractMethod<CR>
+map <Leader>tm  <Action>(ExtractMethod)
 " override method
-map <Leader>to  :action OverrideMethods<CR>
+map <Leader>to  <Action>(OverrideMethods)
 " rename
-map <Leader>tr  :action RenameElement<CR>
+map <Leader>tr  <Action>(RenameElement)
 
 " ### Code Generation / Templates
 " generate
-map <Leader>ge  :action Generate<CR>
-
+map <Leader>ge  <Action>(Generate)
 
 " vim-visual-multi equivalents
-nnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
-vnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
-inoremap <silent> <C-n> <esc> :action SelectNextOccurrence<CR>i
+nnoremap <silent> <C-n> <Action>(SelectNextOccurrence)
+vnoremap <silent> <C-n> <Action>(SelectNextOccurrence)
+inoremap <silent> <C-n> <esc> <Action>(SelectNextOccurrence)i
 
-nnoremap <silent> <C-S-n> :action UnselectPreviousOccurrence<CR>
-vnoremap <silent> <C-S-n> :action UnselectPreviousOccurrence<CR>
-inoremap <silent> <C-S-n> <esc> :action UnselectPreviousOccurrence<CR>i
+nnoremap <silent> <C-S-n> <Action>(UnselectPreviousOccurrence)
+vnoremap <silent> <C-S-n> <Action>(UnselectPreviousOccurrence)
+inoremap <silent> <C-S-n> <esc> <Action>(UnselectPreviousOccurrence)i
 
-nnoremap <silent> <C-A-S-n> :action SelectAllOccurrences<CR>
-vnoremap <silent> <C-A-S-n> :action SelectAllOccurrences<CR>
-inoremap <silent> <C-A-S-n> <esc> :action SelectAllOccurrences<CR>i
+nnoremap <silent> <C-A-S-n> <Action>(SelectAllOccurrences)
+vnoremap <silent> <C-A-S-n> <Action>(SelectAllOccurrences)
+inoremap <silent> <C-A-S-n> <esc> <Action>(SelectAllOccurrences)i
 
-nnoremap <silent> <C-up>    :action EditorCloneCaretAbove<CR>
-vnoremap <silent> <C-up>    :action EditorCloneCaretAbove<CR>
-inoremap <silent> <C-up>    <esc>:action EditorCloneCaretAbove<CR>i
-nnoremap <silent> <C-down>  :action EditorCloneCaretBelow<CR>
-vnoremap <silent> <C-down>  :action EditorCloneCaretBelow<CR>
-inoremap <silent> <C-down>  <esc>:action EditorCloneCaretBelow<CR>i
+nnoremap <silent> <C-up>    <Action>(EditorCloneCaretAbove)
+vnoremap <silent> <C-up>    <Action>(EditorCloneCaretAbove)
+inoremap <silent> <C-up>    <esc><Action>(EditorCloneCaretAbove)i
+nnoremap <silent> <C-down>  <Action>(EditorCloneCaretBelow)
+vnoremap <silent> <C-down>  <Action>(EditorCloneCaretBelow)
+inoremap <silent> <C-down>  <esc><Action>(EditorCloneCaretBelow)i
 
-nnoremap <silent> <C-k> :action EditorSelectWord<CR>
-vnoremap <silent> <C-k> :action EditorSelectWord<CR>
-inoremap <silent> <C-k> <esc> :action EditorSelectWord<CR>i
+nnoremap <silent> <C-k> <Action>(EditorSelectWord)
+vnoremap <silent> <C-k> <Action>(EditorSelectWord)
+inoremap <silent> <C-k> <esc> <Action>(EditorSelectWord)i
 
-nnoremap <silent> <C-j> :action EditorUnSelectWord<CR>
-vnoremap <silent> <C-j> :action EditorUnSelectWord<CR>
-inoremap <silent> <C-j> <esc> :action EditorUnSelectWord<CR>i
+nnoremap <silent> <C-j> <Action>(EditorUnSelectWord)
+vnoremap <silent> <C-j> <Action>(EditorUnSelectWord)
+inoremap <silent> <C-j> <esc> <Action>(EditorUnSelectWord)i
 
 " paste the 0 buffer
 nnoremap <leader>p "0p
@@ -179,10 +191,3 @@ nnoremap <leader>P "0P
 " old stuff I don't really use
 nmap <Leader>sr :%s/\<<C-r><C-w>\>/
 
-"======== IdeaVim Emulated Plugins =======
-set surround
-set commentary
-set easymotion
-set exchange
-set highlightedyank
-set textobj-entire
