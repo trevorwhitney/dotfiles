@@ -50,38 +50,41 @@ nnoremap <silent> <C-S-p> :action GotoSymbol<CR>
 " if this starts acting weird, investigate what gi originally used to do and maybe use that?
 inoremap <silent> <C-S-p> <esc> :action GotoSymbol<CR>i
 
+" Open actions menu
+nnoremap <silent> <C-S-a> :action GotoAction<CR>
+" if this starts acting weird, investigate what gi originally used to do and maybe use that?
+inoremap <silent> <C-S-a> <esc> :action GotoAction<CR>i
+
 " format code
 map <Leader>l    :action ReformatCode<CR>
 
+" go to next error
+nmap <Leader>e  :action GotoNextError<CR>
+
 " Go to...
-nmap <Leader>gy   :action GotoSymbol<CR>
-nmap <Leader>gc   :action GotoClass<CR>
-nmap <Leader>ga   :action GotoAction<CR>
 " go to current file in file tree
 nmap <Leader>gf :action SelectIn<CR>
 " go to test file for source (and vice-versa)
 nmap <Leader>gt  :action GotoTest<CR>
-" go to next error
-nmap <Leader>ge  :action GotoNextError<CR>
-" go to member/method
-nmap <Leader>gm  :action FileStructurePopup<CR>
-" non-leader equivalents ala gd
-nnoremap <silent> gi :action GotoImplementation<CR>
-nnoremap <silent> gs :action GotoSuperMethod<CR>
+
+" file structure
+nmap <Leader>fs  :action FileStructurePopup<CR>
 
 " Show me...
 " usages
 nmap <Leader>su :action FindUsages<CR>
 " implementations
-nmap <Leader>si :action GotoImplementation<CR>
+nmap <Leader>sm :action GotoImplementation<CR>
 " super/interfaces
 nmap <Leader>ss :action GotoSuperMethod<CR>
+nmap <Leader>si :action GotoSuperMethod<CR>
 " help
 nmap <Leader>sh :action QuickJavaDoc<CR>
+nmap <Leader>sH :action QuickImplementations<CR>
 " error
 nmap <Leader>se  :action ShowErrorDescription<CR>
 
-" quick docs
+" quick docs, is this still needed?
 nmap <Leader>/ :action QuickJavaDoc<CR>
 nmap <Leader>? :action QuickImplementations<CR>
 
@@ -133,10 +136,13 @@ map <Leader>ti  :action Inline<CR>
 map <Leader>tm  :action ExtractMethod<CR>
 " override method
 map <Leader>to  :action OverrideMethods<CR>
-" gEnerate
-map <Leader>te  :action Generate<CR>
 " rename
 map <Leader>tr  :action RenameElement<CR>
+
+" ### Code Generation / Templates
+" generate
+map <Leader>ge  :action Generate<CR>
+
 
 " vim-visual-multi equivalents
 nnoremap <silent> <C-n> :action SelectNextOccurrence<CR>
