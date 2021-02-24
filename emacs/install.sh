@@ -6,7 +6,9 @@ dot_files_dir=$(cd "$current_dir/.." && pwd)
 source "$dot_files_dir/lib.sh"
 
 mkdir -p "$HOME/.emacs.d"
-git clone --depth 1 https://github.com/emacs-evil/evil ~/.emacs.d/evil
+if [[ ! -e "$HOME/.emacs.d/evil" ]]; then
+  git clone --depth 1 https://github.com/emacs-evil/evil ~/.emacs.d/evil
+fi
 
 for file in `ls $current_dir/emacs.d`; do
     file_name=$(basename "$file")
@@ -14,6 +16,6 @@ for file in `ls $current_dir/emacs.d`; do
       rm -rf "$HOME/.emacs.d/$file_name";
     fi
 
-    ln -s "$current_dir/emacs.d/$file" "$HOME/.emacs.d/$file_name"
+    ln -sf "$current_dir/emacs.d/$file" "$HOME/.emacs.d/$file_name"
 done
 
