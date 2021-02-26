@@ -1,14 +1,5 @@
 let mapleader = " "
 
-"======== IdeaVim Emulated Plugins =======
-set surround
-set commentary
-set easymotion
-set exchange
-set highlightedyank
-set textobj-entire
-set NERDTree
-
 "========== General ==========
 set expandtab                   " Use soft tabs
 set tabstop=2                   " Tab settings
@@ -18,17 +9,18 @@ set shiftwidth=2                " Width of autoindent
 set backspace=indent,eol,start  " Let backspace work over anything.
 set showmatch                   " Show matching brackets/braces
 set mouse=a                     " enable mouse in all modes
+set ignorecase smartcase
 set incsearch
-set clipboard+=unnamed,ideaput
-set idearefactormode=visual
+set clipboard^=unnamed,ideaput
+set idearefactormode=keep
 set ideajoin=true
 set ideamarks=true
 set scrolloff=5
 
 " Spell checking
 set spelllang=en_us
-nmap <silent> <leader>sp :set spell!<CR>
-map <Leader>z :'<,'>sort<CR>
+nmap <silent> <leader>sp :set spell!<cr>
+map <leader>z :'<,'>sort<cr>
 
 " UTF-8 all the way
 set encoding=utf-8
@@ -49,145 +41,160 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" nerd tree equivalence
-map \ <Action>(ActivateProjectToolWindow)
-map \| <Action>(SelectInProjectView)
+nnoremap <leader>\ :action SelectInProjectView<cr>
 
 " File/symbol navigation
 " mimic <C-p> in vim
-nnoremap <silent> <C-p> <Action>(GotoFile)
-" if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <C-p> <esc> <Action>(GotoFile)i
+nnoremap <silent> <C-p> :action GotoFile<cr>
+inoremap <silent> <C-p> <esc> :action GotoFile<cr>i
 " mimic <C-S-p> in vim to open symbols
-nnoremap <silent> <C-S-p> <Action>(GotoSymbol)
-" if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <C-S-p> <esc> <Action>(GotoSymbol)i
-
+nnoremap <silent> <C-S-p> :action GotoSymbol<cr>
+inoremap <silent> <C-S-p> <esc> :action GotoSymbol<cr>i
 " Open actions menu
-nnoremap <silent> <C-S-a> <Action>(GotoAction)
-" if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <C-S-a> <esc> <Action>(GotoAction)i
+nnoremap <silent> <C-S-a> :action GotoAction<cr>
+inoremap <silent> <C-S-a> <esc> :action GotoAction<cr>i
 
-" format code
-map <Leader>l    <Action>(ReformatCode)
 
 " go to next error
-nmap <Leader>e  <Action>(GotoNextError)
+nmap \e  :action GotoNextError<cr>
 
-" Go to...
+" Code navigation
 " go to current file in file tree
-nmap <Leader>gf <Action>(SelectIn)
+nmap <leader>gf :action SelectIn<cr>
 " go to test file for source (and vice-versa)
-nmap <Leader>gt  <Action>(GotoTest)
+nmap <leader>gt  :action GotoTest<cr>
+" implementations
+nmap <leader>] :action GotoImplementation<cr>
+" super
+nmap <leader>[ :action GotoSuperMethod<cr>
+nnoremap <space>k :action HighlightUsagesInFile<cr>
+
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+" but preserve ideavim defaults
+nnoremap g<c-o> <c-o>
+nnoremap g<c-i> <c-i>
+
+" built in search looks better
+nnoremap / :action Find<cr>
+" but preserve ideavim search
+nnoremap g/ /
+
+nmap <leader>sr :action Replace<cr>
+nmap <leader>sR :action ReplaceInPath<cr>
+
 
 " file structure
-nmap <Leader>fs  <Action>(FileStructurePopup)
+nmap <leader>fs  :action FileStructurePopup<cr>
 
 " Show me...
 " usages
-nmap <Leader>su <Action>(FindUsages)
-" implementations
-nmap <Leader>sm <Action>(GotoImplementation)
-" super/interfaces
-nmap <Leader>ss <Action>(GotoSuperMethod)
-nmap <Leader>si <Action>(GotoSuperMethod)
+nmap <leader>su :action FindUsages<cr>
 " help
-nmap <Leader>sh <Action>(QuickJavaDoc)
-nmap <Leader>sH <Action>(QuickImplementations)
-" error
-nmap <Leader>se  <Action>(ShowErrorDescription)
+nmap <leader>sh :action QuickJavaDoc<cr>
+nmap <leader>sH :action QuickImplementations<cr>
+" error description
+nmap <leader>se  :action ShowErrorDescription<cr>
 
 " quick docs, is this still needed?
-nmap <Leader>/ <Action>(QuickJavaDoc)
-nmap <Leader>? <Action>(QuickImplementations)
+nmap <leader>/ :action QuickJavaDoc<cr>
+nmap <leader>? :action QuickImplementations<cr>
 
 " show parameter info
-nnoremap <silent> <A-p> <Action>(ParameterInfo)
-" if this starts acting weird, investigate what gi originally used to do and maybe use that?
-inoremap <silent> <A-p> <esc> <Action>(ParameterInfo)i
+nnoremap <silent> <A-p> :action ParameterInfo<cr>
+inoremap <silent> <A-p> <esc> :action ParameterInfo<cr>i
 
 " git blame
-nmap <Leader>gb  <Action>(Annotate)
+nmap <leader>gb  :action Annotate<cr>
 " git history
-nmap <Leader>gh  <Action>(Vcs.ShowTabbedFileHistory)
+nmap <leader>gh  :action Vcs.ShowTabbedFileHistory<cr>
 " git open in browser
-nmap <Leader>go  <Action>(Github.Open.In.Browser)
+nmap <leader>go  :action Github.Open.In.Browser<cr>
 " git commit
-nmap <Leader>gk  <Action>(CheckinProject)
+nmap <leader>gk  :action CheckinProject<cr>
 
+" Content navigation
 " tab/buffer navigation
-nmap <Leader>b   <Action>(RecentFiles)
+nmap <leader>b   :action RecentFiles<cr>
+nnoremap <leader>E :action Switcher<cr>
 " move pane to left
-nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<cr>
 " move pane to right
-nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<CR>
+nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<cr>
 
 " Run...
 " run last
-nmap <Leader>rl  <Action>(Run)
+nnoremap <leader>rl  :action Run<cr>
 " run this
-nmap <Leader>rt  <Action>(RunClass)
+nnoremap <leader>rt  :action RunClass<cr>
 " run all
-nmap <Leader>ra  <Action>(EditorMoveToPageTop) <Action>(RunClass)
+nnoremap <leader>ra  :action EditorMoveToPageTop<cr>:action RunClass<cr>
 " run failed
-nmap <Leader>rf  <Action>(RerunFailedTests)
+nnoremap <leader>rf  :action RerunFailedTests<cr>
 " debug last
-nmap <Leader>dl  <Action>(Debug)
+nnoremap <leader>dl  :action Debug<cr>
 " debug this
-nmap <Leader>dt  <Action>(DebugClass)
+nnoremap <leader>dt  :action DebugClass<cr>
 
 " ### Refactoring ###
-" show intentions
-map <Leader>i  <Action>(ShowIntentionActions)
-" refactor this
-map <Leader>tt  <Action>(Refactorings.QuickListPopupAction)
-" introduce variable
-map <Leader>tv  <Action>(IntroduceVariable)
-" inline
-map <Leader>ti  <Action>(Inline)
-" extract method
-map <Leader>tm  <Action>(ExtractMethod)
-" override method
-map <Leader>to  <Action>(OverrideMethods)
-" rename
-map <Leader>tr  <Action>(RenameElement)
+noremap <leader><cr>  :action ShowIntentionActions<cr>
+" refactor This
+noremap <leader>t  :action Refactorings.QuickListPopupAction<cr>
+noremap <leader>v  :action IntroduceVariable<cr>
+noremap <leader>in  :action Inline<cr>
+noremap <leader>em  :action ExtractMethod<cr>
+noremap <leader>re  :action RenameElement<cr>
+nnoremap <leader>om  :action OverrideMethods<cr>
 
 " ### Code Generation / Templates
 " generate
-map <Leader>ge  <Action>(Generate)
+nnoremap <leader>ge  :action Generate<cr>
 
-" vim-visual-multi equivalents
-nnoremap <silent> <C-n> <Action>(SelectNextOccurrence)
-vnoremap <silent> <C-n> <Action>(SelectNextOccurrence)
-inoremap <silent> <C-n> <esc> <Action>(SelectNextOccurrence)i
+" Multiple cursors
+" built in select next behavior is better, so map to <C-n> and friends for
+" vim-visual-multi equivalents. Below only mimics <C-up> and <C-down> behavior
+noremap <silent> <C-up>    :action EditorCloneCaretAbove<cr>
+inoremap <silent> <C-up>    <esc>:action EditorCloneCaretAbove<cr>i
 
-nnoremap <silent> <C-S-n> <Action>(UnselectPreviousOccurrence)
-vnoremap <silent> <C-S-n> <Action>(UnselectPreviousOccurrence)
-inoremap <silent> <C-S-n> <esc> <Action>(UnselectPreviousOccurrence)i
+noremap <silent> <C-down>  :action EditorCloneCaretBelow<cr>
+inoremap <silent> <C-down>  <esc>:action EditorCloneCaretBelow<cr>i
 
-nnoremap <silent> <C-A-S-n> <Action>(SelectAllOccurrences)
-vnoremap <silent> <C-A-S-n> <Action>(SelectAllOccurrences)
-inoremap <silent> <C-A-S-n> <esc> <Action>(SelectAllOccurrences)i
+" Expand/Shrink selection
+noremap <silent> <C-k> :action EditorSelectWord<cr>
+inoremap <silent> <C-k> :action EditorSelectWord<cr>i
+noremap <silent> <C-j> :action EditorUnSelectWord<cr>
+inoremap <silent> <C-j> <esc> :action EditorUnSelectWord<cr>i
 
-nnoremap <silent> <C-up>    <Action>(EditorCloneCaretAbove)
-vnoremap <silent> <C-up>    <Action>(EditorCloneCaretAbove)
-inoremap <silent> <C-up>    <esc><Action>(EditorCloneCaretAbove)i
-nnoremap <silent> <C-down>  <Action>(EditorCloneCaretBelow)
-vnoremap <silent> <C-down>  <Action>(EditorCloneCaretBelow)
-inoremap <silent> <C-down>  <esc><Action>(EditorCloneCaretBelow)i
+" actions
+nnoremap \q :action CloseContent<cr>
+nnoremap \Q :action ReopenClosedTab<cr>
+nnoremap <leader>tb :action ToggleLineBreakpoint<cr>
+nnoremap <leader>tB :action EditBreakpoint<cr>
+map <leader>=    :action ReformatCode<cr>
 
-nnoremap <silent> <C-k> <Action>(EditorSelectWord)
-vnoremap <silent> <C-k> <Action>(EditorSelectWord)
-inoremap <silent> <C-k> <esc> <Action>(EditorSelectWord)i
+" unimpaired mappings
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
 
-nnoremap <silent> <C-j> <Action>(EditorUnSelectWord)
-vnoremap <silent> <C-j> <Action>(EditorUnSelectWord)
-inoremap <silent> <C-j> <esc> <Action>(EditorUnSelectWord)i
+" motion
+map <leader>w <Plug>(easymotion-bd-w)
 
 " paste the 0 buffer
 nnoremap <leader>p "0p
 nnoremap <leader>P "0P
 
-" old stuff I don't really use
-nmap <Leader>sr :%s/\<<C-r><C-w>\>/
+"======== IdeaVim Emulated Plugins =======
+set surround
+set commentary
+set easymotion
+set exchange
+set highlightedyank
+set textobj-entire
+set NERDTree
+set showmode
 
