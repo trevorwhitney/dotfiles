@@ -54,10 +54,6 @@ inoremap <silent> <C-S-p> <esc> :action GotoSymbol<cr>i
 nnoremap <silent> <C-S-a> :action GotoAction<cr>
 inoremap <silent> <C-S-a> <esc> :action GotoAction<cr>i
 
-
-" go to next error
-nmap \e  :action GotoNextError<cr>
-
 " Code navigation
 " go to current file in file tree
 nmap <leader>gf :action SelectIn<cr>
@@ -180,6 +176,9 @@ nnoremap [m :action MethodUp<cr>
 nnoremap ]m :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
+" errors
+nnoremap [e  :action GotoPreviousError<cr>
+nnoremap ]e  :action GotoNextError<cr>
 
 " motion
 map <leader>w <Plug>(easymotion-bd-w)
