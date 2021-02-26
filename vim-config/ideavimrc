@@ -113,11 +113,13 @@ nmap <leader>gk  :action CheckinProject<cr>
 " Content navigation
 " tab/buffer navigation
 nmap <leader>b   :action RecentFiles<cr>
-nnoremap <leader>E :action Switcher<cr>
+nnoremap \e :action Switcher<cr>
 " move pane to left
 nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<cr>
+nnoremap <silent> <A-H> :action MoveEditorToOppositeTabGroup<cr>
 " move pane to right
 nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<cr>
+nnoremap <silent> <A-L> :action MoveEditorToOppositeTabGroup<cr>
 
 " Run...
 " run last
@@ -165,8 +167,10 @@ inoremap <silent> <C-j> <esc> :action EditorUnSelectWord<cr>i
 " actions
 nnoremap \q :action CloseContent<cr>
 nnoremap \Q :action ReopenClosedTab<cr>
-nnoremap <leader>tb :action ToggleLineBreakpoint<cr>
-nnoremap <leader>tB :action EditBreakpoint<cr>
+nnoremap \w :action CloseAllEditorsButActive<cr>
+nnoremap \W :action CloseAllEditors<cr>
+nnoremap \b :action ToggleLineBreakpoint<cr>
+nnoremap \B :action EditBreakpoint<cr>
 map <leader>=    :action ReformatCode<cr>
 
 " unimpaired mappings

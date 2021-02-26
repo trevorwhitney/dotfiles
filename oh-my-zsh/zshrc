@@ -90,3 +90,6 @@ fi
 
 # completions
 complete -F __start_kubectl k
+complete -o nospace -C /usr/local/bin/tk tk
+
+autoload -U +X bashcompinit && bashcompinit
