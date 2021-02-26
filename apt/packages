@@ -9,6 +9,7 @@ direnv
 gawk
 gettext
 git
+git-crypt
 gnome-tweaks
 gnupg
 gnupg-agent
