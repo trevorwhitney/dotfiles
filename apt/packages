@@ -19,6 +19,7 @@ grok
 htop
 jq
 libtool
+libxdo3
 lm-sensors
 lnav
 lsb-release
@@ -47,6 +48,7 @@ urlview
 vim-gtk
 vinagre
 wget
+xdotool
 xclip
 xsel
 zsh
