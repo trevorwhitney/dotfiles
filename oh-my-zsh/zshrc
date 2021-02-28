@@ -7,13 +7,20 @@ HYPHEN_INSENSITIVE="true"
 plugins=(git ruby vi-mode mvn aws)
 
 # User configuration
+#
+# Set Default Ruby
+eval "$(rbenv init -)"
+rbenv shell 2.4.1
+RUBY_HOME="$HOME/.rbenv/versions/$RBENV_VERSION"
+
 HOMEBREW_GOROOT="/usr/local/Cellar/go/1.15.6/libexec"
 LINUX_GOROOT="/usr/local/go@1.15"
 export GOROOT="$(if [[ $(uname) = "Darwin" ]]; then echo "$HOMEBREW_GOROOT"; else echo "$LINUX_GOROOT"; fi)"
 export GOPATH="$HOME/go"
+
 export PYTHON_HOME="/usr/local/opt/python3/libexec"
-export PATH="$GOPATH/bin:$GOROOT/bin:$PYTHON_HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-export TERM="xterm-256color"
+export PATH="$GOPATH/bin:$GOROOT/bin:$RUBY_HOME/bin:$PYTHON_HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+#export TERM="xterm-256color"
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
@@ -39,9 +46,6 @@ fi
 # use CTRL-w to remove the most recent directory, even if it has dashes! Bliss.
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-# Set Default Ruby
-eval "$(rbenv init -)"
-rbenv shell 2.4.1
 
 # Fuzzy completion for history
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -49,7 +53,7 @@ rbenv shell 2.4.1
 # Direnv hook
 eval "$(direnv hook zsh)"
 
-export GROOVY_HOME=/usr/local/opt/groovy/libexec
+# export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export GLOBAL_GIT_HOOK_DIR="$HOME/.git/hooks"
 export EDITOR=vim
 
@@ -75,14 +79,14 @@ zle -N zle-keymap-select
 
 export KEYTIMEOUT=15
 
-rachio_functions="$HOME/workspace/rachio/scripts/rachio-functions.zsh"
-if [[ -e  $rachio_functions ]]; then
-  source $rachio_functions
-fi
-rachio_aliases="$HOME/workspace/rachio/scripts/rachio-aliases.zsh"
-if [[ -e  $rachio_aliases ]]; then
-  source $rachio_aliases
-fi
+# rachio_functions="$HOME/workspace/rachio/scripts/rachio-functions.zsh"
+# if [[ -e  $rachio_functions ]]; then
+#   source $rachio_functions
+# fi
+# rachio_aliases="$HOME/workspace/rachio/scripts/rachio-aliases.zsh"
+# if [[ -e  $rachio_aliases ]]; then
+#   source $rachio_aliases
+# fi
 
 if [[ -e "$HOME/.cargo/env" ]]; then
   source "$HOME/.cargo/env"
