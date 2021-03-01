@@ -1,15 +1,15 @@
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
-" Plug 'ervandew/supertab'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'godlygeek/tabular'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
 Plug 'kien/ctrlp.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mattn/emmet-vim'
-Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+if !has('nvim')
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+endif
 Plug 'nelstrom/vim-qargs'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rking/ag.vim'
