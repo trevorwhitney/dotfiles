@@ -42,6 +42,7 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 nnoremap <leader>\ :action SelectInProjectView<cr>
+nnoremap <leader>/ :NERDTreeToggle<cr>
 
 " File/symbol navigation
 " mimic <C-p> in vim
@@ -61,8 +62,13 @@ nmap <leader>gf :action SelectIn<cr>
 nmap <leader>gt  :action GotoTest<cr>
 " implementations
 nmap <leader>] :action GotoImplementation<cr>
+nmap <silent> gi :action GotoImplementation<cr>
 " super
 nmap <leader>[ :action GotoSuperMethod<cr>
+nmap <silent> gy :action GotoSuperMethod<cr>
+" usages
+nmap <leader>su :action FindUsages<cr>
+nmap <silent>gr :action FindUsages<cr>
 nnoremap <space>k :action HighlightUsagesInFile<cr>
 
 " built-in navigation to navigated items works better
@@ -80,22 +86,20 @@ nnoremap g/ /
 nmap <leader>sr :action Replace<cr>
 nmap <leader>sR :action ReplaceInPath<cr>
 
-
 " file structure
 nmap <leader>fs  :action FileStructurePopup<cr>
+" Coc mapping
+nnoremap <silent><nowait> \o  :action FileStructurePopup<cr>
 
 " Show me...
-" usages
-nmap <leader>su :action FindUsages<cr>
 " help
 nmap <leader>sh :action QuickJavaDoc<cr>
+nmap <leader>? :action QuickJavaDoc<cr>
 nmap <leader>sH :action QuickImplementations<cr>
 " error description
 nmap <leader>se  :action ShowErrorDescription<cr>
 
 " quick docs, is this still needed?
-nmap <leader>/ :action QuickJavaDoc<cr>
-nmap <leader>? :action QuickImplementations<cr>
 
 " show parameter info
 nnoremap <silent> <A-p> :action ParameterInfo<cr>
@@ -112,7 +116,8 @@ nmap <leader>gk  :action CheckinProject<cr>
 
 " Content navigation
 " tab/buffer navigation
-nmap <leader>b   :action RecentFiles<cr>
+nmap <leader>be   :action RecentFiles<cr>
+
 nnoremap \e :action Switcher<cr>
 " move pane to left
 nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<cr>
@@ -139,10 +144,13 @@ nnoremap <leader>dt  :action DebugClass<cr>
 noremap <leader><cr>  :action ShowIntentionActions<cr>
 " refactor This
 noremap <leader>t  :action Refactorings.QuickListPopupAction<cr>
+noremap <leader>ac  :action Refactorings.QuickListPopupAction<cr>
+xnoremap <leader>t  :action Refactorings.QuickListPopupAction<cr>
+xnoremap <leader>a  :action Refactorings.QuickListPopupAction<cr>
 noremap <leader>v  :action IntroduceVariable<cr>
 noremap <leader>in  :action Inline<cr>
 noremap <leader>em  :action ExtractMethod<cr>
-noremap <leader>re  :action RenameElement<cr>
+noremap <leader>rn  :action RenameElement<cr>
 nnoremap <leader>om  :action OverrideMethods<cr>
 
 " ### Code Generation / Templates
@@ -180,9 +188,12 @@ nnoremap [m :action MethodUp<cr>
 nnoremap ]m :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
-" errors
-nnoremap [e  :action GotoPreviousError<cr>
-nnoremap ]e  :action GotoNextError<cr>
+" Treat IntelliJ tabs act like vim buffers
+nnoremap ]b   gt
+nnoremap [b   gT
+" errors (Diagnostics (g) in Coc lingo)
+nnoremap [g  :action GotoPreviousError<cr>
+nnoremap ]g  :action GotoNextError<cr>
 
 " motion
 map <leader>w <Plug>(easymotion-bd-w)
