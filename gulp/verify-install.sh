@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-which gulp
+command -v gulp > /dev/null
+gulp --version > /dev/null
