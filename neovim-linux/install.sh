@@ -35,9 +35,11 @@ popd > /dev/null || exit 1
 
 rm -rf $temp
 python3 -m pip install --user --upgrade pynvim
-python2 -m pip install --user --upgrade pynvim
+python -m pip install --user --upgrade pynvim
 gem install neovim
-npm install -g neovim
+sudo npm install -g neovim
+
+mkdir -p "$HOME/.config/nvim"
 
 create_nvim_link "$current_dir/init.vim"
 create_nvim_link "$current_dir/coc-settings.json"
