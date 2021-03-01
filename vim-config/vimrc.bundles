@@ -1,3 +1,4 @@
+Plug 'bling/vim-bufferline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -7,9 +8,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'kien/ctrlp.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mattn/emmet-vim'
-if !has('nvim')
-  Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-endif
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'nelstrom/vim-qargs'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rking/ag.vim'
