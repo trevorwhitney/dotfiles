@@ -2,6 +2,7 @@ Plug 'bling/vim-bufferline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'google/vim-jsonnet'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
