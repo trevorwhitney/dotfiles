@@ -1,0 +1,230 @@
+let mapleader = " "
+
+"========== General ==========
+set expandtab                   " Use soft tabs
+set tabstop=2                   " Tab settings
+set autoindent
+set smarttab                    " Use shiftwidth to tab at line beginning
+set shiftwidth=2                " Width of autoindent
+set backspace=indent,eol,start  " Let backspace work over anything.
+set showmatch                   " Show matching brackets/braces
+set mouse=a                     " enable mouse in all modes
+set ignorecase smartcase
+set incsearch
+set clipboard^=unnamed,ideaput
+set idearefactormode=keep
+set ideajoin=true
+set ideamarks=true
+set scrolloff=5
+set wrapscan
+
+" Spell checking
+set spelllang=en_us
+
+" UTF-8 all the way
+set encoding=utf-8
+
+"========== Folding ==========
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
+
+"======== IdeaVim Emulated Plugins =======
+set surround
+set commentary
+set easymotion
+set exchange
+set highlightedyank
+set textobj-entire
+set NERDTree
+set showmode
+
+"========== Keybindings ==========
+imap jj          <Esc>
+
+" | key                | operation (mnemonic)              |
+" | -------------------| ----------------------------------|
+" | <A-p>         | Show parameter info               |
+" | <C-H>         | Focus window left                 |
+" | <C-J>         | Focus window below                |
+" | <C-K>         | Focus window above                |
+" | <C-L>         | Focus window right                |
+" | <C-S-a>       | Open Action                       |
+" | <C-S-p>       | Open Symbol                       |
+" | <C-p>         | Open File                         |
+" | <leader> =    | Reformat code                     |
+" | <leader>/     | NERDTreeToggle                    |
+" | <leader>\     | NERDTreeFind                      |
+" | <leader><cr>  | Show intentions                   |
+" | <leader>[     | Go to super/interface             |
+" | <leader>]     | Go to implementation              |
+" | <leader>be    | Buff Explorer (Show recent files) |
+" | <leader>dl    | Debug last                        |
+" | <leader>dt    | Debug this                        |
+" | <leader>em    | Extract method                    |
+" | <leader>gb    | Git blame                         |
+" | <leader>ge    | Generate                          |
+" | <leader>gf    | "Goto File" in...                 |
+" | <leader>gh    | Git history                       |
+" | <leader>gk    | Git commit                        |
+" | <leader>go    | Open in github                    |
+" | <leader>gt    | "Goto Test"                       |
+" | <leader>in    | Inline                            |
+" | <leader>k     | Highlight usages in file          |
+" | <leader>om    | Override methods                  |
+" | <leader>p     | Paste(p) the 0th buffer           |
+" | <leader>P     | Paste(P) the 0th buffer           |
+" | <leader>ra    | Run all                           |
+" | <leader>rf    | Run failed                        |
+" | <leader>rl    | Run last                          |
+" | <leader>rn    | Rename                            |
+" | <leader>rt    | Run this                          |
+" | <leader>se    | Show error message                |
+" | <leader>?     | Show quick help                   |
+" | <leader>sh/sH | Show quick/detailed help          |
+" | <leader>sr/sR | local/global search and replace   |
+" | <leader>su    | Find Usages (Show usages)         |
+" | <leader>t     | Refactor this                     |
+" | <leader>v     | Introduce Variable                |
+" | <leader>w     | Easymotion word                   |
+" | <leader>z     | sort selection                    |
+" | <A-H>         | Move tab left                     |
+" | <A-L>         | Move tab left                     |
+" | <A-Left>      | Move tab left                     |
+" | <A-Right>     | Move tab right                    |
+" | gi            | Go to implementation              |
+" | gy            | Go to super/interface             |
+" | gr            | Find Usages (Goto References)     |
+" | C-k/j         | Expand/shrink selection           |
+" | C-up/down     | Clone caret/multiple cursors      |
+" | [<space>      | new line above                    |
+" | [b            | Next buffer/tab                   |
+" | [c            | Previous git change               |
+" | [g            | Previous error/diagnostic(g)      |
+" | [m            | Previous method                   |
+" | \b            | Toggle breakpoint                 |
+" | \B            | Edit breakpoint                   |
+" | \e            | Recent files                      |
+" | \d            | Debug last                        |
+" | \D            | Debug this                        |
+" | \o            | File outline (File structure)     |
+" | \q            | Close current tab                 |
+" | \Q            | Reopen last closed tab            |
+" | \r            | Run last                          |
+" | \R            | Run this                          |
+" | \t            | Goto test                         |
+" | \w            | Close all other tabs              |
+" | \W            | Close all tabs                    |
+" | ]<space>      | new line below                    |
+" | ]b            | Previous buffer/tab               |
+" | ]c            | Next git change                   |
+" | ]g            | Next error/diagnostic(g)          |
+" | ]m            | Next method                       |
+" | g<c-i>        | Ideavim default forward           |
+" | g<c-o>        | Ideavim default back              |
+
+nnoremap <silent> <A-p> :action ParameterInfo<cr>
+inoremap <silent> <A-p> <esc> :action ParameterInfo<cr>i
+
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+noremap  <silent> <C-S-a> :action GotoAction<cr>
+inoremap <silent> <C-S-a> <esc> :action GotoAction<cr>i
+noremap  <silent> <C-S-p> :action GotoSymbol<cr>
+inoremap <silent> <C-S-p> <esc> :action GotoSymbol<cr>i
+noremap  <silent> <C-p> :action GotoFile<cr>
+inoremap <silent> <C-p> <esc> :action GotoFile<cr>i
+
+noremap <leader>=      :action ReformatCode<cr>
+nnoremap <leader>/ :NERDTreeToggle<cr>
+nnoremap <leader>\ :action SelectInProjectView<cr>
+nnoremap <leader><cr>  :action ShowIntentionActions<cr>
+nnoremap <leader>[ :action GotoSuperMethod<cr>
+nnoremap <leader>] :action GotoImplementation<cr>
+
+nnoremap <leader>be  :action RecentFiles<cr>
+nnoremap <leader>dl  :action Debug<cr>
+nnoremap <leader>dt  :action DebugClass<cr>
+noremap  <leader>em  :action ExtractMethod<cr>
+nnoremap <leader>fs  :action FileStructurePopup<cr>
+nnoremap <leader>gb  :action Annotate<cr>
+nnoremap <leader>gf  :action SelectIn<cr>
+nnoremap <leader>gh  :action Vcs.ShowTabbedFileHistory<cr>
+nnoremap <leader>gk  :action CheckinProject<cr>
+nnoremap <leader>go  :action Github.Open.In.Browser<cr>
+nnoremap <leader>gt  :action GotoTest<cr>
+noremap  <leader>in  :action Inline<cr>
+nnoremap <leader>k   :action HighlightUsagesInFile<cr>
+nnoremap <leader>p   "0p
+nnoremap <leader>P   "0P
+nnoremap <leader>ra  :action EditorMoveToPageTop<cr>:action RunClass<cr>
+nnoremap <leader>rf  :action RerunFailedTests<cr>
+nnoremap <leader>rl  :action Run<cr>
+noremap  <leader>rn  :action RenameElement<cr>
+nnoremap <leader>rt  :action RunClass<cr>
+nnoremap <leader>se  :action ShowErrorDescription<cr>
+nnoremap <leader>?   :action QuickJavaDoc<cr>
+nnoremap <leader>sh  :action QuickJavaDoc<cr>
+nnoremap <leader>sH  :action QuickImplementations<cr>
+nnoremap <leader>sr  :action Replace<cr>
+nnoremap <leader>sR  :action ReplaceInPath<cr>
+nnoremap <leader>su  :action FindUsages<cr>
+noremap  <leader>t   :action Refactorings.QuickListPopupAction<cr>
+noremap  <leader>v   :action IntroduceVariable<cr>
+noremap  <leader>w   <Plug>(easymotion-bd-w)
+xnoremap <leader>z   :'<,'>sort<cr>
+
+nnoremap <silent> <A-Left> :action MoveEditorToOppositeTabGroup<cr>
+nnoremap <silent> <A-H> :action MoveEditorToOppositeTabGroup<cr>
+nnoremap <silent> <A-Right> :action MoveEditorToOppositeTabGroup<cr>
+nnoremap <silent> <A-L> :action MoveEditorToOppositeTabGroup<cr>
+
+nnoremap <silent> gi :action GotoImplementation<cr>
+nnoremap <silent> gy :action GotoSuperMethod<cr>
+nnoremap <silent> gr :action FindUsages<cr>
+
+noremap  <silent> <C-up>    :action EditorCloneCaretAbove<cr>
+inoremap <silent> <C-up>    <esc>:action EditorCloneCaretAbove<cr>i
+noremap  <silent> <C-down>  :action EditorCloneCaretBelow<cr>
+inoremap <silent> <C-down>  <esc>:action EditorCloneCaretBelow<cr>i
+noremap  <silent> <C-k> :action EditorSelectWord<cr>
+inoremap <silent> <C-k> :action EditorSelectWord<cr>i
+noremap  <silent> <C-j> :action EditorUnSelectWord<cr>
+inoremap <silent> <C-j> <esc> :action EditorUnSelectWord<cr>i
+
+nnoremap <silent> \b :action ToggleLineBreakpoint<cr>
+nnoremap <silent> \B :action EditBreakpoint<cr>
+nnoremap <silent> \d :action Debug<cr>
+nnoremap <silent> \D :action DebugClass<cr>
+nnoremap <silent> \e :action RecentFiles<cr>
+nnoremap <silent> \o :action FileStructurePopup<cr>
+nnoremap <silent> \q :action CloseContent<cr>
+nnoremap <silent> \Q :action ReopenClosedTab<cr>
+nnoremap <silent> \r :action Run<cr>
+nnoremap <silent> \R :action RunClass<cr>
+nnoremap <silent> \t :action GotoTest<cr>
+nnoremap <silent> \w :action CloseAllEditorsButActive<cr>
+nnoremap <silent> \W :action CloseAllEditors<cr>
+
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+nnoremap ]b   gt
+nnoremap [b   gT
+nnoremap [g  :action GotoPreviousError<cr>
+nnoremap ]g  :action GotoNextError<cr>
+
+" =========== Some useful overrides ==========="
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+" but preserve ideavim defaults
+nnoremap g<c-o> <c-o>
+nnoremap g<c-i> <c-i>
