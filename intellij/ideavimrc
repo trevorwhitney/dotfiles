@@ -11,12 +11,13 @@ set showmatch                   " Show matching brackets/braces
 set mouse=a                     " enable mouse in all modes
 set ignorecase smartcase
 set incsearch
-set clipboard^=unnamed,ideaput
-set idearefactormode=keep
-set ideajoin=true
-set ideamarks=true
 set scrolloff=5
 set wrapscan
+set visualbell
+
+set clipboard^=unnamed,ideaput
+set idearefactormode=keep
+set ideajoin ideamarks
 
 " Spell checking
 set spelllang=en_us
@@ -43,8 +44,8 @@ set showmode
 "========== Keybindings ==========
 imap jj          <Esc>
 
-" | key                | operation (mnemonic)              |
-" | -------------------| ----------------------------------|
+" | key           | operation (mnemonic)              |
+" | --------------| ----------------------------------|
 " | <A-p>         | Show parameter info               |
 " | <C-H>         | Focus window left                 |
 " | <C-J>         | Focus window below                |
