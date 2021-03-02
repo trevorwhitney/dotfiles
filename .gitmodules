@@ -1,6 +1,3 @@
 [submodule "emacs/better-defaults"]
 	path = emacs/better-defaults
 	url = git@github.com:technomancy/better-defaults.git
-[submodule ".tmux"]
-	path = .tmux
-	url = git@github.com:gpakosz/.tmux.git
