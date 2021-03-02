@@ -86,6 +86,11 @@ live_config_reload: true
 
 # Shell
 shell:
-  program: /usr/bin/tmux
+  program: /bin/zsh
+  args:
+    - -i
+    - -l
+    - -c
+    - "tmux attach || tmux"
   #working_directory: None
   #alt_send_esc: true
