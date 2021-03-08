@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+current_dir=$(cd "$(dirname "$0")" && pwd)
+
+if [[ "$current_dir" != "$HOME/.dotfiles" ]]; then
+  ln -sf "$current_dir" "$HOME/.dotfiles"
+fi
 
 set -e # Exit if any command fails
 

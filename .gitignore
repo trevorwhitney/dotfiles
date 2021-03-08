@@ -3,3 +3,4 @@
 .stack-work
 containers/dotfiles/*.tar.gz
 .idea
+.last-update

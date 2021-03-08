@@ -26,26 +26,27 @@ create_custom_vim_link() {
 
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/colors
-create_vim_link "$current_dir/vimrc.bundles"
-create_vim_link "$current_dir/vimrc.config"
+create_vim_link "$current_dir/bundles.vim"
+create_vim_link "$current_dir/config.vim"
+
 create_custom_vim_link "colors/gruvbox.vim"
 create_custom_vim_link "colors/gruvbox_less_red.vim"
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-sed -e 's/^colorscheme/"colorscheme/' "$HOME/.vim/vimrc.config" > "$current_dir/vimrc.config.tmp"
-mv "$current_dir/vimrc.config.tmp" "$HOME/.vim/vimrc.config"
+sed -e 's/^colorscheme/"colorscheme/' "$HOME/.vim/config.vim" > "$current_dir/config.vim.tmp"
+mv "$current_dir/config.vim.tmp" "$HOME/.vim/config.vim"
 
 set +e
 vim --noplugin +"silent PlugInstall" +qall
 set -e
 
-sed -e 's/^"colorscheme/colorscheme/' "$HOME/.vim/vimrc.config" > "$current_dir/vimrc.config.tmp"
-mv "$current_dir/vimrc.config.tmp" "$HOME/.vim/vimrc.config"
+sed -e 's/^"colorscheme/colorscheme/' "$HOME/.vim/config.vim" > "$current_dir/config.vim.tmp"
+mv "$current_dir/config.vim.tmp" "$HOME/.vim/config.vim"
 
 # need to create the line again to override the moved file
-create_vim_link "$current_dir/vimrc.config"
+create_vim_link "$current_dir/config.vim"
 
 if [[ -h "$HOME/.vim/style" ]] || [[ -d "$HOME/.vim/style" ]]; then
   rm -rf "$HOME/.vim/style"
