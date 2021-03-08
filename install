@@ -5,6 +5,10 @@ if [[ "$current_dir" != "$HOME/.dotfiles" ]]; then
   ln -sf "$current_dir" "$HOME/.dotfiles"
 fi
 
+if [[ ! -e "$current_dir/.last-update" ]]; then
+  echo "LAST_EPOCH=18694" > "$current_dir/.last-update"
+fi
+
 set -e # Exit if any command fails
 
 current_dir=$(cd "$(dirname $BASH_SOURCE[0])" && pwd)
