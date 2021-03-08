@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+set -e # Exit if any command fails
+
+function msg {
+  local blue="\e[0;34m"
+  local reset="\e[m\n"
+  printf "$blue$1$reset\n"
+}
+
+unit_name=$1
+unit_dir=$unit_name
+msg "-* Checking $unit_name for updates"
+test -d _units/$unit_name && unit_dir=_units/$unit_name
+
+kernel_file="$unit_dir/kernel"
+deps_file="$unit_dir/deps"
+check_for_update_file="$unit_dir/check_for_update.sh"
+
+test -d "$unit_dir" || {
+  msg "-* $unit_name not found"
+  exit 1
+}
+
+# Skip if this unit is incompatible with current kernel
+if [[ -f $kernel_file ]] && [[ -n "$(cat "${kernel_file}")" ]] && [[ ! $(uname) =~ $(cat "$kernel_file") ]]; then
+  echo "Skipping $unit_name, not compatible with current kernel $(uname)"
+  exit
+fi
+
+# Skip if this unit or any deps are excluded
+test -f _excluded && {
+  (grep -v '^#' _excluded | grep -x -q "^$unit_name\$" -) && {
+    msg "-* skipping excluded $unit_name"
+    exit
+  }
+  test -f "$deps_file" && {
+    for dep_name in `<$deps_file` ; do
+      (grep -v '^#' _excluded | grep -x -q $dep_name -) && {
+        msg "-* skipping $unit_name due to excluded dep $dep_name"
+        exit
+      }
+    done
+  }
+}
+
+# Skip if this unit or any deps are excluded locally
+test -f "${HOME}/.dotexclude" && {
+  (grep -v '^#' "${HOME}/.dotexclude" | grep -x -q "^$unit_name\$" -) && {
+    msg "-* skipping excluded $unit_name"
+    exit
+  }
+  test -f $deps_file && {
+    for dep_name in `<$deps_file` ; do
+      (grep -v '^#' "${HOME}/.dotexclude" | grep -x -q $dep_name -) && {
+        msg "-* skipping $unit_name due to excluded dep $dep_name"
+        exit
+      }
+    done
+  }
+}
+
+# Exit if there's a guard file and the guard detects an install
+test -f "$check_for_update_file" && bash "$check_for_update_file" && {
+  msg "-* update available for $unit_name"
+}

@@ -1,3 +1,5 @@
+# Path to dotfiles
+export DOTFILES=$HOME/.dotfiles
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster-gruvbox"
@@ -25,6 +27,7 @@ source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
 source $ZSH/oh-my-zsh.sh
+source $DOTFILES/check-for-updates
 
 # RPROMPT="hay"
 # Stop zsh from autocompleting CD operations without typing cd

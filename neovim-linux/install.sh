@@ -43,7 +43,7 @@ mkdir -p "$HOME/.config/nvim"
 
 create_nvim_link "$current_dir/init.vim"
 create_nvim_link "$current_dir/coc-settings.json"
-create_vim_link "$current_dir/nvimrc.bundles"
+create_vim_link "$current_dir/nvimrc.bundles.vim"
 
 set +e
 nvim --noplugin +"silent PlugInstall" +qall
