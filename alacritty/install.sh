@@ -2,7 +2,11 @@
 
 current_dir="$(cd $(dirname "$0") && pwd)"
 
-sudo apt-get install -y alacritty
+if [[ $(uname) = "Darwin" ]]; then
+  brew install alacritty
+else
+  sudo apt-get install -y alacritty
+fi
 
 create_alacritty_link() {
   file_name="$(basename "$1" | sed "s/^\.//g")"
