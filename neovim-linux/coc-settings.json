@@ -1,4 +1,7 @@
 {
+  "diagnostic.warningSign": "⚠️",
+  "diagnostic.errorSign": "❌",
+  "diagnostic.infoSign": "💡",
   "languageserver": {
     "go": {
       "command": "gopls",
