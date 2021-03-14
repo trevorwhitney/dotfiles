@@ -2,6 +2,7 @@
 
 current_dir="$(cd $(dirname "$0") && pwd)"
 
+sudo apt-get install -y alacritty
 
 create_alacritty_link() {
   file_name="$(basename "$1" | sed "s/^\.//g")"
