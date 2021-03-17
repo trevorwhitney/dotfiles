@@ -15,7 +15,7 @@ set scrolloff=5
 set wrapscan
 set visualbell
 
-set clipboard^=unnamed,ideaput
+set clipboard^=unnamed
 set idearefactormode=keep
 set ideajoin ideamarks
 
@@ -90,8 +90,7 @@ imap jj          <Esc>
 " | <leader>rn    | Rename                            |
 " | <leader>rt    | Run this                          |
 " | <leader>se    | Show error message                |
-" | <leader>?     | Show quick help                   |
-" | <leader>sh/sH | Show quick/detailed help          |
+" | <leader>h/H   | Show quick/detailed help          |
 " | <leader>sr/sR | local/global search and replace   |
 " | <leader>su    | Find Usages (Show usages)         |
 " | <leader>t     | Refactor this                     |
@@ -153,6 +152,7 @@ nnoremap <leader>dt  :action DebugClass<cr>
 noremap  <leader>em  :action ExtractMethod<cr>
 nnoremap <leader>fs  :action FileStructurePopup<cr>
 nnoremap <leader>gb  :action Annotate<cr>
+nnoremap <leader>ge  :action Generate<cr>
 nnoremap <leader>gf  :action SelectIn<cr>
 nnoremap <leader>gh  :action Vcs.ShowTabbedFileHistory<cr>
 nnoremap <leader>gk  :action CheckinProject<cr>
@@ -160,6 +160,7 @@ nnoremap <leader>go  :action Github.Open.In.Browser<cr>
 nnoremap <leader>gt  :action GotoTest<cr>
 noremap  <leader>in  :action Inline<cr>
 nnoremap <leader>k   :action HighlightUsagesInFile<cr>
+nnoremap <leader>l   :action InsertLiveTemplate<cr>
 nnoremap <leader>p   :action GotoFile<cr>
 nnoremap <leader>P   :action GotoSymbol<cr>
 nnoremap <leader>ra  :action EditorMoveToPageTop<cr>:action RunClass<cr>
@@ -168,9 +169,8 @@ nnoremap <leader>rl  :action Run<cr>
 noremap  <leader>rn  :action RenameElement<cr>
 nnoremap <leader>rt  :action RunClass<cr>
 nnoremap <leader>se  :action ShowErrorDescription<cr>
-nnoremap <leader>?   :action QuickJavaDoc<cr>
-nnoremap <leader>sh  :action QuickJavaDoc<cr>
-nnoremap <leader>sH  :action QuickImplementations<cr>
+nnoremap <leader>h   :action QuickJavaDoc<cr>
+nnoremap <leader>H  :action QuickImplementations<cr>
 nnoremap <leader>sr  :action Replace<cr>
 nnoremap <leader>sR  :action ReplaceInPath<cr>
 nnoremap <leader>su  :action FindUsages<cr>

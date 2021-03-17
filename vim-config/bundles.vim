@@ -21,7 +21,10 @@ Plug 'tools-life/taskwiki'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-endwise'
+if !has('nvim')
+  " Endwise messess with coc.nvim autocomplete selection
+  Plug 'tpope/vim-endwise'
+endif
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
