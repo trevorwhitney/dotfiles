@@ -27,6 +27,11 @@ alias gw="./gradlew"
 #Kubectl
 alias k="kubectl"
 
+#k3s
+alias k3spw="kubectl --context k3s get --namespace kubernetes-dashboard secret \
+  \"$(kubectl get --namespace kubernetes-dashboard serviceaccount admin-user -o json | jq -r '.secrets[] | .name')\" \
+  -o json | jq -r '.data.token' | base64 -d"
+
 #Docker
 alias dc="docker-compose"
 
