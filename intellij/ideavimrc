@@ -44,10 +44,10 @@ set showmode
 "========== Keybindings ==========
 imap jj          <Esc>
 
-" Try to use these mappings for everything, but multi-cursor
-" has much better support, so use the sublime/vscdoe mappings
-" of Ctrl-D by using the Sublime keymapping or mapping yourself
-" Ctrl-D, Ctrl-C (copy), and Ctrl-V (paste) should be the only
+" Tried to replace everything, but multi-cursor
+" has much better native support, so use the sublime/vscdoe mappings
+" of Ctrl-D/U by using the Sublime keymapping or mapping yourself
+" Ctrl-D/U, Ctrl-C (copy), and Ctrl-V (paste) should be the only
 " modifiers handled by IDE instead of VIM in "Vim Emulation"
 " settings
 
@@ -60,7 +60,7 @@ imap jj          <Esc>
 " | <C-L>         | Focus window right                |
 " | <C-d>         | Multiple cursors                  |
 " | <C-k/j>       | Expand/shrink selection           |
-" | <C-up/down>   | Clone caret/multiple cursors      |
+" | <C-S-k/j>     | Clone caret/multiple cursors      |
 " | <leader> =    | Reformat code                     |
 " | <leader>/     | NERDTreeToggle                    |
 " | <leader>\     | NERDTreeFind                      |
@@ -71,7 +71,7 @@ imap jj          <Esc>
 " | <leader>be    | Buff Explorer (Show recent files) |
 " | <leader>dl    | Debug last                        |
 " | <leader>dt    | Debug this                        |
-" | <leader>em    | Extract method                    |
+" | <leader>e     | Extract method                    |
 " | <leader>gb    | Git blame                         |
 " | <leader>ge    | Generate                          |
 " | <leader>gf    | "Goto File" in...                 |
@@ -79,7 +79,7 @@ imap jj          <Esc>
 " | <leader>gk    | Git commit                        |
 " | <leader>go    | Open in github                    |
 " | <leader>gt    | "Goto Test"                       |
-" | <leader>in    | Inline                            |
+" | <leader>i     | Inline                            |
 " | <leader>k     | Highlight usages in file          |
 " | <leader>om    | Override methods                  |
 " | <leader>p     | Open File (CtrlP)                 |
@@ -87,6 +87,7 @@ imap jj          <Esc>
 " | <leader>ra    | Run all                           |
 " | <leader>rf    | Run failed                        |
 " | <leader>rl    | Run last                          |
+" | <leader>rr    | Run last                          |
 " | <leader>rn    | Rename                            |
 " | <leader>rt    | Run this                          |
 " | <leader>se    | Show error message                |
@@ -149,7 +150,7 @@ noremap  <leader>a   :action GotoAction<cr>
 nnoremap <leader>be  :action RecentFiles<cr>
 nnoremap <leader>dl  :action Debug<cr>
 nnoremap <leader>dt  :action DebugClass<cr>
-noremap  <leader>em  :action ExtractMethod<cr>
+noremap  <leader>e   :action ExtractMethod<cr>
 nnoremap <leader>fs  :action FileStructurePopup<cr>
 nnoremap <leader>gb  :action Annotate<cr>
 nnoremap <leader>ge  :action Generate<cr>
@@ -158,7 +159,7 @@ nnoremap <leader>gh  :action Vcs.ShowTabbedFileHistory<cr>
 nnoremap <leader>gk  :action CheckinProject<cr>
 nnoremap <leader>go  :action Github.Open.In.Browser<cr>
 nnoremap <leader>gt  :action GotoTest<cr>
-noremap  <leader>in  :action Inline<cr>
+noremap  <leader>i   :action Inline<cr>
 nnoremap <leader>k   :action HighlightUsagesInFile<cr>
 nnoremap <leader>l   :action InsertLiveTemplate<cr>
 nnoremap <leader>p   :action GotoFile<cr>
@@ -166,6 +167,7 @@ nnoremap <leader>P   :action GotoSymbol<cr>
 nnoremap <leader>ra  :action EditorMoveToPageTop<cr>:action RunClass<cr>
 nnoremap <leader>rf  :action RerunFailedTests<cr>
 nnoremap <leader>rl  :action Run<cr>
+nnoremap <leader>rr  :action Run<cr>
 noremap  <leader>rn  :action RenameElement<cr>
 nnoremap <leader>rt  :action RunClass<cr>
 nnoremap <leader>se  :action ShowErrorDescription<cr>
@@ -188,14 +190,15 @@ nnoremap <silent> gi :action GotoImplementation<cr>
 nnoremap <silent> gy :action GotoSuperMethod<cr>
 nnoremap <silent> gr :action FindUsages<cr>
 
-noremap  <silent> <C-up>    :action EditorCloneCaretAbove<cr>
-inoremap <silent> <C-up>    <esc>:action EditorCloneCaretAbove<cr>i
-noremap  <silent> <C-down>  :action EditorCloneCaretBelow<cr>
-inoremap <silent> <C-down>  <esc>:action EditorCloneCaretBelow<cr>i
-noremap  <silent> <C-k> :action EditorSelectWord<cr>
-inoremap <silent> <C-k> :action EditorSelectWord<cr>i
-noremap  <silent> <C-j> :action EditorUnSelectWord<cr>
-inoremap <silent> <C-j> <esc> :action EditorUnSelectWord<cr>i
+noremap  <silent> <C-S-K>   :action EditorCloneCaretAbove<cr>
+inoremap <silent> <C-S-K>   <esc>:action EditorCloneCaretAbove<cr>i
+noremap  <silent> <C-S-J>   :action EditorCloneCaretBelow<cr>
+inoremap <silent> <C-S-J>   <esc>:action EditorCloneCaretBelow<cr>i
+
+noremap  <silent> <C-k>   :action EditorSelectWord<cr>
+inoremap <silent> <C-k>   :action EditorSelectWord<cr>i
+noremap  <silent> <C-j>   :action EditorUnSelectWord<cr>
+inoremap <silent> <C-j>   <esc> :action EditorUnSelectWord<cr>i
 
 nnoremap <silent> \b :action ToggleLineBreakpoint<cr>
 nnoremap <silent> \B :action EditBreakpoint<cr>
