@@ -26,6 +26,9 @@ alias gw="./gradlew"
 
 #Kubectl
 alias k="kubectl"
+# Ensure the next command is checked as an alias when using watch
+# Allows `watch k get ...` to work
+alias watch='watch '
 
 #k3s
 alias k3spw="kubectl --context k3s get --namespace kubernetes-dashboard secret \

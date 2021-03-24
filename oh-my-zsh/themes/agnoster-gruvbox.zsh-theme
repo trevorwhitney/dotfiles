@@ -255,11 +255,20 @@ prompt_status() {
 #   ends in '-prod'
 # - displays black on green otherwise
 prompt_aws() {
-  [[ -z "$AWS_PROFILE" || "$SHOW_AWS_PROMPT" = false ]] && return
-  case "$AWS_PROFILE" in
-    *-prod|*production*) prompt_segment red yellow  "AWS: $AWS_PROFILE" ;;
-    *) prompt_segment green black "AWS: $AWS_PROFILE" ;;
+  [[ -z "$aws_profile" || "$show_aws_prompt" = false ]] && return
+  case "$aws_profile" in
+    *-prod|*production*) prompt_segment red yellow  "aws: $aws_profile" ;;
+    *) prompt_segment green black "aws: $aws_profile" ;;
   esac
+}
+
+# current k8s context
+prompt_k8s() {
+  local purple="#8f3f71"
+  local white="#f9f5d7"
+  # prompt_segment cyan $CURRENT_FG '%~'
+  context="$(kubectl config current-context)"
+  prompt_segment $purple $white "$context"
 }
 
 prompt_vi_mode() {
@@ -289,6 +298,7 @@ build_prompt() {
   prompt_aws
   # use tmux for user/host context
   # prompt_context
+  prompt_k8s
   prompt_dir
   prompt_git
   prompt_bzr

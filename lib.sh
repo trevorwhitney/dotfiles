@@ -12,6 +12,20 @@ create_link() {
     ln -s "$1" "$HOME/.$file_name"
 }
 
+# Linking files is good for configurations
+# we want to track changes to. This creates a link in ~/.config/$1
+create_config_link() {
+    subdir_name="$1"
+    mkdir -p "$HOME/.config/$subdir_name"
+    file_name="$(basename "$2" | sed "s/^\.//g")"
+    link="$HOME/.config/$subdir_name/$file_name"
+    if [ -h "$link" ] || [ -e "$link" ]; then
+      rm -rf "$link";
+    fi
+
+    ln -s "$2" "$link"
+}
+
 # Copying files is good for configurations that might
 # have local overrides, since we don't want to track
 # the local overrides in version control
