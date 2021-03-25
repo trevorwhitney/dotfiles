@@ -68,7 +68,7 @@ nmap <silent> <leader>d <Plug>DashSearch
 function! IsNerdTreeEnabled()
     return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
 endfunction
-nmap <expr> <leader>\ IsNerdTreeEnabled() ? ":NERDTreeToggle\<CR>" : ":NERDTreeFind\<CR>"
+nnoremap <silent><nowait><expr> \ IsNerdTreeEnabled() ? ":NERDTreeToggle\<CR>" : ":NERDTreeFind\<CR>"
 
 " automatically close NERDTree when a file is opened
 let NERDTreeQuitOnOpen = 1

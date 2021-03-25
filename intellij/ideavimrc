@@ -54,6 +54,10 @@ imap jj          <Esc>
 " | key           | operation (mnemonic)              |
 " | --------------| ----------------------------------|
 " | <A-p>         | Show parameter info               |
+" | <A-H>         | Move tab left                     |
+" | <A-L>         | Move tab left                     |
+" | <A-Left>      | Move tab left                     |
+" | <A-Right>     | Move tab right                    |
 " | <C-H>         | Focus window left                 |
 " | <C-J>         | Focus window below                |
 " | <C-K>         | Focus window above                |
@@ -62,13 +66,12 @@ imap jj          <Esc>
 " | <C-k/j>       | Expand/shrink selection           |
 " | <C-S-k/j>     | Clone caret/multiple cursors      |
 " | <leader> =    | Reformat code                     |
-" | <leader>/     | NERDTreeToggle                    |
-" | <leader>\     | NERDTreeFind                      |
 " | <leader><cr>  | Show intentions                   |
 " | <leader>[     | Go to super/interface             |
 " | <leader>]     | Go to implementation              |
 " | <leader>a     | Open Action                       |
 " | <leader>be    | Buff Explorer (Show recent files) |
+" | <leader>dd    | Debug last                        |
 " | <leader>dl    | Debug last                        |
 " | <leader>dt    | Debug this                        |
 " | <leader>e     | Extract method                    |
@@ -91,33 +94,24 @@ imap jj          <Esc>
 " | <leader>rn    | Rename                            |
 " | <leader>rt    | Run this                          |
 " | <leader>se    | Show error message                |
-" | <leader>h/H   | Show quick/detailed help          |
+" | <leader>h/H   | Show quick/external help          |
 " | <leader>sr/sR | local/global search and replace   |
 " | <leader>su    | Find Usages (Show usages)         |
 " | <leader>t     | Refactor this                     |
 " | <leader>v     | Introduce Variable                |
 " | <leader>w     | Easymotion word                   |
 " | <leader>z     | sort selection                    |
-" | <A-H>         | Move tab left                     |
-" | <A-L>         | Move tab left                     |
-" | <A-Left>      | Move tab left                     |
-" | <A-Right>     | Move tab right                    |
 " | gi            | Go to implementation              |
 " | gy            | Go to super/interface             |
 " | gr            | Find Usages (Goto References)     |
 " | \b            | Toggle breakpoint                 |
-" | \B            | Edit breakpoint                   |
 " | \e            | Recent files                      |
-" | \d            | Debug last                        |
-" | \D            | Debug this                        |
+" | \l            | Recent locations                  |
 " | \o            | File outline (File structure)     |
-" | \p            | Paste(p) the 0th buffer           |
-" | \P            | Paste(P) the 0th buffer           |
 " | \q            | Close current tab                 |
-" | \Q            | Reopen last closed tab            |
+" | \r            | Reopen last closed tab            |
 " | \t            | Goto test                         |
-" | \w            | Close all other tabs              |
-" | \W            | Close all tabs                    |
+" | \w            | Close all editors                 |
 " | [<space>      | new line above                    |
 " | ]<space>      | new line below                    |
 " | [b            | Next buffer/tab                   |
@@ -140,14 +134,13 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 noremap <leader>=      :action ReformatCode<cr>
-nnoremap <leader>/ :NERDTreeToggle<cr>
-nnoremap <leader>\ :action SelectInProjectView<cr>
 nnoremap <leader><cr>  :action ShowIntentionActions<cr>
 nnoremap <leader>[ :action GotoSuperMethod<cr>
 nnoremap <leader>] :action GotoImplementation<cr>
 
 noremap  <leader>a   :action GotoAction<cr>
 nnoremap <leader>be  :action RecentFiles<cr>
+nnoremap <leader>dd  :action Debug<cr>
 nnoremap <leader>dl  :action Debug<cr>
 nnoremap <leader>dt  :action DebugClass<cr>
 noremap  <leader>e   :action ExtractMethod<cr>
@@ -172,7 +165,7 @@ noremap  <leader>rn  :action RenameElement<cr>
 nnoremap <leader>rt  :action RunClass<cr>
 nnoremap <leader>se  :action ShowErrorDescription<cr>
 nnoremap <leader>h   :action QuickJavaDoc<cr>
-nnoremap <leader>H  :action QuickImplementations<cr>
+nnoremap <leader>H   :action ExternalJavaDoc<cr>
 nnoremap <leader>sr  :action Replace<cr>
 nnoremap <leader>sR  :action ReplaceInPath<cr>
 nnoremap <leader>su  :action FindUsages<cr>
@@ -189,6 +182,7 @@ nnoremap <silent> <A-L> :action MoveEditorToOppositeTabGroup<cr>
 nnoremap <silent> gi :action GotoImplementation<cr>
 nnoremap <silent> gy :action GotoSuperMethod<cr>
 nnoremap <silent> gr :action FindUsages<cr>
+nnoremap <silent> gt :action GotoTest<cr>
 
 noremap  <silent> <C-S-K>   :action EditorCloneCaretAbove<cr>
 inoremap <silent> <C-S-K>   <esc>:action EditorCloneCaretAbove<cr>i
@@ -201,18 +195,13 @@ noremap  <silent> <C-j>   :action EditorUnSelectWord<cr>
 inoremap <silent> <C-j>   <esc> :action EditorUnSelectWord<cr>i
 
 nnoremap <silent> \b :action ToggleLineBreakpoint<cr>
-nnoremap <silent> \B :action EditBreakpoint<cr>
-nnoremap <silent> \d :action Debug<cr>
-nnoremap <silent> \D :action DebugClass<cr>
 nnoremap <silent> \e :action RecentFiles<cr>
+nnoremap <silent> \l :action RecentLocations<cr>
 nnoremap <silent> \o :action FileStructurePopup<cr>
-nnoremap <silent> \p "0p
-nnoremap <silent> \P "0P
 nnoremap <silent> \q :action CloseContent<cr>
-nnoremap <silent> \Q :action ReopenClosedTab<cr>
+nnoremap <silent> \r :action ReopenClosedTab<cr>
 nnoremap <silent> \t :action GotoTest<cr>
-nnoremap <silent> \w :action CloseAllEditorsButActive<cr>
-nnoremap <silent> \W :action CloseAllEditors<cr>
+nnoremap <silent> \w :action CloseAllEditors<cr>
 
 nnoremap [<space> O<esc>j
 nnoremap ]<space> o<esc>k
