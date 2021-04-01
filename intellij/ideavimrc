@@ -194,6 +194,7 @@ inoremap <silent> <C-k>   :action EditorSelectWord<cr>i
 noremap  <silent> <C-j>   :action EditorUnSelectWord<cr>
 inoremap <silent> <C-j>   <esc> :action EditorUnSelectWord<cr>i
 
+nnoremap <silent> \\  :action SelectInProjectView<cr>
 nnoremap <silent> \b :action ToggleLineBreakpoint<cr>
 nnoremap <silent> \e :action RecentFiles<cr>
 nnoremap <silent> \l :action RecentLocations<cr>
