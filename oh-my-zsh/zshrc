@@ -98,5 +98,6 @@ fi
 # completions
 complete -F __start_kubectl k
 complete -o nospace -C /usr/local/bin/tk tk
+complete -o nospace -C /home/twhitney/go/bin/gocomplete go
 
 autoload -U +X bashcompinit && bashcompinit

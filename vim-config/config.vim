@@ -247,6 +247,7 @@ if !has('nvim')
     autocmd FileType go map <Leader>su <Plug>(go-referrers)
     autocmd FileType go map <Leader>si <Plug>(go-referrers)
     autocmd FileType go map <Leader>rn <Plug>(go-rename)
+    autocmd FileType go map <Leader>re <Plug>(go-rename)
     autocmd FileType go map <Leader>i  :GoImpl<CR>
   augroup END
 else

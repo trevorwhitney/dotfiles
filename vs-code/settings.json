@@ -12,19 +12,19 @@
         {
           "scope": "keyword",
           "settings": {
-            "foreground": "#665C54",
-            "fontStyle": "bold"
+            "fontStyle": "bold",
+            "foreground": "#665C54"
           }
         },
         {
           "scope": "keyword.control",
           "settings": {
-            "foreground": "#665C54",
-            "fontStyle": "bold"
+            "fontStyle": "bold",
+            "foreground": "#665C54"
           }
         }
       ]
-    },
+    }
   },
   "files.autoSave": "onFocusChange",
   "files.exclude": {
@@ -35,6 +35,10 @@
     "**/.settings": true
   },
   "go.toolsManagement.autoUpdate": true,
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [
+    "--fast"
+  ],
   "vim.easymotion": true,
   "vim.enableNeovim": true,
   "vim.foldfix": true,
@@ -172,6 +176,34 @@
       "commands": [
         "workbench.action.replaceInFiles"
       ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "t"
+      ],
+      "commands": [
+        "go.test.generate.function"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "i"
+      ],
+      "commands": [
+        "go.impl.cursor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "e"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -199,7 +231,7 @@
         "w"
       ],
       "commands": [
-        "workbench.action.closeAllEditors"
+        "workbench.action.closeEditorsInGroup"
       ]
     },
     {
@@ -313,6 +345,24 @@
       "commands": [
         "editor.action.goToReferences"
       ]
+    },
+    {
+      "before": [
+        "\\",
+        "b"
+      ],
+      "commands": [
+        "editor.debug.action.toggleBreakpoint"
+      ]
+    },
+    {
+      "before": [
+        "\\",
+        "B"
+      ],
+      "commands": [
+        "editor.debug.action.conditionalBreakpoint"
+      ]
     }
   ],
   "vim.operatorPendingModeKeyBindings": [],
@@ -364,12 +414,34 @@
       "commands": [
         "editor.action.formatDocument"
       ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "e"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
     }
   ],
+  "window.titleBarStyle": "custom",
   "workbench.colorTheme": "Gruvbox Light Hard",
   "workbench.editor.showTabs": false,
+  "workbench.iconTheme": "vscode-icons",
   "workbench.preferredDarkColorTheme": "Gruvbox Light Hard",
   "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
-  "window.titleBarStyle": "custom",
-  "workbench.iconTheme": "vscode-icons"
+  "files.autoSaveDelay": 5000,
+  "editor.formatOnSave": true,
+  "[go]": {
+    "editor.insertSpaces": false,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "go.formatFlags": [
+    "-local=github.com/grafana/backend-enterprise"
+  ]
 }

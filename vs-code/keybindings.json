@@ -217,5 +217,9 @@
     "key": "\\ o",
     "command": "outline.focus",
     "when": "sideBarVisible && !editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+f8",
+    "command": "editor.debug.action.conditionalBreakpoint"
   }
 ]
