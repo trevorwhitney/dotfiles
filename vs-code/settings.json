@@ -6,6 +6,26 @@
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.suggestSelection": "first",
+  "editor.tokenColorCustomizations": {
+    "[Gruvbox Light Hard]": {
+      "textMateRules": [
+        {
+          "scope": "keyword",
+          "settings": {
+            "foreground": "#665C54",
+            "fontStyle": "bold"
+          }
+        },
+        {
+          "scope": "keyword.control",
+          "settings": {
+            "foreground": "#665C54",
+            "fontStyle": "bold"
+          }
+        }
+      ]
+    },
+  },
   "files.autoSave": "onFocusChange",
   "files.exclude": {
     "**/.classpath": true,
