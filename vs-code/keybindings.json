@@ -1,0 +1,164 @@
+[
+  {
+    "command": "editor.action.rename",
+    "key": "shift+f6",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "command": "-editor.action.rename",
+    "key": "f2",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
+  },
+  {
+    "command": "editor.debug.action.toggleBreakpoint",
+    "key": "ctrl+f8",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "command": "-editor.debug.action.toggleBreakpoint",
+    "key": "f9",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "command": "workbench.action.debug.stepInto",
+    "key": "f7",
+    "when": "debugState != 'inactive'"
+  },
+  {
+    "command": "-workbench.action.debug.stepInto",
+    "key": "f11",
+    "when": "debugState != 'inactive'"
+  },
+  {
+    "command": "workbench.action.debug.stepOut",
+    "key": "shift+f7",
+    "when": "debugState == 'stopped'"
+  },
+  {
+    "command": "-workbench.action.debug.stepOut",
+    "key": "shift+f11",
+    "when": "debugState == 'stopped'"
+  },
+  {
+    "command": "workbench.action.debug.stepOver",
+    "key": "f8",
+    "when": "debugState == 'stopped'"
+  },
+  {
+    "command": "-workbench.action.debug.stepOver",
+    "key": "f10",
+    "when": "debugState == 'stopped'"
+  },
+  {
+    "command": "workbench.action.debug.continue",
+    "key": "f9",
+    "when": "inDebugMode"
+  },
+  {
+    "command": "-workbench.action.debug.continue",
+    "key": "f5",
+    "when": "inDebugMode"
+  },
+  {
+    "command": "workbench.action.debug.restart",
+    "key": "ctrl+shift+f9",
+    "when": "inDebugMode"
+  },
+  {
+    "command": "-workbench.action.debug.restart",
+    "key": "ctrl+shift+f5",
+    "when": "inDebugMode"
+  },
+  {
+    "command": "workbench.action.quickOpenNavigateNext",
+    "key": "ctrl+n",
+    "when": "inQuickOpen"
+  },
+  {
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "key": "ctrl+p",
+    "when": "inQuickOpen"
+  },
+  {
+    "command": "workbench.files.action.focusOpenEditorsView",
+    "key": "ctrl+a e",
+    "when": "workbench.explorer.openEditorsView.active"
+  },
+  {
+    "command": "workbench.files.action.focusOpenEditorsView",
+    "key": "\\ e",
+    "when": "sideBarFocus && sideBarVisible"
+  },
+  {
+    "command": "-workbench.files.action.focusOpenEditorsView",
+    "key": "ctrl+k e",
+    "when": "workbench.explorer.openEditorsView.active"
+  },
+  {
+    "command": "workbench.action.togglePanel",
+    "key": "ctrl+a r"
+  },
+  {
+    "command": "-workbench.action.togglePanel",
+    "key": "ctrl+j"
+  },
+  {
+    "command": "workbench.view.scm",
+    "key": "ctrl+a g",
+    "when": "workbench.scm.active"
+  },
+  {
+    "command": "-workbench.view.scm",
+    "key": "ctrl+shift+g",
+    "when": "workbench.scm.active"
+  },
+  {
+    "args": {
+      "sequence": [
+        "workbench.action.toggleSidebarVisibility",
+        "workbench.action.focusSideBar"
+      ]
+    },
+    "command": "extension.multiCommand.execute",
+    "key": "ctrl+a \\",
+    "when": "!sideBarFocus && !sideBarVisible"
+  },
+  {
+    "command": "workbench.action.focusSideBar",
+    "key": "ctrl+a \\",
+    "when": "!sideBarFocus && sideBarVisible"
+  },
+  {
+    "command": "workbench.action.toggleSidebarVisibility",
+    "key": "ctrl+a \\",
+    "when": "sideBarFocus"
+  },
+  {
+    "command": "-workbench.action.toggleSidebarVisibility",
+    "key": "ctrl+b"
+  },
+  {
+    "command": "-togglePreserveCase",
+    "key": "alt+p",
+    "when": "editorFocus"
+  },
+  {
+    "command": "editor.action.triggerParameterHints",
+    "key": "alt+p",
+    "when": "editorHasSignatureHelpProvider && editorTextFocus"
+  },
+  {
+    "command": "workbench.action.toggleMultiCursorModifier",
+    "key": "ctrl+shift+8"
+  },
+  {
+    "command": "editor.action.insertCursorBelow",
+    "key": "ctrl+shift+j",
+    "when": "editorTextFocus"
+  },
+  {
+    "command": "editor.action.insertCursorAbove",
+    "key": "ctrl+shift+k",
+    "when": "editorTextFocus"
+  }
+]

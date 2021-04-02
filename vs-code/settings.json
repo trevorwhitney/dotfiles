@@ -1,0 +1,362 @@
+{
+  "editor.fontFamily": "JetBrains Mono, Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 16,
+  "editor.hover.enabled": false,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.suggestSelection": "first",
+  "files.autoSave": "onFocusChange",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.factorypath": true,
+    "**/.idea": true,
+    "**/.project": true,
+    "**/.settings": true
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "vim.easymotion": true,
+  "vim.enableNeovim": true,
+  "vim.foldfix": true,
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-d>": false,
+    "<C-j>": true,
+    "<C-k>": true,
+    "<C-r>": true
+  },
+  "vim.highlightedyank.enable": true,
+  "vim.hlsearch": true,
+  "vim.incsearch": true,
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {
+      "after": [
+        "<Esc>"
+      ],
+      "before": [
+        "j",
+        "j"
+      ]
+    }
+  ],
+  "vim.leader": "<space>",
+  "vim.neovimConfigPath": "$HOME/.config/nvim/init.vim",
+  "vim.neovimPath": "/usr/bin/nvim",
+  "vim.neovimUseConfigFile": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "commands": [
+        "editor.action.smartSelect.shrink"
+      ]
+    },
+    {
+      "before": [
+        "<C-k>"
+      ],
+      "commands": [
+        "editor.action.smartSelect.expand"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "<enter>"
+      ],
+      "commands": [
+        "editor.action.quickFix"
+      ]
+    },
+    {
+      "before": [
+        "<C-t>"
+      ],
+      "commands": [
+        "editor.action.refactor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "="
+      ],
+      "commands": [
+        "editor.action.formatDocument"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "t"
+      ],
+      "commands": [
+        "go.test.cursor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "l"
+      ],
+      "commands": [
+        "go.test.previous"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "r"
+      ],
+      "commands": [
+        "go.test.previous"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "t"
+      ],
+      "commands": "go.debug.cursor"
+    },
+    {
+      "before": [
+        "<leader>",
+        "h"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "after": [
+        "<C-w>",
+        "h"
+      ],
+      "before": [
+        "<C-h>"
+      ]
+    },
+    {
+      "after": [
+        "<C-w>",
+        "j"
+      ],
+      "before": [
+        "<C-j>"
+      ]
+    },
+    {
+      "after": [
+        "<C-w>",
+        "k"
+      ],
+      "before": [
+        "<C-k>"
+      ]
+    },
+    {
+      "after": [
+        "<C-w>",
+        "l"
+      ],
+      "before": [
+        "<C-l>"
+      ]
+    },
+    {
+      "before": [
+        "\\",
+        "e"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "\\",
+        "w"
+      ],
+      "commands": [
+        "workbench.action.closeAllEditors"
+      ]
+    },
+    {
+      "after": [
+        "O",
+        "<esc>",
+        "j"
+      ],
+      "before": [
+        "[",
+        "<space>"
+      ]
+    },
+    {
+      "after": [
+        "o",
+        "<esc>",
+        "k"
+      ],
+      "before": [
+        "]",
+        "<space>"
+      ]
+    },
+    {
+      "after": [
+        "g",
+        "T"
+      ],
+      "before": [
+        "[",
+        "b"
+      ]
+    },
+    {
+      "after": [
+        "g",
+        "t"
+      ],
+      "before": [
+        "]",
+        "b"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "g"
+      ],
+      "commands": [
+        "editor.action.marker.previous"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "g"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.editor.previousChange"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.editor.nextChange"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "y"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "t"
+      ],
+      "commands": [
+        "go.toggle.test.file"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "r"
+      ],
+      "commands": [
+        "editor.action.goToReferences"
+      ]
+    }
+  ],
+  "vim.operatorPendingModeKeyBindings": [],
+  "vim.replaceWithRegister": true,
+  "vim.showMarksInGutter": true,
+  "vim.useCtrlKeys": true,
+  "vim.useSystemClipboard": true,
+  "vim.vimrc.enable": true,
+  "vim.vimrc.path": "$HOME/.vim/config.vim",
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "commands": [
+        "editor.action.smartSelect.shrink"
+      ]
+    },
+    {
+      "before": [
+        "<C-k>"
+      ],
+      "commands": [
+        "editor.action.smartSelect.expand"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "<enter>"
+      ],
+      "commands": [
+        "editor.action.quickFix"
+      ]
+    },
+    {
+      "before": [
+        "<C-t>"
+      ],
+      "commands": [
+        "editor.action.refactor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "="
+      ],
+      "commands": [
+        "editor.action.formatDocument"
+      ]
+    }
+  ],
+  "workbench.colorTheme": "Gruvbox Light Hard",
+  "workbench.editor.showTabs": false,
+  "workbench.preferredDarkColorTheme": "Gruvbox Light Hard",
+  "workbench.preferredLightColorTheme": "Gruvbox Light Hard"
+}
