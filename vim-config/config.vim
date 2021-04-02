@@ -107,6 +107,8 @@ let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 let g:ctrlp_map = '<leader>p'
+
+nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":CtrlP<cr>"
 "========== Syntastic ==========
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
