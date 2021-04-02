@@ -152,45 +152,29 @@
       "commands": [
         "editor.action.showHover"
       ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "r"
+      ],
+      "commands": [
+        "editor.action.startFindReplaceAction"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s",
+        "R"
+      ],
+      "commands": [
+        "workbench.action.replaceInFiles"
+      ]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "after": [
-        "<C-w>",
-        "h"
-      ],
-      "before": [
-        "<C-h>"
-      ]
-    },
-    {
-      "after": [
-        "<C-w>",
-        "j"
-      ],
-      "before": [
-        "<C-j>"
-      ]
-    },
-    {
-      "after": [
-        "<C-w>",
-        "k"
-      ],
-      "before": [
-        "<C-k>"
-      ]
-    },
-    {
-      "after": [
-        "<C-w>",
-        "l"
-      ],
-      "before": [
-        "<C-l>"
-      ]
-    },
     {
       "before": [
         "\\",
@@ -198,6 +182,15 @@
       ],
       "commands": [
         "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "\\",
+        "o"
+      ],
+      "commands": [
+        "outline.focus"
       ]
     },
     {
@@ -232,23 +225,21 @@
       ]
     },
     {
-      "after": [
-        "g",
-        "T"
-      ],
       "before": [
         "[",
         "b"
+      ],
+      "commands": [
+        "workbench.action.previousEditor"
       ]
     },
     {
-      "after": [
-        "g",
-        "t"
-      ],
       "before": [
         "]",
         "b"
+      ],
+      "commands": [
+        "workbench.action.previousEditor"
       ]
     },
     {
@@ -378,5 +369,7 @@
   "workbench.colorTheme": "Gruvbox Light Hard",
   "workbench.editor.showTabs": false,
   "workbench.preferredDarkColorTheme": "Gruvbox Light Hard",
-  "workbench.preferredLightColorTheme": "Gruvbox Light Hard"
+  "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
+  "window.titleBarStyle": "custom",
+  "workbench.iconTheme": "vscode-icons"
 }
