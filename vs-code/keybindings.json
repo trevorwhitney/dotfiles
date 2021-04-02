@@ -87,7 +87,7 @@
   {
     "command": "workbench.files.action.focusOpenEditorsView",
     "key": "\\ e",
-    "when": "sideBarFocus && sideBarVisible"
+    "when": "sideBarVisible && !editorTextFocus"
   },
   {
     "command": "-workbench.files.action.focusOpenEditorsView",
@@ -134,6 +134,11 @@
     "when": "sideBarFocus"
   },
   {
+    "command": "workbench.action.toggleSidebarVisibility",
+    "key": "ctrl+a /",
+    "when": "sideBarVisible && editorTextFocus"
+  },
+  {
     "command": "-workbench.action.toggleSidebarVisibility",
     "key": "ctrl+b"
   },
@@ -160,5 +165,57 @@
     "command": "editor.action.insertCursorAbove",
     "key": "ctrl+shift+k",
     "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+\\",
+    "command": "-workbench.action.splitEditor"
+  },
+  {
+    "key": "ctrl+a shift+\\",
+    "command": "workbench.action.splitEditor"
+  },
+  {
+    "key": "ctrl+a -",
+    "command": "workbench.action.splitEditorOrthogonal"
+  },
+  {
+    "key": "ctrl+k ctrl+\\",
+    "command": "-workbench.action.splitEditorOrthogonal"
+  },
+  {
+    "key": "ctrl+a h",
+    "command": "workbench.action.focusLeftGroup"
+  },
+  {
+    "key": "ctrl+a l",
+    "command": "workbench.action.focusRightGroup"
+  },
+  {
+    "key": "ctrl+a k",
+    "command": "workbench.action.focusAboveGroup"
+  },
+  {
+    "key": "ctrl+a j",
+    "command": "workbench.action.focusBelowGroup"
+  },
+  {
+    "key": "alt+h",
+    "command": "workbench.action.moveActiveEditorGroupLeft",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+l",
+    "command": "workbench.action.moveActiveEditorGroupRight",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "\\ f",
+    "command": "workbench.explorer.fileView.focus",
+    "when": "sideBarVisible && !editorTextFocus"
+  },
+  {
+    "key": "\\ o",
+    "command": "outline.focus",
+    "when": "sideBarVisible && !editorTextFocus"
   }
 ]
