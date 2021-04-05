@@ -536,6 +536,5 @@
   "workbench.editor.showTabs": false,
   "workbench.iconTheme": "vscode-icons",
   "workbench.preferredDarkColorTheme": "Gruvbox Dark Hard",
-  "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
-  "workbench.startupEditor": "none"
+  "workbench.preferredLightColorTheme": "Gruvbox Light Hard"
 }
