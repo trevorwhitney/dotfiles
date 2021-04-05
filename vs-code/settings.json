@@ -1,7 +1,15 @@
 {
+  "[go]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    },
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": false
+  },
   "editor.fontFamily": "JetBrains Mono, Monaco, 'Courier New', monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 16,
+  "editor.formatOnSave": true,
   "editor.hover.enabled": false,
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "ctrlCmd",
@@ -27,6 +35,7 @@
     }
   },
   "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 5000,
   "files.exclude": {
     "**/.classpath": true,
     "**/.factorypath": true,
@@ -34,11 +43,21 @@
     "**/.project": true,
     "**/.settings": true
   },
-  "go.toolsManagement.autoUpdate": true,
-  "go.lintTool": "golangci-lint",
+  "git.autofetch": true,
+  "go.formatFlags": [
+    "-local=github.com/grafana/backend-enterprise"
+  ],
   "go.lintFlags": [
     "--fast"
   ],
+  "go.lintTool": "golangci-lint",
+  "go.toolsManagement.autoUpdate": true,
+  "gopls": {
+    "verboseOutput": true
+  },
+  "vim.camelCaseMotion.enable": true,
+  "vim.cursorStylePerMode.insert": "line",
+  "vim.cursorStylePerMode.normal": "block",
   "vim.easymotion": true,
   "vim.enableNeovim": true,
   "vim.foldfix": true,
@@ -146,7 +165,19 @@
         "d",
         "t"
       ],
-      "commands": "go.debug.cursor"
+      "commands": [
+        "go.debug.cursor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "l"
+      ],
+      "commands": [
+        "workbench.action.debug.start"
+      ]
     },
     {
       "before": [
@@ -203,6 +234,36 @@
       ],
       "commands": [
         "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "a",
+        "c"
+      ],
+      "commands": [
+        "merge-conflict.accept.current"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "a",
+        "i"
+      ],
+      "commands": [
+        "merge-conflict.accept.incoming"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "a",
+        "b"
+      ],
+      "commands": [
+        "merge-conflict.accept.both"
       ]
     }
   ],
@@ -308,6 +369,24 @@
       ],
       "commands": [
         "workbench.action.editor.nextChange"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "f"
+      ],
+      "commands": [
+        "merge-conflict.previous"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "f"
+      ],
+      "commands": [
+        "merge-conflict.next"
       ]
     },
     {
@@ -424,24 +503,37 @@
       "commands": [
         "editor.action.rename"
       ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "t"
+      ],
+      "commands": [
+        {
+          "args": {
+            "interval": 5,
+            "sequence": [
+              {
+                "args": {
+                  "kind": "refactor.extract"
+                },
+                "command": "editor.action.codeAction"
+              },
+              "editor.action.rename"
+            ]
+          },
+          "command": "extension.multiCommand.execute"
+        }
+      ]
     }
   ],
+  "vim.visualstar": true,
+  "vsicons.dontShowNewVersionMessage": true,
   "window.titleBarStyle": "custom",
   "workbench.colorTheme": "Gruvbox Light Hard",
   "workbench.editor.showTabs": false,
   "workbench.iconTheme": "vscode-icons",
   "workbench.preferredDarkColorTheme": "Gruvbox Light Hard",
-  "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
-  "files.autoSaveDelay": 5000,
-  "editor.formatOnSave": true,
-  "[go]": {
-    "editor.insertSpaces": false,
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
-  },
-  "go.formatFlags": [
-    "-local=github.com/grafana/backend-enterprise"
-  ]
+  "workbench.preferredLightColorTheme": "Gruvbox Light Hard"
 }
