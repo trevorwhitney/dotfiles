@@ -95,10 +95,6 @@
     "when": "workbench.explorer.openEditorsView.active"
   },
   {
-    "command": "workbench.action.togglePanel",
-    "key": "ctrl+a r"
-  },
-  {
     "command": "-workbench.action.togglePanel",
     "key": "ctrl+j"
   },
@@ -235,5 +231,20 @@
   {
     "key": "ctrl+a f",
     "command": "workbench.action.findInFiles"
+  },
+  {
+    "key": "ctrl+a t",
+    "command": "workbench.action.terminal.toggleTerminal",
+    "when": "terminal.active"
+  },
+  {
+    "key": "ctrl+a r",
+    "command": "workbench.action.output.toggleOutput",
+    "when": "workbench.panel.output.active"
+  },
+  {
+    "key": "ctrl+a d",
+    "command": "workbench.debug.action.toggleRepl",
+    "when": "workbench.panel.repl.view.active"
   }
 ]
