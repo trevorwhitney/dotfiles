@@ -12,7 +12,10 @@ plugins=(git ruby vi-mode mvn aws)
 #
 # Set Default Ruby
 eval "$(rbenv init -)"
-rbenv shell 2.4.1
+RBENV_ROOT="$HOME/.rbenv"
+if [[ -e "$RBENV_ROOT/versions/2.4.1" ]]; then
+  rbenv shell 2.4.1
+fi
 RUBY_HOME="$HOME/.rbenv/versions/$RBENV_VERSION"
 
 HOMEBREW_GOROOT="/usr/local/Cellar/go/1.15.6/libexec"
