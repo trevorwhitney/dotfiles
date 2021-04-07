@@ -15,3 +15,4 @@ for package in $packages; do
 done
 
 golangci-lint --version > /dev/null
+command -v faillint > /dev/null
