@@ -48,4 +48,6 @@ function task_url() {
 
 #grafana
 alias backend="cd ~/workspace/grafana/backend-enterprise"
-alias curl_gem="curl -u :$(cat ~/workspace/k3s/gem/secret) "
+if [[ -e "$HOME/workspace/k3s" ]]; then
+  alias curl_gem="curl -u :$(cat ~/workspace/k3s/gem/secret) "
+fi
