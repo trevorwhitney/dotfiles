@@ -90,10 +90,11 @@ prompt_end() {
 prompt_context() {
   local aqua="#689d6a"
   local white="#f9f5d7"
+  # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
-    # prompt_segment black default "%(!.%{%F{yellow}%}.)%n@%m"
-    # prompt_segment $aqua $white "%(!.%{%F{yellow}%}.)%n"
     prompt_segment $aqua $white "%(!.%{%F{yellow}%}.)%n@%m"
+    # Replace with this to get rid of hostname
+    # prompt_segment $aqua $white "%(!.%{%F{yellow}%}.)%n"
   fi
 }
 
@@ -269,7 +270,7 @@ prompt_aws() {
 prompt_k8s() {
   local purple="#8f3f71"
   local white="#f9f5d7"
-	context="-"
+  #Only show if kubectl is installed
 	if [[ `command -v kubectl` ]]; then
 		context="$(kubectl config current-context || echo "-")"
     prompt_segment $purple $white "$context"
