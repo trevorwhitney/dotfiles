@@ -35,6 +35,18 @@ popd > /dev/null || exit 1
 
 rm -rf $temp
 python3 -m pip install --user --upgrade pynvim
+
+# make sure pip is installed for python since it's no longer in
+# ubuntu package manager
+if [[ ! `command -v pip` ]]; then
+  temp="$(mktemp -d)"
+  pushd $temp > /dev/null || exit 1
+    curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+    python get-pip.py
+  popd > /dev/null || exit 1
+  rm -rf $temp
+fi
+
 python -m pip install --user --upgrade pynvim
 gem install neovim
 sudo npm install -g neovim
