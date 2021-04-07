@@ -1,88 +1,8 @@
 [
   {
-    "command": "editor.action.rename",
-    "key": "shift+f6",
-    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
-  },
-  {
-    "command": "-editor.action.rename",
-    "key": "f2",
-    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
-  },
-  {
-    "command": "editor.debug.action.toggleBreakpoint",
-    "key": "ctrl+f8",
-    "when": "debuggersAvailable && editorTextFocus"
-  },
-  {
-    "command": "-editor.debug.action.toggleBreakpoint",
-    "key": "f9",
-    "when": "debuggersAvailable && editorTextFocus"
-  },
-  {
-    "command": "workbench.action.debug.stepInto",
-    "key": "f7",
-    "when": "debugState != 'inactive'"
-  },
-  {
-    "command": "-workbench.action.debug.stepInto",
-    "key": "f11",
-    "when": "debugState != 'inactive'"
-  },
-  {
-    "command": "workbench.action.debug.stepOut",
-    "key": "shift+f7",
-    "when": "debugState == 'stopped'"
-  },
-  {
-    "command": "-workbench.action.debug.stepOut",
-    "key": "shift+f11",
-    "when": "debugState == 'stopped'"
-  },
-  {
-    "command": "workbench.action.debug.stepOver",
-    "key": "f8",
-    "when": "debugState == 'stopped'"
-  },
-  {
-    "command": "-workbench.action.debug.stepOver",
-    "key": "f10",
-    "when": "debugState == 'stopped'"
-  },
-  {
-    "command": "workbench.action.debug.continue",
-    "key": "f9",
-    "when": "inDebugMode"
-  },
-  {
-    "command": "-workbench.action.debug.continue",
-    "key": "f5",
-    "when": "inDebugMode"
-  },
-  {
-    "command": "workbench.action.debug.restart",
-    "key": "ctrl+shift+f9",
-    "when": "inDebugMode"
-  },
-  {
-    "command": "-workbench.action.debug.restart",
-    "key": "ctrl+shift+f5",
-    "when": "inDebugMode"
-  },
-  {
-    "command": "workbench.action.quickOpenNavigateNext",
-    "key": "ctrl+n",
-    "when": "inQuickOpen"
-  },
-  {
-    "command": "workbench.action.quickOpenNavigatePrevious",
-    "key": "ctrl+p",
-    "when": "inQuickOpen"
-  },
-  {
-    "command": "workbench.files.action.focusOpenEditorsView",
-    "key": "ctrl+a e",
-    "when": "workbench.explorer.openEditorsView.active"
+    "command": "workbench.action.compareEditor.previousChange",
+    "key": "[ c",
+    "when": "textCompareEditorVisible"
   },
   {
     "command": "workbench.files.action.focusOpenEditorsView",
@@ -90,23 +10,58 @@
     "when": "sideBarVisible && !editorTextFocus"
   },
   {
-    "command": "-workbench.files.action.focusOpenEditorsView",
-    "key": "ctrl+k e",
-    "when": "workbench.explorer.openEditorsView.active"
+    "command": "workbench.action.findInFiles",
+    "key": "\\ f",
+    "when": "sideBarVisible && !editorTextFocus"
   },
   {
-    "command": "-workbench.action.togglePanel",
-    "key": "ctrl+j"
+    "command": "outline.focus",
+    "key": "\\ o",
+    "when": "sideBarVisible && !editorTextFocus"
   },
   {
-    "command": "workbench.view.scm",
-    "key": "ctrl+a g",
-    "when": "workbench.scm.active"
+    "command": "workbench.explorer.fileView.focus",
+    "key": "\\ p",
+    "when": "sideBarVisible && !editorTextFocus"
   },
   {
-    "command": "-workbench.view.scm",
-    "key": "ctrl+shift+g",
-    "when": "workbench.scm.active"
+    "command": "workbench.view.debug",
+    "key": "\\ r",
+    "when": "sideBarVisible && !editorTextFocus"
+  },
+  {
+    "command": "workbench.action.compareEditor.nextChange",
+    "key": "] c",
+    "when": "textCompareEditorVisible"
+  },
+  {
+    "command": "workbench.action.moveActiveEditorGroupLeft",
+    "key": "alt+h",
+    "when": "editorTextFocus"
+  },
+  {
+    "command": "workbench.action.moveActiveEditorGroupRight",
+    "key": "alt+l",
+    "when": "editorTextFocus"
+  },
+  {
+    "command": "-togglePreserveCase",
+    "key": "alt+p",
+    "when": "editorFocus"
+  },
+  {
+    "command": "editor.action.triggerParameterHints",
+    "key": "alt+p",
+    "when": "editorHasSignatureHelpProvider && editorTextFocus"
+  },
+  {
+    "command": "workbench.action.splitEditorOrthogonal",
+    "key": "ctrl+a -"
+  },
+  {
+    "command": "workbench.action.toggleSidebarVisibility",
+    "key": "ctrl+a /",
+    "when": "sideBarVisible && editorTextFocus"
   },
   {
     "args": {
@@ -130,27 +85,115 @@
     "when": "sideBarFocus"
   },
   {
-    "command": "workbench.action.toggleSidebarVisibility",
-    "key": "ctrl+a /",
-    "when": "sideBarVisible && editorTextFocus"
+    "command": "workbench.debug.action.toggleRepl",
+    "key": "ctrl+a d",
+    "when": "workbench.panel.repl.view.active"
   },
   {
-    "command": "-workbench.action.toggleSidebarVisibility",
-    "key": "ctrl+b"
+    "command": "workbench.files.action.focusOpenEditorsView",
+    "key": "ctrl+a e",
+    "when": "workbench.explorer.openEditorsView.active"
   },
   {
-    "command": "-togglePreserveCase",
-    "key": "alt+p",
-    "when": "editorFocus"
+    "command": "workbench.action.findInFiles",
+    "key": "ctrl+a f"
   },
   {
-    "command": "editor.action.triggerParameterHints",
-    "key": "alt+p",
-    "when": "editorHasSignatureHelpProvider && editorTextFocus"
+    "command": "workbench.view.scm",
+    "key": "ctrl+a g",
+    "when": "workbench.scm.active"
+  },
+  {
+    "command": "workbench.action.focusLeftGroup",
+    "key": "ctrl+a h"
+  },
+  {
+    "command": "workbench.action.focusBelowGroup",
+    "key": "ctrl+a j"
+  },
+  {
+    "command": "workbench.action.focusAboveGroup",
+    "key": "ctrl+a k"
+  },
+  {
+    "command": "workbench.action.focusRightGroup",
+    "key": "ctrl+a l"
+  },
+  {
+    "command": "goToNextReference",
+    "key": "ctrl+a n",
+    "when": "inReferenceSearchEditor || referenceSearchVisible"
+  },
+  {
+    "command": "search.action.focusNextSearchResult",
+    "key": "ctrl+a n",
+    "when": "hasSearchResult || inSearchEditor"
+  },
+  {
+    "command": "references-view.next",
+    "key": "ctrl+a n",
+    "when": "reference-list.hasResult && references-view.canNavigate"
+  },
+  {
+    "command": "goToPreviousReference",
+    "key": "ctrl+a p",
+    "when": "inReferenceSearchEditor || referenceSearchVisible"
+  },
+  {
+    "command": "search.action.focusPreviousSearchResult",
+    "key": "ctrl+a p",
+    "when": "hasSearchResult || inSearchEditor"
+  },
+  {
+    "command": "references-view.prev",
+    "key": "ctrl+a p",
+    "when": "reference-list.hasResult && references-view.canNavigate"
+  },
+  {
+    "command": "workbench.action.output.toggleOutput",
+    "key": "ctrl+a r",
+    "when": "workbench.panel.output.active"
+  },
+  {
+    "command": "workbench.action.splitEditor",
+    "key": "ctrl+a shift+\\"
+  },
+  {
+    "command": "workbench.action.terminal.toggleTerminal",
+    "key": "ctrl+a t",
+    "when": "terminal.active"
+  },
+  {
+    "command": "editor.debug.action.toggleBreakpoint",
+    "key": "ctrl+f8",
+    "when": "debuggersAvailable && editorTextFocus"
+  },
+  {
+    "command": "workbench.action.quickOpenNavigateNext",
+    "key": "ctrl+n",
+    "when": "inQuickOpen"
+  },
+  {
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "key": "ctrl+p",
+    "when": "inQuickOpen"
   },
   {
     "command": "workbench.action.toggleMultiCursorModifier",
     "key": "ctrl+shift+8"
+  },
+  {
+    "command": "editor.debug.action.conditionalBreakpoint",
+    "key": "ctrl+shift+f8"
+  },
+  {
+    "command": "workbench.action.debug.restart",
+    "key": "ctrl+shift+f9",
+    "when": "inDebugMode"
+  },
+  {
+    "command": "git.openFile",
+    "key": "ctrl+shift+g o"
   },
   {
     "command": "editor.action.insertCursorBelow",
@@ -163,88 +206,28 @@
     "when": "editorTextFocus"
   },
   {
-    "command": "-workbench.action.splitEditor",
-    "key": "ctrl+\\"
+    "command": "workbench.action.debug.stepInto",
+    "key": "f7",
+    "when": "debugState != 'inactive'"
   },
   {
-    "command": "workbench.action.splitEditor",
-    "key": "ctrl+a shift+\\"
+    "command": "workbench.action.debug.stepOver",
+    "key": "f8",
+    "when": "debugState == 'stopped'"
   },
   {
-    "command": "workbench.action.splitEditorOrthogonal",
-    "key": "ctrl+a -"
+    "command": "workbench.action.debug.continue",
+    "key": "f9",
+    "when": "inDebugMode"
   },
   {
-    "command": "-workbench.action.splitEditorOrthogonal",
-    "key": "ctrl+k ctrl+\\"
+    "command": "editor.action.rename",
+    "key": "shift+f6",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly"
   },
   {
-    "command": "workbench.action.focusLeftGroup",
-    "key": "ctrl+a h"
-  },
-  {
-    "command": "workbench.action.focusRightGroup",
-    "key": "ctrl+a l"
-  },
-  {
-    "command": "workbench.action.focusAboveGroup",
-    "key": "ctrl+a k"
-  },
-  {
-    "command": "workbench.action.focusBelowGroup",
-    "key": "ctrl+a j"
-  },
-  {
-    "command": "workbench.action.moveActiveEditorGroupLeft",
-    "key": "alt+h",
-    "when": "editorTextFocus"
-  },
-  {
-    "command": "workbench.action.moveActiveEditorGroupRight",
-    "key": "alt+l",
-    "when": "editorTextFocus"
-  },
-  {
-    "command": "workbench.explorer.fileView.focus",
-    "key": "\\ p",
-    "when": "sideBarVisible && !editorTextFocus"
-  },
-  {
-    "command": "workbench.action.findInFiles",
-    "key": "\\ f",
-    "when": "sideBarVisible && !editorTextFocus"
-  },
-  {
-    "command": "outline.focus",
-    "key": "\\ o",
-    "when": "sideBarVisible && !editorTextFocus"
-  },
-  {
-    "key": "\\ r",
-    "command": "workbench.view.debug",
-    "when": "sideBarVisible && !editorTextFocus"
-  },
-  {
-    "command": "editor.debug.action.conditionalBreakpoint",
-    "key": "ctrl+shift+f8"
-  },
-  {
-    "key": "ctrl+a f",
-    "command": "workbench.action.findInFiles"
-  },
-  {
-    "key": "ctrl+a t",
-    "command": "workbench.action.terminal.toggleTerminal",
-    "when": "terminal.active"
-  },
-  {
-    "key": "ctrl+a r",
-    "command": "workbench.action.output.toggleOutput",
-    "when": "workbench.panel.output.active"
-  },
-  {
-    "key": "ctrl+a d",
-    "command": "workbench.debug.action.toggleRepl",
-    "when": "workbench.panel.repl.view.active"
+    "command": "workbench.action.debug.stepOut",
+    "key": "shift+f7",
+    "when": "debugState == 'stopped'"
   }
 ]

@@ -67,11 +67,8 @@
   "vim.enableNeovim": true,
   "vim.foldfix": true,
   "vim.handleKeys": {
-    "<C-a>": false,
-    "<C-d>": false,
-    "<C-j>": true,
-    "<C-k>": true,
-    "<C-r>": true
+    "<C-r>": true,
+    "<C-k>": false
   },
   "vim.highlightedyank.enable": true,
   "vim.hlsearch": true,
@@ -92,22 +89,6 @@
   "vim.neovimPath": "/usr/bin/nvim",
   "vim.neovimUseConfigFile": true,
   "vim.normalModeKeyBindings": [
-    {
-      "before": [
-        "<C-j>"
-      ],
-      "commands": [
-        "editor.action.smartSelect.shrink"
-      ]
-    },
-    {
-      "before": [
-        "<C-k>"
-      ],
-      "commands": [
-        "editor.action.smartSelect.expand"
-      ]
-    },
     {
       "before": [
         "<leader>",
@@ -314,7 +295,16 @@
     {
       "before": [
         "\\",
-        "w"
+        "q"
+      ],
+      "commands": [
+        "workbench.action.closeActiveEditor"
+      ]
+    },
+    {
+      "before": [
+        "\\",
+        "Q"
       ],
       "commands": [
         "workbench.action.closeEditorsInGroup"
@@ -479,7 +469,8 @@
   "vim.visualModeKeyBindings": [
     {
       "before": [
-        "<C-j>"
+        "a",
+        "F"
       ],
       "commands": [
         "editor.action.smartSelect.shrink"
@@ -487,7 +478,8 @@
     },
     {
       "before": [
-        "<C-k>"
+        "a",
+        "f"
       ],
       "commands": [
         "editor.action.smartSelect.expand"
