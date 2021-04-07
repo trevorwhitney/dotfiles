@@ -51,6 +51,10 @@
     "--fast"
   ],
   "go.lintTool": "golangci-lint",
+  "go.testTags": "requires_docker,e2e_gme",
+  "go.buildFlags": [
+    "-tags=requires_docker,e2e_gme"
+  ],
   "go.toolsManagement.autoUpdate": true,
   "gopls": {
     "verboseOutput": true
@@ -158,6 +162,26 @@
       ],
       "commands": [
         "go.test.previous"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "f"
+      ],
+      "commands": [
+        "go.test.file"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "r",
+        "p"
+      ],
+      "commands": [
+        "go.test.package"
       ]
     },
     {

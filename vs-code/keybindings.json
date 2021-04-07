@@ -210,6 +210,11 @@
   },
   {
     "command": "workbench.explorer.fileView.focus",
+    "key": "\\ p",
+    "when": "sideBarVisible && !editorTextFocus"
+  },
+  {
+    "command": "workbench.action.findInFiles",
     "key": "\\ f",
     "when": "sideBarVisible && !editorTextFocus"
   },
@@ -219,7 +224,16 @@
     "when": "sideBarVisible && !editorTextFocus"
   },
   {
+    "key": "\\ r",
+    "command": "workbench.view.debug",
+    "when": "sideBarVisible && !editorTextFocus"
+  },
+  {
     "command": "editor.debug.action.conditionalBreakpoint",
     "key": "ctrl+shift+f8"
+  },
+  {
+    "key": "ctrl+a f",
+    "command": "workbench.action.findInFiles"
   }
 ]
