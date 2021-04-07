@@ -21,7 +21,12 @@ RUBY_HOME="$HOME/.rbenv/versions/$RBENV_VERSION"
 
 HOMEBREW_GOROOT="/usr/local/Cellar/go/1.15.6/libexec"
 LINUX_GOROOT="/usr/local/go@1.15"
-export GOROOT="$(if [[ $(uname) = "Darwin" ]]; then echo "$HOMEBREW_GOROOT"; else echo "$LINUX_GOROOT"; fi)"
+
+if [[ -e "$HOMEBREW_GOROOT" ]] || [[ -e "$LINUX_GOROOT" ]]; then
+  export GOROOT="$(if [[ $(uname) = "Darwin" ]]; then echo "$HOMEBREW_GOROOT"; else echo "$LINUX_GOROOT"; fi)"
+else
+  export GOROOT="/usr/local/go"
+fi
 export GOPATH="$HOME/go"
 
 export PYTHON_HOME="/usr/local/opt/python3/libexec"
