@@ -88,9 +88,12 @@ prompt_end() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-  if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+  local aqua="#689d6a"
+  local white="#f9f5d7"
+  if [[ -n "$SSH_CLIENT" ]]; then
     # prompt_segment black default "%(!.%{%F{yellow}%}.)%n@%m"
-    prompt_segment magenta default "%(!.%{%F{yellow}%}.)%n"
+    # prompt_segment $aqua $white "%(!.%{%F{yellow}%}.)%n"
+    prompt_segment $aqua $white "%(!.%{%F{yellow}%}.)%n@%m"
   fi
 }
 
@@ -266,9 +269,11 @@ prompt_aws() {
 prompt_k8s() {
   local purple="#8f3f71"
   local white="#f9f5d7"
-  # prompt_segment cyan $CURRENT_FG '%~'
-  context="$(kubectl config current-context)"
-  prompt_segment $purple $white "$context"
+	context="-"
+	if [[ `command -v kubectl` ]]; then
+		context="$(kubectl config current-context || echo "-")"
+    prompt_segment $purple $white "$context"
+	fi
 }
 
 prompt_vi_mode() {
@@ -296,8 +301,7 @@ build_prompt() {
   prompt_status
   prompt_virtualenv
   prompt_aws
-  # use tmux for user/host context
-  # prompt_context
+  prompt_context
   prompt_k8s
   prompt_dir
   prompt_git
