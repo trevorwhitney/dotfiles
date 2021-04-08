@@ -33,10 +33,35 @@
 # A few utility functions to make it easy and re-usable to draw segmented prompts
 
 CURRENT_BG='NONE'
+aqua="#689d6a"
+black="#3c3836"
+blue="#076678"
+green="#79740e"
+purple="#8f3f71"
+red="#9d0006"
+white="#f9f5d7"
+yellow="#b57614"
+#bg2 - gray
+gray="#d5c4a1"
 
-case ${SOLARIZED_THEME:-dark} in
-  light) CURRENT_FG='white';;
-  *)     CURRENT_FG='black';;
+case ${BACKGROUND:-light} in
+  dark)
+    aqua="#689d6a"
+    black="#1d2021"
+    blue="#83a598"
+    green="#b8bb26"
+    purple="#d3869b"
+    red="#fb4934"
+    white="#ebdbb2"
+    yellow="#fab2f"
+    gray="#504945"
+    CURRENT_FG="$white"
+    prompt_fg="$black"
+    ;;
+  *)
+    CURRENT_FG="$black"
+    prompt_fg="$white"
+    ;;
 esac
 
 # Special Powerline characters
@@ -88,11 +113,9 @@ prompt_end() {
 
 # Context: user@hostname (who am I and where am I)
 prompt_context() {
-  local aqua="#689d6a"
-  local white="#f9f5d7"
   # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
-    prompt_segment $aqua $white "%(!.%{%F{yellow}%}.)%n@%m"
+    prompt_segment $aqua $prompt_fg "%(!.%{%F{yellow}%}.)%n@%m"
     # Replace with this to get rid of hostname
     # prompt_segment $aqua $white "%(!.%{%F{yellow}%}.)%n"
   fi
@@ -106,45 +129,42 @@ prompt_git() {
   fi
   local PL_BRANCH_CHAR
   () {
-  local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-  PL_BRANCH_CHAR=$'\ue0a0'         # 
-}
-local ref dirty mode repo_path
-local green="#79740e"
-local yellow="#b57614"
-local white="#f9f5d7"
+    local LC_ALL="" LC_CTYPE="en_US.UTF-8"
+    PL_BRANCH_CHAR=$'\ue0a0'         # 
+  }
+  local ref dirty mode repo_path
 
-if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
-  repo_path=$(git rev-parse --git-dir 2>/dev/null)
-  dirty=$(parse_git_dirty)
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
-  if [[ -n $dirty ]]; then
-    prompt_segment $yellow $white
-  else
-    prompt_segment $green $white
+  if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
+    repo_path=$(git rev-parse --git-dir 2>/dev/null)
+    dirty=$(parse_git_dirty)
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
+    if [[ -n $dirty ]]; then
+      prompt_segment $yellow $prompt_fg
+    else
+      prompt_segment $green $prompt_fg
+    fi
+
+    if [[ -e "${repo_path}/BISECT_LOG" ]]; then
+      mode=" <B>"
+    elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
+      mode=" >M<"
+    elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
+      mode=" >R>"
+    fi
+
+    setopt promptsubst
+    autoload -Uz vcs_info
+
+    zstyle ':vcs_info:*' enable git
+    zstyle ':vcs_info:*' get-revision true
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' stagedstr '✚'
+    zstyle ':vcs_info:*' unstagedstr '±'
+    zstyle ':vcs_info:*' formats ' %u%c'
+    zstyle ':vcs_info:*' actionformats ' %u%c'
+    vcs_info
+    echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
   fi
-
-  if [[ -e "${repo_path}/BISECT_LOG" ]]; then
-    mode=" <B>"
-  elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
-    mode=" >M<"
-  elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
-    mode=" >R>"
-  fi
-
-  setopt promptsubst
-  autoload -Uz vcs_info
-
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' get-revision true
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' stagedstr '✚'
-  zstyle ':vcs_info:*' unstagedstr '±'
-  zstyle ':vcs_info:*' formats ' %u%c'
-  zstyle ':vcs_info:*' actionformats ' %u%c'
-  vcs_info
-  echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
-fi
 }
 
 prompt_bzr() {
@@ -163,12 +183,12 @@ prompt_bzr() {
     status_all=$(echo -n "$bzr_status" | head -n1 | wc -m)
     revision=$(bzr log -r-1 --log-format line | cut -d: -f1)
     if [[ $status_mod -gt 0 ]] ; then
-      prompt_segment yellow black "bzr@$revision ✚"
+      prompt_segment $yellow $prompt_fg "bzr@$revision ✚"
     else
       if [[ $status_all -gt 0 ]] ; then
-        prompt_segment yellow black "bzr@$revision"
+        prompt_segment $yellow $prompt_fg "bzr@$revision"
       else
-        prompt_segment green black "bzr@$revision"
+        prompt_segment $green $prompt_fg "bzr@$revision"
       fi
     fi
   fi
@@ -189,7 +209,7 @@ prompt_hg() {
         st='±'
       else
         # if working copy is clean
-        prompt_segment green $CURRENT_FG
+        prompt_segment $green $prompt_fg
       fi
       echo -n $(hg prompt "☿ {rev}@{branch}") $st
     else
@@ -197,13 +217,13 @@ prompt_hg() {
       rev=$(hg id -n 2>/dev/null | sed 's/[^-0-9]//g')
       branch=$(hg id -b 2>/dev/null)
       if `hg st | grep -q "^\?"`; then
-        prompt_segment red black
+        prompt_segment $red $prompt_fg
         st='±'
       elif `hg st | grep -q "^[MA]"`; then
-        prompt_segment yellow black
+        prompt_segment $yellow $prompt_fg
         st='±'
       else
-        prompt_segment green $CURRENT_FG
+        prompt_segment $green $prompt_fg
       fi
       echo -n "☿ $rev@$branch" $st
     fi
@@ -212,28 +232,23 @@ prompt_hg() {
 
 # Dir: current working directory
 prompt_dir() {
-  local blue="#076678"
-  local white="#f9f5d7"
   # prompt_segment cyan $CURRENT_FG '%~'
-  prompt_segment $blue $white '%2~'
+  prompt_segment $blue $prompt_fg '%2~'
 }
 
 # Virtualenv: current working virtualenv
 prompt_virtualenv() {
   local virtualenv_path="$VIRTUAL_ENV"
   if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment blue black "(`basename $virtualenv_path`)"
+    prompt_segment $blue $prompt_fg "(`basename $virtualenv_path`)"
   fi
 }
 
 prompt_time() {
-  local white="#f9f5d7"
-  local magenta="#8f3f71"
-  local red="#9d0006"
   if [[ $RETVAL -eq 0 ]]; then
-    prompt_segment $magenta $white '%*'
+    prompt_segment $purple $prompt_fg '%*'
   else
-    prompt_segment $red $white '%*'
+    prompt_segment $red $prompt_fg '%*'
   fi
 }
 
@@ -250,7 +265,7 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
+  [[ -n "$symbols" ]] && prompt_segment $black $prompt_fg "$symbols"
 }
 
 #AWS Profile:
@@ -261,35 +276,30 @@ prompt_status() {
 prompt_aws() {
   [[ -z "$aws_profile" || "$show_aws_prompt" = false ]] && return
   case "$aws_profile" in
-    *-prod|*production*) prompt_segment red yellow  "aws: $aws_profile" ;;
-    *) prompt_segment green black "aws: $aws_profile" ;;
+    *-prod|*production*) prompt_segment $red $prompt_fg  "aws: $aws_profile" ;;
+    *) prompt_segment $green $prompt_fg "aws: $aws_profile" ;;
   esac
 }
 
 # current k8s context
 prompt_k8s() {
-  local purple="#8f3f71"
-  local white="#f9f5d7"
   #Only show if kubectl is installed
 	if [[ `command -v kubectl` ]]; then
 		context="$(kubectl config current-context || echo "-")"
-    prompt_segment $purple $white "$context"
+    prompt_segment $purple $prompt_fg "$context"
 	fi
 }
 
 prompt_vi_mode() {
-  local white="#f9f5d7"
-  local black="#3c3836"
   case $KEYMAP in
-    vicmd) prompt_segment "#8f3f71" $white normal;;
-    viins|main) prompt_segment "#d5c4a1" $black ✎;;
+    vicmd) prompt_segment $purple $prompt_fg normal;;
+    viins|main) prompt_segment $gray $CURRENT_FG ✎;;
   esac
 }
 
 prompt_ret_val() {
-  local white="#f9f5d7"
   if [[ $RETVAL -ne 0 ]]; then
-    prompt_segment "#9d0006" $white $RETVAL
+    prompt_segment $red $prompt_fg $RETVAL
   fi
 }
 

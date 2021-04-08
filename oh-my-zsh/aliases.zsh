@@ -52,3 +52,9 @@ alias backend="cd ~/workspace/grafana/backend-enterprise"
 if [[ -e "$HOME/workspace/k3s" ]]; then
   alias curl_gem="curl -u :$(cat ~/workspace/k3s/gem/secret) "
 fi
+
+if [[ `command -v alacritty` ]]; then
+  alias term-remote="alacritty --config-file=/home/twhitney/.config/alacritty/remote.yml & "
+  alias term-remote-dark="alacritty --config-file=/home/twhitney/.config/alacritty/remote-dark.yml & "
+  alias term-dark="alacritty --config-file=/home/twhitney/.config/alacritty/alacritty-dark.yml & "
+fi
