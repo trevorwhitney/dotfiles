@@ -18,4 +18,9 @@ create_alacritty_link() {
 }
 
 create_alacritty_link "$current_dir/alacritty.yml"
+create_alacritty_link "$current_dir/alacritty-dark.yml"
+create_alacritty_link "$current_dir/base.yml"
+create_alacritty_link "$current_dir/gruvbox-dark.yml"
 create_alacritty_link "$current_dir/gruvbox.yml"
+create_alacritty_link "$current_dir/remote-dark.yml"
+create_alacritty_link "$current_dir/remote.yml"

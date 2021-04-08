@@ -299,7 +299,13 @@ let g:gruvbox_italic=0
 let g:gruvbox_contrast_light="hard"
 let g:gruvbox_improved_warnings=1
 set termguicolors
-set background=light
+
+if $BACKGROUND == 'dark'
+  set background=dark
+else
+  set background=light
+endif
+
 colorscheme gruvbox_less_red
 let g:airline_theme="solarized"
 let g:airline_powerline_fonts=1

@@ -1,0 +1,10 @@
+import:
+ - /home/twhitney/.config/alacritty/base.yml
+ - /home/twhitney/.config/alacritty/gruvbox-dark.yml
+
+# Shell
+shell:
+  program: /bin/zsh
+  args:
+    - -i
+    - -l
