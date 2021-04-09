@@ -68,6 +68,7 @@
   "vim.foldfix": true,
   "vim.handleKeys": {
     "<C-r>": true,
+    "<C-t>": true,
     "<C-k>": false
   },
   "vim.highlightedyank.enable": true,
@@ -100,14 +101,6 @@
     },
     {
       "before": [
-        "<C-t>"
-      ],
-      "commands": [
-        "editor.action.refactor"
-      ]
-    },
-    {
-      "before": [
         "<leader>",
         "="
       ],
@@ -122,7 +115,16 @@
         "t"
       ],
       "commands": [
-        "go.test.cursor"
+        {
+          "args": {
+            "interval": 100,
+            "sequence": [
+              "workbench.action.files.save",
+              "go.test.cursor"
+            ]
+          },
+          "command": "extension.multiCommand.execute"
+        }
       ]
     },
     {
@@ -132,7 +134,16 @@
         "l"
       ],
       "commands": [
-        "go.test.previous"
+        {
+          "args": {
+            "interval": 100,
+            "sequence": [
+              "workbench.action.files.save",
+              "go.test.previous"
+            ]
+          },
+          "command": "extension.multiCommand.execute"
+        }
       ]
     },
     {
@@ -496,14 +507,6 @@
     },
     {
       "before": [
-        "<C-t>"
-      ],
-      "commands": [
-        "editor.action.refactor"
-      ]
-    },
-    {
-      "before": [
         "<leader>",
         "="
       ],
@@ -552,5 +555,6 @@
   "workbench.editor.showTabs": false,
   "workbench.iconTheme": "vscode-icons",
   "workbench.preferredDarkColorTheme": "Gruvbox Dark Hard",
-  "workbench.preferredLightColorTheme": "Gruvbox Light Hard"
+  "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
+  "workbench.startupEditor": "none"
 }
