@@ -288,6 +288,24 @@
     {
       "before": [
         "\\",
+        "b"
+      ],
+      "commands": [
+        "editor.debug.action.toggleBreakpoint"
+      ]
+    },
+    {
+      "before": [
+        "\\",
+        "B"
+      ],
+      "commands": [
+        "editor.debug.action.conditionalBreakpoint"
+      ]
+    }
+    {
+      "before": [
+        "\\",
         "e"
       ],
       "commands": [
@@ -449,24 +467,6 @@
       ],
       "commands": [
         "editor.action.goToReferences"
-      ]
-    },
-    {
-      "before": [
-        "\\",
-        "b"
-      ],
-      "commands": [
-        "editor.debug.action.toggleBreakpoint"
-      ]
-    },
-    {
-      "before": [
-        "\\",
-        "B"
-      ],
-      "commands": [
-        "editor.debug.action.conditionalBreakpoint"
       ]
     }
   ],
