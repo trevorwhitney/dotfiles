@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-current_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+#!/usr/bin/env zsh
+current_dir=$(cd "$(dirname $0)" && pwd)
 
 sudo apt-get update
 

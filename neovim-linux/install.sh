@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/env zsh
+
+source "$HOME/.zshrc"
 
 current_dir=$(cd "$(dirname "$0")" && pwd)
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 source "${HOME}/.sdkman/bin/sdkman-init.sh"
 command -v sdk

@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-brewfile_directory=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+#!/usr/bin/env zsh
+brewfile_directory=$(cd "$(dirname $0)" && pwd)
 
 brew tap homebrew/bundle
 

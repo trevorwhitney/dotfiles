@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 scripts_dir=$(cd $(dirname ${BASH_SOURCE}) && pwd)
 
 export MAVEN_OPTS="-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.event.ExecutionEventLogger=info -Dorg.slf4j.simpleLogger.defaultLogLevel=warn"

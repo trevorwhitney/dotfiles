@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 ### These are not working, using the brew gradle-completion package instead, kept here for posterity
 

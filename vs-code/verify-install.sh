@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 test_code_link() {
     file_name="$(basename "$1" | sed "s/^\.//g")"

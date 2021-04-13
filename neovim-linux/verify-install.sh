@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 comand -v nvim > /dev/null
 nvim --version > /dev/null

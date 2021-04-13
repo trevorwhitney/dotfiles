@@ -1,15 +1,14 @@
-#!/usr/bin/env bash
-current_dir=$(cd $(dirname $0) && pwd)
+#!/usr/bin/env zsh
 
 # Linking files is good for configurations
 # we want to track changes to
 create_link() {
     file_name="$(basename "$1" | sed "s/^\.//g")"
     if [ -h "$HOME/.$file_name" ] || [ -e "$HOME/.$file_name" ]; then
-      rm -rf "$HOME/.$file_name";
+      rm -rf "$HOME/.$file_name"
     fi
 
-    ln -s "$1" "$HOME/.$file_name"
+    ln -sf "$1" "$HOME/.$file_name"
 }
 
 # Linking files is good for configurations
@@ -23,7 +22,7 @@ create_config_link() {
       rm -rf "$link";
     fi
 
-    ln -s "$2" "$link"
+    ln -sf "$2" "$link"
 }
 
 # Copying files is good for configurations that might

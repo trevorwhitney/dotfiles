@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 current_dir=$(cd $(dirname $0) && pwd)
 
 BASH_COMPLETION_DIR="$HOME/.bash_completion.d"

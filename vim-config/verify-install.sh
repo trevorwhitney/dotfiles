@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 command -v vim > /dev/null
 test -e $HOME/.vim/config.vim

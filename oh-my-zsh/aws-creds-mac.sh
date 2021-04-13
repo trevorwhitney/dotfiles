@@ -52,6 +52,6 @@ export AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
 ENV
 }
 
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+if [[ $0 == "${0}" ]]; then
   aws-creds $@
 fi

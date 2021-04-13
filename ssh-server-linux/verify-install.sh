@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 sudo systemctl status ssh > /dev/null
