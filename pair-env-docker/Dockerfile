@@ -72,8 +72,10 @@ RUN DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommen
 COPY ./pair-env-docker/dotexclude /home/pair/.dotexclude
 RUN sudo chown -R pair:pair /home/pair && sudo chmod a+x install && /bin/bash -x install
 
+# Clean up unused files and
 # Remove last line from sudoers file to revoke passwordless sudo access for pair user
-RUN sudo sed -i '$ d' /etc/sudoers
+RUN ./pair-env-docker/clean.sh && sudo sed -i '$ d' /etc/sudoers
+
 
 VOLUME [ "/sys/fs/cgroup" ]
 
