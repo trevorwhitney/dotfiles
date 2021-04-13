@@ -40,12 +40,12 @@
     "when": "textCompareEditorVisible"
   },
   {
-    "command": "workbench.action.moveActiveEditorGroupLeft",
+    "command": "workbench.action.moveEditorToLeftGroup",
     "key": "alt+h",
     "when": "editorTextFocus"
   },
   {
-    "command": "workbench.action.moveActiveEditorGroupRight",
+    "command": "workbench.action.moveEditorToRightGroup",
     "key": "alt+l",
     "when": "editorTextFocus"
   },
@@ -254,7 +254,7 @@
   },
   {
     "key": "ctrl+p",
-    "command": "selectPrevSuggestion",
+    "command": "selectPreviousSuggestion",
     "when": "suggestWidgetMultipleSuggestions && suggestWidgetVisible && textInputFocus"
   },
   {

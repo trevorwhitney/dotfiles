@@ -302,7 +302,7 @@
       "commands": [
         "editor.debug.action.conditionalBreakpoint"
       ]
-    }
+    },
     {
       "before": [
         "\\",
@@ -532,18 +532,9 @@
       "commands": [
         {
           "args": {
-            "interval": 200,
-            "sequence": [
-              {
-                "args": {
-                  "kind": "refactor.extract"
-                },
-                "command": "editor.action.codeAction"
-              },
-              "editor.action.rename"
-            ]
+            "kind": "refactor.extract"
           },
-          "command": "extension.multiCommand.execute"
+          "command": "editor.action.codeAction"
         }
       ]
     }
@@ -552,9 +543,9 @@
   "vsicons.dontShowNewVersionMessage": true,
   "window.titleBarStyle": "custom",
   "workbench.colorTheme": "Gruvbox Light Hard",
-  "workbench.editor.showTabs": false,
   "workbench.iconTheme": "vscode-icons",
   "workbench.preferredDarkColorTheme": "Gruvbox Dark Hard",
   "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
-  "workbench.startupEditor": "none"
+  "workbench.startupEditor": "none",
+  "workbench.editor.showTabs": false
 }
