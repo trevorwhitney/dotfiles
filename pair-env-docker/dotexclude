@@ -3,6 +3,7 @@ adoptopenjdk
 alacritty
 azure-cli-linux
 clipit
+docker-linux
 drone-cli
 emacs
 gcloud-linux
@@ -12,6 +13,7 @@ gogh
 inconsolata
 intellij
 iterm2
+jetbrains-mono
 k3d-darwin
 k3d-linux
 k3s-linux
@@ -26,5 +28,6 @@ ssh-server-linux
 tanka-darwin
 tanka-linux
 terminal-vim-darwin
+vault-linux
 vs-code
 yabai
