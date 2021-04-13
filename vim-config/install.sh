@@ -21,11 +21,16 @@ create_custom_vim_link() {
         rm -rf "$HOME/.vim/$1";
     fi
 
+    echo "creating custom vim link $HOME/.vim/$1"
     ln -s "$current_dir/$1" "$HOME/.vim/$1"
 }
 
+create_link "$current_dir/vimrc"
+create_link "$current_dir/ideavimrc"
+
 mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/colors
+
 create_vim_link "$current_dir/bundles.vim"
 create_vim_link "$current_dir/config.vim"
 
@@ -35,41 +40,16 @@ create_custom_vim_link "colors/gruvbox_less_red.vim"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-sed -e 's/^colorscheme/"colorscheme/' "$HOME/.vim/config.vim" > "$current_dir/config.vim.tmp"
-mv "$current_dir/config.vim.tmp" "$HOME/.vim/config.vim"
-
 set +e
 vim --noplugin +"silent PlugInstall" +qall
 set -e
-
-sed -e 's/^"colorscheme/colorscheme/' "$HOME/.vim/config.vim" > "$current_dir/config.vim.tmp"
-mv "$current_dir/config.vim.tmp" "$HOME/.vim/config.vim"
-
-# need to create the line again to override the moved file
-create_vim_link "$current_dir/config.vim"
 
 if [[ -h "$HOME/.vim/style" ]] || [[ -d "$HOME/.vim/style" ]]; then
   rm -rf "$HOME/.vim/style"
 fi
 ln -s "$current_dir/style" "$HOME/.vim/style"
 
-create_link "$current_dir/vimrc"
-create_link "$current_dir/ideavimrc"
-
-function install_astyle() {
-    mkdir -p ~/tmp/astyle
-    curl -L https://sourceforge.net/projects/astyle/files/astyle/astyle%202.06/astyle_2.06_macos.tar.gz/download -o ~/tmp/astyle/astyle.tar.gz
-    pushd ~/tmp/astyle
-      tar -xzf astyle.tar.gz
-      pushd astyle/build/mac
-        make
-        sudo cp bin/AStyle /usr/local/bin/astyle
-        sudo chmod a+x /usr/local/bin/astyle
-      popd
-    popd
-    rm -rf ~/tmp/astyle
-}
-if [ ! `which astyle` ]; then install_astyle; fi
-
-sudo pip3 install --upgrade -r "$HOME/.vim/plugged/taskwiki/requirements.txt"
+if [[ -e  "$HOME/.vim/plugged/taskwiki/requirements.txt" ]]; then
+  sudo pip3 install --upgrade -r "$HOME/.vim/plugged/taskwiki/requirements.txt"
+fi
 

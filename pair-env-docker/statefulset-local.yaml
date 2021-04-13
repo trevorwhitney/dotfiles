@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pair-box
+  namespace: grafana-dev
+  labels:
+    app: pair-box
+spec:
+  ports:
+    - port: 22
+      name: ssh
+  clusterIP: None
+  selector:
+    app: pair-box
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pair-box
+  namespace: grafana-dev
+  labels:
+    app: pair-box
+spec:
+  serviceName: pair-box
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pair-box
+  template:
+    metadata:
+      labels:
+        app: pair-box
+    spec:
+      containers:
+        - name: system
+          image: trevorwhitney/golang-pairing:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 22
+              name: ssh
+          volumeMounts:
+            - name: docker
+              mountPath: /var/lib/docker
+            - name: data
+              mountPath: /home
+              subPath: home
+            - name: data
+              mountPath: /etc/ssh
+              subPath: etc-ssh
+            - name: tmp
+              mountPath: /tmp
+            - name: run
+              mountPath: /run
+            - name: cgroup
+              mountPath: /sys/fs/cgroup
+              readOnly: true
+          securityContext:
+            privileged: true
+          resources:
+            limits:
+              memory: "12Gi"
+            requests:
+              cpu: "2"
+              memory: "4Gi"
+      volumes:
+        - name: run
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
+        - name: docker
+          emptyDir: {}
+        - name: cgroup
+          hostPath:
+            path: /sys/fs/cgroup
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: local-disk
+        resources:
+          requests:
+            storage: 50Gi
