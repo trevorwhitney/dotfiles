@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 # ====================CONFIG THIS =============================== #
 export COLOR_01="#f9f5d7"           # HOST
@@ -34,7 +34,7 @@ export PROFILE_NAME="Gruvbox"
 # =============================================================== #
 # | Apply Colors
 # ===============================================================|#
-SCRIPT_PATH="${SCRIPT_PATH:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
+SCRIPT_PATH="${SCRIPT_PATH:-$(cd "$(dirname $0)" && pwd)}"
 PARENT_PATH="$(dirname "${SCRIPT_PATH}")"
 
 # Allow developer to change url to forked url for easier testing

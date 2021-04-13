@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 current_dir="$(cd $(dirname "$0") && pwd)"
 version="$(cat "$current_dir/version")"

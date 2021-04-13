@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 command -v alacritty > /dev/null
 test -e "$HOME/.config/alacritty/alacritty.yml"

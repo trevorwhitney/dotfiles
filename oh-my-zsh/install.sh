@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -e
 
@@ -27,10 +27,12 @@ fi
 create_link "$current_dir/zshrc"
 touch "$HOME/.zprofile"
 
+mkdir -p "$HOME/.oh-my-zsh/cache"
+echo "LAST_EPOCH=18722" > "$HOME/.oh-my-zsh/cache/.zsh-update"
+
 create_custom_zsh_link aliases.zsh
 create_custom_zsh_link docker-completion.zsh
 create_custom_zsh_link docker-compose-completion.zsh
-create_custom_zsh_link gulp-completion.zsh
 create_custom_zsh_link k3d-completion.zsh
 create_custom_zsh_link kubectl-completion.zsh
 create_custom_zsh_link themes/philips.zsh-theme

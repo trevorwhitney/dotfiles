@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -e # Exit if any command fails
 
@@ -71,7 +71,7 @@ test -f "${HOME}/.dotexclude" && {
 }
 
 # Exit if there's a guard file and the guard detects an install
-test -f $guard_file && bash $guard_file && {
+test -f $guard_file && zsh -l $guard_file && {
   msg "-* $unit_name already installed"
   exit
 }
@@ -81,10 +81,10 @@ test -s $deps_file && $0 `cat $deps_file`
 
 # Then install unit
 msg "-* installing $unit_name"
-bash $install_file
+zsh -l $install_file
 
 # Exit error if the guard still doesn't pass after install
-test -f $guard_file && (bash $guard_file || {
+test -f $guard_file && (zsh -l $guard_file || {
   msg "-* $unit_name install script finished but verify-install test failed"
   exit 1
 })

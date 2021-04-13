@@ -1,12 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-current_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-packages=$(cat $current_dir/packages | grep -v '^#')
+current_dir=$(cd "$(dirname $0)" && pwd)
+
+source "$HOME/.zshrc"
 
 pushd "$HOME/go" > /dev/null || exit 1
-for package in $packages; do
+for package in $(< $current_dir/packages); do
   echo "installing go package $package"
-  go get $package
+  go get -u $package
 done
 popd > /dev/null || exit 1
 

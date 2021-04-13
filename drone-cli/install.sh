@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 if [[ $(uname) = "Darwin" ]]; then
   echo "Installing Drone CI for Mac OS"

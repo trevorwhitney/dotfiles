@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 test -f $HOME/Library/Fonts/Inconsolata.otf

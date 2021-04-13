@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 tmp_file="$(mktemp)"
 wget https://golang.org/dl/go1.15.6.linux-amd64.tar.gz -O "${tmp_file}"

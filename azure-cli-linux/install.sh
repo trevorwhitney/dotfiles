@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 curl -sL https://packages.microsoft.com/keys/microsoft.asc |
     gpg --dearmor |
