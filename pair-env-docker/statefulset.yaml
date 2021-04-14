@@ -46,7 +46,7 @@ spec:
               subPath: home
             - name: data
               mountPath: /etc/ssh
-              subPath: etc-ssh
+              subPath: ssh
             - name: tmp
               mountPath: /tmp
             - name: run
