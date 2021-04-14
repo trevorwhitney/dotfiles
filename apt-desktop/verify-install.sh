@@ -6,8 +6,7 @@ function verify_package() {
 }
 
 current_dir=$(cd "$(dirname $0)" && pwd)
-packages=$(cat "$current_dir/packages" | grep -v '^#')
-for package in $packages; do
+for package in $(< $current_dir/packages); do
   if ! verify_package $package; then
     echo "Failed to find apt package $package"
     exit 1;
