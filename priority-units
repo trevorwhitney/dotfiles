@@ -1,8 +1,8 @@
+apt
+oh-my-zsh
+dotfiles
 commandline-tools
 homebrew
 homebrew-bundle
-apt
-dotfiles
-oh-my-zsh
 vim-config
 go-linux

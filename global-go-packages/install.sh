@@ -3,6 +3,7 @@
 current_dir=$(cd "$(dirname $0)" && pwd)
 
 source "$HOME/.zshrc"
+mkdir -p "$HOME/go"
 
 pushd "$HOME/go" > /dev/null || exit 1
 for package in $(< $current_dir/packages); do

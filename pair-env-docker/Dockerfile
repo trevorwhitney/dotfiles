@@ -1,17 +1,19 @@
 FROM ubuntu:groovy
 
 RUN apt update && apt-get install -y \
-  git \
-  sudo \
-  locales \
-  iptables \
-  openssh-server \
-  systemd \
   apt-transport-https \
   ca-certificates \
   curl \
+  docker \
+  docker-compose \
+  git \
   gnupg \
+  iptables \
+  locales \
   lsb-release \
+  openssh-server \
+  sudo \
+  systemd \
   zsh
 
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
@@ -48,9 +50,11 @@ RUN useradd -u 1000 -g 1000 --groups docker,sudo,users -ms /bin/zsh pair && \
   chmod -R 775 /usr/local
 
 # Give pair passwordless access to sudo for dotfiles install
-RUN echo "pair    ALL= (ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN echo "pair    ALL= (ALL) NOPASSWD: ALL" >> /etc/sudoers && \
+  mkdir /dotfiles
 
 USER pair
+COPY . /dotfiles
 WORKDIR /dotfiles
 
 # locale settings so pretty fonts/zsh themes work
@@ -59,10 +63,6 @@ ENV container docker
 ENV LC_ALL C
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN mkdir -p /home/pair/workspace
-COPY . /home/pair/workspace/dotfiles
-WORKDIR /home/pair/workspace/dotfiles
-
 # Set the timezone to make tzdata happy about being noninteractive
 RUN sudo ln -fs /usr/share/zoneinfo/America/Denver /etc/localtime
 RUN DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommends tzdata \
@@ -70,14 +70,15 @@ RUN DEBIAN_FRONTEND=noninteractive sudo apt-get install -y --no-install-recommen
 
 # Install dotfiles
 COPY ./pair-env-docker/dotexclude /home/pair/.dotexclude
-RUN sudo chown -R pair:pair /home/pair && sudo chmod a+x install && /bin/bash -x install
+RUN sudo chown -R pair:pair /home/pair /dotfiles
+RUN /bin/zsh -l install
 
 # Clean up unused files and
 # Remove last line from sudoers file to revoke passwordless sudo access for pair user
 RUN ./pair-env-docker/clean.sh && sudo sed -i '$ d' /etc/sudoers
 
-
 VOLUME [ "/sys/fs/cgroup" ]
 
+USER root
 COPY ./pair-env-docker/run.sh /run.sh
 CMD ["/run.sh"]

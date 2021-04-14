@@ -69,7 +69,8 @@
   "vim.handleKeys": {
     "<C-r>": true,
     "<C-t>": true,
-    "<C-k>": false
+    "<C-k>": false,
+    "<C-d>": false
   },
   "vim.highlightedyank.enable": true,
   "vim.hlsearch": true,
