@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: system
-          image: trevorwhitney/golang-pairing:latest
+          image: trevorwhitney/pairing:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 22
@@ -58,7 +58,7 @@ spec:
             privileged: true
           resources:
             limits:
-              memory: "12Gi"
+              memory: "8Gi"
             requests:
               cpu: "2"
               memory: "4Gi"
