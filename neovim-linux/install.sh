@@ -54,6 +54,19 @@ if [[ `command -v python` ]]; then
   python -m pip install --user --upgrade pynvim
 fi
 
+if [[ `command -v python2` ]]; then
+  if [[ ! `command -v pip` ]]; then
+    temp="$(mktemp -d)"
+    pushd $temp > /dev/null || exit 1
+      curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+      python2 get-pip.py
+    popd > /dev/null || exit 1
+    rm -rf $temp
+  fi
+
+  python2 -m pip install --user --upgrade pynvim
+fi
+
 gem install neovim
 sudo npm install -g neovim
 

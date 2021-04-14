@@ -104,15 +104,14 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+vmap <leader>t  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction-cursor)
-nmap <leader>rf   <Plug>(coc-refactor)
-xmap <leader>rf   <Plug>(coc-refactor)
+vmap <leader>rf   <Plug>(coc-refactor)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader><cr>  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -155,7 +154,9 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Show all diagnostics.
 nnoremap <silent><nowait> \a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> \e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> \x  :<C-u>CocList extensions<cr>
+" Show recent buffers
+nnoremap <silent><nowait> \e  :BufExplorer<cr>
 " Show commands.
 nnoremap <silent><nowait> \c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
@@ -169,8 +170,17 @@ nnoremap <silent><nowait> \k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> \p  :<C-u>CocListResume<CR>
 
+let g:delve_use_vimux = 1
+
 augroup go
   autocmd!
-  autocmd FileType go map <Leader>gt :<C-u>CocCommand go.test.toggle<cr>
+  autocmd FileType go nmap <Leader>=  <Plug>(go-imports)
+  autocmd FileType go nmap <silent> gt :<C-u>CocCommand go.test.toggle<cr>
+  autocmd FileType go nmap <leader>t   :<C-u>CocCommand go.test.generate.function<cr>
+  autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
+  autocmd FileType go nmap <Leader>ra   :wa<CR> :GolangTestCurrentPackage<CR>
+  autocmd FileType go nmap <Leader>rt   :wa<CR> :GolangTestFocused<CR>
+  autocmd FileType go nmap <Leader>re <Plug>(go-rename)
+  autocmd FileType go nnoremap <silent><nowait> \b  :DlvToggleBreakpoint<cr>
+  autocmd FileType go nmap <leader>dt  :DlvTest<CR>
 augroup END
-
