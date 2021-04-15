@@ -13,7 +13,7 @@ create_vim_link() {
     rm -rf "$HOME/.vim/$file_name"
   fi
 
-  ln -s "$1" "$HOME/.vim/$file_name"
+  ln -sf "$1" "$HOME/.vim/$file_name"
 }
 
 create_custom_vim_link() {
@@ -22,7 +22,7 @@ create_custom_vim_link() {
     fi
 
     echo "creating custom vim link $HOME/.vim/$1"
-    ln -s "$current_dir/$1" "$HOME/.vim/$1"
+    ln -sf "$current_dir/$1" "$HOME/.vim/$1"
 }
 
 create_link "$current_dir/vimrc"

@@ -134,11 +134,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs=1
 let g:syntastic_loc_list_height=5
 
-" Only enable auto saving if under version control
+" Set var for things that should only be enabled in git repos
 let s:in_git = system('git rev-parse --is-inside-work-tree')
-if s:in_git =~ 'true'
-  let g:auto_save = 1
-endif
 
 " Rename tabs to show tab number.
 " (Based on http://stackoverflow.com/questions/5927952/whats-implementation-of-vims-default-tabline-function)
