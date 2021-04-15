@@ -103,6 +103,15 @@
     {
       "before": [
         "<leader>",
+        "a"
+      ],
+      "commands": [
+        "editor.action.codeAction"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
         "="
       ],
       "commands": [
@@ -528,7 +537,7 @@
     {
       "before": [
         "<leader>",
-        "t"
+        "a"
       ],
       "commands": [
         {

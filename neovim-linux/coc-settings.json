@@ -9,5 +9,11 @@
       "trace.server": "verbose",
       "filetypes": ["go"]
     }
+  },
+  "go.goplsOptions": {
+      "buildFlags": [
+        "-tags=requires_docker,e2e_gme"
+      ],
+      "local": "github.com/grafana/backend-enterprise"
   }
 }
