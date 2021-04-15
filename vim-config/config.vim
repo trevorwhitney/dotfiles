@@ -109,23 +109,6 @@ autocmd FileType javascript let b:surround_36 = "$(\r)"
       \ | let b:surround_95 = "_(\r)""
 set tags^=./.git/tags
 
-"========== CtrlP =========
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-let g:ctrlp_map = '<leader>p'
-
-
-let g:ctrlp_prompt_mappings = {
-    \ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
-    \ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
-    \ 'PrtHistory(-1)':       ['<c-j>'],
-    \ 'PrtHistory(1)':        ['<c-k>'],
-    \}
-
-
-nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":CtrlP<cr>"
 "========== Syntastic ==========
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 2
