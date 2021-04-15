@@ -69,9 +69,8 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <leader>] <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nnoremap <leader>sH :call <SID>show_documentation()<CR>
+" Use <leader>h to show documentation in preview window.
+nnoremap <leader>h :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -86,14 +85,6 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>=  <Plug>(coc-format-selected)
-" Add `:Format` command to format current buffer.
-nmap <silent><expr> <leader>= CocHasProvider('format') ? CocActionAsync('format') : "gg=G<C-o>"
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -105,11 +96,11 @@ augroup end
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
 vmap <leader>a  <Plug>(coc-codeaction-selected)
-vmap <leader>t  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+nmap <leader>a  <Plug>(coc-codeaction-cursor)
 vmap <leader>rf   <Plug>(coc-refactor)
+
 " Apply AutoFix to problem on the current line.
 nmap <leader><cr>  <Plug>(coc-fix-current)
 
@@ -170,17 +161,41 @@ nnoremap <silent><nowait> \k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> \p  :<C-u>CocListResume<CR>
 
+" =========== Other Code Actions =========
+" Symbol renaming.
+nmap <leader>re <Plug>(coc-rename)
+
+" Formatting
+function! s:format_and_organize()
+  if CocHasProvider('format')
+    call CocAction('runCommand', 'editor.action.format')
+    call CocAction('runCommand', 'editor.action.organizeImport')
+  else
+    silent execute "normal gg=G"
+    silent execute "normal \<C-o>"
+  endif
+endfunction
+
+xmap <leader>=  <Plug>(coc-format-selected)
+nnoremap <leader>= :call <SID>format_and_organize()<CR>
+
+"========= Go ===========
+" use coc-go instead of vim-go for gd
+let g:go_def_mapping_enabled = 0
 let g:delve_use_vimux = 1
 
 augroup go
   autocmd!
-  autocmd FileType go nmap <Leader>=  <Plug>(go-imports)
   autocmd FileType go nmap <silent> gt :<C-u>CocCommand go.test.toggle<cr>
   autocmd FileType go nmap <leader>t   :<C-u>CocCommand go.test.generate.function<cr>
   autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
-  autocmd FileType go nmap <Leader>ra   :wa<CR> :GolangTestCurrentPackage<CR>
-  autocmd FileType go nmap <Leader>rt   :wa<CR> :GolangTestFocused<CR>
-  autocmd FileType go nmap <Leader>re <Plug>(go-rename)
+  autocmd FileType go nmap <Leader>ra  :wa<CR> :GolangTestCurrentPackage<CR>
+  autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocused<CR>
   autocmd FileType go nnoremap <silent><nowait> \b  :DlvToggleBreakpoint<cr>
-  autocmd FileType go nmap <leader>dt  :DlvTest<CR>
+  autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTest<CR>
+  " delve integration test
+  autocmd FileType go nmap <leader>dit  :wa<cr> :DlvTest --build-flags="-tags=requires_docker,e2e_gme"<CR>
+  autocmd FileType go nmap <leader>tj :CocCommand go.tags.add json<cr>
+  autocmd FileType go nmap <leader>ty :CocCommand go.tags.add yaml<cr>
+  autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
 augroup END

@@ -80,13 +80,21 @@ let g:NERDTreeChDirMode=2
 let NERDTreeShowHidden=1
 
 "========== Folding ==========
-set foldmethod=indent   "fold based on indent
+set foldmethod=syntax   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
+set foldopen=insert        "open folds when inserted into
+
+" Don't screw up folds when inserting text that might affect them, until
+" leaving insert mode. Foldmethod is local to the window. Protect against
+" screwing up folding when switching between windows.
+autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
 "========== vim-fugitivie ==========
 map <leader>gb   :Gblame<CR>
+map <leader>gd   :Gdiffsplit<CR>
 map <leader>gh   :Gclog<CR>
 map <leader>go   :GBrowse<CR>
 map <leader>gk   :Git commit -s<CR>
@@ -125,10 +133,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs=1
 let g:syntastic_loc_list_height=5
-
-" ========== vim-auto-save ==========
-let g:auto_save_events = ['FocusLost', 'BufLeave']
-let g:auto_save = 0
 
 " Only enable auto saving if under version control
 let s:in_git = system('git rev-parse --is-inside-work-tree')
@@ -239,54 +243,6 @@ inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 "========= Yaml ==============
 " disable yaml indenting logic
 autocmd FileType yaml setlocal indentexpr=
-
-"========= Go ===========
-if !has('nvim')
-  let g:go_def_mode="gopls"
-  let g:go_info_mode="gopls"
-  let g:go_fmt_command="goimports"
-
-  " TODO: what in this group should be mapped all the time?
-  augroup go
-    autocmd!
-    autocmd FileType go map <Leader>=  <Plug>(go-imports)
-    autocmd FileType go map <Leader>gs <Plug>(go-implements)
-    autocmd FileType go map <Leader>gt <Plug>(go-alternate-edit)
-    autocmd FileType go map <Leader>gy <Plug>(go-decls)
-    autocmd FileType go map <Leader>su <Plug>(go-referrers)
-    autocmd FileType go map <Leader>si <Plug>(go-referrers)
-    autocmd FileType go map <Leader>rn <Plug>(go-rename)
-    autocmd FileType go map <Leader>re <Plug>(go-rename)
-    autocmd FileType go map <Leader>i  :GoImpl<CR>
-  augroup END
-else
-  let g:go_def_mapping_enabled = 0
-endif
-
-augroup go
-  autocmd!
-  autocmd FileType go map <Leader>rt :<C-u>call <SID>run_this_go()<CR>
-  autocmd FileType go map <Leader>ra :<C-u>call <SID>run_all_go()<CR>
-augroup END
-
-
-function! s:run_this_go()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Func(0)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Run(0)
-  endif
-endfunction
-
-function! s:run_all_go()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 0)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Run(0)
-  endif
-endfunction
 
 " ====== vim-visual-multi ======
 " press n/N to get next/previous occurrence
