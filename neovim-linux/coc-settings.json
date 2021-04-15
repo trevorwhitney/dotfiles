@@ -2,18 +2,15 @@
   "diagnostic.warningSign": "⚠️",
   "diagnostic.errorSign": "❌",
   "diagnostic.infoSign": "💡",
-  "languageserver": {
-    "go": {
-      "command": "gopls",
-      "rootPatterns": ["go.mod"],
-      "trace.server": "verbose",
-      "filetypes": ["go"]
-    }
-  },
   "go.goplsOptions": {
       "buildFlags": [
         "-tags=requires_docker,e2e_gme"
       ],
-      "local": "github.com/grafana/backend-enterprise"
-  }
+      "local": "github.com/grafana/backend-enterprise",
+      "usePlaceholders": true
+  },
+	"list.insertMappings": {
+		"<C-n>": "normal:j",
+		"<C-p>": "normal:k"
+	}
 }

@@ -146,8 +146,8 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 nnoremap <silent><nowait> \a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> \x  :<C-u>CocList extensions<cr>
-" Show recent buffers
-nnoremap <silent><nowait> \e  :BufExplorer<cr>
+" Show recent files
+nnoremap <silent><nowait> \e  :<C-u>CocList mru<cr>
 " Show commands.
 nnoremap <silent><nowait> \c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
@@ -161,6 +161,8 @@ nnoremap <silent><nowait> \k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> \p  :<C-u>CocListResume<CR>
 
+nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":<C-u>CocList files<cr>"
+
 " =========== Other Code Actions =========
 " Symbol renaming.
 nmap <leader>re <Plug>(coc-rename)
@@ -169,7 +171,9 @@ nmap <leader>re <Plug>(coc-rename)
 function! s:format_and_organize()
   if CocHasProvider('format')
     call CocAction('runCommand', 'editor.action.format')
-    call CocAction('runCommand', 'editor.action.organizeImport')
+    " TODO: not working for some reason? Seems to have been included in
+    " format?
+    " call CocAction('runCommand', 'editor.action.organizeImport')
   else
     silent execute "normal gg=G"
     silent execute "normal \<C-o>"
@@ -189,7 +193,7 @@ augroup go
   autocmd FileType go nmap <silent> gt :<C-u>CocCommand go.test.toggle<cr>
   autocmd FileType go nmap <leader>t   :<C-u>CocCommand go.test.generate.function<cr>
   autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
-  autocmd FileType go nmap <Leader>ra  :wa<CR> :GolangTestCurrentPackage<CR>
+  autocmd FileType go nmap <Leader>rp  :wa<CR> :GolangTestCurrentPackage<CR>
   autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocused<CR>
   autocmd FileType go nnoremap <silent><nowait> \b  :DlvToggleBreakpoint<cr>
   autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTest<CR>
