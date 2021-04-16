@@ -118,11 +118,13 @@
   },
   {
     "command": "workbench.action.focusAboveGroup",
-    "key": "ctrl+a k"
+    "key": "ctrl+k",
+    "when": "panelFocus && !editorTextFocus"
   },
   {
     "command": "workbench.action.focusRightGroup",
-    "key": "ctrl+a l"
+    "key": "ctrl+l",
+    "when": "sideBarVisible && !editorTextFocus"
   },
   {
     "command": "goToNextReference",
@@ -276,5 +278,18 @@
     "key": "ctrl+p",
     "command": "list.focusUp",
     "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "workbench.action.focusRightGroup"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen",
+    "when": "sideBarFocus"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-workbench.action.togglePanel"
   }
 ]
