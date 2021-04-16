@@ -2,6 +2,12 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 
+" enable these for debugging
+" let g:coc_node_args = ['-r', expand('~/.config/yarn/global/node_modules/source-map-support/register')]
+" let g:node_client_debug = 1
+" let $NODE_CLIENT_LOG_FILE = '~/node_client.log'
+" let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+
 " Set internal encoding of vim, not needed on neovim, since coc.nvim using some
 " unicode characters in the file autoload/float.vim
 set encoding=utf-8
