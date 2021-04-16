@@ -9,8 +9,10 @@
       "local": "github.com/grafana/backend-enterprise",
       "usePlaceholders": true
   },
+  "go.trace.server": "verbose",
 	"list.insertMappings": {
 		"<C-n>": "normal:j",
 		"<C-p>": "normal:k"
-	}
+  },
+  "coc.preferences.extensionUpdateCheck": "daily"
 }
