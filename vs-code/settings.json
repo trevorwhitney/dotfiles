@@ -160,20 +160,19 @@
       "before": [
         "<leader>",
         "r",
-        "r"
-      ],
-      "commands": [
-        "go.test.previous"
-      ]
-    },
-    {
-      "before": [
-        "<leader>",
-        "r",
         "f"
       ],
       "commands": [
-        "go.test.file"
+        {
+          "args": {
+            "interval": 100,
+            "sequence": [
+              "workbench.action.files.save",
+              "go.test.file"
+            ]
+          },
+          "command": "extension.multiCommand.execute"
+        }
       ]
     },
     {
@@ -183,7 +182,16 @@
         "p"
       ],
       "commands": [
-        "go.test.package"
+        {
+          "args": {
+            "interval": 100,
+            "sequence": [
+              "workbench.action.files.save",
+              "go.test.package"
+            ]
+          },
+          "command": "extension.multiCommand.execute"
+        }
       ]
     },
     {
@@ -194,16 +202,6 @@
       ],
       "commands": [
         "go.debug.cursor"
-      ]
-    },
-    {
-      "before": [
-        "<leader>",
-        "d",
-        "l"
-      ],
-      "commands": [
-        "workbench.action.debug.start"
       ]
     },
     {
@@ -292,9 +290,48 @@
       "commands": [
         "merge-conflict.accept.both"
       ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "d"
+      ],
+      "commands": [
+        "gitlens.diffWithPrevious"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "h"
+      ],
+      "commands": [
+        "gitlens.showQuickFileHistory"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "b"
+      ],
+      "commands": [
+        "gitlens.toggleFileBlame"
+      ]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "\\",
+        "a"
+      ],
+      "commands": [
+        "workbench.actions.view.problems"
+      ]
+    },
     {
       "before": [
         "\\",
@@ -386,7 +423,7 @@
         "b"
       ],
       "commands": [
-        "workbench.action.previousEditor"
+        "workbench.action.nextEditor"
       ]
     },
     {
@@ -486,7 +523,7 @@
   "vim.useCtrlKeys": true,
   "vim.useSystemClipboard": true,
   "vim.vimrc.enable": true,
-  "vim.vimrc.path": "$HOME/.vim/config.vim",
+  "vim.vimrc.path": "$HOME/.vimrc",
   "vim.visualModeKeyBindings": [
     {
       "before": [
@@ -521,7 +558,7 @@
         "="
       ],
       "commands": [
-        "editor.action.formatDocument"
+        "editor.action.formatSelection"
       ]
     },
     {
@@ -540,12 +577,7 @@
         "a"
       ],
       "commands": [
-        {
-          "args": {
-            "kind": "refactor.extract"
-          },
-          "command": "editor.action.codeAction"
-        }
+        "editor.action.codeAction"
       ]
     }
   ],
