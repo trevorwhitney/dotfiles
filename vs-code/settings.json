@@ -320,6 +320,16 @@
       "commands": [
         "gitlens.toggleFileBlame"
       ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "r"
+      ],
+      "commands": [
+        "git.revertSelectedRanges"
+      ]
     }
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -455,11 +465,29 @@
     },
     {
       "before": [
+        "[",
+        "d"
+      ],
+      "commands": [
+        "editor.action.dirtydiff.previous"
+      ]
+    },
+    {
+      "before": [
         "]",
         "c"
       ],
       "commands": [
         "workbench.action.editor.nextChange"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "d"
+      ],
+      "commands": [
+        "editor.action.dirtydiff.next"
       ]
     },
     {
@@ -589,5 +617,6 @@
   "workbench.preferredDarkColorTheme": "Gruvbox Dark Hard",
   "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
   "workbench.startupEditor": "none",
-  "workbench.editor.showTabs": false
+  "workbench.editor.showTabs": false,
+  "go.trace.server": "verbose"
 }

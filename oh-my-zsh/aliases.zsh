@@ -51,6 +51,7 @@ function task_url() {
 alias backend="cd ~/workspace/grafana/backend-enterprise"
 if [[ -e "$HOME/workspace/k3s" ]]; then
   alias curl_gem="curl -u :$(cat ~/workspace/k3s/gem/secret) "
+  alias curl_gel="curl -u :$(cat ~/workspace/k3s/gel/secret) "
 fi
 
 if [[ `command -v alacritty` ]]; then
