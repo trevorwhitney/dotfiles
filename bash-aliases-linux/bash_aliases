@@ -4,3 +4,7 @@ alias be="bundle exec"
 function idea() {
   /usr/local/bin/idea "$@" > /dev/null 2>&1 &
 }
+
+function code() {
+  /usr/local/bin/code "$@" > /dev/null 2>&1 &
+}
