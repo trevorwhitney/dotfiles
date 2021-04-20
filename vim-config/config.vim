@@ -60,6 +60,7 @@ if !has('nvim')
   nmap <leader>= gg=G2<C-o>
 endif
 nnoremap <silent> \q ZZ
+nnoremap <silent> \Q :xa<cr>
 
 " ========== Dash =================
 nmap <silent> <leader>d <Plug>DashSearch

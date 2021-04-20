@@ -101,11 +101,12 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>aa  <Plug>(coc-codeaction-cursor)
+nmap <leader>ac  <Plug>(coc-codeaction)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>a  <Plug>(coc-codeaction-cursor)
-vmap <leader>rf   <Plug>(coc-refactor)
+xmap <leader>rf   <Plug>(coc-refactor)
 
 " Apply AutoFix to problem on the current line.
 nmap <leader><cr>  <Plug>(coc-fix-current)
@@ -168,6 +169,21 @@ nnoremap <silent><nowait> \k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> \p  :<C-u>CocListResume<CR>
 
 nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":<C-u>CocList files<cr>"
+
+" =============== Git ==============
+nmap <leader>ci <Plug>(coc-git-chunkinfo)
+nmap <silent> [c <Plug>(coc-git-prevchunk)
+nmap <silent> ]c <Plug>(coc-git-nextchunk)
+nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
+nmap <leader>gr :<C-u>CocCommand git.chunkUndo<cr>
+
+nmap <leader>gn <Plug>(coc-git-nextconflict)
+nmap <leader>gp <Plug>(coc-git-prevconflict)
+
+let g:airline#extensions#hunks#coc_git = 1
+
+" ================ yank =============
+nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
 
 " =========== Other Code Actions =========
 " Symbol renaming.
