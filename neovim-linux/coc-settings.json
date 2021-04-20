@@ -14,5 +14,6 @@
 		"<C-n>": "normal:j",
 		"<C-p>": "normal:k"
   },
-  "coc.preferences.extensionUpdateCheck": "daily"
+  "coc.preferences.extensionUpdateCheck": "daily",
+  "git.addGBlameToVirtualText": true
 }

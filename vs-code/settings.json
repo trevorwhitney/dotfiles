@@ -618,5 +618,6 @@
   "workbench.preferredLightColorTheme": "Gruvbox Light Hard",
   "workbench.startupEditor": "none",
   "workbench.editor.showTabs": false,
-  "go.trace.server": "verbose"
+  "go.trace.server": "verbose",
+  "editor.wordWrap": "on"
 }
