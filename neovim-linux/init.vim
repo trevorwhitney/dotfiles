@@ -189,8 +189,26 @@ let g:airline#extensions#hunks#coc_git = 1
 " ================ yank =============
 nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
 
-" ==== find ====
+" ==== find/grep ====
 command! -nargs=1 Find CocList -A --normal grep <args>
+
+xnoremap <leader>f :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+nnoremap <leader>f :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
+
+function! s:GrepFromSelected(type)
+  let saved_unnamed_register = @@
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+  let word = substitute(@@, '\n$', '', 'g')
+  let word = escape(word, '| ')
+  let @@ = saved_unnamed_register
+  execute 'CocList -A --normal grep '.word
+endfunction
 
 "=========== Other Code Actions =========
 " Symbol renaming.
