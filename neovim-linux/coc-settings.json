@@ -15,5 +15,7 @@
 		"<C-p>": "normal:k"
   },
   "coc.preferences.extensionUpdateCheck": "daily",
-  "git.addGBlameToVirtualText": true
+  "git.addGBlameToVirtualText": true,
+  "list.source.grep.command": "rg",
+  "pairs.enableBackspace": false
 }

@@ -189,7 +189,10 @@ let g:airline#extensions#hunks#coc_git = 1
 " ================ yank =============
 nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
 
-" =========== Other Code Actions =========
+" ==== find ====
+command! -nargs=1 Find CocList -A --normal grep <args>
+
+"=========== Other Code Actions =========
 " Symbol renaming.
 nmap <leader>re <Plug>(coc-rename)
 
