@@ -17,5 +17,7 @@
   "coc.preferences.extensionUpdateCheck": "daily",
   "git.addGBlameToVirtualText": true,
   "list.source.grep.command": "rg",
+  "list.source.outline.defaultArgs": ["--normal"],
+  "list.source.diagnostics.defaultArgs": ["--normal"],
   "pairs.enableBackspace": false
 }
