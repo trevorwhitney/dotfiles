@@ -195,3 +195,9 @@ let g:bufferline_echo = 0
 " ====== easy-motion ======
 map <leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+" ========= grep ==============
+" use ripgrep for grep command
+if executable("rg")
+    set grepprg=rg\ --vimgrep
+endif
