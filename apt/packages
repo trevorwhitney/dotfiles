@@ -40,6 +40,7 @@ shellcheck
 silversearcher-ag
 software-properties-common
 taskwarrior
+tmate
 tmux
 tree
 urlview
