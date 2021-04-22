@@ -155,6 +155,8 @@ nnoremap <silent><nowait> \a  :<C-u>CocList --normal diagnostics<cr>
 nnoremap <silent><nowait> \x  :<C-u>CocList extensions<cr>
 " Show recent files
 nnoremap <silent><nowait> \e  :<C-u>CocList mru<cr>
+" Show open buffers
+nnoremap <silent><nowait> \b  :<C-u>CocList buffers<cr>
 " Show commands.
 nnoremap <silent><nowait> \c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
