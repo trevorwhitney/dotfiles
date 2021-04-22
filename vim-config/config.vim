@@ -66,6 +66,7 @@ function! IsNerdTreeEnabled()
     return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
 endfunction
 nnoremap <silent><nowait><expr> \ IsNerdTreeEnabled() ? ":NERDTreeToggle\<CR>" : ":NERDTreeFind\<CR>"
+nnoremap <silent><nowait> \| :NERDTreeFind<CR>
 
 " automatically close NERDTree when a file is opened
 let NERDTreeQuitOnOpen = 1

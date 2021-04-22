@@ -2,11 +2,6 @@
   "diagnostic.warningSign": "⚠️",
   "diagnostic.errorSign": "❌",
   "diagnostic.infoSign": "💡",
-  "go.goplsOptions": {
-      "buildFlags": [
-        "-tags=requires_docker,e2e_gme"
-      ],
-      "local": "github.com/grafana/backend-enterprise",
       "usePlaceholders": true
   },
   "go.trace.server": "verbose",
@@ -17,7 +12,5 @@
   "coc.preferences.extensionUpdateCheck": "daily",
   "git.addGBlameToVirtualText": true,
   "list.source.grep.command": "rg",
-  "list.source.outline.defaultArgs": ["--normal"],
-  "list.source.diagnostics.defaultArgs": ["--normal"],
   "pairs.enableBackspace": false
 }
