@@ -58,9 +58,6 @@ fi
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 
-# Fuzzy completion for history
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Direnv hook
 eval "$(direnv hook zsh)"
 
@@ -109,3 +106,7 @@ complete -o nospace -C /usr/local/bin/tk tk
 complete -o nospace -C "$GOPATH/bin/gocomplete" go
 
 autoload -U +X bashcompinit && bashcompinit
+
+# Fuzzy completion for history
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
