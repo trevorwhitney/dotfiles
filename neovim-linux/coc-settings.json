@@ -2,6 +2,7 @@
   "diagnostic.warningSign": "⚠️",
   "diagnostic.errorSign": "❌",
   "diagnostic.infoSign": "💡",
+  "go.goplsOptions": {
       "usePlaceholders": true
   },
   "go.trace.server": "verbose",
