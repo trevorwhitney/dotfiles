@@ -173,18 +173,18 @@ nnoremap <silent><nowait> \p  :<C-u>CocListResume<CR>
 nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":<C-u>CocList files<cr>"
 
 " =============== Git ==============
-nnoremap <leader>ci <Plug>(coc-git-chunkinfo)
-nnoremap <silent> [c <Plug>(coc-git-prevchunk)
-nnoremap <silent> ]c <Plug>(coc-git-nextchunk)
-nnoremap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
-nnoremap <leader>gr :<C-u>CocCommand git.chunkUndo<cr>
+nmap <leader>ci <Plug>(coc-git-chunkinfo)
+nmap <silent> [c <Plug>(coc-git-prevchunk)
+nmap <silent> ]c <Plug>(coc-git-nextchunk)
+nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
+nmap <leader>gr :<C-u>CocCommand git.chunkUndo<cr>
 
-nnoremap <leader>gn <Plug>(coc-git-nextconflict)
-nnoremap <leader>gp <Plug>(coc-git-prevconflict)
+nmap <leader>gn <Plug>(coc-git-nextconflict)
+nmap <leader>gp <Plug>(coc-git-prevconflict)
 
-nnoremap <leader>kc <Plug>(coc-git-keepcurrent)
-nnoremap <leader>ki <Plug>(coc-git-keepincoming)
-nnoremap <leader>kb <Plug>(coc-git-keepboth)
+nmap <leader>kc <Plug>(coc-git-keepcurrent)
+nmap <leader>ki <Plug>(coc-git-keepincoming)
+nmap <leader>kb <Plug>(coc-git-keepboth)
 
 let g:airline#extensions#hunks#coc_git = 1
 
