@@ -101,6 +101,9 @@ map <leader>gk   :Git commit -s<CR>
 autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd BufReadPost .git/index set nolist
 
+" Set var for things that should only be enabled in git repos
+let g:in_git = system('git rev-parse --is-inside-work-tree')
+
 "============= surround vim ============
 " surround.vim: Add $ as a jQuery surround, _ for Underscore.js
 autocmd FileType javascript let b:surround_36 = "$(\r)"
@@ -114,9 +117,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_signs=1
 let g:syntastic_loc_list_height=5
-
-" Set var for things that should only be enabled in git repos
-let s:in_git = system('git rev-parse --is-inside-work-tree')
 
 "============ Auto completion ============
 set completeopt=menuone,menu,longest
