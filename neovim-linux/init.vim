@@ -150,7 +150,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> \a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> \a  :<C-u>CocList --normal diagnostics<cr>
 " Manage extensions.
 nnoremap <silent><nowait> \x  :<C-u>CocList extensions<cr>
 " Show recent files
@@ -158,7 +158,7 @@ nnoremap <silent><nowait> \e  :<C-u>CocList mru<cr>
 " Show commands.
 nnoremap <silent><nowait> \c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> \o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> \o  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
 nnoremap <silent><nowait> \s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
@@ -190,10 +190,17 @@ let g:airline#extensions#hunks#coc_git = 1
 nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
 
 " ==== find/grep ====
-command! -nargs=1 Find CocList -A --normal grep <args>
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList -A --normal grep '.<q-args>
 
-xnoremap <leader>f :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <leader>f :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+
+nnoremap <silent> <Leader>ff :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+xnoremap <silent> <leader>f :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+nnoremap <silent> <leader>f :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -227,12 +234,10 @@ function! s:format_and_organize()
   endif
 endfunction
 
-xmap <leader>=  <Plug>(coc-format-selected)
-nnoremap <leader>= :call <SID>format_and_organize()<CR>
+xmap <silent> <leader>=  <Plug>(coc-format-selected)
+nnoremap <silent> <leader>= :call <SID>format_and_organize()<CR>
 
 "========= Go ===========
-" use coc-go instead of vim-go for gd
-let g:go_def_mapping_enabled = 0
 let g:delve_use_vimux = 1
 
 augroup go
