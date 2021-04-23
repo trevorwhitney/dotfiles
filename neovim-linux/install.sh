@@ -75,3 +75,7 @@ create_vim_link "$current_dir/nvimrc.bundles.vim"
 set +e
 nvim --noplugin +"silent PlugInstall" +qall
 set -e
+
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
