@@ -164,7 +164,7 @@ nnoremap <silent><nowait> \o  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
 nnoremap <silent><nowait> \s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
-nnoremap <silent><nowait> \p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> \r  :<C-u>CocListResume<CR>
 
 " Do default action for next (search/liSt) item.
 nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
