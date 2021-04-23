@@ -1,3 +1,4 @@
+Plug 'bkad/CamelCaseMotion'
 Plug 'bling/vim-bufferline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'

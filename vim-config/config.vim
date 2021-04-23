@@ -37,9 +37,15 @@ map <Leader>z :'<,'>sort<CR>
 " UTF-8 all the way
 set encoding=utf-8
 
-"========== Directories ==========
+"========== Directories ===========
 set directory=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
+
+"========== CamelCase Motion ======
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+omap <silent> iw <Plug>CamelCaseMotion_iw
+xmap <silent> iw <Plug>CamelCaseMotion_iw
 
 "========== Keybindings ==========
 imap jj <Esc>
