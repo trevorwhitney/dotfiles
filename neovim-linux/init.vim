@@ -163,12 +163,13 @@ nnoremap <silent><nowait> \c  :<C-u>CocList commands<cr>
 nnoremap <silent><nowait> \o  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
 nnoremap <silent><nowait> \s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent><nowait> \j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent><nowait> \k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> \p  :<C-u>CocListResume<CR>
+
+" Do default action for next (search/liSt) item.
+nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
+" Do default action for previous (search/liSt) item.
+nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
 nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":<C-u>CocList files<cr>"
 
@@ -185,6 +186,9 @@ nmap <leader>gp <Plug>(coc-git-prevconflict)
 nmap <leader>kc <Plug>(coc-git-keepcurrent)
 nmap <leader>ki <Plug>(coc-git-keepincoming)
 nmap <leader>kb <Plug>(coc-git-keepboth)
+
+" Git status, show currently changed files
+nnoremap <silent><nowait> \g  :<C-u>CocList -A --normal --tab gstatus<CR>
 
 let g:airline#extensions#hunks#coc_git = 1
 
