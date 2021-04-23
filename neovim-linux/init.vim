@@ -150,21 +150,21 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> \a  :<C-u>CocList --normal diagnostics<cr>
+nnoremap <nowait> \a  :<C-u>CocList --normal diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> \x  :<C-u>CocList extensions<cr>
+nnoremap <nowait> \x  :<C-u>CocList extensions<cr>
 " Show recent files
-nnoremap <silent><nowait> \e  :<C-u>CocList mru<cr>
+nnoremap <nowait> \e  :<C-u>CocList mru<cr>
 " Show open buffers
-nnoremap <silent><nowait> \b  :<C-u>CocList buffers<cr>
+nnoremap <nowait> \b  :<C-u>CocList buffers<cr>
 " Show commands.
-nnoremap <silent><nowait> \c  :<C-u>CocList commands<cr>
+nnoremap <nowait> \c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> \o  :<C-u>CocList --normal outline<cr>
+nnoremap <nowait> \o  :<C-u>CocList --normal outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> \s  :<C-u>CocList -I symbols<cr>
+nnoremap <nowait> \s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
-nnoremap <silent><nowait> \r  :<C-u>CocListResume<CR>
+nnoremap <nowait> \r  :<C-u>CocListResume<CR>
 
 " Do default action for next (search/liSt) item.
 nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
@@ -188,12 +188,12 @@ nmap <leader>ki <Plug>(coc-git-keepincoming)
 nmap <leader>kb <Plug>(coc-git-keepboth)
 
 " Git status, show currently changed files
-nnoremap <silent><nowait> \g  :<C-u>CocList -A --normal --tab gstatus<CR>
+nnoremap <nowait> \g  :<C-u>CocList -A --normal --tab gstatus<CR>
 
 let g:airline#extensions#hunks#coc_git = 1
 
 " ================ yank =============
-nnoremap <silent> <leader>y :<C-u>CocList -A --normal yank<cr>
+nnoremap <leader>y :<C-u>CocList -A --normal yank<cr>
 
 " ==== find/grep ====
 command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList -A --normal grep '.<q-args>
@@ -246,17 +246,35 @@ nnoremap <silent> <leader>= :call <SID>format_and_organize()<CR>
 "========= Go ===========
 let g:delve_use_vimux = 1
 
+function! s:dlvTestFocused(...)
+  let build_flags = (a:0 > 0) ? join(a:000, ',') : ""
+  let test_line = search("func Test", "bs")
+
+  if test_line > 0
+    let line = getline(test_line)
+    let test_name_raw = split(line, " ")[1]
+    let test_name = split(test_name_raw, "(")[0]
+
+    call delve#dlvTest(expand('%:p:h'), '--build-flags="-tags=' . build_flags . '"', '--', '-test.run', test_name)
+  else
+    echo "No test found"
+  endif
+endfunction
+
+command! -nargs=* DlvTestFocused call s:dlvTestFocused(<f-args>)
+
 augroup go
   autocmd!
+
   autocmd FileType go nmap <silent> gt :<C-u>CocCommand go.test.toggle<cr>
   autocmd FileType go nmap <leader>t   :<C-u>CocCommand go.test.generate.function<cr>
   autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
   autocmd FileType go nmap <Leader>rp  :wa<CR> :GolangTestCurrentPackage<CR>
   autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocused<CR>
-  autocmd FileType go nnoremap <silent><nowait> \b  :DlvToggleBreakpoint<cr>
-  autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTest<CR>
+  autocmd FileType go nnoremap <nowait> \b  :DlvToggleBreakpoint<cr>
+  autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTestFocused<CR>
   " delve integration test
-  autocmd FileType go nmap <leader>dit  :wa<cr> :DlvTest --build-flags="-tags=requires_docker,e2e_gme"<CR>
+  autocmd FileType go nmap <leader>dit  :wa<cr> :DlvTestFocused e2e_gme requires_docker<cr>
   autocmd FileType go nmap <leader>tj :CocCommand go.tags.add json<cr>
   autocmd FileType go nmap <leader>ty :CocCommand go.tags.add yaml<cr>
   autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
