@@ -42,10 +42,11 @@ set directory=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 
 "========== CamelCase Motion ======
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-omap <silent> iw <Plug>CamelCaseMotion_iw
-xmap <silent> iw <Plug>CamelCaseMotion_iw
+let g:wordmotion_nomap = 1
+map <silent> w <Plug>WordMotion_w
+map <silent> b <Plug>WordMotion_b
+omap <silent> iw <Plug>WordMotion_iw
+xmap <silent> iw <Plug>WordMotion_iw
 
 "========== Keybindings ==========
 imap jj <Esc>
@@ -208,3 +209,12 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 if executable("rg")
     set grepprg=rg\ --vimgrep
 endif
+
+
+" ======= Markdown ==========
+let g:textobj_markdown_no_default_key_mappings=1
+
+omap imc <plug>(textobj-markdown-chunk-i)
+xmap imc <plug>(textobj-markdown-chunk-i)
+omap amc <plug>(textobj-markdown-chunk-a)
+xmap amc <plug>(textobj-markdown-chunk-a)
