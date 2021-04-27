@@ -8,14 +8,6 @@ dot_files_dir=$(cd "$current_dir/.." && pwd)
 # shellcheck disable=SC1090
 source "$dot_files_dir/lib.sh"
 
-create_custom_zsh_link() {
-    if [ -h "$HOME/.oh-my-zsh/custom/$1" ] || [ -e "$HOME/.oh-my-zsh/custom/$1" ]; then
-        rm -rf "$HOME/.oh-my-zsh/custom/$1";
-    fi
-
-    ln -s "$current_dir/$1" "$HOME/.oh-my-zsh/custom/$1"
-}
-
 if [ -e "$HOME/.oh-my-zsh/" ]; then
     pushd "$HOME/.oh-my-zsh"
         git pull --rebase
