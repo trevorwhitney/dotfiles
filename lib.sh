@@ -43,3 +43,22 @@ create_alias_link() {
 
     ln -s "$1" "$HOME/.bash_aliases.d/$file_name"
 }
+
+create_custom_zsh_link() {
+    if [ -h "$HOME/.oh-my-zsh/custom/$1" ] || [ -e "$HOME/.oh-my-zsh/custom/$1" ]; then
+        rm -rf "$HOME/.oh-my-zsh/custom/$1";
+    fi
+
+    ln -s "$current_dir/$1" "$HOME/.oh-my-zsh/custom/$1"
+}
+
+
+create_alacritty_link() {
+  file_name="$(basename "$1" | sed "s/^\.//g")"
+  if [[ -h "$HOME/.config/alacritty/$file_name" ]] || [[ -e "$HOME/.config/alacritty/$file_name" ]]; then
+    rm -rf "$HOME/.config/alacritty/$file_name"
+  fi
+
+  ln -sf "$1" "$HOME/.config/alacritty/$file_name"
+}
+

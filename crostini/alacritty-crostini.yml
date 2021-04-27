@@ -1,0 +1,18 @@
+import:
+ - /home/twhitney/.config/alacritty/base.yml
+ - /home/twhitney/.config/alacritty/gruvbox.yml
+
+# Shell
+shell:
+  program: /bin/zsh
+  args:
+    - -i
+    - -l
+
+window:
+  decorations: none
+  dynamic_title: true
+  gtk_theme_variant: light
+  startup_mode: Fullscreen
+
+background_opacity: 1.0
