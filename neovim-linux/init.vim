@@ -35,7 +35,7 @@ if has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
-  set signcolumn=yes
+  set signcolumn=auto:2
 endif
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -271,7 +271,7 @@ augroup go
   autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
   autocmd FileType go nmap <Leader>rp  :wa<CR> :GolangTestCurrentPackage<CR>
   autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocused<CR>
-  autocmd FileType go nnoremap <nowait> \b  :DlvToggleBreakpoint<cr>
+  autocmd FileType go nmap <leader>bp  :DlvToggleBreakpoint<cr>
   autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTestFocused<CR>
   " delve integration test
   autocmd FileType go nmap <leader>dit  :wa<cr> :DlvTestFocused e2e_gme requires_docker<cr>
