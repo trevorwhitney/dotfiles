@@ -3,6 +3,7 @@ adoptopenjdk
 alacritty
 azure-cli-linux
 clipit
+crostini
 docker-linux
 drone-cli
 emacs

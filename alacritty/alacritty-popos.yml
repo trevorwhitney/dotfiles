@@ -1,0 +1,23 @@
+import:
+  - /home/twhitney/.config/alacritty/base.yml
+  - /home/twhitney/.config/alacritty/gruvbox.yml
+
+# Shell
+shell:
+  program: /bin/zsh
+  args:
+    - -i
+    - -l
+    - -c
+    - "tmux attach || tmux"
+  working_directory: "$HOME"
+
+window:
+  decorations: full
+  dynamic_title: true
+  gtk_theme_variant: light
+
+background_opacity: 0.9
+
+font:
+  size: 12.0

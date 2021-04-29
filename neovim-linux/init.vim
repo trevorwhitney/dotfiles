@@ -29,6 +29,9 @@ set updatetime=300
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
+" Open diffs vertically
+set diffopt=vertical
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -171,7 +174,12 @@ nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
 " Do default action for previous (search/liSt) item.
 nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
-nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":<C-u>CocList files<cr>"
+" nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":<C-u>CocList files<cr>"
+" experiment with emacs keybindings to not break default vim <C-p> behavior
+nnoremap <C-x><C-f> :<C-u>CocList files<cr>
+nnoremap <C-x><C-d> :<C-u>CocList symbols<cr>
+nnoremap <C-x><C-s> :w<cr>
+nnoremap <C-x>s :wall<cr>
 
 " =============== Git ==============
 nmap <leader>ci <Plug>(coc-git-chunkinfo)
@@ -188,7 +196,21 @@ nmap <leader>ki <Plug>(coc-git-keepincoming)
 nmap <leader>kb <Plug>(coc-git-keepboth)
 
 " Git status, show currently changed files
-nnoremap <nowait> \g  :<C-u>CocList -A --normal --tab gstatus<CR>
+nnoremap <nowait> \g  :<C-u>Gina status<cr>
+nmap <leader>gb   :Gina blame<CR>
+nmap <leader>gd   :Gina compare<CR>
+nmap <leader>gh   :Gina log<CR>
+nmap <leader>go   :Gina browse<CR>
+nmap <leader>gk   :Gina commit<CR>
+nmap <leader>gp   :Gina patch<CR>
+
+" clean up unused fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd BufReadPost .git/index set nolist
+
+" Set var for things that should only be enabled in git repos
+let g:in_git = system('git rev-parse --is-inside-work-tree')
+
 
 let g:airline#extensions#hunks#coc_git = 1
 
