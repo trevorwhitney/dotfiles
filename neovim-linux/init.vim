@@ -65,6 +65,9 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" close coc floats when they get annoying
+inoremap kk <C-o>:call coc#float#close_all()<cr>
+
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
