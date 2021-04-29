@@ -174,12 +174,10 @@ nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
 " Do default action for previous (search/liSt) item.
 nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
-" nnoremap <silent><expr> <C-p> pumvisible() ? "<C-p>" : ":<C-u>CocList files<cr>"
-" experiment with emacs keybindings to not break default vim <C-p> behavior
-nnoremap <C-x><C-f> :<C-u>CocList files<cr>
-nnoremap <C-x><C-d> :<C-u>CocList symbols<cr>
-nnoremap <C-x><C-s> :w<cr>
-nnoremap <C-x>s :wall<cr>
+" pneumonic: "open file"
+nnoremap <leader>of :<C-u>CocList files<cr>
+" pneumonic: "open symbol"
+nnoremap <leader>os :<C-u>CocList symbols<cr>
 
 " =============== Git ==============
 nmap <leader>ci <Plug>(coc-git-chunkinfo)

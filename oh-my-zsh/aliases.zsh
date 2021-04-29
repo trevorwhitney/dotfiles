@@ -55,3 +55,5 @@ if [[ `command -v alacritty` ]]; then
   alias term-remote-dark="alacritty --config-file=/home/twhitney/.config/alacritty/remote-dark.yml & "
   alias term-dark="alacritty --config-file=/home/twhitney/.config/alacritty/alacritty-dark.yml & "
 fi
+
+alias git-root="git rev-parse --show-toplevel"
