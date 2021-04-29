@@ -371,8 +371,8 @@ set -g mouse on
 set -gu prefix2
 unbind C-a
 unbind C-b
-set -g prefix2 C-q                        # GNU-Screen compatible prefix
-bind C-q send-prefix -2
+set -g prefix C-q                        # GNU-Screen compatible prefix
+bind C-q send-prefix
 
 # move status line to top
 set -g status-position bottom
