@@ -65,17 +65,22 @@ eval "$(direnv hook zsh)"
 export GLOBAL_GIT_HOOK_DIR="$HOME/.git/hooks"
 export EDITOR=vim
 
-bindkey -M viins 'jj' vi-cmd-mode
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-bindkey '^P' up-history
-bindkey '^N' down-history
-bindkey '^?' backward-delete-char
-bindkey '^h' backward-delete-char
-bindkey '^w' backward-kill-word
-bindkey '^r' history-incremental-search-backward
+bindkey -M viins 'jj' vi-cmd-mode
+
+# readline compatability
+bindkey -M viins '^P'  up-history
+bindkey -M viins '^N'  down-history
+bindkey -M viins '^[d' kill-word
+bindkey -M viins '^w'  backward-kill-word
+bindkey -M viins '^u'  backward-kill-line
+bindkey -M viins '^f'  forward-char
+bindkey -M viins '^b'  backward-char
+bindkey -M viins '^[f' forward-word
+bindkey -M viins '^[b' backward-word
 
 # needed for vi-mode indication in theme
 function zle-line-init zle-keymap-select {
