@@ -14,6 +14,9 @@ set mouse=a                     " enable moude in all modes
 set omnifunc=syntaxcomplete#Complete
 set incsearch
 set scrolloff=5
+set autowrite
+set autowriteall
+set autoread
 
 if has('unnamedplus')
   set clipboard^=unnamed,unnamedplus
@@ -59,7 +62,7 @@ nnoremap <C-H> <C-W><C-H>
 
 nnoremap <C-w>q :windo close<cr>
 
-" paste the 0 buffer
+" paste the 0 register
 nnoremap <silent><nowait> \p "0p
 nnoremap <silent><nowait> \P "0P
 
