@@ -16,13 +16,9 @@ mkdir -p $HOME/.config/alacritty
 
 create_alacritty_link "$current_dir/alacritty-light.yml"
 create_alacritty_link "$current_dir/alacritty-dark.yml"
+create_alacritty_link "$current_dir/alacritty-popos.yml"
 create_alacritty_link "$current_dir/base.yml"
 create_alacritty_link "$current_dir/gruvbox-dark.yml"
 create_alacritty_link "$current_dir/gruvbox.yml"
 create_alacritty_link "$current_dir/remote-dark.yml"
 create_alacritty_link "$current_dir/remote.yml"
-
-if [[ ! -e "$HOME/.config/alacritty/alacritty.yml" ]]; then
-  ln -sf "$HOME/.config/alacritty/alacritty-light.yml" "$HOME/.config/alacritty/alacritty.yml"
-fi
-

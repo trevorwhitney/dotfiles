@@ -10,11 +10,6 @@ env:
   # available, otherwise `xterm-256color` is used.
   TERM: xterm-256color
 
-window:
-  decorations: full
-  dynamic_title: true
-  gtk_theme_variant: light
-
 # Font configuration
 font:
   normal:
@@ -33,9 +28,6 @@ font:
     family: JetBrains Mono
     style: Bold Italic
 
-  # Point size
-  size: 12.0
-
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
@@ -53,10 +45,6 @@ draw_bold_text_with_bright_colors: true
 bell:
   animation: EaseOutExpo
   duration: 75
-
-# Window opacity as a floating point number from `0.0` to `1.0`.
-# The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.9
 
 selection:
   # This string contains all characters that are used as separators for

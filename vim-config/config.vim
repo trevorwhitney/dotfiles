@@ -57,6 +57,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+nnoremap <C-w>q :windo close<cr>
+
 " paste the 0 buffer
 nnoremap <silent><nowait> \p "0p
 nnoremap <silent><nowait> \P "0P
@@ -93,20 +95,6 @@ set foldopen=insert        "open folds when inserted into
 " screwing up folding when switching between windows.
 autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
 autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-
-"========== vim-fugitivie ==========
-map <leader>gb   :Gblame<CR>
-map <leader>gd   :Gdiffsplit<CR>
-map <leader>gh   :Gclog<CR>
-map <leader>go   :GBrowse<CR>
-map <leader>gk   :Git commit -s<CR>
-
-" clean up unused fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
-autocmd BufReadPost .git/index set nolist
-
-" Set var for things that should only be enabled in git repos
-let g:in_git = system('git rev-parse --is-inside-work-tree')
 
 "============= surround vim ============
 " surround.vim: Add $ as a jQuery surround, _ for Underscore.js
