@@ -366,12 +366,13 @@ set -g mouse on
 #set -g status-keys vi
 #set -g mode-keys vi
 
-# replace C-b by C-a instead of using both prefixes
+
+# use C-q as tmux binding
 set -gu prefix2
 unbind C-a
 unbind C-b
-set -g prefix C-a
-bind C-a send-prefix
+set -g prefix2 C-q                        # GNU-Screen compatible prefix
+bind C-q send-prefix -2
 
 # move status line to top
 set -g status-position bottom
