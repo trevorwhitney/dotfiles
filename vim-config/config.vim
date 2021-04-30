@@ -17,6 +17,8 @@ set scrolloff=5
 set autowrite
 set autowriteall
 set autoread
+set undofile
+set undodir=$HOME/.vim/undodir
 
 if has('unnamedplus')
   set clipboard^=unnamed,unnamedplus
