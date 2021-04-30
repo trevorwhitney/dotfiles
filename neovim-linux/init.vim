@@ -206,7 +206,7 @@ nmap <leader>gk   :Gina commit<CR>
 nmap <leader>gp   :Gina patch<CR>
 
 " clean up unused fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd BufReadPost gina://* set bufhidden=delete
 autocmd BufReadPost .git/index set nolist
 
 " Set var for things that should only be enabled in git repos
