@@ -10,5 +10,4 @@ create_custom_zsh_link crostini.zsh
 create_alacritty_link "$current_dir/alacritty-crostini.yml"
 
 ln -sf "$HOME/.config/alacritty/alacritty-crostini.yml" "$HOME/.config/alacritty/alacritty.yml"
-
-
+sudo ln -sf "$current_dir/alacritty.desktop" /usr/share/applications/alacritty.desktop
