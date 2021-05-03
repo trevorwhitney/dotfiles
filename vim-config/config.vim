@@ -212,3 +212,7 @@ xmap amc <plug>(textobj-markdown-chunk-a)
 " ======== Auto Save =========
 autocmd BufLeave * update
 autocmd FocusLost * update
+
+" ====== Readline / RSI =======
+inoremap <c-k> <c-o>D
+cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>

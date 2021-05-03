@@ -3,14 +3,19 @@
   "diagnostic.errorSign": "❌",
   "diagnostic.infoSign": "💡",
   "go.goplsOptions": {
-      "usePlaceholders": true
+    "usePlaceholders": true
   },
   "go.trace.server": "verbose",
-	"list.insertMappings": {
-		"<C-n>": "normal:j",
-		"<C-p>": "normal:k"
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k"
   },
   "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "go",
+    "json"
+  ],
   "git.addGBlameToVirtualText": true,
-  "list.source.grep.command": "rg"
+  "list.source.grep.command": "rg",
+  "git.enableGutters": true
 }

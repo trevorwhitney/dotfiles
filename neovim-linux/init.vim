@@ -201,7 +201,7 @@ nnoremap <nowait> \g  :<C-u>Gina status<cr>
 nmap <leader>gb   :Gina blame<CR>
 nmap <leader>gd   :Gina compare<CR>
 nmap <leader>gh   :Gina log<CR>
-nmap <leader>go   :Gina browse<CR>
+nmap <leader>go   :<C-u>CocCommand git.browserOpen<CR>
 nmap <leader>gk   :Gina commit<CR>
 nmap <leader>gp   :Gina patch<CR>
 
@@ -328,9 +328,9 @@ augroup go
   " run integration test
   autocmd FileType go nmap <leader>ri  :wa<cr> :GolangTestFocusedWithTags e2e_gme requires_docker<cr>
   autocmd FileType go nmap <leader>bp  :DlvToggleBreakpoint<cr>
-  autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTestFocused<CR>
+  autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTestFocused<CR><C-o>
   " delve integration test
-  autocmd FileType go nmap <leader>di  :wa<cr> :DlvTestFocused e2e_gme requires_docker<cr>
+  autocmd FileType go nmap <leader>di  :wa<cr> :DlvTestFocused e2e_gme requires_docker<cr><C-o>
   autocmd FileType go nmap <leader>tj :CocCommand go.tags.add json<cr>
   autocmd FileType go nmap <leader>ty :CocCommand go.tags.add yaml<cr>
   autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
