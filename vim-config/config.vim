@@ -1,24 +1,25 @@
 "========== General ==========
-set expandtab                   " Use soft tabs
-set tabstop=2                   " Tab settings
 set autoindent
-set smarttab                    " Use shiftwidth to tab at line beginning
-set shiftwidth=2                " Width of autoindent
-set number                      " Line numbers
-set nowrap                      " No wrapping
-set backspace=indent,eol,start  " Let backspace work over anything.
-set showmatch                   " Show matching brackets/braces
+set autoread
 set autoread                    " Don't prompt when a file is changed outside of vim
-set ignorecase smartcase        " ignore case only when search term is all lowercase
-set mouse=a                     " enable moude in all modes
-set omnifunc=syntaxcomplete#Complete
-set incsearch
-set scrolloff=5
 set autowrite
 set autowriteall
-set autoread
-set undofile
+set backspace=indent,eol,start  " Let backspace work over anything.
+set expandtab                   " Use soft tabs
+set ignorecase smartcase        " ignore case only when search term is all lowercase
+set incsearch
+set mouse=a                     " enable moude in all modes
+set nowrap                      " No wrapping
+set number                      " Line numbers
+set omnifunc=syntaxcomplete#Complete
+set scrolloff=5
+set shiftwidth=2                " Width of autoindent
+set showmatch                   " Show matching brackets/braces
+set smarttab                    " Use shiftwidth to tab at line beginning
+set switchbuf=useopen
+set tabstop=2                   " Tab settings
 set undodir=$HOME/.vim/undodir
+set undofile
 
 if has('unnamedplus')
   set clipboard^=unnamed,unnamedplus

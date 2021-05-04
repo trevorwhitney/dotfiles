@@ -177,20 +177,23 @@ nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
 " Do default action for previous (search/liSt) item.
 nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
-" pneumonic: "open file"
-nnoremap <leader>of :<C-u>CocList files<cr>
-" pneumonic: "open symbol"
-nnoremap <leader>os :<C-u>CocList symbols<cr>
+" pneumonic Find
+" find file
+nnoremap <leader>ff :<C-u>CocList files<cr>
+" find symbol
+nnoremap <leader>fs :<C-u>CocList symbols<cr>
 
 " =============== Git ==============
-nmap <leader>ci <Plug>(coc-git-chunkinfo)
+nmap <leader>ci  <Plug>(coc-git-chunkinfo)
 nmap <silent> [c <Plug>(coc-git-prevchunk)
 nmap <silent> ]c <Plug>(coc-git-nextchunk)
 nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
 nmap <leader>gr :<C-u>CocCommand git.chunkUndo<cr>
 
-nmap <leader>gn <Plug>(coc-git-nextconflict)
-nmap <leader>gp <Plug>(coc-git-prevconflict)
+nmap <leader>gn   <Plug>(coc-git-nextconflict)
+nmap <silent> ]x  <Plug>(coc-git-nextconflict)
+nmap <leader>gp   <Plug>(coc-git-prevconflict)
+nmap <silent> [x  <Plug>(coc-git-prevconflict)
 
 nmap <leader>kc <Plug>(coc-git-keepcurrent)
 nmap <leader>ki <Plug>(coc-git-keepincoming)
@@ -227,9 +230,10 @@ function! s:GrepArgs(...)
   return join(list, "\n")
 endfunction
 
-nnoremap <silent> <Leader>ff :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-xnoremap <silent> <leader>f :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <silent> <leader>f :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
+" pneumonic Search
+nnoremap <silent> <Leader>ss :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+xnoremap <silent> <leader>s :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+nnoremap <silent> <leader>s :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -296,7 +300,7 @@ command! -nargs=* DlvTestFocused call s:dlvTestFocused(<f-args>)
 function! GolangTestFocusedWithTags(...)
   let build_flags = (a:0 > 0) ? join(a:000, ',') : ""
   let test_line = search("func Test", "bs")
-  
+
   let separator = ShellCommandSeperator()
 
   if test_line > 0
