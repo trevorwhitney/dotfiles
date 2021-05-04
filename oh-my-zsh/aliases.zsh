@@ -57,3 +57,5 @@ if [[ `command -v alacritty` ]]; then
 fi
 
 alias git-root="git rev-parse --show-toplevel"
+
+alias v="vim "
