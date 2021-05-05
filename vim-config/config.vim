@@ -54,6 +54,13 @@ map <silent> b <Plug>WordMotion_b
 omap <silent> iw <Plug>WordMotion_iw
 xmap <silent> iw <Plug>WordMotion_iw
 
+"==== Some custom text objects ====
+" line text object
+xnoremap il g_o^
+onoremap il :normal vil<CR>
+xnoremap al $o^
+onoremap al :normal val<CR>
+
 "========== Keybindings ==========
 imap jj <Esc>
 cmap w!! w !sudo tee > /dev/null %
