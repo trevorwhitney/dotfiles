@@ -6,9 +6,27 @@
     "usePlaceholders": true
   },
   "go.trace.server": "verbose",
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "terraform",
+        "tf",
+        "hcl"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
   "list.insertMappings": {
     "<C-n>": "normal:j",
     "<C-p>": "normal:k"
+  },
+  "list.normalMappings": {
+    "s": "action:vsplit"
   },
   "coc.preferences.extensionUpdateCheck": "daily",
   "coc.preferences.formatOnSaveFiletypes": [

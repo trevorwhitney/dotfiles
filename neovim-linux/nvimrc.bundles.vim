@@ -18,3 +18,4 @@ Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 Plug 'neoclide/coc-pairs', {'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 Plug 'sebdah/vim-delve'
+Plug 'weirongxu/coc-explorer', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}

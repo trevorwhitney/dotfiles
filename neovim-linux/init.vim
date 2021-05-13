@@ -270,6 +270,10 @@ endfunction
 xmap <silent> <leader>=  <Plug>(coc-format-selected)
 nnoremap <silent> <leader>= :call <SID>format_and_organize()<CR>
 
+"===== Coc-Explorer replaces NERDTree
+nnoremap <silent><nowait> \ :CocCommand explorer<CR>
+nnoremap <silent><nowait> \| :CocCommand explorer --no-toggle<CR>
+
 "========= Go ===========
 let g:delve_use_vimux = 1
 
