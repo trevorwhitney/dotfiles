@@ -8,7 +8,7 @@ set backspace=indent,eol,start  " Let backspace work over anything.
 set expandtab                   " Use soft tabs
 set ignorecase smartcase        " ignore case only when search term is all lowercase
 set incsearch
-set mouse=a                     " enable moude in all modes
+set mouse=a                     " enable mouse in all modes
 set nowrap                      " No wrapping
 set number                      " Line numbers
 set omnifunc=syntaxcomplete#Complete
@@ -84,8 +84,10 @@ nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
 
 "========== NERDtree ==========
-nnoremap <silent><nowait> \ :NERDTreeToggle<CR>
-nnoremap <silent><nowait> \| :NERDTreeFind<CR>
+if !has('nvim')
+  nnoremap <silent><nowait> \ :NERDTreeToggle<CR>
+  nnoremap <silent><nowait> \| :NERDTreeFind<CR>
+endif
 
 " automatically close NERDTree when a file is opened
 let NERDTreeQuitOnOpen = 1
