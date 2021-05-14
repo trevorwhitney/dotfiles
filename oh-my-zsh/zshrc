@@ -116,5 +116,7 @@ autoload -U +X bashcompinit && bashcompinit
 # Fuzzy completion for history
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
 complete -o nospace -C /usr/bin/nomad nomad
+
+# Needing for some copy/paste oddity with X11 forwarding
+export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
