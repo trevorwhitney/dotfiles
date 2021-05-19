@@ -156,21 +156,25 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <nowait> \a  :<C-u>CocList --normal diagnostics<cr>
-" Manage extensions.
-nnoremap <nowait> \x  :<C-u>CocList extensions<cr>
+nnoremap <nowait> \a  :<C-u>CocCommand fzf-preview.CocDiagnostics<cr>
+" Show diagnostics for current file
+nnoremap <nowait> \x  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<cr>
 " Show recent files
-nnoremap <nowait> \e  :<C-u>CocList mru<cr>
+nnoremap <nowait> \e  :<C-u>CocCommand fzf-preview.MruFiles<cr>
 " Show open buffers
-nnoremap <nowait> \b  :<C-u>CocList buffers<cr>
+nnoremap <nowait> \b  :<C-u>CocCommand fzf-preview.Buffers<cr>
 " Show commands.
 nnoremap <nowait> \c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
 nnoremap <nowait> \o  :<C-u>CocList --normal outline<cr>
-" Search workspace symbols.
-nnoremap <nowait> \s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
 nnoremap <nowait> \r  :<C-u>CocListResume<CR>
+" Resume latest grep
+nnoremap <nowait> \g  :<C-u>CocCommand fzf-preview.ProjectGrepRecall<CR>
+" Git status
+nnoremap <nowait> \s  :<C-u>CocCommand fzf-preview.GitStatus<cr>
+" Git logs
+nnoremap <nowait> \l  :<C-u>CocCommand fzf-preview.GitLogs<cr>
 
 " Do default action for next (search/liSt) item.
 nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
@@ -178,15 +182,18 @@ nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
 " pneumonic Find
-" find file
-nnoremap <leader>ff :<C-u>CocList files<cr>
+" find file (in git files)
+nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
+" find file (in all files)
+nnoremap <leader>fa :<C-u>CocCommand fzf-preview.ProjectFiles<cr>
 " find symbol
-nnoremap <leader>fs :<C-u>CocList symbols<cr>
+nnoremap <leader>fs :<C-u>CocList -I symbols<cr>
 
 " =============== Git ==============
 nmap <leader>ci  <Plug>(coc-git-chunkinfo)
 nmap <silent> [c <Plug>(coc-git-prevchunk)
 nmap <silent> ]c <Plug>(coc-git-nextchunk)
+" git revert
 nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
 nmap <leader>gr :<C-u>CocCommand git.chunkUndo<cr>
 
@@ -200,13 +207,13 @@ nmap <leader>ki <Plug>(coc-git-keepincoming)
 nmap <leader>kb <Plug>(coc-git-keepboth)
 
 " Git status, show currently changed files
-nnoremap <nowait> \g  :<C-u>Gina status<cr>
 nmap <leader>gb   :Gina blame<CR>
 nmap <leader>gd   :Gina compare<CR>
 nmap <leader>gh   :Gina log<CR>
 nmap <leader>go   :<C-u>CocCommand git.browserOpen<CR>
 nmap <leader>gk   :Gina commit<CR>
 nmap <leader>gp   :Gina patch<CR>
+nmap <leader>ga   :<c-u>CocCommand fzf-preview.GitActions<CR>
 
 " clean up unused fugitive buffers
 autocmd BufReadPost gina://* set bufhidden=delete
@@ -219,10 +226,10 @@ let g:in_git = system('git rev-parse --is-inside-work-tree')
 let g:airline#extensions#hunks#coc_git = 1
 
 " ================ yank =============
-nnoremap <leader>y :<C-u>CocList -A --normal yank<cr>
+nnoremap <leader>y :<C-u>CocCommand fzf-preview.Yankround<cr>
 
 " ==== find/grep ====
-command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList -A --normal grep '.<q-args>
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocCommand fzf-preview.ProjectGrep '.<q-args>
 
 function! s:GrepArgs(...)
   let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',

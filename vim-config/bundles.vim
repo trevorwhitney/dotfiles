@@ -4,9 +4,11 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'easymotion/vim-easymotion'
 Plug 'google/vim-jsonnet'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'jvirtanen/vim-hcl'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
+Plug 'LeafCage/yankround.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mattn/emmet-vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
@@ -24,4 +26,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'thinca/vim-qfreplace'
 Plug 'vimwiki/vimwiki'
+Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }

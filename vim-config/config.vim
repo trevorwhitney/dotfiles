@@ -83,6 +83,16 @@ endif
 nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
 
+" use the coc version of these commands for nvim
+if !has('nvim')
+  " find file (in git files)
+  nnoremap <leader>ff :<C-u>FzfPreviewGitFilesRpc<cr>
+  " find file (in all files)
+  nnoremap <leader>fa :<C-u>FzfPreviewProjectFilesRpc<cr>
+  " yank ring
+  nnoremap <leader>y :<C-u>FzfPreviewYankroundRpc<cr>
+endif
+
 "========== NERDtree ==========
 if !has('nvim')
   nnoremap <silent><nowait> \ :NERDTreeToggle<CR>

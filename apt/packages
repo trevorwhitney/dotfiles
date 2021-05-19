@@ -1,6 +1,7 @@
 apt-transport-https
 aws-shell
 awscli
+bat
 build-essential
 ca-certificates
 clang
