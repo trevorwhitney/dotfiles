@@ -68,18 +68,11 @@ endif
 " close coc floats when they get annoying
 inoremap kk <C-o>:call coc#float#close_all()<cr>
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <leader>[ <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <leader>] <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gi :<C-u>CocCommand fzf-preview.CocImplementations<CR>
+nmap <silent> gr :<C-u>CocCommand fzf-preview.CocReferences<CR>
 
 " Use <leader>h to show documentation in preview window.
 nnoremap <leader>h :call <SID>show_documentation()<CR>
@@ -182,12 +175,35 @@ nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
 " pneumonic Find
+" This setting and function allow searching all files in the project directory
+" (defined by root of git repo)
+let g:fzf_preview_directory_files_command = 'rg --files --hidden --no-ignore --no-messages -g \!"* *"'
+function! s:AllFilesInProject()
+  let project_root = system("git rev-parse --show-toplevel | tr -d '\\n'")
+  if v:shell_error
+    execute "CocCommand fzf-preview.DirectoryFiles " . getcwd()
+  else
+    execute "CocCommand fzf-preview.DirectoryFiles " . project_root
+  endif
+endfunction
+
+let g:fzf_preview_command = 'bat --color=always --style=plain,numbers {-1}'
+
 " find file (in git files)
 nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
 " find file (in all files)
-nnoremap <leader>fa :<C-u>CocCommand fzf-preview.ProjectFiles<cr>
+nnoremap <leader>fa :call <SID>AllFilesInProject()<cr>
 " find symbol
 nnoremap <leader>fs :<C-u>CocList -I symbols<cr>
+" find word under cursor
+nnoremap <leader>* :exe 'CocCommand fzf-preview.ProjectGrep -F '.expand('<cword>')<CR>
+" find from selected
+xnoremap <leader>* "sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
+
+" Search for the word under cursor
+nnoremap <leader>s :<C-u>CocSearch<Space><C-R>=expand('<cword>')<CR><CR>
+" Search for the visually selected text
+xnoremap <leader>s "sy:CocSearch<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
 
 " =============== Git ==============
 nmap <leader>ci  <Plug>(coc-git-chunkinfo)
@@ -221,41 +237,10 @@ autocmd BufReadPost .git/index set nolist
 
 " Set var for things that should only be enabled in git repos
 let g:in_git = system('git rev-parse --is-inside-work-tree')
-
-
 let g:airline#extensions#hunks#coc_git = 1
 
 " ================ yank =============
 nnoremap <leader>y :<C-u>CocCommand fzf-preview.Yankround<cr>
-
-" ==== find/grep ====
-command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocCommand fzf-preview.ProjectGrep '.<q-args>
-
-function! s:GrepArgs(...)
-  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
-        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
-  return join(list, "\n")
-endfunction
-
-" pneumonic Search
-nnoremap <silent> <Leader>ss :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-xnoremap <silent> <leader>s :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <silent> <leader>s :<C-u>set operatorfunc=<SID>GrepFromSelected<CR>g@
-
-function! s:GrepFromSelected(type)
-  let saved_unnamed_register = @@
-  if a:type ==# 'v'
-    normal! `<v`>y
-  elseif a:type ==# 'char'
-    normal! `[v`]y
-  else
-    return
-  endif
-  let word = substitute(@@, '\n$', '', 'g')
-  let word = escape(word, '| ')
-  let @@ = saved_unnamed_register
-  execute 'CocList -A --normal grep '.word
-endfunction
 
 "=========== Other Code Actions =========
 " Symbol renaming.
@@ -279,7 +264,25 @@ nnoremap <silent> <leader>= :call <SID>format_and_organize()<CR>
 
 "===== Coc-Explorer replaces NERDTree
 nnoremap <silent><nowait> \ :CocCommand explorer<CR>
-nnoremap <silent><nowait> \| :CocCommand explorer --no-toggle<CR>
+" alternative mapping to skip the wait time for other \* shortcuts
+nnoremap <silent><nowait> \\ :CocCommand explorer<CR>
+nnoremap <silent><nowait> \| :call <SID>FocusInExplorer()<CR>
+
+function! s:FocusInExplorer()
+  let l:a = 0
+  for window in getwininfo()
+    if getbufvar(window.bufnr, '&ft') == 'coc-explorer'
+      let l:a = 1
+      break
+    endif
+  endfor
+  if l:a == 1
+    call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal'], [['relative', 0, 'file']])
+    execute 'CocCommand explorer --focus --no-toggle'
+  else
+    execute 'CocCommand explorer --reveal '.expand('%:p')
+  endif
+endfunction
 
 "========= Go ===========
 let g:delve_use_vimux = 1
@@ -341,7 +344,7 @@ augroup go
   autocmd FileType go nmap <Leader>rp  :wa<CR> :GolangTestCurrentPackage<CR>
   autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocused<CR>
   " run integration test
-  autocmd FileType go nmap <leader>ri  :wa<cr> :GolangTestFocusedWithTags e2e_gme requires_docker<cr>
+  autocmd FileType go nmap <leader>ri  :wa<cr> :GolangTestFocusedWithTags e2e_gme requires_docker<cr><C-o>
   autocmd FileType go nmap <leader>bp  :DlvToggleBreakpoint<cr>
   autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTestFocused<CR><C-o>
   " delve integration test
@@ -350,3 +353,18 @@ augroup go
   autocmd FileType go nmap <leader>ty :CocCommand go.tags.add yaml<cr>
   autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
 augroup END
+
+" JSONNET
+au FileType jsonnet nmap <leader>b :call JsonnetEval()<cr>
+function! JsonnetEval()
+  " check if the file is a tanka file or not
+  let output = system("tk tool jpath " . shellescape(expand('%')))
+  if v:shell_error
+    let output = system("jsonnet " . shellescape(expand('%')))
+  else
+    let output = system("tk eval " . shellescape(expand('%')))
+  endif
+  vnew
+  setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile ft=json
+  put! = output
+endfunction

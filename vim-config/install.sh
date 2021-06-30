@@ -32,6 +32,7 @@ mkdir -p $HOME/.vim
 mkdir -p $HOME/.vim/colors
 mkdir -p $HOME/.vim/undodir
 
+create_vim_link "$current_dir/pre-bundle.config.vim"
 create_vim_link "$current_dir/bundles.vim"
 create_vim_link "$current_dir/config.vim"
 

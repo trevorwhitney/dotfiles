@@ -1,10 +1,12 @@
-Plug 'chaoren/vim-wordmotion'
 Plug 'bling/vim-bufferline'
+Plug 'chaoren/vim-wordmotion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'coachshea/vim-textobj-markdown'
+Plug 'dense-analysis/ale'
 Plug 'easymotion/vim-easymotion'
 Plug 'google/vim-jsonnet'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim', { 'do': { -> fzf#install() } }
 Plug 'jvirtanen/vim-hcl'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-user'
