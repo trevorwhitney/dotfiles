@@ -4,10 +4,15 @@ set nocompatible
 filetype off
 
 let s:editor_root=expand("$HOME/.vim")
+let s:vim_pre_bundle_config=s:editor_root . '/pre-bundle.config.vim'
 let s:vim_bundle=s:editor_root . '/bundles.vim'
 let s:nvim_bundle=s:editor_root . '/nvimrc.bundles.vim'
 
 call plug#begin()
+
+if filereadable(expand(s:vim_pre_bundle_config))
+  execute "source " . expand(s:vim_pre_bundle_config)
+endif
 
 if filereadable(expand(s:vim_bundle))
   execute "source " . expand(s:vim_bundle)

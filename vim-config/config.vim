@@ -37,7 +37,6 @@ noremap <C-a> <Nop>
 
 " Spell checking
 set spelllang=en_us
-nmap <silent> <leader>sp :set spell!<CR>
 map <Leader>z :'<,'>sort<CR>
 
 " UTF-8 all the way
@@ -91,6 +90,10 @@ if !has('nvim')
   nnoremap <leader>fa :<C-u>FzfPreviewProjectFilesRpc<cr>
   " yank ring
   nnoremap <leader>y :<C-u>FzfPreviewYankroundRpc<cr>
+  " turn spell check on
+  nmap <silent> <leader>sp :set spell!<CR>
+  " search and replace in file
+  nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 endif
 
 "========== NERDtree ==========
@@ -143,7 +146,6 @@ set wildmenu
 set completeopt+=longest
 
 "======== Helpful Shortcuts =========
-:nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 :map <Leader>lo :lopen<Cr>
 :map <Leader>lc :lclose<Cr>
 :map <Leader>co :copen<Cr>
@@ -206,6 +208,7 @@ endif
 colorscheme gruvbox_less_red
 let g:airline_theme="solarized"
 let g:airline_powerline_fonts=1
+let g:airline#extensions#ale#enabled=1
 
 " bufferline
 let g:bufferline_echo = 0
@@ -236,3 +239,7 @@ autocmd FocusLost * update
 " ====== Readline / RSI =======
 inoremap <c-k> <c-o>D
 cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
+
+" ====== ALE ======
+nmap <silent> [g <Plug>(ale_previous_wrap)
+nmap <silent> ]g <Plug>(ale_next_wrap)

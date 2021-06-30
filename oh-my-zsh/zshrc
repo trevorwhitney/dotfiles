@@ -126,3 +126,6 @@ if [[ "$BACKGROUND" == "dark" ]]; then
 else
   export BAT_THEME="gruvbox-light"
 fi
+
+autoload -U compinit
+compinit -i
