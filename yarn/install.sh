@@ -7,3 +7,4 @@ if [[ ! `command -v yarn` ]]; then
 fi
 
 npm install -g prettier
+npm install -g markdownlint-cli
