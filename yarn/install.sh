@@ -2,4 +2,8 @@
 
 set -euf
 
-npm install -g yarn
+if [[ ! `command -v yarn` ]]; then
+  npm install -g yarn
+fi
+
+npm install -g prettier

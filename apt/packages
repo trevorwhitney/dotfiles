@@ -15,6 +15,8 @@ gnupg
 gnupg-agent
 gnupg2
 grok
+haskell-platform
+haskell-stack
 htop
 jsonnet
 jq
