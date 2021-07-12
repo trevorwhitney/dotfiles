@@ -247,6 +247,7 @@ nmap <silent> ]g <Plug>(ale_next_wrap)
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
+\   'go': ['gofmt'],
 \}
 
 let g:ale_fix_on_save=1

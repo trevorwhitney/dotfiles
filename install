@@ -2,7 +2,9 @@
 current_dir=$(cd "$(dirname "$0")" && pwd)
 
 if [[ "$current_dir" != "$HOME/.dotfiles" ]]; then
-  ln -sf "$current_dir" "$HOME/.dotfiles"
+  if [[ ! -e "$HOME/.dotfiles" ]]; then
+    ln -sf "$current_dir" "$HOME/.dotfiles"
+  fi
 fi
 
 if [[ ! -e "$current_dir/.last-update" ]]; then
