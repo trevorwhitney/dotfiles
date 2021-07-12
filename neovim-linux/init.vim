@@ -265,7 +265,7 @@ nnoremap <silent> <leader>= :call <SID>format_and_organize()<CR>
 "===== Coc-Explorer replaces NERDTree
 nnoremap <silent><nowait> \ :CocCommand explorer<CR>
 " alternative mapping to skip the wait time for other \* shortcuts
-nnoremap <silent><nowait> \\ :CocCommand explorer<CR>
+nnoremap <silent><nowait> <leader>\ :CocCommand explorer<CR>
 nnoremap <silent><nowait> \| :call <SID>FocusInExplorer()<CR>
 
 function! s:FocusInExplorer()
