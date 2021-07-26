@@ -26,7 +26,7 @@ alias gw="./gradlew"
 
 #Kubectl
 if [[ `command -v kubectl` ]]; then
-  alias k="kubectl"
+  alias k="kubectl "
   # Ensure the next command is checked as an alias when using watch
   # Allows `watch k get ...` to work
   alias watch='watch '

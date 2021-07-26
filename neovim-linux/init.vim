@@ -159,7 +159,7 @@ nnoremap <nowait> \b  :<C-u>CocCommand fzf-preview.Buffers<cr>
 " Show commands.
 nnoremap <nowait> \c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <nowait> \o  :<C-u>CocList --normal outline<cr>
+nnoremap <nowait> \o  :<C-u>CocList outline<cr>
 " Resume latest coc list.
 nnoremap <nowait> \r  :<C-u>CocListResume<CR>
 " Resume latest grep
@@ -187,7 +187,13 @@ function! s:AllFilesInProject()
   endif
 endfunction
 
-let g:fzf_preview_command = 'bat --color=always --style=plain,numbers {-1}'
+let g:fzf_preview_command = 'bat --color=always --plain --number {-1}'
+let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
+let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
+
+" Remap Rg function to allow more args to be passed
+command! -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
 
 " find file (in git files)
 nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
@@ -199,6 +205,8 @@ nnoremap <leader>fs :<C-u>CocList -I symbols<cr>
 nnoremap <leader>* :exe 'CocCommand fzf-preview.ProjectGrep -F '.expand('<cword>')<CR>
 " find from selected
 xnoremap <leader>* "sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
+" open find command
+nnoremap <leader>gr :CocCommand fzf-preview.ProjectGrep --smart-case
 
 " Search for the word under cursor
 nnoremap <leader>s :<C-u>CocSearch<Space><C-R>=expand('<cword>')<CR><CR>
@@ -209,13 +217,10 @@ xnoremap <leader>s "sy:CocSearch<Space>-F<Space>"<C-r>=substitute(substitute(@s,
 nmap <leader>ci  <Plug>(coc-git-chunkinfo)
 nmap <silent> [c <Plug>(coc-git-prevchunk)
 nmap <silent> ]c <Plug>(coc-git-nextchunk)
-" git revert
+" git/chunk revert
 nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
-nmap <leader>gr :<C-u>CocCommand git.chunkUndo<cr>
 
-nmap <leader>gn   <Plug>(coc-git-nextconflict)
 nmap <silent> ]x  <Plug>(coc-git-nextconflict)
-nmap <leader>gp   <Plug>(coc-git-prevconflict)
 nmap <silent> [x  <Plug>(coc-git-prevconflict)
 
 nmap <leader>kc <Plug>(coc-git-keepcurrent)
@@ -250,12 +255,15 @@ nmap <leader>re <Plug>(coc-rename)
 function! s:format_and_organize()
   if CocHasProvider('format')
     call CocAction('runCommand', 'editor.action.format')
-    " TODO: not working for some reason? Seems to have been included in
-    " format?
+    " refresh lint warnings after reformat
+    execute "ALELint"
+
+    " TODO: not working for some reason? Seems to have been included in format?
     " call CocAction('runCommand', 'editor.action.organizeImport')
   else
-    silent execute "normal gg=G"
-    silent execute "normal \<C-o>"
+    " silent execute "normal gg=G"
+    " silent execute "normal \<C-o>"
+    execute "ALEFix"
   endif
 endfunction
 

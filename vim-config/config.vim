@@ -192,6 +192,7 @@ let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 let g:vimwiki_list = [{'path': '~/Dropbox/Notes/vimwiki',
       \ 'syntax': 'markdown',
       \ 'ext': '.md'}]
+let g:vimwiki_global_ext = 0
 
 " ===== gruvbox ====
 let g:gruvbox_italic=0
@@ -248,6 +249,9 @@ let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'javascript': ['eslint'],
 \   'go': ['gofmt'],
+\   'yaml': ['prettier'],
+\   'markdown': ['prettier'],
 \}
 
 let g:ale_fix_on_save=1
+
