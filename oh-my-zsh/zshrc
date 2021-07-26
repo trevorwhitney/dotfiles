@@ -123,8 +123,10 @@ export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
 
 if [[ "$BACKGROUND" == "dark" ]]; then
   export BAT_THEME="gruvbox-dark"
+  export FZF_PREVIEW_PREVIEW_BAT_THEME="gruvbox-dark"
 else
   export BAT_THEME="gruvbox-light"
+  export FZF_PREVIEW_PREVIEW_BAT_THEME="gruvbox-light"
 fi
 
 autoload -U compinit
