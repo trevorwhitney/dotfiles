@@ -224,7 +224,6 @@ if executable("rg")
     set grepprg=rg\ --vimgrep
 endif
 
-
 " ======= Markdown ==========
 let g:textobj_markdown_no_default_key_mappings=1
 
@@ -254,4 +253,13 @@ let g:ale_fixers = {
 \}
 
 let g:ale_fix_on_save=1
+
+" ==== Fzf and fzf preview ====
+let g:fzf_preview_command = 'bat --color=always --plain --number {-1}'
+let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
+let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
+
+" Remap Rg function to allow more args to be passed
+command! -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
 
