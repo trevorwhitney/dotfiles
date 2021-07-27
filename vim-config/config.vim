@@ -259,7 +259,14 @@ let g:fzf_preview_command = 'bat --color=always --plain --number {-1}'
 let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
 let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
+let g:fzf_preview_window = ['']
 
 " Remap Rg function to allow more args to be passed
-command! -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, a:query)
+  let spec = {'options': ['--phony', '--query', a:query, '--expect', 'ctrl-q', '--bind', g:fzf_preview_preview_key_bindings]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
 
+command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
