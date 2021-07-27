@@ -174,6 +174,8 @@ nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
 " Do default action for previous (search/liSt) item.
 nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
+
+" ==== Fzf and fzf preview ====
 " pneumonic Find
 " This setting and function allow searching all files in the project directory
 " (defined by root of git repo)
@@ -186,14 +188,6 @@ function! s:AllFilesInProject()
     execute "CocCommand fzf-preview.DirectoryFiles " . project_root
   endif
 endfunction
-
-let g:fzf_preview_command = 'bat --color=always --plain --number {-1}'
-let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
-let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
-let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
-
-" Remap Rg function to allow more args to be passed
-command! -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".<q-args>, 1, fzf#vim#with_preview(), <bang>0)
 
 " find file (in git files)
 nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
@@ -362,7 +356,7 @@ augroup go
   autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
 augroup END
 
-" JSONNET
+" ==== JSONNET ====
 au FileType jsonnet nmap <leader>b :call JsonnetEval()<cr>
 function! JsonnetEval()
   " check if the file is a tanka file or not
