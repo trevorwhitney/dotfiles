@@ -35,5 +35,6 @@
     "json"
   ],
   "git.addGBlameToVirtualText": true,
-  "git.enableGutters": true
+  "git.enableGutters": true,
+  "explorer.icon.enableNerdfont": true,
 }
