@@ -13,10 +13,10 @@ rm -rf $jbTemp
 
 nerdTemp=$(mktemp -d)
 pushd $nerdTemp > /dev/null || exit 1
-  git clone git@github.com:ryanoasis/nerd-fonts.git
-  pushd nerd-fonts > /dev/null || exit 1
-    ./install.sh JetBrainsMono
-  popd > /dev/null || exit 1
+  curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+  unzip JetBrainsMono.zip
+  mkdir -p ~/.local/share/fonts
+  mv * ~/.local/share/fonts
 popd > /dev/null || exit 1
 
 rm -rf $nerdTemp

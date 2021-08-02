@@ -12,12 +12,15 @@ plugins=(git ruby vi-mode mvn aws)
 # User configuration
 #
 # Set Default Ruby
-eval "$(rbenv init -)"
-RBENV_ROOT="$HOME/.rbenv"
-if [[ -e "$RBENV_ROOT/versions/2.4.1" ]]; then
-  rbenv shell 2.4.1
+
+if [[ `command -v rbenv` ]]; then
+  eval "$(rbenv init -)"
+  RBENV_ROOT="$HOME/.rbenv"
+  if [[ -e "$RBENV_ROOT/versions/2.4.1" ]]; then
+    rbenv shell 2.4.1
+  fi
+  RUBY_HOME="$HOME/.rbenv/versions/$RBENV_VERSION"
 fi
-RUBY_HOME="$HOME/.rbenv/versions/$RBENV_VERSION"
 
 HOMEBREW_GOROOT="/usr/local/Cellar/go/1.15.6/libexec"
 LINUX_GOROOT="/usr/local/go@1.15"
@@ -43,7 +46,7 @@ source $DOTFILES/check-for-updates
 unsetopt AUTO_CD
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 if [ -d "$HOME/.bash_aliases.d" ]; then
@@ -59,7 +62,9 @@ fi
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # Direnv hook
-eval "$(direnv hook zsh)"
+if [[ `command -v direnv` ]]; then
+  eval "$(direnv hook zsh)"
+fi
 
 # export GROOVY_HOME=/usr/local/opt/groovy/libexec
 export GLOBAL_GIT_HOOK_DIR="$HOME/.git/hooks"
@@ -85,7 +90,7 @@ bindkey -M viins '^[b' backward-word
 
 # needed for vi-mode indication in theme
 function zle-line-init zle-keymap-select {
-  zle reset-prompt
+zle reset-prompt
 }
 
 zle -N zle-line-init
@@ -119,7 +124,9 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/nomad nomad
 
 # Needing for some copy/paste oddity with X11 forwarding
-export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
+if [[ `command -v tmux` ]]; then
+  export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
+fi
 
 if [[ "$BACKGROUND" == "dark" ]]; then
   export BAT_THEME="gruvbox-dark"
