@@ -51,7 +51,9 @@ if [[ -h "$HOME/.vim/style" ]] || [[ -d "$HOME/.vim/style" ]]; then
 fi
 ln -s "$current_dir/style" "$HOME/.vim/style"
 
-if [[ -e  "$HOME/.vim/plugged/taskwiki/requirements.txt" ]]; then
-  sudo pip3 install --upgrade -r "$HOME/.vim/plugged/taskwiki/requirements.txt"
+if [[ `command -v pip3` ]]; then
+  if [[ -e  "$HOME/.vim/plugged/taskwiki/requirements.txt" ]]; then
+    sudo pip3 install --upgrade -r "$HOME/.vim/plugged/taskwiki/requirements.txt"
+  fi
 fi
 

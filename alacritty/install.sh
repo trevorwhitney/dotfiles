@@ -6,10 +6,22 @@ dot_files_dir="$(cd $current_dir/.. && pwd)"
 # shellcheck disable=SC1090
 source "$dot_files_dir/lib.sh"
 
+function install_from_package() {
+  tmp=$(mktemp -d)
+  version=$(cat $current_dir/version)
+
+  pushd "$tmp" > /dev/null || exit 1
+  echo "$tmp"
+  curl -LkO "https://github.com/barnumbirr/alacritty-debian/releases/download/v${version}/alacritty_${version}_amd64_debian_unstable.deb"
+  sudo dpkg -i "alacritty_${version}_amd64_debian_unstable.deb"
+  popd > /dev/null || exit 1
+  rm -rf "$tmp"
+}
+
 if [[ $(uname) = "Darwin" ]]; then
-  brew install alacritty
+  brew install alacritty || true
 else
-  sudo apt-get install -y alacritty
+  sudo apt-get install -y alacritty || install_from_package
 fi
 
 mkdir -p $HOME/.config/alacritty
