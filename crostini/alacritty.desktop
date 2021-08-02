@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 TryExec=alacritty
-Exec=sommelier --no-exit-with-child --accelerators="<Alt>tab" -X sh -c "sh /etc/sommelierrc; alacritty;"
+Exec=sommelier --no-exit-with-child --accelerators="<Alt>tab" -X zsh -c "sh /etc/sommelierrc; alacritty;"
 Icon=alacritty
 Terminal=false
 Categories=System;TerminalEmulator;
@@ -14,4 +14,4 @@ Actions=New;
 
 [Desktop Action New]
 Name=New Terminal
-Exec=sommelier --no-exit-with-child --accelerators="<Alt>tab" -X sh -c "sh /etc/sommelierrc; alacritty;"
+Exec=sommelier --no-exit-with-child --accelerators="<Alt>tab" -X zsh -c "sh /etc/sommelierrc; alacritty;"
