@@ -112,7 +112,6 @@ if [[ -e "$HOME/.cargo/env" ]]; then
 fi
 
 # completions
-complete -F __start_kubectl k
 complete -o nospace -C /usr/local/bin/tk tk
 complete -o nospace -C "$GOPATH/bin/gocomplete" go
 
@@ -136,5 +135,8 @@ else
   export FZF_PREVIEW_PREVIEW_BAT_THEME="gruvbox-light"
 fi
 
-autoload -U compinit
+autoload -Uz compinit
 compinit -i
+
+source <(kubectl completion zsh)
+complete -F __start_kubectl k
