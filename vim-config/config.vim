@@ -263,9 +263,28 @@ let g:fzf_preview_window = ['']
 
 " Remap Rg function to allow more args to be passed
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
-  let initial_command = printf(command_fmt, a:query)
-  let spec = {'options': ['--phony', '--query', a:query, '--expect', 'ctrl-q', '--bind', g:fzf_preview_preview_key_bindings]}
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s -- %s || true'
+
+  let extra_options = ""
+  let query = a:query
+
+  " if additional options to rg are required, the query part must
+  " come after --
+  let query_parts = split(a:query, "--")
+  if len(query_parts) > 1
+    let extra_options = query_parts[0]
+    let query = query_parts[1]
+  endif
+
+  let initial_command = printf(command_fmt, extra_options, query)
+  let reload_command = printf(command_fmt, extra_options, '{q}')
+
+  let spec = {'options': [
+        \'--phony',
+        \'--query', query,
+        \'--expect', 'ctrl-q',
+        \'--bind', g:fzf_preview_preview_key_bindings . ',change:reload:'.reload_command
+        \]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 

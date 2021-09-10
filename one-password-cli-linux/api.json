@@ -1,0 +1,24 @@
+{
+  "sections": [
+    {
+      "fields": [
+        {
+          "k": "concealed",
+          "n": "credential",
+          "t": "credential",
+          "v": ""
+        },
+        {
+          "k": "string",
+          "n": "hostname",
+          "t": "hostname",
+          "v": ""
+        }
+      ]
+    }
+  ],
+  "overview": {
+    "tags": [],
+    "title": ""
+  }
+}

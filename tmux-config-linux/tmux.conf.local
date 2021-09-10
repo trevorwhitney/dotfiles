@@ -366,6 +366,8 @@ set -g mouse on
 #set -g status-keys vi
 #set -g mode-keys vi
 
+# increase panes display time a bit more than the 800 default provided by oh-my-zsh
+set -g display-panes-time 1000
 
 # use C-q as tmux binding
 set -gu prefix2

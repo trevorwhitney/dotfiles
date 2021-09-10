@@ -59,3 +59,9 @@ fi
 alias git-root="git rev-parse --show-toplevel"
 
 alias v="vim "
+
+# one-password
+function get_op_credential() {
+  op get item $1 | jq -r '.details.sections | .[].fields | .[] | select(.n == "credential") | .v'
+}
+alias op_cred=get_op_credential
