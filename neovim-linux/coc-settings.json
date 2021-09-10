@@ -37,4 +37,12 @@
   "git.addGBlameToVirtualText": true,
   "git.enableGutters": true,
   "explorer.icon.enableNerdfont": true,
+  "yaml.format.enable": true,
+  "cSpell.userWords": [
+    "Minio",
+    "dskit",
+    "grpc",
+    "minio",
+    "promql"
+  ],
 }

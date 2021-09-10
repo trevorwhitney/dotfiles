@@ -14,6 +14,7 @@ Plug 'LeafCage/yankround.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'mattn/emmet-vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+Plug 'pedrohdz/vim-yaml-folds'
 Plug 'preservim/nerdtree'
 Plug 'tommcdo/vim-exchange'
 Plug 'tools-life/taskwiki'
