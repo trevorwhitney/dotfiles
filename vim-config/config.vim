@@ -250,6 +250,7 @@ let g:ale_fixers = {
 \   'go': ['gofmt'],
 \   'yaml': ['prettier'],
 \   'markdown': ['prettier'],
+\   'jsonnet': ['jsonnetfmt'],
 \}
 
 let g:ale_fix_on_save=1
