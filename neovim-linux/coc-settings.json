@@ -42,6 +42,7 @@
     "Minio",
     "dskit",
     "grpc",
+    "httpgrpc",
     "jsonnetlint",
     "minio",
     "promql"

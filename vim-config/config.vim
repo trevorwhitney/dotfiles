@@ -82,12 +82,27 @@ endif
 nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
 
+
+" ==== Fzf and fzf preview ====
+" pneumonic Find
+" This setting and function allow searching all files in the project directory
+" (defined by root of git repo)
+let g:fzf_preview_directory_files_command = 'rg --files --hidden --no-ignore --no-messages -g \!"* *"'
+function! s:ProjectRoot()
+  let project_root = system("git rev-parse --show-toplevel | tr -d '\\n'")
+  if v:shell_error
+    return getcwd()
+  else
+    return project_root
+  endif
+endfunction
+
 " use the coc version of these commands for nvim
 if !has('nvim')
   " find file (in git files)
   nnoremap <leader>fg :<C-u>FzfPreviewGitFilesRpc<cr>
   " find file (in all files)
-  nnoremap <leader>ff :<C-u>FzfPreviewProjectFilesRpc<cr>
+  nnoremap <leader>ff :<C-u>FzfPreviewDirectoryFilesRpc <SID>ProjectRoot()<cr>
   " yank ring
   nnoremap <leader>y :<C-u>FzfPreviewYankroundRpc<cr>
   " turn spell check on
@@ -249,6 +264,14 @@ nmap <leader>gd   :Gdiffsplit<CR>
 nmap <leader>gh   :Gclog<CR>
 " pneumonic git log
 nmap <leader>gl   :Gclog<CR>
+
+" pneumonic git commit
+nmap <leader>gk       :Git commit --signoff<CR>
+nnoremap <nowait> \k  :Git commit --signoff<CR>
+" Git status
+nnoremap <nowait> \s  :<C-u>Git<cr>
+" Git logs
+nnoremap <nowait> \l  :<C-u>:Gclog<cr>
 
 " clean up unused fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
