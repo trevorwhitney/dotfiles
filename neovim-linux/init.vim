@@ -222,17 +222,8 @@ nmap <leader>ki <Plug>(coc-git-keepincoming)
 nmap <leader>kb <Plug>(coc-git-keepboth)
 
 " Git status, show currently changed files
-nmap <leader>gb   :Gina blame<CR>
-nmap <leader>gd   :Gina compare<CR>
-nmap <leader>gh   :Gina log<CR>
 nmap <leader>go   :<C-u>CocCommand git.browserOpen<CR>
-nmap <leader>gk   :Gina commit<CR>
-nmap <leader>gp   :Gina patch<CR>
 nmap <leader>ga   :<c-u>CocCommand fzf-preview.GitActions<CR>
-
-" clean up unused fugitive buffers
-autocmd BufReadPost gina://* set bufhidden=delete
-autocmd BufReadPost .git/index set nolist
 
 " Set var for things that should only be enabled in git repos
 let g:in_git = system('git rev-parse --is-inside-work-tree')

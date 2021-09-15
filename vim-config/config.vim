@@ -85,9 +85,9 @@ nnoremap <silent> \Q :xa<cr>
 " use the coc version of these commands for nvim
 if !has('nvim')
   " find file (in git files)
-  nnoremap <leader>ff :<C-u>FzfPreviewGitFilesRpc<cr>
+  nnoremap <leader>fg :<C-u>FzfPreviewGitFilesRpc<cr>
   " find file (in all files)
-  nnoremap <leader>fa :<C-u>FzfPreviewProjectFilesRpc<cr>
+  nnoremap <leader>ff :<C-u>FzfPreviewProjectFilesRpc<cr>
   " yank ring
   nnoremap <leader>y :<C-u>FzfPreviewYankroundRpc<cr>
   " turn spell check on
@@ -239,6 +239,21 @@ autocmd FocusLost * update
 " ====== Readline / RSI =======
 inoremap <c-k> <c-o>D
 cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
+
+" ====== Git (vim-fugitive) =====
+" Git status, show currently changed files
+nmap <leader>gb   :Git blame<CR>
+" pneumonic git diff
+nmap <leader>gd   :Gdiffsplit<CR>
+" pneumonic git history
+nmap <leader>gh   :Gclog<CR>
+" pneumonic git log
+nmap <leader>gl   :Gclog<CR>
+
+" clean up unused fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd BufReadPost .git/index set nolist
+
 
 " ====== ALE ======
 nmap <silent> [g <Plug>(ale_previous_wrap)
