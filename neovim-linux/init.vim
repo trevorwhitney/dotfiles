@@ -164,10 +164,6 @@ nnoremap <nowait> \o  :<C-u>CocList outline<cr>
 nnoremap <nowait> \r  :<C-u>CocListResume<CR>
 " Resume latest grep
 nnoremap <nowait> \g  :<C-u>CocCommand fzf-preview.ProjectGrepRecall<CR>
-" Git status
-nnoremap <nowait> \s  :<C-u>CocCommand fzf-preview.GitStatus<cr>
-" Git logs
-nnoremap <nowait> \l  :<C-u>CocCommand fzf-preview.GitLogs<cr>
 
 " Do default action for next (search/liSt) item.
 nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
@@ -190,9 +186,9 @@ function! s:AllFilesInProject()
 endfunction
 
 " find file (in git files)
-nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
+nnoremap <leader>fg :<C-u>CocCommand fzf-preview.GitFiles<cr>
 " find file (in all files)
-nnoremap <leader>fa :call <SID>AllFilesInProject()<cr>
+nnoremap <leader>ff :call <SID>AllFilesInProject()<cr>
 " find symbol
 nnoremap <leader>fs :<C-u>CocList -I symbols<cr>
 " find word under cursor
@@ -209,8 +205,11 @@ xnoremap <leader>s "sy:CocSearch<Space>-F<Space>"<C-r>=substitute(substitute(@s,
 
 " =============== Git ==============
 nmap <leader>ci  <Plug>(coc-git-chunkinfo)
-nmap <silent> [c <Plug>(coc-git-prevchunk)
-nmap <silent> ]c <Plug>(coc-git-nextchunk)
+
+" navigate git chunks when not in diff mode
+nnoremap <silent> <expr> [c &diff ? '[c' : ':execute "normal \<Plug>(coc-git-prevchunk)"<cr>'
+nnoremap <silent> <expr> ]c &diff ? ']c' : ':execute "normal \<Plug>(coc-git-nextchunk)"<cr>'
+
 " git/chunk revert
 nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
 
@@ -331,17 +330,27 @@ command! -nargs=* GolangTestFocusedWithTags call GolangTestFocusedWithTags(<f-ar
 augroup go
   autocmd!
 
-  autocmd FileType go nmap <silent> gt :<C-u>CocCommand go.test.toggle<cr>
+  " open test in a vertical split
+  autocmd FileType go nmap <silent> gt :vsplit<cr> :<C-u>CocCommand go.test.toggle<cr>
+  autocmd FileType go nmap <leader>gt  :<C-u>CocCommand go.test.toggle<cr>
   autocmd FileType go nmap <leader>t   :<C-u>CocCommand go.test.generate.function<cr>
   autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
+
+  " run tests
   autocmd FileType go nmap <Leader>rp  :wa<CR> :GolangTestCurrentPackage<CR>
   autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocused<CR>
-  " run integration test
+
+  " run integration tests
   autocmd FileType go nmap <leader>ri  :wa<cr> :GolangTestFocusedWithTags e2e_gme requires_docker<cr><C-o>
+
+  " delve
   autocmd FileType go nmap <leader>bp  :DlvToggleBreakpoint<cr>
   autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTestFocused<CR><C-o>
+
   " delve integration test
   autocmd FileType go nmap <leader>di  :wa<cr> :DlvTestFocused e2e_gme requires_docker<cr><C-o>
+
+  " tags
   autocmd FileType go nmap <leader>tj :CocCommand go.tags.add json<cr>
   autocmd FileType go nmap <leader>ty :CocCommand go.tags.add yaml<cr>
   autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
