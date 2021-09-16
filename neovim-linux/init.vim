@@ -186,9 +186,9 @@ function! s:AllFilesInProject()
 endfunction
 
 " find file (in git files)
-nnoremap <leader>fg :<C-u>CocCommand fzf-preview.GitFiles<cr>
+nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
 " find file (in all files)
-nnoremap <leader>ff :call <SID>AllFilesInProject()<cr>
+nnoremap <leader>fa :call <SID>AllFilesInProject()<cr>
 " find symbol
 nnoremap <leader>fs :<C-u>CocList -I symbols<cr>
 " find word under cursor
