@@ -278,8 +278,6 @@ cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 nmap <leader>gb   :Git blame<CR>
 " pneumonic git diff
 nmap <leader>gd   :Gdiffsplit<CR>
-" pneumonic git write
-nmap <leader>gw   :Gwrite<CR>
 
 " pneumonic git commit
 nmap <leader>gk       :Git commit --signoff<CR>
@@ -311,7 +309,8 @@ let g:ale_fixers = {
 \   'jsonnet': ['jsonnetfmt'],
 \}
 
-let g:ale_fix_on_save=1
+" disabling to not mess with fugitive index buffers
+let g:ale_fix_on_save=0
 
 " ====== Jsonnet ========
 " need to disable this or it messes with git index buffers
