@@ -97,12 +97,21 @@ function! s:ProjectRoot()
   endif
 endfunction
 
+function! s:FindFile()
+  let project_root = system("git rev-parse --show-toplevel | tr -d '\\n'")
+  if v:shell_error
+    execute 'FzfPreviewDirectoryFilesRpc ' . project_root
+  else
+    execute 'FzfPreviewGitFilesRpc'
+  endif
+endfunction
+
 " use the coc version of these commands for nvim
 if !has('nvim')
-  " find file (in git files)
-  nnoremap <leader>fg :<C-u>FzfPreviewGitFilesRpc<cr>
+  " find file (in git files if in git repo)
+  nnoremap <leader>ff :<SID>FindFile()<cr>
   " find file (in all files)
-  nnoremap <leader>ff :<C-u>FzfPreviewDirectoryFilesRpc <SID>ProjectRoot()<cr>
+  nnoremap <leader>fa :<C-u>FzfPreviewDirectoryFilesRpc <SID>ProjectRoot()<cr>
   " yank ring
   nnoremap <leader>y :<C-u>FzfPreviewYankroundRpc<cr>
   " turn spell check on
@@ -248,8 +257,17 @@ omap amc <plug>(textobj-markdown-chunk-a)
 xmap amc <plug>(textobj-markdown-chunk-a)
 
 " ======== Auto Save =========
-autocmd BufLeave * update
-autocmd FocusLost * update
+function! s:AutosaveBuffer()
+  " Don't try to autosave fugitive buffers
+  if @% =~ '^fugitive:'
+    return
+  endif
+
+  update
+endfun
+
+autocmd BufLeave * call <SID>AutosaveBuffer()
+autocmd FocusLost * call <SID>AutosaveBuffer()
 
 " ====== Readline / RSI =======
 inoremap <c-k> <c-o>D
@@ -260,23 +278,25 @@ cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 nmap <leader>gb   :Git blame<CR>
 " pneumonic git diff
 nmap <leader>gd   :Gdiffsplit<CR>
+" pneumonic git write
+nmap <leader>gw   :Gwrite<CR>
+
+" pneumonic git commit
+nmap <leader>gk       :Git commit --signoff<CR>
+nnoremap <nowait> \k  :Git commit --signoff<CR>
+
+" Git status
+nnoremap <nowait> \s  :<C-u>Git<cr>
+" Git logs
+nnoremap <nowait> \l  :<C-u>:Gclog<cr>
 " pneumonic git history
 nmap <leader>gh   :Gclog<CR>
 " pneumonic git log
 nmap <leader>gl   :Gclog<CR>
 
-" pneumonic git commit
-nmap <leader>gk       :Git commit --signoff<CR>
-nnoremap <nowait> \k  :Git commit --signoff<CR>
-" Git status
-nnoremap <nowait> \s  :<C-u>Git<cr>
-" Git logs
-nnoremap <nowait> \l  :<C-u>:Gclog<cr>
-
 " clean up unused fugitive buffers
 autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd BufReadPost .git/index set nolist
-
 
 " ====== ALE ======
 nmap <silent> [g <Plug>(ale_previous_wrap)
@@ -292,6 +312,10 @@ let g:ale_fixers = {
 \}
 
 let g:ale_fix_on_save=1
+
+" ====== Jsonnet ========
+" need to disable this or it messes with git index buffers
+let g:jsonnet_fmt_on_save = 0
 
 " ==== Fzf and fzf preview ====
 let g:fzf_preview_command = 'bat --color=always --plain --number {-1}'
