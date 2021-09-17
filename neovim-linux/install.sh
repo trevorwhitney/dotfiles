@@ -33,36 +33,18 @@ pushd $temp > /dev/null || exit 1
   sudo rsync -avu squashfs-root/ /squashfs-root
   sudo ln -sf /squashfs-root/AppRun /usr/bin/nvim
 popd > /dev/null || exit 1
-
 rm -rf $temp
-if [[ `command -v python3` ]]; then
-  python3 -m pip install --user --upgrade pynvim
-fi
 
 # make sure pip is installed for python since it's no longer in
 # ubuntu package manager
 if [[ `command -v python` ]]; then
-  # The following installs pip, this should be moved into a python recipe
-  # temp="$(mktemp -d)"
-  # pushd $temp > /dev/null || exit 1
-  #   curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
-  #   python get-pip.py
-  # popd > /dev/null || exit 1
-  # rm -rf $temp
-
-  python -m pip install --user --upgrade pynvim
+  python -m pip install --user --upgrade pynvim vim-vint
 fi
 
-if [[ `command -v python2` ]]; then
-  # The following installs pip, this should be moved into a python recipe
-  # temp="$(mktemp -d)"
-  # pushd $temp > /dev/null || exit 1
-  #   curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
-  #   python2 get-pip.py
-  # popd > /dev/null || exit 1
-  # rm -rf $temp
-
-  python2 -m pip install --user --upgrade pynvim
+# install python3 version last so it takes precedence
+# python3 usually exists when python2 is mapped to python
+if [[ `command -v python3` ]]; then
+  python3 -m pip install --user --upgrade pynvim vim-vint
 fi
 
 gem install neovim

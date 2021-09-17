@@ -32,6 +32,10 @@ set shortmess+=c
 " Open diffs vertically
 set diffopt=vertical
 
+" disable python2 provider
+let g:loaded_python_provider = 0
+let g:python3_host_prog = '/usr/bin/python3'
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -170,6 +174,32 @@ nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
 " Do default action for previous (search/liSt) item.
 nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
 
+" =============== Git ==============
+nmap <leader>ci  <Plug>(coc-git-chunkinfo)
+
+" navigate git chunks when not in diff mode
+nnoremap <silent> <expr> [c &diff ? '[c' : ':execute "normal \<Plug>(coc-git-prevchunk)"<cr>'
+nnoremap <silent> <expr> ]c &diff ? ']c' : ':execute "normal \<Plug>(coc-git-nextchunk)"<cr>'
+
+" git/chunk revert
+nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
+
+nmap <silent> ]x  <Plug>(coc-git-nextconflict)
+nmap <silent> [x  <Plug>(coc-git-prevconflict)
+
+nmap <leader>kc <Plug>(coc-git-keepcurrent)
+nmap <leader>ki <Plug>(coc-git-keepincoming)
+nmap <leader>kb <Plug>(coc-git-keepboth)
+
+" Git status, show currently changed files
+nmap <leader>go   :<C-u>CocCommand git.browserOpen<CR>
+nmap <leader>ga   :<c-u>CocCommand fzf-preview.GitActions<CR>
+
+let g:airline#extensions#hunks#coc_git = 1
+
+" keep coc-git in sync with fugitive
+" autocmd User FugitiveChanged,FugitiveStageBlob execute 'CocCommand git.refresh'
+" autocmd User CocGitStatusChange diffupdate
 
 " ==== Fzf and fzf preview ====
 " pneumonic Find
@@ -202,31 +232,6 @@ nnoremap <leader>gr :CocCommand fzf-preview.ProjectGrep --smart-case
 nnoremap <leader>s :<C-u>CocSearch<Space><C-R>=expand('<cword>')<CR><CR>
 " Search for the visually selected text
 xnoremap <leader>s "sy:CocSearch<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
-
-" =============== Git ==============
-nmap <leader>ci  <Plug>(coc-git-chunkinfo)
-
-" navigate git chunks when not in diff mode
-nnoremap <silent> <expr> [c &diff ? '[c' : ':execute "normal \<Plug>(coc-git-prevchunk)"<cr>'
-nnoremap <silent> <expr> ]c &diff ? ']c' : ':execute "normal \<Plug>(coc-git-nextchunk)"<cr>'
-
-" git/chunk revert
-nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
-
-nmap <silent> ]x  <Plug>(coc-git-nextconflict)
-nmap <silent> [x  <Plug>(coc-git-prevconflict)
-
-nmap <leader>kc <Plug>(coc-git-keepcurrent)
-nmap <leader>ki <Plug>(coc-git-keepincoming)
-nmap <leader>kb <Plug>(coc-git-keepboth)
-
-" Git status, show currently changed files
-nmap <leader>go   :<C-u>CocCommand git.browserOpen<CR>
-nmap <leader>ga   :<c-u>CocCommand fzf-preview.GitActions<CR>
-
-" Set var for things that should only be enabled in git repos
-let g:in_git = system('git rev-parse --is-inside-work-tree')
-let g:airline#extensions#hunks#coc_git = 1
 
 " ================ yank =============
 nnoremap <leader>y :<C-u>CocCommand fzf-preview.Yankround<cr>

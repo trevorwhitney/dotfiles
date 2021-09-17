@@ -18,6 +18,7 @@ set showmatch                   " Show matching brackets/braces
 set smarttab                    " Use shiftwidth to tab at line beginning
 set switchbuf=useopen
 set tabstop=2                   " Tab settings
+set tags^=./.git/tags
 set undodir=$HOME/.vim/undodir
 set undofile
 
@@ -83,17 +84,42 @@ nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
 
 
+" ====== Git (vim-fugitive) =====
+" Set var for things that should only be enabled in git repos
+let g:in_git = system('git rev-parse --is-inside-work-tree')
+
+" Git status, show currently changed files
+nmap <leader>gb   :Git blame<CR>
+" pneumonic git diff
+nmap <leader>gd   :Gdiffsplit<CR>
+
+" pneumonic git commit
+nmap <leader>gk       :Git commit --signoff<CR>
+nnoremap <nowait> \k  :Git commit --signoff<CR>
+
+" Git status
+nnoremap <nowait> \s  :<C-u>Git<cr>
+" Git logs
+nnoremap <nowait> \l  :<C-u>Git log -n 50 --graph --decorate --oneline<cr>
+" pneumonic git history
+nmap <leader>gh   :0Gclog!<CR>
+" pneumonic git log
+nmap <leader>gl   :0Gclog!<CR>
+
+" clean up unused fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd BufReadPost .git/index set nolist
+
 " ==== Fzf and fzf preview ====
 " pneumonic Find
 " This setting and function allow searching all files in the project directory
 " (defined by root of git repo)
 let g:fzf_preview_directory_files_command = 'rg --files --hidden --no-ignore --no-messages -g \!"* *"'
 function! s:ProjectRoot()
-  let project_root = system("git rev-parse --show-toplevel | tr -d '\\n'")
-  if v:shell_error
-    return getcwd()
+  if g:in_git
+    return system("git rev-parse --show-toplevel | tr -d '\\n'")
   else
-    return project_root
+    return getcwd()
   endif
 endfunction
 
@@ -140,7 +166,8 @@ set foldmethod=syntax   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
-set foldopen=insert        "open folds when inserted into
+set foldlevelstart=99
+set foldopen=insert     "open folds when inserted into
 
 " Don't screw up folds when inserting text that might affect them, until
 " leaving insert mode. Foldmethod is local to the window. Protect against
@@ -152,7 +179,6 @@ autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:las
 " surround.vim: Add $ as a jQuery surround, _ for Underscore.js
 autocmd FileType javascript let b:surround_36 = "$(\r)"
       \ | let b:surround_95 = "_(\r)""
-set tags^=./.git/tags
 
 "========== Syntastic ==========
 let g:syntastic_always_populate_loc_list = 1
@@ -273,29 +299,6 @@ autocmd FocusLost * call <SID>AutosaveBuffer()
 inoremap <c-k> <c-o>D
 cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
-" ====== Git (vim-fugitive) =====
-" Git status, show currently changed files
-nmap <leader>gb   :Git blame<CR>
-" pneumonic git diff
-nmap <leader>gd   :Gdiffsplit<CR>
-
-" pneumonic git commit
-nmap <leader>gk       :Git commit --signoff<CR>
-nnoremap <nowait> \k  :Git commit --signoff<CR>
-
-" Git status
-nnoremap <nowait> \s  :<C-u>Git<cr>
-" Git logs
-nnoremap <nowait> \l  :<C-u>:Gclog<cr>
-" pneumonic git history
-nmap <leader>gh   :Gclog<CR>
-" pneumonic git log
-nmap <leader>gl   :Gclog<CR>
-
-" clean up unused fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
-autocmd BufReadPost .git/index set nolist
-
 " ====== ALE ======
 nmap <silent> [g <Plug>(ale_previous_wrap)
 nmap <silent> ]g <Plug>(ale_next_wrap)
@@ -351,3 +354,11 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
+" =========== VimL ==========
+augroup vader
+  autocmd!
+
+  " run tests with vader
+  autocmd FileType vader nmap <Leader>rt  :wa<CR> :Vader %<CR>
+augroup END
