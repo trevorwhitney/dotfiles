@@ -2,7 +2,7 @@
 Type=Application
 TryExec=alacritty
 Exec=sommelier --no-exit-with-child --accelerators="<Alt>tab" -X zsh -c "sh /etc/sommelierrc; alacritty;"
-Icon=alacritty
+Icon=/home/twhitney/.local/share/icons/alacritty.png
 Terminal=false
 Categories=System;TerminalEmulator;
 
