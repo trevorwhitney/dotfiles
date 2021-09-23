@@ -83,6 +83,8 @@ endif
 nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
 
+" search and replace
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 
 " ====== Git (vim-fugitive) =====
 " Set var for things that should only be enabled in git repos
@@ -285,7 +287,8 @@ xmap amc <plug>(textobj-markdown-chunk-a)
 " ======== Auto Save =========
 function! s:AutosaveBuffer()
   " Don't try to autosave fugitive buffers
-  if @% =~ '^fugitive:'
+  " or buffers without filenames
+  if @% =~? '^fugitive:' || @% ==# ''
     return
   endif
 
@@ -335,10 +338,12 @@ function! RipgrepFzf(query, fullscreen)
 
   " if additional options to rg are required, the query part must
   " come after --
-  let query_parts = split(a:query, "--")
+  let query_parts = split(a:query, '--')
   if len(query_parts) > 1
     let extra_options = query_parts[0]
-    let query = query_parts[1]
+    let query = trim(query_parts[1])
+  elseif stridx(a:query, '--') >= 0 " for when there are no options but still a --
+    let query = trim(a:query[stridx(a:query, '--') + 2:strlen(a:query)-1])
   endif
 
   let initial_command = printf(command_fmt, extra_options, query)
@@ -354,6 +359,13 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
+" Ripgrep for the word under cursor
+nnoremap <leader>rg :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
+nnoremap <leader>* :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
+" Ripgrep for the visually selected text
+xnoremap <leader>rg "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
+xnoremap <leader>* "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
 
 " =========== VimL ==========
 augroup vader

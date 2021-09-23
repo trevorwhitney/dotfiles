@@ -221,17 +221,6 @@ nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
 nnoremap <leader>fa :call <SID>AllFilesInProject()<cr>
 " find symbol
 nnoremap <leader>fs :<C-u>CocList -I symbols<cr>
-" find word under cursor
-nnoremap <leader>* :exe 'CocCommand fzf-preview.ProjectGrep -F '.expand('<cword>')<CR>
-" find from selected
-xnoremap <leader>* "sy:CocCommand fzf-preview.ProjectGrep<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
-" open find command
-nnoremap <leader>gr :CocCommand fzf-preview.ProjectGrep --smart-case
-
-" Search for the word under cursor
-nnoremap <leader>s :<C-u>CocSearch<Space><C-R>=expand('<cword>')<CR><CR>
-" Search for the visually selected text
-xnoremap <leader>s "sy:CocSearch<Space>-F<Space>"<C-r>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR>"<CR>
 
 " ================ yank =============
 nnoremap <leader>y :<C-u>CocCommand fzf-preview.Yankround<cr>
