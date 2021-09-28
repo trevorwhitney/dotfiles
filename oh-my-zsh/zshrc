@@ -123,7 +123,7 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/bin/nomad nomad
 
 # Needing for some copy/paste oddity with X11 forwarding
-if [[ `command -v tmux` ]]; then
+if [[ `command -v tmux > /dev/null` ]] && [[ `tmux ls 2 > &1 > /dev/null` ]]; then
   export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
 fi
 
@@ -138,5 +138,7 @@ fi
 autoload -Uz compinit
 compinit -i
 
-source <(kubectl completion zsh)
-complete -F __start_kubectl k
+if [[ `command -v kubectl > /dev/null` ]]; then
+  source <(kubectl completion zsh)
+  complete -F __start_kubectl k
+fi
