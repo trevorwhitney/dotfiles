@@ -122,9 +122,24 @@ autoload -U +X bashcompinit && bashcompinit
 
 complete -o nospace -C /usr/bin/nomad nomad
 
+# Return the lowest numbered display in use by current user
+# which is usually what we want
+function get_default_display() {
+  ps -u $(id -u) -o pid= \
+    | xargs -I PID -r cat /proc/PID/environ 2> /dev/null \
+    | tr '\0' '\n' \
+    | grep ^DISPLAY=: \
+    | sort -u \
+    | head -n 1
+}
+
 # Needing for some copy/paste oddity with X11 forwarding
-if [[ `command -v tmux > /dev/null` ]] && [[ `tmux ls 2 > &1 > /dev/null` ]]; then
+if [[ `command -v tmux` ]] && [[ `tmux ls` ]]; then
   export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
+  # tmux clobbers our default DISPLAY env var, which reaks havoc
+  # on copy/paste behavior in vim and terminal, so reset it when
+  # tmux is active
+  eval "export $(get_default_display)"
 fi
 
 if [[ "$BACKGROUND" == "dark" ]]; then
@@ -138,7 +153,7 @@ fi
 autoload -Uz compinit
 compinit -i
 
-if [[ `command -v kubectl > /dev/null` ]]; then
+if [[ `command -v kubectl` ]]; then
   source <(kubectl completion zsh)
   complete -F __start_kubectl k
 fi
