@@ -128,9 +128,8 @@ function get_default_display() {
   ps -u $(id -u) -o pid= \
     | xargs -I PID -r cat /proc/PID/environ 2> /dev/null \
     | tr '\0' '\n' \
-    | grep ^DISPLAY=: \
-    | sort -u \
-    | head -n 1
+    | grep -m1 -P '^DISPLAY=' \
+    | sed -e 's/DISPLAY=//g'
 }
 
 # Needing for some copy/paste oddity with X11 forwarding
@@ -139,7 +138,7 @@ if [[ `command -v tmux` ]] && [[ `tmux ls` ]]; then
   # tmux clobbers our default DISPLAY env var, which reaks havoc
   # on copy/paste behavior in vim and terminal, so reset it when
   # tmux is active
-  eval "export $(get_default_display)"
+  export DISPLAY="$(get_default_display)"
 fi
 
 if [[ "$BACKGROUND" == "dark" ]]; then
