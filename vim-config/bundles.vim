@@ -16,7 +16,6 @@ Plug 'mattn/emmet-vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'preservim/nerdtree'
-Plug 'roxma/vim-tmux-clipboard'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'

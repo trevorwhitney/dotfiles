@@ -51,5 +51,5 @@
     "jsonnetlint",
     "minio",
     "promql"
-  ],
+  ]
 }

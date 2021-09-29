@@ -325,7 +325,8 @@ augroup go
   autocmd!
 
   " open test in a vertical split
-  autocmd FileType go nmap <silent> gt :vsplit<cr> :<C-u>CocCommand go.test.toggle<cr>
+  autocmd FileType go nmap <silent> gt :<C-u>CocCommand go.test.toggle<cr>
+  autocmd FileType go nmap <silent> gT :vsplit<cr> :<C-u>CocCommand go.test.toggle<cr>
   autocmd FileType go nmap <leader>gt  :<C-u>CocCommand go.test.toggle<cr>
   autocmd FileType go nmap <leader>t   :<C-u>CocCommand go.test.generate.function<cr>
   autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
