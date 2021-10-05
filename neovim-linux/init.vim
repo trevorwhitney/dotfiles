@@ -192,14 +192,9 @@ nmap <leader>ki <Plug>(coc-git-keepincoming)
 nmap <leader>kb <Plug>(coc-git-keepboth)
 
 " Git status, show currently changed files
-nmap <leader>go   :<C-u>CocCommand git.browserOpen<CR>
 nmap <leader>ga   :<c-u>CocCommand fzf-preview.GitActions<CR>
 
 let g:airline#extensions#hunks#coc_git = 1
-
-" keep coc-git in sync with fugitive
-" autocmd User FugitiveChanged,FugitiveStageBlob execute 'CocCommand git.refresh'
-" autocmd User CocGitStatusChange diffupdate
 
 " ==== Fzf and fzf preview ====
 " pneumonic Find
@@ -349,10 +344,12 @@ augroup go
   autocmd FileType go nmap <leader>tj :CocCommand go.tags.add json<cr>
   autocmd FileType go nmap <leader>ty :CocCommand go.tags.add yaml<cr>
   autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
+
+  " search
+  autocmd FileType go nmap <leader>gr :Rg -g '**/*.go' --
 augroup END
 
 " ==== JSONNET ====
-au FileType jsonnet nmap <leader>b :call JsonnetEval()<cr>
 function! JsonnetEval()
   " check if the file is a tanka file or not
   let output = system("tk tool jpath " . shellescape(expand('%')))
@@ -365,3 +362,23 @@ function! JsonnetEval()
   setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile ft=json
   put! = output
 endfunction
+
+function! JsonnetExpand()
+  " check if the file is a tanka file, and if so get its JSONNET_PATH
+  let jsonnet_path = system('tk tool jpath ' . shellescape(expand('%')))
+  if v:shell_error
+    let output = system('jsonnet-tool expand ' . shellescape(expand('%')))
+  else
+    let output = system("JSONNET_PATH=\"" . jsonnet_path . "\" jsonnet-tool expand " . shellescape(expand('%')))
+  endif
+  vnew
+  setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile ft=jsonnet
+  put! = output
+endfunction
+
+
+augroup jsonnet
+  autocmd!
+  autocmd FileType jsonnet nmap <leader>b :call JsonnetEval()<cr>
+  autocmd FileType jsonnet nmap <leader>e :call JsonnetExpand()<cr>
+augroup END

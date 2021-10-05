@@ -95,6 +95,13 @@ nmap <leader>gb   :Git blame<CR>
 " pneumonic git diff
 nmap <leader>gd   :Gdiffsplit<CR>
 
+function! s:GitBrowseCurrentLine()
+  let command = line('.') . 'GBrowse'
+  execute ':' . command
+endfunction
+nnoremap <leader>go   :call <SID>GitBrowseCurrentLine()<CR>
+xnoremap <leader>go   :'<,'>GBrowse<CR>
+
 " pneumonic git commit
 nmap <leader>gk       :Git commit --signoff<CR>
 nnoremap <nowait> \k  :Git commit --signoff<CR>
