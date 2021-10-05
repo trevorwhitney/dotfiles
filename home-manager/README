@@ -1,0 +1,10 @@
+# Tutorial
+
+https://ghedam.at/24353/tutorial-getting-started-with-home-manager-for-nix
+
+
+# TODO
+
+* `if [ -e /home/twhitney/.nix-profile/etc/profile.d/nix.sh ]; then . /home/twhitney/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer` gets
+added to `~/.profile` as part of nix installation.
+
