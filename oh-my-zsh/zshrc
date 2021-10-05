@@ -34,7 +34,7 @@ export GOPATH="$HOME/go"
 
 export PYTHON_HOME="/usr/local/opt/python3/libexec"
 
-PATH="$GOPATH/bin:$GOROOT/bin:$RUBY_HOME/bin:$PYTHON_HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+PATH="$GOPATH/bin:$GOROOT/bin:$RUBY_HOME/bin:$PYTHON_HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit

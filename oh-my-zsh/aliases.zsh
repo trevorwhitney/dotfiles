@@ -69,3 +69,7 @@ alias op_cred=get_op_credential
 if [[ `command -v bat` ]]; then
   alias cat="bat -pp "
 fi
+
+if [[ `command -v fzf` ]]; then
+ alias gco="git checkout \$(git branch | fzf)"
+fi
