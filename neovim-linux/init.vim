@@ -215,7 +215,7 @@ nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
 " find file (in all files)
 nnoremap <leader>fa :call <SID>AllFilesInProject()<cr>
 " find symbol
-nnoremap <leader>fs :<C-u>CocList -I symbols<cr>
+nnoremap <leader>fs :<C-u>CocFzfList symbols
 
 " ================ yank =============
 nnoremap <leader>y :<C-u>CocCommand fzf-preview.Yankround<cr>
@@ -244,8 +244,6 @@ xmap <silent> <leader>=  <Plug>(coc-format-selected)
 nnoremap <silent> <leader>= :call <SID>format_and_organize()<CR>
 
 "===== Coc-Explorer replaces NERDTree
-nnoremap <silent><nowait> \ :CocCommand explorer<CR>
-" alternative mapping to skip the wait time for other \* shortcuts
 nnoremap <silent><nowait> <leader>\ :CocCommand explorer<CR>
 nnoremap <silent><nowait> \| :call <SID>FocusInExplorer()<CR>
 

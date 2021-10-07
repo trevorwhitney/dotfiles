@@ -47,6 +47,7 @@
     "grpc",
     "httpgrpc",
     "jsonnetlint",
+    "memberlist",
     "minio",
     "promql"
   ]

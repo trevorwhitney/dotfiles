@@ -1,3 +1,4 @@
+Plug 'antoinemadec/coc-fzf'
 Plug 'benmills/vimux'
 Plug 'benmills/vimux-golang'
 Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}

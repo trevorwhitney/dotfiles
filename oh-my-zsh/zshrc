@@ -1,16 +1,15 @@
 # Path to dotfiles
 export DOTFILES=$HOME/.dotfiles
 
+plugins=(ruby vi-mode mvn aws)
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="agnoster-gruvbox"
 
 HYPHEN_INSENSITIVE="true"
 
-plugins=(git ruby vi-mode mvn aws)
-
 # User configuration
-#
 # Set Default Ruby
 
 if [[ `command -v rbenv` ]]; then
@@ -38,7 +37,6 @@ PATH="$GOPATH/bin:$GOROOT/bin:$RUBY_HOME/bin:$PYTHON_HOME/bin:$HOME/.local/bin:/
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
-source $ZSH/oh-my-zsh.sh
 source $DOTFILES/check-for-updates
 
 # RPROMPT="hay"
@@ -156,3 +154,6 @@ if [[ `command -v kubectl` ]]; then
   source <(kubectl completion zsh)
   complete -F __start_kubectl k
 fi
+
+
+source $ZSH/oh-my-zsh.sh

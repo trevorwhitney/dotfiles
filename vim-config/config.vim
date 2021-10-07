@@ -106,8 +106,25 @@ xnoremap <leader>go   :'<,'>GBrowse<CR>
 nmap <leader>gk       :Git commit --signoff<CR>
 nnoremap <nowait> \k  :Git commit --signoff<CR>
 
+function! s:ToggleGitStatus()
+  let gitIndexExpr = '*/.git/index'
+  let bufNum = bufnr(gitIndexExpr)
+  let bufVisible = bufwinnr(gitIndexExpr)
+
+  if bufNum == -1
+    execute 'Git'
+  else
+    if bufVisible == -1
+      execute 'sbuffer ' . bufNum
+    else
+      execute 'bdelete ' . bufNum
+    endif
+  endif
+endfunction
+
 " Git status
-nnoremap <nowait> \s  :<C-u>Git<cr>
+nnoremap <nowait> \s  :call <SID>ToggleGitStatus()<cr>
+" nnoremap <nowait> \s  :<C-u>Git<cr>
 " Git logs
 nnoremap <nowait> \l  :<C-u>Git log -n 50 --graph --decorate --oneline<cr>
 " pneumonic git history
