@@ -21,6 +21,7 @@ set tabstop=2                   " Tab settings
 set tags^=./.git/tags
 set undodir=$HOME/.vim/undodir
 set undofile
+set splitright
 
 if has('unnamedplus')
   set clipboard^=unnamed,unnamedplus
