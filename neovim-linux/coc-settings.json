@@ -39,6 +39,10 @@
   "git.semanticCommit.scope": false,
   "git.enableGlobalStatus": false,
   "explorer.icon.enableNerdfont": true,
+  "explorer.keyMappings.global": {
+    "<c-v>": "open:vsplit",
+    "<c-x>": "open:split"
+  },
   "yaml.format.enable": true,
   "cSpell.userWords": [
     "Minio",
@@ -46,8 +50,8 @@
     "grafana",
     "grpc",
     "httpgrpc",
+    "ingester",
     "jsonnetlint",
-    "memberlist",
     "minio",
     "promql"
   ]

@@ -1,4 +1,3 @@
-Plug 'chaoren/vim-wordmotion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'dense-analysis/ale'

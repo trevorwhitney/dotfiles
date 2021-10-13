@@ -30,6 +30,10 @@ if [[ `command -v kubectl` ]]; then
   # Ensure the next command is checked as an alias when using watch
   # Allows `watch k get ...` to work
   alias watch='watch '
+
+  if [[ -e /etc/rancher/k3s/k3s.yaml ]]; then
+    alias k3k='kubectl --kubeconfig /etc/rancher/k3s/k3s.yaml '
+  fi
 fi
 
 #Docker
@@ -45,10 +49,6 @@ function task_url() {
 
 #grafana
 alias backend="cd ~/workspace/grafana/backend-enterprise"
-if [[ -e "$HOME/workspace/k3s" ]]; then
-  alias curl_gem="curl -u :$(cat ~/workspace/k3s/gem/secret) -H 'Accept: application/json'"
-  alias curl_gel="curl -u :$(cat ~/workspace/k3s/gel/secret) -H 'Accept: application/json'"
-fi
 
 if [[ `command -v alacritty` ]]; then
   alias term-remote="alacritty --config-file=/home/twhitney/.config/alacritty/remote.yml & "
@@ -57,8 +57,12 @@ if [[ `command -v alacritty` ]]; then
 fi
 
 alias git-root="git rev-parse --show-toplevel"
+alias gco="git checkout \$(git branch | fzf)"
 
 alias v="vim "
+# useful when piping output to vim
+alias vyaml="vim -c 'set filetype=yaml' -"
+alias vjson="vim -c 'set filetype=json' -"
 
 # one-password
 function get_op_credential() {
@@ -68,8 +72,4 @@ alias op_cred=get_op_credential
 
 if [[ `command -v bat` ]]; then
   alias cat="bat -pp "
-fi
-
-if [[ `command -v fzf` ]]; then
- alias gco="git checkout \$(git branch | fzf)"
 fi
