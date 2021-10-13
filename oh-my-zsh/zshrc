@@ -37,6 +37,7 @@ PATH="$GOPATH/bin:$GOROOT/bin:$RUBY_HOME/bin:$PYTHON_HOME/bin:$HOME/.local/bin:/
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
+source $ZSH/oh-my-zsh.sh
 source $DOTFILES/check-for-updates
 
 # RPROMPT="hay"
@@ -96,15 +97,6 @@ zle -N zle-keymap-select
 
 export KEYTIMEOUT=17
 
-# rachio_functions="$HOME/workspace/rachio/scripts/rachio-functions.zsh"
-# if [[ -e  $rachio_functions ]]; then
-#   source $rachio_functions
-# fi
-# rachio_aliases="$HOME/workspace/rachio/scripts/rachio-aliases.zsh"
-# if [[ -e  $rachio_aliases ]]; then
-#   source $rachio_aliases
-# fi
-
 if [[ -e "$HOME/.cargo/env" ]]; then
   source "$HOME/.cargo/env"
 fi
@@ -154,6 +146,3 @@ if [[ `command -v kubectl` ]]; then
   source <(kubectl completion zsh)
   complete -F __start_kubectl k
 fi
-
-
-source $ZSH/oh-my-zsh.sh

@@ -47,13 +47,6 @@ set encoding=utf-8
 set directory=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 
-"========== CamelCase Motion ======
-let g:wordmotion_nomap = 1
-map <silent> w <Plug>WordMotion_w
-map <silent> b <Plug>WordMotion_b
-omap <silent> iw <Plug>WordMotion_iw
-xmap <silent> iw <Plug>WordMotion_iw
-
 "==== Some custom text objects ====
 " line text object
 xnoremap il g_o^
@@ -107,7 +100,7 @@ nmap <leader>gk       :Git commit --signoff<CR>
 nnoremap <nowait> \k  :Git commit --signoff<CR>
 
 function! s:ToggleGitStatus()
-  let gitIndexExpr = '*/.git/index'
+  let gitIndexExpr = '.git/index'
   let bufNum = bufnr(gitIndexExpr)
   let bufVisible = bufwinnr(gitIndexExpr)
 
@@ -115,7 +108,7 @@ function! s:ToggleGitStatus()
     execute 'Git'
   else
     if bufVisible == -1
-      execute 'sbuffer ' . bufNum
+      execute 'Git'
     else
       execute 'bdelete ' . bufNum
     endif
