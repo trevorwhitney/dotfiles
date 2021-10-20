@@ -97,8 +97,8 @@ nnoremap <leader>go   :call <SID>GitBrowseCurrentLine()<CR>
 xnoremap <leader>go   :'<,'>GBrowse<CR>
 
 " pneumonic git commit
-nmap <leader>gk       :Git commit --signoff<CR>
-nnoremap <nowait> \k  :Git commit --signoff<CR>
+nmap <leader>gk       :Git commit<CR>
+nnoremap <nowait> \k  :Git commit<CR>
 
 function! s:ToggleGitStatus()
   let gitIndexExpr = '.git/index'
