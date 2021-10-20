@@ -1,3 +1,4 @@
+Plug 'AndrewRadev/bufferize.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'coachshea/vim-textobj-markdown'
 Plug 'dense-analysis/ale'
