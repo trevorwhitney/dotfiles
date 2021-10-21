@@ -131,40 +131,21 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd BufReadPost .git/index set nolist
 
 " ==== Fzf and fzf preview ====
-" pneumonic Find
-" This setting and function allow searching all files in the project directory
-" (defined by root of git repo)
-let g:fzf_preview_directory_files_command = 'rg --files --hidden --no-ignore --no-messages -g \!"* *"'
-function! s:ProjectRoot()
-  if g:in_git
-    return system("git rev-parse --show-toplevel | tr -d '\\n'")
-  else
-    return getcwd()
-  endif
-endfunction
-
-function! s:FindFile()
-  let project_root = system("git rev-parse --show-toplevel | tr -d '\\n'")
-  if v:shell_error
-    execute 'FzfPreviewDirectoryFilesRpc ' . project_root
-  else
-    execute 'FzfPreviewGitFilesRpc'
-  endif
-endfunction
+" find file (in git files if in git repo)
+nnoremap <leader>ff :GFiles<cr>
+" find file (in all files)
+nnoremap <leader>fa :Files<cr>
 
 " use the coc version of these commands for nvim
 if !has('nvim')
-  " find file (in git files if in git repo)
-  nnoremap <leader>ff :<SID>FindFile()<cr>
-  " find file (in all files)
-  nnoremap <leader>fa :<C-u>FzfPreviewDirectoryFilesRpc <SID>ProjectRoot()<cr>
   " yank ring
   nnoremap <leader>y :<C-u>FzfPreviewYankroundRpc<cr>
-  " turn spell check on
-  nmap <silent> <leader>sp :set spell!<CR>
-  " search and replace in file
-  nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 endif
+
+" turn spell check on
+nmap <silent> <leader>sp :set spell!<CR>
+" search and replace in file
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 
 "========== NERDtree ==========
 if !has('nvim')

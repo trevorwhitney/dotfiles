@@ -198,24 +198,6 @@ nmap <leader>ga   :<c-u>CocCommand fzf-preview.GitActions<CR>
 
 let g:airline#extensions#hunks#coc_git = 1
 
-" ==== Fzf and fzf preview ====
-" pneumonic Find
-" This setting and function allow searching all files in the project directory
-" (defined by root of git repo)
-let g:fzf_preview_directory_files_command = 'rg --files --hidden --no-ignore --no-messages -g \!"* *"'
-function! s:AllFilesInProject()
-  let project_root = system("git rev-parse --show-toplevel | tr -d '\\n'")
-  if v:shell_error
-    execute "CocCommand fzf-preview.DirectoryFiles " . getcwd()
-  else
-    execute "CocCommand fzf-preview.DirectoryFiles " . project_root
-  endif
-endfunction
-
-" find file (in git files)
-nnoremap <leader>ff :<C-u>CocCommand fzf-preview.GitFiles<cr>
-" find file (in all files)
-nnoremap <leader>fa :call <SID>AllFilesInProject()<cr>
 " find symbol
 nnoremap <leader>fs :<C-u>CocFzfList symbols
 
