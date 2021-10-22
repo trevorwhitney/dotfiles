@@ -89,36 +89,15 @@ nmap <leader>gb   :Git blame<CR>
 " pneumonic git diff
 nmap <leader>gd   :Gdiffsplit<CR>
 
-function! s:GitBrowseCurrentLine()
-  let command = line('.') . 'GBrowse'
-  execute ':' . command
-endfunction
-nnoremap <leader>go   :call <SID>GitBrowseCurrentLine()<CR>
+nnoremap <leader>go   :GitBrowseCurrentLine<cr>
 xnoremap <leader>go   :'<,'>GBrowse<CR>
 
 " pneumonic git commit
 nmap <leader>gk       :Git commit<CR>
 nnoremap <nowait> \k  :Git commit<CR>
 
-function! s:ToggleGitStatus()
-  let gitIndexExpr = '.git/index'
-  let bufNum = bufnr(gitIndexExpr)
-  let bufVisible = bufwinnr(gitIndexExpr)
-
-  if bufNum == -1
-    execute 'Git'
-  else
-    if bufVisible == -1
-      execute 'Git'
-    else
-      execute 'bdelete ' . bufNum
-    endif
-  endif
-endfunction
-
 " Git status
-nnoremap <nowait> \s  :call <SID>ToggleGitStatus()<cr>
-" nnoremap <nowait> \s  :<C-u>Git<cr>
+nnoremap <nowait> \s  :ToggleGitStatus<cr>
 " Git logs
 nnoremap <nowait> \l  :<C-u>Git log -n 50 --graph --decorate --oneline<cr>
 " pneumonic git history

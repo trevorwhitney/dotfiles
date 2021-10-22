@@ -29,6 +29,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'trevorwhitney/tw-vim-lib'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
