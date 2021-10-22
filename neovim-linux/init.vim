@@ -357,43 +357,19 @@ function! JsonnetExpand()
   put! = output
 endfunction
 
-
 augroup jsonnet
   autocmd!
   autocmd FileType jsonnet nmap <leader>b :call JsonnetEval()<cr>
   autocmd FileType jsonnet nmap <leader>e :call JsonnetExpand()<cr>
 augroup END
 
-" ===== CoC extensions =====
-function! OpenInWindow(filename,winnr) abort
-  try
-    execute a:winnr.'wincmd w'
-    execute 'edit '.a:filename
-  catch
-    return 0
-  endtry
+" ==== fzf config =====
+" the open in split functionality relies on coc-explorer
+" so we only define these actions for nvim
 
-  return 1
-endfunction
-
-function! CocSelectSplit(...) abort
-  " if the first argument starts with +, store that in
-  " where to be executed after opening
-  if a:1 =~? '^+'
-    let where = a:1[1:]
-    let files = a:000[1:]
-  else
-    let files = a:000
-  endif
-
-  " use coc_explorer window selector to pick the window
-  " to open in
-  let winnr = coc_explorer#select_wins#start([],[],0)
-  if OpenInWindow(files[0], winnr) > 0 && exists('where')
-    exe where
-  endif
-endfunction
-
-command! -nargs=+ -complete=file
-      \ CocSelectSplit
-      \ call CocSelectSplit(<f-args>)
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'enter': 'FzfSelectSplit',
+  \ '': 'FzfSelectSplit' }
