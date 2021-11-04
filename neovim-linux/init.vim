@@ -331,45 +331,15 @@ augroup go
 augroup END
 
 " ==== JSONNET ====
-function! JsonnetEval()
-  " check if the file is a tanka file or not
-  let output = system("tk tool jpath " . shellescape(expand('%')))
-  if v:shell_error
-    let output = system("jsonnet " . shellescape(expand('%')))
-  else
-    let output = system("tk eval " . shellescape(expand('%')))
-  endif
-  vnew
-  setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile ft=json
-  put! = output
-endfunction
-
-function! JsonnetExpand()
-  " check if the file is a tanka file, and if so get its JSONNET_PATH
-  let jsonnet_path = system('tk tool jpath ' . shellescape(expand('%')))
-  if v:shell_error
-    let output = system('jsonnet-tool expand ' . shellescape(expand('%')))
-  else
-    let output = system("JSONNET_PATH=\"" . jsonnet_path . "\" jsonnet-tool expand " . shellescape(expand('%')))
-  endif
-  vnew
-  setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile ft=jsonnet
-  put! = output
-endfunction
-
 augroup jsonnet
   autocmd!
-  autocmd FileType jsonnet nmap <leader>b :call JsonnetEval()<cr>
-  autocmd FileType jsonnet nmap <leader>e :call JsonnetExpand()<cr>
+  autocmd FileType jsonnet nmap <leader>b :call tw#jsonnet#eval()<cr>
+  autocmd FileType jsonnet nmap <leader>e :call tw#jsonnet#expand()<cr>
 augroup END
 
-" ==== fzf config =====
-" the open in split functionality relies on coc-explorer
-" so we only define these actions for nvim
-
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit',
-  \ 'enter': 'FzfSelectSplit',
-  \ '': 'FzfSelectSplit' }
+" Ripgrep for the word under cursor
+nnoremap <leader>rg :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
+nnoremap <leader>* :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
+" Ripgrep for the visually selected text
+xnoremap <leader>rg "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
+xnoremap <leader>* "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
