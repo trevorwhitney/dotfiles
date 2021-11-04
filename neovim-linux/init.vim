@@ -248,56 +248,6 @@ function! s:FocusInExplorer()
 endfunction
 
 "========= Go ===========
-let g:delve_use_vimux = 1
-
-"TODO: these functions could be smarter and could parse the current file to
-"look for relevant build tags at the top of the file
-
-function! s:dlvTestFocused(...)
-  let build_flags = (a:0 > 0) ? join(a:000, ',') : ""
-  let test_line = search("func Test", "bs")
-
-  if test_line > 0
-    let line = getline(test_line)
-    let test_name_raw = split(line, " ")[1]
-    let test_name = split(test_name_raw, "(")[0]
-
-    if len(build_flags) > 0
-      call delve#dlvTest(expand('%:p:h'), '--build-flags="-tags=' . build_flags . '"', '--', '-test.run', test_name)
-    else
-      call delve#dlvTest(expand('%:p:h'), '--', '-test.run', test_name)
-    endif
-  else
-    echo "No test found"
-  endif
-endfunction
-
-command! -nargs=* DlvTestFocused call s:dlvTestFocused(<f-args>)
-
-function! GolangTestFocusedWithTags(...)
-  let build_flags = (a:0 > 0) ? join(a:000, ',') : ""
-  let test_line = search("func Test", "bs")
-
-  let separator = ShellCommandSeperator()
-
-  if test_line > 0
-    let line = getline(test_line)
-    let test_name_raw = split(line, " ")[1]
-    let test_name = split(test_name_raw, "(")[0]
-
-    if len(build_flags) > 0
-      call VimuxRunCommand("cd " . GolangCwd() . " " . separator . " clear " . separator . " go test " . '-tags="' . build_flags . '" ' . GolangFocusedCommand(test_name) . " -v " . GolangCurrentPackage())
-    else
-      call VimuxRunCommand("cd " . GolangCwd() . " " . separator . " clear " . separator . " go test " . GolangFocusedCommand(test_name) . " -v " . GolangCurrentPackage())
-    endif
-
-  else
-    echo "No test found"
-  endif
-endfunction
-
-command! -nargs=* GolangTestFocusedWithTags call GolangTestFocusedWithTags(<f-args>)
-
 augroup go
   autocmd!
 
@@ -309,7 +259,7 @@ augroup go
 
   " run tests
   autocmd FileType go nmap <Leader>rp  :wa<CR> :GolangTestCurrentPackage<CR>
-  autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocused<CR>
+  autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocusedWithTags<CR>
 
   " run integration tests
   autocmd FileType go nmap <leader>ri  :wa<cr> :GolangTestFocusedWithTags e2e_gme requires_docker<cr><C-o>
