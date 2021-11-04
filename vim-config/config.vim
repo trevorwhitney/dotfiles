@@ -307,44 +307,6 @@ let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
 let g:fzf_preview_window = ['']
 
-" Remap Rg function to allow more args to be passed
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s -- %s || true'
-
-  let extra_options = ""
-  let query = a:query
-
-  " if additional options to rg are required, the query part must
-  " come after --
-  let query_parts = split(a:query, '--')
-  if len(query_parts) > 1
-    let extra_options = query_parts[0]
-    let query = trim(query_parts[1])
-  elseif stridx(a:query, '--') >= 0 " for when there are no options but still a --
-    let query = trim(a:query[stridx(a:query, '--') + 2:strlen(a:query)-1])
-  endif
-
-  let initial_command = printf(command_fmt, extra_options, query)
-  let reload_command = printf(command_fmt, extra_options, '{q}')
-
-  let spec = {'options': [
-        \'--phony',
-        \'--query', query,
-        \'--expect', 'ctrl-q',
-        \'--bind', g:fzf_preview_preview_key_bindings . ',change:reload:'.reload_command
-        \]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-endfunction
-
-command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
-
-" Ripgrep for the word under cursor
-nnoremap <leader>rg :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
-nnoremap <leader>* :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
-" Ripgrep for the visually selected text
-xnoremap <leader>rg "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
-xnoremap <leader>* "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
-
 " =========== VimL ==========
 augroup vader
   autocmd!

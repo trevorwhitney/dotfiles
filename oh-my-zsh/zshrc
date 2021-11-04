@@ -1,7 +1,7 @@
 # Path to dotfiles
 export DOTFILES=$HOME/.dotfiles
 
-plugins=(ruby vi-mode mvn aws)
+plugins=(ruby vi-mode mvn aws docker docker-compose)
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -146,3 +146,5 @@ if [[ `command -v kubectl` ]]; then
   source <(kubectl completion zsh)
   complete -F __start_kubectl k
 fi
+
+complete -o nospace -C /home/twhitney/workspace/k3d-sonnet/tool/k3dsonnet k3dsonnet
