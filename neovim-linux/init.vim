@@ -283,6 +283,7 @@ augroup END
 " ==== JSONNET ====
 augroup jsonnet
   autocmd!
+  autocmd FileType jsonnet call tw#jsonnet#resetJsonnetLSP()
   autocmd FileType jsonnet nmap <leader>b :call tw#jsonnet#eval()<cr>
   autocmd FileType jsonnet nmap <leader>e :call tw#jsonnet#expand()<cr>
 augroup END
