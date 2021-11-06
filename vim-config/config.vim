@@ -70,10 +70,9 @@ nnoremap <C-w>q :windo close<cr>
 nnoremap <silent><nowait> \p "0p
 nnoremap <silent><nowait> \P "0P
 
-" nvim uses coc for better document formatting
-if !has('nvim')
-  nmap <leader>= gg=G2<C-o>
-endif
+" formatter
+nnoremap <leader>= :call tw#format#Format()<cr>
+
 nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
 
@@ -251,7 +250,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 " ========= grep ==============
 " use ripgrep for grep command
 if executable("rg")
-    set grepprg=rg\ --vimgrep
+  set grepprg=rg\ --vimgrep
 endif
 
 " ======= Markdown ==========
@@ -285,13 +284,14 @@ nmap <silent> [g <Plug>(ale_previous_wrap)
 nmap <silent> ]g <Plug>(ale_next_wrap)
 
 let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['eslint'],
-\   'go': ['gofmt'],
-\   'yaml': ['prettier'],
-\   'markdown': ['prettier'],
-\   'jsonnet': ['jsonnetfmt'],
-\}
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'javascript': ['eslint'],
+      \   'go': ['gofmt'],
+      \   'yaml': ['prettier'],
+      \   'markdown': ['prettier'],
+      \   'jsonnet': ['jsonnetfmt'],
+      \   'vim': [function('tw#format#vim')]
+      \}
 
 " disabling to not mess with fugitive index buffers
 let g:ale_fix_on_save=0

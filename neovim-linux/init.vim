@@ -208,24 +208,7 @@ nnoremap <leader>y :<C-u>CocCommand fzf-preview.Yankround<cr>
 " Symbol renaming.
 nmap <leader>re <Plug>(coc-rename)
 
-" Formatting
-function! s:format_and_organize()
-  if CocHasProvider('format')
-    call CocAction('runCommand', 'editor.action.format')
-    " refresh lint warnings after reformat
-    execute "ALELint"
-
-    " TODO: not working for some reason? Seems to have been included in format?
-    " call CocAction('runCommand', 'editor.action.organizeImport')
-  else
-    " silent execute "normal gg=G"
-    " silent execute "normal \<C-o>"
-    execute "ALEFix"
-  endif
-endfunction
-
 xmap <silent> <leader>=  <Plug>(coc-format-selected)
-nnoremap <silent> <leader>= :call <SID>format_and_organize()<CR>
 
 "===== Coc-Explorer replaces NERDTree
 nnoremap <silent><nowait> <leader>\ :CocCommand explorer<CR>
@@ -283,7 +266,7 @@ augroup END
 " ==== JSONNET ====
 augroup jsonnet
   autocmd!
-  autocmd FileType jsonnet call tw#jsonnet#resetJsonnetLSP()
+  autocmd FileType jsonnet call tw#jsonnet#updateJsonnetPath()
   autocmd FileType jsonnet nmap <leader>b :call tw#jsonnet#eval()<cr>
   autocmd FileType jsonnet nmap <leader>e :call tw#jsonnet#expand()<cr>
 augroup END
