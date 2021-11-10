@@ -33,3 +33,7 @@ Plug 'trevorwhitney/tw-vim-lib'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+
+if !has('nvim')
+ Plug 'vim-colors-solarized/colors'
+endif
