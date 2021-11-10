@@ -16,5 +16,7 @@ Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 Plug 'neoclide/coc-pairs', {'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'sebdah/vim-delve'
+Plug 'shaunsingh/solarized.nvim'
 Plug 'weirongxu/coc-explorer', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
