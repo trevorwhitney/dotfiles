@@ -1,6 +1,6 @@
 import:
  - /home/twhitney/.config/alacritty/base.yml
- - /home/twhitney/.config/alacritty/gruvbox-dark.yml
+ - /home/twhitney/.config/alacritty/solarized-dark.yml
 
 # Shell
 shell:
