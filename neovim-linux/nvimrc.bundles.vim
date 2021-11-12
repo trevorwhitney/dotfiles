@@ -4,6 +4,7 @@ Plug 'benmills/vimux-golang'
 Plug 'fannheyward/coc-markdownlint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'fannheyward/coc-sql', {'do': 'yarn install --frozen-lockfile'}
 Plug 'folke/which-key.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " --- begin coc
 Plug 'iamcco/coc-spell-checker', {'do': 'yarn install --frozen-lockfile'}
