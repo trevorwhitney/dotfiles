@@ -32,22 +32,6 @@ require('tw.packer').install(use)
 require('tw.config').setup()
 EOF
 
-" TODO: move to config.setup()
-"========== Folding ==========
-set foldmethod=syntax   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=1         "this is just what i use
-set foldlevelstart=99
-set foldopen=insert     "open folds when inserted into
-
-"============ Auto completion ============
-set completeopt=menuone,menu,longest
-set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
-set wildmode=longest,list,full
-set wildmenu
-set completeopt+=longest
-
 cabb W w
 cabb Wq wq
 cabb WQ wq
@@ -62,10 +46,6 @@ map <Leader>z :'<,'>sort<CR>
 
 " UTF-8 all the way
 set encoding=utf-8
-
-"========== Directories ===========
-set directory=~/.vim-tmp,~/tmp,/var/tmp,/tmp
-set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 
 "==== Some custom text objects ====
 " line text object
@@ -189,28 +169,6 @@ let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
 let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
 
-" ===== vim-wiki =====
-let g:vimwiki_list = [{'path': '~/Dropbox/Notes/vimwiki',
-      \ 'syntax': 'markdown',
-      \ 'ext': '.md'}]
-let g:vimwiki_global_ext = 0
-
-set termguicolors
-
-if $BACKGROUND == 'dark'
-  set background=dark
-else
-  set background=light
-endif
-
-colorscheme solarized
-let g:airline_theme="solarized"
-let g:airline_powerline_fonts=1
-let g:airline#extensions#ale#enabled=1
-
-" bufferline
-let g:bufferline_echo = 0
-
 " ====== easy-motion ======
 map <leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
@@ -326,9 +284,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
@@ -380,11 +335,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -508,3 +458,6 @@ xmap imc <plug>(textobj-markdown-chunk-i)
 omap amc <plug>(textobj-markdown-chunk-a)
 xmap amc <plug>(textobj-markdown-chunk-a)
 
+
+" TODO: figure out why I need to set this at the very end
+set background=light
