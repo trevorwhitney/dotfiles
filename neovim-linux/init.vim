@@ -1,40 +1,290 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-source ~/.vimrc
+set nocompatible
+syntax on
+filetype plugin indent on
 
-" enable these for debugging
+let mapleader = " "
+
+" enable these for debugging coc
 " let g:coc_node_args = ['-r', expand('~/.config/yarn/global/node_modules/source-map-support/register')]
 " let g:node_client_debug = 1
 " let $NODE_CLIENT_LOG_FILE = '~/node_client.log'
 " let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
 
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
+let s:packer_install_path = stdpath('data') . '/site/pack/packer/start/packer.nvim'
+let s:vim_lib_install_path = stdpath('data') . '/site/pack/packer/start/tw-vim-lib'
+
+if empty(glob(s:packer_install_path)) > 0
+  execute('!git clone https://github.com/wbthomason/packer.nvim ' . s:packer_install_path)
+endif
+
+if empty(glob(s:vim_lib_install_path)) > 0
+  execute('!git clone https://github.com/trevorwhitney/tw-vim-lib ' . s:vim_lib_install_path)
+endif
+
+augroup Packer
+  autocmd!
+  autocmd BufWritePost init.lua PackerCompile
+augroup end
+
+lua <<EOF
+local use = require('packer').use
+require('tw.packer').install(use)
+require('tw.config').setup()
+EOF
+
+" TODO: move to config.setup()
+"========== Folding ==========
+set foldmethod=syntax   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
+set foldlevelstart=99
+set foldopen=insert     "open folds when inserted into
+
+"============ Auto completion ============
+set completeopt=menuone,menu,longest
+set wildignore+=*\\tmp\\*,*.swp,*.swo,*.zip,.git,.cabal-sandbox
+set wildmode=longest,list,full
+set wildmenu
+set completeopt+=longest
+
+cabb W w
+cabb Wq wq
+cabb WQ wq
+cabb Q q
+
+" <C-a> is for tmux
+noremap <C-a> <Nop>
+
+" Spell checking
+set spelllang=en_us
+map <Leader>z :'<,'>sort<CR>
+
+" UTF-8 all the way
 set encoding=utf-8
 
-" TextEdit might fail if hidden is not set.
-set hidden
+"========== Directories ===========
+set directory=~/.vim-tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+"==== Some custom text objects ====
+" line text object
+xnoremap il g_o^
+onoremap il :normal vil<CR>
+xnoremap al $o^
+onoremap al :normal val<CR>
 
-" Give more space for displaying messages.
-set cmdheight=2
+"========== Keybindings ==========
+imap jj <Esc>
+cmap w!! w !sudo tee > /dev/null %
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+nnoremap <C-w>q :windo close<cr>
 
-" Open diffs vertically
-set diffopt=vertical
+" paste the 0 register
+nnoremap <silent><nowait> \p "0p
+nnoremap <silent><nowait> \P "0P
 
-" disable python2 provider
-let g:loaded_python_provider = 0
-let g:python3_host_prog = '/usr/bin/python3'
+" formatter
+nnoremap <leader>= :call tw#format#Format()<cr>
+
+nnoremap <silent> \q ZZ
+nnoremap <silent> \Q :xa<cr>
+
+" search and replace
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
+
+" ====== Git (vim-fugitive) =====
+" Set var for things that should only be enabled in git repos
+let g:in_git = system('git rev-parse --is-inside-work-tree')
+
+" Git status, show currently changed files
+nmap <leader>gb   :Git blame<CR>
+" pneumonic git diff
+nmap <leader>gd   :Gdiffsplit<CR>
+
+nnoremap <leader>go   :GitBrowseCurrentLine<cr>
+xnoremap <leader>go   :'<,'>GBrowse<CR>
+
+" pneumonic git commit
+nmap <leader>gk       :Git commit<CR>
+nnoremap <nowait> \k  :Git commit<CR>
+
+" Git status
+nnoremap <nowait> \s  :ToggleGitStatus<cr>
+" Git logs
+nnoremap <nowait> \l  :<C-u>Git log -n 50 --graph --decorate --oneline<cr>
+" pneumonic git history
+nmap <leader>gh   :0Gclog!<CR>
+" pneumonic git log
+nmap <leader>gl   :0Gclog!<CR>
+
+" clean up unused fugitive buffers
+autocmd BufReadPost fugitive://* set bufhidden=delete
+autocmd BufReadPost .git/index set nolist
+
+" ==== Fzf and fzf preview ====
+" find file (in git files if in git repo)
+nnoremap <leader>ff :GFiles<cr>
+" find file (in all files)
+nnoremap <leader>fa :Files<cr>
+
+" turn spell check on
+nmap <silent> <leader>sp :set spell!<CR>
+" search and replace in file
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
+
+" Don't screw up folds when inserting text that might affect them, until
+" leaving insert mode. Foldmethod is local to the window. Protect against
+" screwing up folding when switching between windows.
+autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+
+"============= surround vim ============
+" surround.vim: Add $ as a jQuery surround, _ for Underscore.js
+autocmd FileType javascript let b:surround_36 = "$(\r)"
+      \ | let b:surround_95 = "_(\r)""
+
+"======== Helpful Shortcuts =========
+:map <Leader>lo :lopen<Cr>
+:map <Leader>lc :lclose<Cr>
+:map <Leader>co :copen<Cr>
+:map <Leader>cc :cclose<Cr>
+
+"========= Automatically set paste when pasting =========
+function! WrapForTmux(s)
+  if !exists('$TMUX')
+    return a:s
+  endif
+
+  let tmux_start = "\<Esc>Ptmux;"
+  let tmux_end = "\<Esc>\\"
+
+  return tmux_start . substitute(a:s, "\<Esc>", "\<Esc>\<Esc>", 'g') . tmux_end
+endfunction
+
+let &t_SI .= WrapForTmux("\<Esc>[?2004h")
+let &t_EI .= WrapForTmux("\<Esc>[?2004l")
+
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
+"========= Yaml ==============
+" disable yaml indenting logic
+autocmd FileType yaml setlocal indentexpr=
+
+" ====== vim-visual-multi ======
+" press n/N to get next/previous occurrence
+" press [/] to select next/previous cursor
+" press q to skip current and get next occurrence
+" press Q to remove current cursor/selection
+" start insert mode with i,a,I,A
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
+
+" ===== vim-wiki =====
+let g:vimwiki_list = [{'path': '~/Dropbox/Notes/vimwiki',
+      \ 'syntax': 'markdown',
+      \ 'ext': '.md'}]
+let g:vimwiki_global_ext = 0
+
+set termguicolors
+
+if $BACKGROUND == 'dark'
+  set background=dark
+else
+  set background=light
+endif
+
+colorscheme solarized
+let g:airline_theme="solarized"
+let g:airline_powerline_fonts=1
+let g:airline#extensions#ale#enabled=1
+
+" bufferline
+let g:bufferline_echo = 0
+
+" ====== easy-motion ======
+map <leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+" ========= grep ==============
+" use ripgrep for grep command
+if executable("rg")
+  set grepprg=rg\ --vimgrep
+endif
+
+" ======= Markdown ==========
+let g:textobj_markdown_no_default_key_mappings=1
+
+omap imc <plug>(textobj-markdown-chunk-i)
+xmap imc <plug>(textobj-markdown-chunk-i)
+omap amc <plug>(textobj-markdown-chunk-a)
+xmap amc <plug>(textobj-markdown-chunk-a)
+
+" ======== Auto Save =========
+function! s:AutosaveBuffer()
+  " Don't try to autosave fugitive buffers
+  " or buffers without filenames
+  if @% =~? '^fugitive:' || @% ==# ''
+    return
+  endif
+
+  update
+endfun
+
+autocmd BufLeave * call <SID>AutosaveBuffer()
+autocmd FocusLost * call <SID>AutosaveBuffer()
+
+" ====== Readline / RSI =======
+inoremap <c-k> <c-o>D
+cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
+
+" ====== ALE ======
+nmap <silent> [g <Plug>(ale_previous_wrap)
+nmap <silent> ]g <Plug>(ale_next_wrap)
+
+let g:ale_fixers = {
+      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+      \   'javascript': ['eslint'],
+      \   'go': ['gofmt'],
+      \   'yaml': ['prettier'],
+      \   'markdown': ['prettier'],
+      \   'jsonnet': ['jsonnetfmt'],
+      \   'vim': [function('tw#format#vim')]
+      \}
+
+" disabling to not mess with fugitive index buffers
+let g:ale_fix_on_save=0
+
+" ====== Jsonnet ========
+" need to disable this or it messes with git index buffers
+let g:jsonnet_fmt_on_save = 0
+
+" ==== Fzf and fzf preview ====
+let g:fzf_preview_command = 'bat --color=always --plain --number {-1}'
+let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
+let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
+let g:fzf_preview_window = ['']
+
+" =========== VimL ==========
+augroup vader
+  autocmd!
+
+  " run tests with vader
+  autocmd FileType vader nmap <Leader>rt  :wa<CR> :Vader %<CR>
+augroup END
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -62,12 +312,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " close coc floats when they get annoying
 inoremap kk <C-o>:call coc#float#close_all()<cr>
