@@ -91,6 +91,7 @@ nnoremap <silent><nowait> \P "0P
 
 " formatter
 nnoremap <leader>= :call tw#format#Format()<cr>
+xmap <silent> <leader>=  <Plug>(coc-format-selected)
 
 nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
@@ -178,10 +179,6 @@ endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 
-"========= Yaml ==============
-" disable yaml indenting logic
-autocmd FileType yaml setlocal indentexpr=
-
 " ====== vim-visual-multi ======
 " press n/N to get next/previous occurrence
 " press [/] to select next/previous cursor
@@ -224,13 +221,12 @@ if executable("rg")
   set grepprg=rg\ --vimgrep
 endif
 
-" ======= Markdown ==========
-let g:textobj_markdown_no_default_key_mappings=1
-
-omap imc <plug>(textobj-markdown-chunk-i)
-xmap imc <plug>(textobj-markdown-chunk-i)
-omap amc <plug>(textobj-markdown-chunk-a)
-xmap amc <plug>(textobj-markdown-chunk-a)
+" Ripgrep for the word under cursor
+nnoremap <leader>rg :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
+nnoremap <leader>* :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
+" Ripgrep for the visually selected text
+xnoremap <leader>rg "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
+xnoremap <leader>* "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
 
 " ======== Auto Save =========
 function! s:AutosaveBuffer()
@@ -277,14 +273,6 @@ let g:fzf_preview_lines_command = 'bat --color=always --plain --number'
 let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
 let g:fzf_preview_window = ['']
-
-" =========== VimL ==========
-augroup vader
-  autocmd!
-
-  " run tests with vader
-  autocmd FileType vader nmap <Leader>rt  :wa<CR> :Vader %<CR>
-augroup END
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -446,34 +434,17 @@ let g:airline#extensions#hunks#coc_git = 1
 " find symbol
 nnoremap <leader>fs :<C-u>CocFzfList symbols
 
-" ================ yank =============
-nnoremap <leader>y :<C-u>CocCommand fzf-preview.Yankround<cr>
-
 "=========== Other Code Actions =========
 " Symbol renaming.
 nmap <leader>re <Plug>(coc-rename)
 
-xmap <silent> <leader>=  <Plug>(coc-format-selected)
 
-"===== Coc-Explorer replaces NERDTree
-nnoremap <silent><nowait> <leader>\ :CocCommand explorer<CR>
-nnoremap <silent><nowait> \| :call <SID>FocusInExplorer()<CR>
+"=== NvimTree
+nnoremap <silent><nowait> <leader>\ :<c-u>NvimTreeToggle<cr>
+nnoremap <silent><nowait> \| :<c-u>NvimTreeFindFile<cr>
 
-function! s:FocusInExplorer()
-  let l:a = 0
-  for window in getwininfo()
-    if getbufvar(window.bufnr, '&ft') == 'coc-explorer'
-      let l:a = 1
-      break
-    endif
-  endfor
-  if l:a == 1
-    call CocAction('runCommand', 'explorer.doAction', 'closest', ['reveal'], [['relative', 0, 'file']])
-    execute 'CocCommand explorer --focus --no-toggle'
-  else
-    execute 'CocCommand explorer --reveal '.expand('%:p')
-  endif
-endfunction
+" === Begin filetype specific
+" TODO: move to ftplugin files
 
 "========= Go ===========
 augroup go
@@ -516,9 +487,24 @@ augroup jsonnet
   autocmd FileType jsonnet nmap <leader>e :call tw#jsonnet#expand()<cr>
 augroup END
 
-" Ripgrep for the word under cursor
-nnoremap <leader>rg :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
-nnoremap <leader>* :<C-u>Rg<Space><C-R>=expand('<cword>')<CR><CR>
-" Ripgrep for the visually selected text
-xnoremap <leader>rg "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
-xnoremap <leader>* "sy:Rg -- <C-R>=substitute(substitute(@s, '\n', '', 'g'), '/', '\\/', 'g')<CR><CR>
+"========= Yaml ==============
+" disable yaml indenting logic
+autocmd FileType yaml setlocal indentexpr=
+
+" =========== VimL ==========
+augroup vader
+  autocmd!
+
+  " run tests with vader
+  autocmd FileType vader nmap <Leader>rt  :wa<CR> :Vader %<CR>
+augroup END
+
+" ======= Markdown ==========
+let g:textobj_markdown_no_default_key_mappings=1
+
+" TODO: move to filetype specific
+omap imc <plug>(textobj-markdown-chunk-i)
+xmap imc <plug>(textobj-markdown-chunk-i)
+omap amc <plug>(textobj-markdown-chunk-a)
+xmap amc <plug>(textobj-markdown-chunk-a)
+
