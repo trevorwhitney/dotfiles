@@ -26,6 +26,8 @@ augroup Packer
   autocmd BufWritePost init.lua PackerCompile
 augroup end
 
+let g:use_native_lsp = 1
+
 lua <<EOF
 local use = require('packer').use
 require('tw.packer').install(use)
@@ -68,10 +70,6 @@ nnoremap <C-w>q :windo close<cr>
 " paste the 0 register
 nnoremap <silent><nowait> \p "0p
 nnoremap <silent><nowait> \P "0P
-
-" formatter
-nnoremap <leader>= :call tw#format#Format()<cr>
-xmap <silent> <leader>=  <Plug>(coc-format-selected)
 
 nnoremap <silent> \q ZZ
 nnoremap <silent> \Q :xa<cr>
@@ -205,8 +203,10 @@ inoremap <c-k> <c-o>D
 cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
 
 " ====== ALE ======
-nmap <silent> [g <Plug>(ale_previous_wrap)
-nmap <silent> ]g <Plug>(ale_next_wrap)
+if g:use_native_lsp == 0
+  nmap <silent> [g <Plug>(ale_previous_wrap)
+  nmap <silent> ]g <Plug>(ale_next_wrap)
+endif
 
 let g:ale_fixers = {
       \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -232,232 +232,9 @@ let g:fzf_preview_preview_key_bindings = 'ctrl-a:select-all'
 let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading --color=always'
 let g:fzf_preview_window = ['']
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=auto:2
-endif
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Use enter to seelect auto-complete suggestion
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" close coc floats when they get annoying
-inoremap kk <C-o>:call coc#float#close_all()<cr>
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gD :<C-u>call CocAction('jumpDefinition', 'CocSelectSplit')<CR>
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gY :<C-u>call CocAction('jumpTypeDefinition', 'CocSelectSplit')<CR>
-nmap <silent> gi :<C-u>CocCommand fzf-preview.CocImplementations<CR>
-nmap <silent> gr :<C-u>CocCommand fzf-preview.CocReferences<CR>
-
-" Use <leader>h to show documentation in preview window.
-nnoremap <leader>h :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>aa  <Plug>(coc-codeaction-cursor)
-nmap <leader>ac  <Plug>(coc-codeaction)
-
-xmap <leader>rf   <Plug>(coc-refactor)
-
-" Apply AutoFix to problem on the current line.
-nmap <leader><cr>  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <nowait> \a  :<C-u>CocCommand fzf-preview.CocDiagnostics<cr>
-" Show diagnostics for current file
-nnoremap <nowait> \x  :<C-u>CocCommand fzf-preview.CocCurrentDiagnostics<cr>
-" Show recent files
-nnoremap <nowait> \e  :<C-u>CocCommand fzf-preview.MruFiles<cr>
-" Show open buffers
-nnoremap <nowait> \b  :<C-u>CocCommand fzf-preview.Buffers<cr>
-" Show commands.
-nnoremap <nowait> \c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <nowait> \o  :<C-u>CocList outline<cr>
-" Resume latest coc list.
-nnoremap <nowait> \r  :<C-u>CocListResume<CR>
-" Resume latest grep
-nnoremap <nowait> \g  :<C-u>CocCommand fzf-preview.ProjectGrepRecall<CR>
-
-" Do default action for next (search/liSt) item.
-nnoremap <silent><nowait> ]s  :<C-u>CocNext<CR>
-" Do default action for previous (search/liSt) item.
-nnoremap <silent><nowait> [s  :<C-u>CocPrev<CR>
-
-" =============== Git ==============
-nmap <leader>ci  <Plug>(coc-git-chunkinfo)
-
-" navigate git chunks when not in diff mode
-nnoremap <silent> <expr> [c &diff ? '[c' : ':execute "normal \<Plug>(coc-git-prevchunk)"<cr>'
-nnoremap <silent> <expr> ]c &diff ? ']c' : ':execute "normal \<Plug>(coc-git-nextchunk)"<cr>'
-
-" git/chunk revert
-nmap <leader>cr :<C-u>CocCommand git.chunkUndo<cr>
-
-nmap <silent> ]x  <Plug>(coc-git-nextconflict)
-nmap <silent> [x  <Plug>(coc-git-prevconflict)
-
-nmap <leader>kc <Plug>(coc-git-keepcurrent)
-nmap <leader>ki <Plug>(coc-git-keepincoming)
-nmap <leader>kb <Plug>(coc-git-keepboth)
-
-" Git status, show currently changed files
-nmap <leader>ga   :<c-u>CocCommand fzf-preview.GitActions<CR>
-
-let g:airline#extensions#hunks#coc_git = 1
-
-" find symbol
-nnoremap <leader>fs :<C-u>CocFzfList symbols
-
-"=========== Other Code Actions =========
-" Symbol renaming.
-nmap <leader>re <Plug>(coc-rename)
-
-
 "=== NvimTree
 nnoremap <silent><nowait> <leader>\ :<c-u>NvimTreeToggle<cr>
 nnoremap <silent><nowait> \| :<c-u>NvimTreeFindFile<cr>
 
-" === Begin filetype specific
-" TODO: move to ftplugin files
-
-"========= Go ===========
-augroup go
-  autocmd!
-
-  " open test in a vertical split
-  autocmd FileType go nmap <leader>gt  :<C-u>CocCommand go.test.toggle<cr>
-  autocmd FileType go nmap <silent>gT :<C-u>wincmd o<cr> :vsplit<cr> :<C-u>CocCommand go.test.toggle<cr>
-  autocmd FileType go nmap <leader>t   :<C-u>CocCommand go.test.generate.function<cr>
-  autocmd FileType go nmap <leader>i   :<C-u>CocCommand go.impl.cursor<cr>
-
-  " run tests
-  autocmd FileType go nmap <Leader>rp  :wa<CR> :GolangTestCurrentPackage<CR>
-  autocmd FileType go nmap <Leader>rt  :wa<CR> :GolangTestFocusedWithTags<CR>
-
-  " run integration tests
-  autocmd FileType go nmap <leader>ri  :wa<cr> :GolangTestFocusedWithTags e2e_gme requires_docker<cr>
-
-  " delve
-  autocmd FileType go nmap <leader>bp  :DlvToggleBreakpoint<cr>
-  autocmd FileType go nmap <leader>dt  :wa<cr> :DlvTestFocused<cr>
-
-  " delve integration test
-  autocmd FileType go nmap <leader>di  :wa<cr> :DlvTestFocused e2e_gme requires_docker<cr>
-
-  " tags
-  autocmd FileType go nmap <leader>tj :CocCommand go.tags.add json<cr>
-  autocmd FileType go nmap <leader>ty :CocCommand go.tags.add yaml<cr>
-  autocmd FileType go nmap <leader>tx :CocCommand go.tags.clear<cr>
-
-  " search
-  autocmd FileType go nmap <leader>gr :Rg -g '**/*.go' --
-augroup END
-
-" ==== JSONNET ====
-augroup jsonnet
-  autocmd!
-  autocmd FileType jsonnet call tw#jsonnet#updateJsonnetPath()
-  autocmd FileType jsonnet nmap <leader>b :call tw#jsonnet#eval()<cr>
-  autocmd FileType jsonnet nmap <leader>e :call tw#jsonnet#expand()<cr>
-augroup END
-
-"========= Yaml ==============
-" disable yaml indenting logic
-autocmd FileType yaml setlocal indentexpr=
-
-" =========== VimL ==========
-augroup vader
-  autocmd!
-
-  " run tests with vader
-  autocmd FileType vader nmap <Leader>rt  :wa<CR> :Vader %<CR>
-augroup END
-
-" ======= Markdown ==========
-let g:textobj_markdown_no_default_key_mappings=1
-
-" TODO: move to filetype specific
-omap imc <plug>(textobj-markdown-chunk-i)
-xmap imc <plug>(textobj-markdown-chunk-i)
-omap amc <plug>(textobj-markdown-chunk-a)
-xmap amc <plug>(textobj-markdown-chunk-a)
-
-
-" TODO: figure out why I need to set this at the very end
+" TODO: figure out why I need to set this at the very end?
 set background=light
