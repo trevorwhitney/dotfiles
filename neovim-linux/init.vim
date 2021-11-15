@@ -1,14 +1,7 @@
-set nocompatible
 syntax on
 filetype plugin indent on
 
-let mapleader = " "
-
-" enable these for debugging coc
-" let g:coc_node_args = ['-r', expand('~/.config/yarn/global/node_modules/source-map-support/register')]
-" let g:node_client_debug = 1
-" let $NODE_CLIENT_LOG_FILE = '~/node_client.log'
-" let g:coc_node_args = ['--nolazy', '--inspect-brk=6045']
+let mapleader = ' ' " space as leader
 
 let s:packer_install_path = stdpath('data') . '/site/pack/packer/start/packer.nvim'
 let s:vim_lib_install_path = stdpath('data') . '/site/pack/packer/start/tw-vim-lib'
@@ -83,7 +76,9 @@ nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 let g:in_git = system('git rev-parse --is-inside-work-tree')
 
 " Git status, show currently changed files
-nmap <leader>gb   :Git blame<CR>
+nmap <leader>gb   :Gitsigns blame_line<CR>
+nmap <leader>gB   :Git blame<CR>
+
 " pneumonic git diff
 nmap <leader>gd   :Gdiffsplit<CR>
 
@@ -147,7 +142,7 @@ let &t_EI .= WrapForTmux("\<Esc>[?2004l")
 function! XTermPasteBegin()
   set pastetoggle=<Esc>[201~
   set paste
-  return ""
+  return ''
 endfunction
 
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
@@ -183,25 +178,6 @@ autocmd FocusLost * call <SID>AutosaveBuffer()
 " ====== Readline / RSI =======
 inoremap <c-k> <c-o>D
 cnoremap <c-k> <c-\>e getcmdpos() == 1 ? '' : getcmdline()[:getcmdpos()-2]<CR>
-
-" ====== ALE ======
-if g:use_native_lsp == 0
-  nmap <silent> [g <Plug>(ale_previous_wrap)
-  nmap <silent> ]g <Plug>(ale_next_wrap)
-endif
-
-let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'javascript': ['eslint'],
-      \   'go': ['gofmt'],
-      \   'yaml': ['prettier'],
-      \   'markdown': ['prettier'],
-      \   'jsonnet': ['jsonnetfmt'],
-      \   'vim': [function('tw#format#vim')]
-      \}
-
-" disabling to not mess with fugitive index buffers
-let g:ale_fix_on_save=0
 
 " ====== Jsonnet ========
 " need to disable this or it messes with git index buffers
