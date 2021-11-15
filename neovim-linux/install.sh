@@ -24,7 +24,7 @@ create_nvim_link() {
 
 temp=$(mktemp -d)
 pushd $temp > /dev/null || exit 1
-  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+  curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
   chmod u+x nvim.appimage
   ./nvim.appimage --appimage-extract
   ./squashfs-root/AppRun --version
@@ -41,14 +41,9 @@ if [[ `command -v python` ]]; then
   python -m pip install --user --upgrade pynvim vim-vint
 fi
 
-# install python3 version last so it takes precedence
-# python3 usually exists when python2 is mapped to python
-if [[ `command -v python3` ]]; then
-  python3 -m pip install --user --upgrade pynvim vim-vint
-fi
-
 gem install neovim
-sudo npm install -g neovim
+sudo npm install -g neovim tree-sitter-cli
+cargo install stylua
 
 mkdir -p "$HOME/.config/nvim"
 
