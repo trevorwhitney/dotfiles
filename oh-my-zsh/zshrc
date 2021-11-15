@@ -33,8 +33,9 @@ export GOPATH="$HOME/go"
 
 export PYTHON_HOME="/usr/local/opt/python3/libexec"
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export LUAROCKS_HOME="$HOME/.luarocks"
 
-PATH="$GOPATH/bin:$GOROOT/bin:$RUBY_HOME/bin:$PYTHON_HOME/bin:$NPM_CONFIG_PREFIX/bin:$HOME/.local/bin:/usr/local/bin:/snap/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
+PATH="$GOPATH/bin:$GOROOT/bin:$RUBY_HOME/bin:$PYTHON_HOME/bin:$NPM_CONFIG_PREFIX/bin:$LUAROCKS_HOME/bin:$HOME/.local/bin:/usr/local/bin:/snap/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin"
 source $HOME/.zprofile
 
 autoload bashcompinit && bashcompinit
@@ -149,3 +150,5 @@ if [[ `command -v kubectl` ]]; then
 fi
 
 complete -o nospace -C /home/twhitney/workspace/k3d-sonnet/tool/k3dsonnet k3dsonnet
+
+alias luamake=/home/twhitney/workspace/lua-language-server/3rd/luamake/luamake
