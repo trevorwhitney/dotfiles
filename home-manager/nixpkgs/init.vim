@@ -3,17 +3,6 @@ filetype plugin indent on
 
 let mapleader = ' ' " space as leader
 
-let s:packer_install_path = stdpath('data') . '/site/pack/packer/start/packer.nvim'
-let s:vim_lib_install_path = stdpath('data') . '/site/pack/packer/start/tw-vim-lib'
-
-if empty(glob(s:packer_install_path)) > 0
-  execute('!git clone https://github.com/wbthomason/packer.nvim ' . s:packer_install_path)
-endif
-
-if empty(glob(s:vim_lib_install_path)) > 0
-  execute('!git clone https://github.com/trevorwhitney/tw-vim-lib ' . s:vim_lib_install_path)
-endif
-
 augroup Packer
   autocmd!
   autocmd BufWritePost init.lua PackerCompile
