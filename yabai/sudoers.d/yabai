@@ -1,1 +1,0 @@
-twhitney ALL = (root) NOPASSWD: /usr/local/bin/yabai --load-sa

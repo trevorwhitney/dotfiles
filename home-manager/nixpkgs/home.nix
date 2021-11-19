@@ -40,10 +40,30 @@ in {
   # TODO: move lua-language-server to neovim extra package
   # and refactor config to take base sumneko path
   # TODO: install stylua via luarocks
+  # TODO: copy google cloud sdk completion
+  # ln -sf /usr/share/google-cloud-sdk/completion.zsh.inc "$HOME/.oh-my-zsh/custom/gcloud-completion.zsh"
+  # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc 
+  # TODO: mkdir $HOME/go?
+
   home.packages = with pkgs; [
-    sumneko-lua-language-server
+    azure-cli
+    clipit
+    drone-cli
+    fzf
+    gh
+    go_1_17
     golangci-lint
+    google-cloud-sdk
+    jsonnet-bundler
+    kube3d
+    kubectl
     lua53Packages.luarocks
+    rbenv
+    ruby
+    sumneko-lua-language-server
+    tanka
+    vault
+    yarn
   ];
 
   #TODO: lua53packages.luarocks
