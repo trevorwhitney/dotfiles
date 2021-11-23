@@ -7,7 +7,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-vim-lib";
       rev = "main";
-      sha256 = "04a9fvxa7hrjmwzp6rkrhbv2kvf6dd0b6nnk7haxj0c9iyp69arf";
+      sha256 = "1q2k3k142m4jgbka8sqr7qcdhsimh465c5y3g1ap97lqjm1ccgfa";
     };
   };
 in {

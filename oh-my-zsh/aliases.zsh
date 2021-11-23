@@ -50,6 +50,18 @@ function task_url() {
 #grafana
 alias backend="cd ~/workspace/grafana/backend-enterprise"
 
+function gen-logs() {
+  if [ $# -ne 1 ]; then
+    echo "please provide a host"
+    return
+  fi
+
+  docker run \
+    --log-driver loki-compose \
+    --log-opt loki-url=${1}/loki/api/v1/push \
+    -it --rm mingrammer/flog -l -s 5s -f json -b 500 -p 100000
+}
+
 if [[ `command -v alacritty` ]]; then
   alias term-remote="alacritty --config-file=/home/twhitney/.config/alacritty/remote.yml & "
   alias term-remote-dark="alacritty --config-file=/home/twhitney/.config/alacritty/remote-dark.yml & "
