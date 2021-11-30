@@ -47,7 +47,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
       rev = "main";
-      sha256 = "1rcbblc8kcdpslymgkhj0ii22ydp45h4xk01h7a5yfmqbszbmmh1";
+      sha256 = "0npyw4sxr9s1xdlfzc7fpwnj97icig966f86c2jckbmnwfgk8w80";
     };
   };
   tmux-cpu = mkTmuxPlugin {
