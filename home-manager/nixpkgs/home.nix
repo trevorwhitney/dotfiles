@@ -7,7 +7,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-vim-lib";
       rev = "main";
-      sha256 = "18ab620bq9ixhwdjc47azdqykajvfjm1s5py39synsj7cv82p7qd";
+      sha256 = "17mjgjs2np3jzll3yxvm3dq5qs13fc94cjbr9gc5sp2qcrbkfpjx";
     };
   };
   addRtp = path: derivation: derivation // { rtp = "${derivation}/${path}"; };
