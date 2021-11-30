@@ -22,7 +22,7 @@ let
           owner = "trevorwhitney";
           repo = "tw-tmux-lib";
           rev = "main";
-          sha256 = "0kdhl76blgd3kmaxirby8jfa3rrkk54yc0jxdkqgc4hszgh2j85f";
+          sha256 = "01dja925c778jigj73w8dcih62sd00n1vs67dn704rrq0sjgx3jc";
         };
         system = builtins.currentSystem;
         installPhase = ''
@@ -96,6 +96,7 @@ in {
     sysstat
     tanka
     vault
+    xsel
     yarn
   ];
 
