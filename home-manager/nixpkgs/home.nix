@@ -10,6 +10,34 @@ let
       sha256 = "1q2k3k142m4jgbka8sqr7qcdhsimh465c5y3g1ap97lqjm1ccgfa";
     };
   };
+  addRtp = path: derivation: derivation // { rtp = "${derivation}/${path}"; };
+  tw-tmux-lib = addRtp "share/tmux-plugins/tw-tmux-lib/plugin.tmux"
+    (with (import <nixpkgs> { });
+      stdenv.mkDerivation {
+        name = "tw-tmux-lib";
+        pname = "tmuxplugin-tw-tmux-lib";
+        pluginName = "tw-tmux-lib";
+        rtpPath = "share/tmux-plugins";
+        src = pkgs.fetchFromGitHub {
+          owner = "trevorwhitney";
+          repo = "tw-tmux-lib";
+          rev = "main";
+          sha256 = "0kdhl76blgd3kmaxirby8jfa3rrkk54yc0jxdkqgc4hszgh2j85f";
+        };
+        system = builtins.currentSystem;
+        installPhase = ''
+          runHook preInstall
+
+          target=$out/share/tmux-plugins/tw-tmux-lib
+          mkdir -p $out/share/tmux-plugins
+          cp -r . $target
+          if [ -n "$addonInfo" ]; then
+            echo "$addonInfo" > $target/addon-info.json
+          fi
+
+          runHook postInstall
+        '';
+      });
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -47,6 +75,7 @@ in {
 
   home.packages = with pkgs; [
     azure-cli
+    bash
     clipit
     drone-cli
     fzf
@@ -54,13 +83,17 @@ in {
     go_1_17
     golangci-lint
     google-cloud-sdk
+    gnused
     jsonnet-bundler
     kube3d
     kubectl
+    lm_sensors
     lua53Packages.luarocks
+    ncurses
     rbenv
     ruby
     sumneko-lua-language-server
+    sysstat
     tanka
     vault
     yarn
@@ -140,5 +173,27 @@ in {
       nodePackages.yaml-language-server
     ]);
 
+  };
+
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    shortcut = "q";
+    terminal = "screen-256color";
+    baseIndex = 1;
+    clock24 = true;
+    historyLimit = 5000;
+    escapeTime = 10;
+    plugins = with pkgs; [
+      tw-tmux-lib
+      tmuxPlugins.resurrect
+      tmuxPlugins.continuum
+      tmuxPlugins.sessionist
+      tmuxPlugins.tmux-fzf
+      {
+        plugin = tmuxPlugins.cpu;
+        extraConfig = "set -g @cpu_temp_unit 'F'";
+      }
+    ];
   };
 }

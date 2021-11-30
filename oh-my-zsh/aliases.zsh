@@ -59,7 +59,7 @@ function gen-logs() {
   docker run \
     --log-driver loki-compose \
     --log-opt loki-url=${1}/loki/api/v1/push \
-    -it --rm mingrammer/flog -l -s 5s -f json -b 500 -p 100000
+    -it --rm mingrammer/flog -l -d=1s -f=json
 }
 
 if [[ `command -v alacritty` ]]; then
