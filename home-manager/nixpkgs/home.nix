@@ -189,7 +189,6 @@ in {
       tmuxPlugins.resurrect
       tmuxPlugins.continuum
       tmuxPlugins.sessionist
-      tmuxPlugins.tmux-fzf
       {
         plugin = tmuxPlugins.cpu;
         extraConfig = "set -g @cpu_temp_unit 'F'";
