@@ -7,7 +7,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-vim-lib";
       rev = "main";
-      sha256 = "17mjgjs2np3jzll3yxvm3dq5qs13fc94cjbr9gc5sp2qcrbkfpjx";
+      sha256 = "048kd3725szg2fy0nvaj9v6hywk0rdlsja37dgyf7s9gf3aj78kw";
     };
   };
   rtpPath = "share/tmux-plugins";
@@ -47,7 +47,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
       rev = "main";
-      sha256 = "0xx5k7lqbb4fj4szy9sf4njfr8jcg7kqwh29750rcqbrncm4cbki";
+      sha256 = "02crax6w2dz8vj8z98fhpf0syws3dzgwaxdlypjlk3pmg77f2q77";
     };
   };
   tmux-cpu = mkTmuxPlugin {
@@ -97,6 +97,7 @@ in {
   home.packages = with pkgs; [
     azure-cli
     bash
+    bat
     drone-cli
     fzf
     gh
