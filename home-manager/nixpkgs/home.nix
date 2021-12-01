@@ -97,7 +97,6 @@ in {
   home.packages = with pkgs; [
     azure-cli
     bash
-    clipit
     drone-cli
     fzf
     gh
