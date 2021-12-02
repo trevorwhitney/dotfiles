@@ -7,7 +7,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-vim-lib";
       rev = "main";
-      sha256 = "048kd3725szg2fy0nvaj9v6hywk0rdlsja37dgyf7s9gf3aj78kw";
+      sha256 = "0minqxl35v6l3k3wqr3861gbyxvpl08r8hxhpzq94zzgzdwixwmz";
     };
   };
   rtpPath = "share/tmux-plugins";
@@ -95,6 +95,12 @@ in {
   # TODO: mkdir $HOME/go?
 
   home.packages = with pkgs; [
+    # required by tree-sitter
+    gcc
+    libcxx
+    tree-sitter
+    # end require by tree-sitter
+
     azure-cli
     bash
     bat
@@ -124,28 +130,6 @@ in {
   #TODO: lua53packages.luarocks
   #TODO: add luarocks and stylua
 
-  # Some tree-sitter grammars have trouble compiling with home-manager, so we copy in their
-  # pre-compiled parsers directly
-  xdg.dataFile."nvim/site/parser/bash.so".source =
-    "${pkgs.tree-sitter.builtGrammars.tree-sitter-bash}/parser";
-  xdg.dataFile."nvim/site/parser/lua.so".source =
-    "${pkgs.tree-sitter.builtGrammars.tree-sitter-lua}/parser";
-  xdg.dataFile."nvim/site/parser/yaml.so".source =
-    "${pkgs.tree-sitter.builtGrammars.tree-sitter-yaml}/parser";
-  # The following parsers seems to be working fine using the navite TSInstall/Update commands, but
-  # I'm keeping references to the pre-compiled parsers in case they ever break
-  # xdg.dataFile."nvim/site/parser/c.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-c}/parser";
-  # xdg.dataFile."nvim/site/parser/css.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-css}/parser";
-  # xdg.dataFile."nvim/site/parser/go.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-go}/parser";
-  # xdg.dataFile."nvim/site/parser/java.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-java}/parser";
-  # xdg.dataFile."nvim/site/parser/javascript.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-javascript}/parser";
-  # xdg.dataFile."nvim/site/parser/json.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-json}/parser";
-  # xdg.dataFile."nvim/site/parser/nix.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-nix}/parser";
-  # xdg.dataFile."nvim/site/parser/rust.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-rust}/parser";
-  # xdg.dataFile."nvim/site/parser/toml.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-toml}/parser";
-  # xdg.dataFile."nvim/site/parser/typescript.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-typescript}/parser";
-  # xdg.dataFile."nvim/site/parser/vim.so".source = "${pkgs.tree-sitter.builtGrammars.tree-sitter-vim}/parser";
-
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
@@ -167,7 +151,6 @@ in {
 
     extraPackages = (with pkgs; [
       curl
-      gcc # required by tree-sitter
       git
       gnutar
       gopls
@@ -180,7 +163,6 @@ in {
       shfmt
       terraform
       terraform-ls
-      tree-sitter
       vale
       yamllint
 

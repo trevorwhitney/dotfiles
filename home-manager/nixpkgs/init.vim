@@ -1,15 +1,4 @@
-syntax on
-filetype plugin indent on
-
 let mapleader = ' ' " space as leader
-
-augroup Packer
-  autocmd!
-  autocmd BufWritePost init.lua PackerCompile
-augroup end
-
-let g:use_native_lsp = 1
-let g:use_telescope = 1
 
 lua <<EOF
 local use = require('packer').use
@@ -21,9 +10,10 @@ cabb W w
 cabb Wq wq
 cabb WQ wq
 cabb Q q
+cabb Qa qa
 
-" <C-a> is for tmux
-noremap <C-a> <Nop>
+" <C-q> is for tmux
+noremap <C-q> <Nop>
 
 " Spell checking
 set spelllang=en_us
@@ -87,25 +77,24 @@ nmap <leader>gh   :0Gclog!<CR>
 " pneumonic git log
 nmap <leader>gl   :0Gclog!<CR>
 
+augroup HiddenFugitive
+  autocmd!
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+  autocmd BufReadPost .git/index set nolist
+augroup end
 " clean up unused fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
-autocmd BufReadPost .git/index set nolist
 
 " turn spell check on
 nmap <silent> <leader>sp :set spell!<CR>
 " search and replace in file
 nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 
-" Don't screw up folds when inserting text that might affect them, until
-" leaving insert mode. Foldmethod is local to the window. Protect against
-" screwing up folding when switching between windows.
-autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-
-"============= surround vim ============
-" surround.vim: Add $ as a jQuery surround, _ for Underscore.js
-autocmd FileType javascript let b:surround_36 = "$(\r)"
-      \ | let b:surround_95 = "_(\r)""
+" TODO: do I need this?
+"" Don't screw up folds when inserting text that might affect them, until
+"" leaving insert mode. Foldmethod is local to the window. Protect against
+"" screwing up folding when switching between windows.
+"autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+"autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 
 "======== Helpful Shortcuts =========
 :map <Leader>lo :lopen<Cr>
@@ -161,8 +150,11 @@ function! s:AutosaveBuffer()
   update
 endfun
 
-autocmd BufLeave * call <SID>AutosaveBuffer()
-autocmd FocusLost * call <SID>AutosaveBuffer()
+augroup Autosave
+  autocmd!
+  autocmd BufLeave * call <SID>AutosaveBuffer()
+  autocmd FocusLost * call <SID>AutosaveBuffer()
+augroup end
 
 " ====== Readline / RSI =======
 inoremap <c-k> <c-o>D
