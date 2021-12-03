@@ -1,4 +1,3 @@
-set runtimepath=$VIMRUNTIME
 let mapleader = ' ' " space as leader
 
 lua <<EOF
