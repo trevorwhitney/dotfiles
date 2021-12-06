@@ -9,3 +9,4 @@
 .idea
 .vscode
 .vim
+shell.nix
