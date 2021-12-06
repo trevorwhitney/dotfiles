@@ -85,9 +85,3 @@ alias op_cred=get_op_credential
 if [[ `command -v bat` ]]; then
   alias cat="bat -pp "
 fi
-
-# Neovim needs the nix path to take priority for installing/updating tree-sitter grammars
-# TODO: move this into home-manager by extending the default neovim wrapper that generates the 
-# alias, by making sure the nix bin path is first: https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/neovim/wrapper.nix
-alias nvim="PATH=\"$NIX_PROFILE/bin:$PATH\" nvim"
-alias vim="PATH=\"$NIX_PROFILE/bin:$PATH\" vim"

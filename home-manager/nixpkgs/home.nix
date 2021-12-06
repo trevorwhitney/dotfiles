@@ -34,12 +34,6 @@
   # TODO: mkdir $HOME/go?
 
   home.packages = with pkgs; [
-    # required by tree-sitter
-    gcc
-    libcxx
-    tree-sitter
-    # end require by tree-sitter
-
     azure-cli
     bash
     bat
@@ -73,8 +67,5 @@
   #TODO: lua53packages.luarocks
   #TODO: add luarocks and stylua
 
-  imports = [
-    ./modules/neovim.nix
-    ./modules/tmux.nix
-  ];
+  imports = [ ./modules/neovim.nix ./modules/tmux.nix ];
 }

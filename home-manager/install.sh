@@ -16,7 +16,3 @@ fi
 if [[ ! -e "$HOME/.config/nixpkgs" ]]; then
   ln -s $current_dir/nixpkgs "$HOME/.config/nixpkgs"
 fi
-
-# add nix as alterantive for gcc
-sudo update-alternatives --install /usr/local/bin/gcc gcc /usr/bin/gcc 20
-sudo update-alternatives --install /usr/local/bin/gcc gcc $HOME/.nix-profile/bin/gcc 10

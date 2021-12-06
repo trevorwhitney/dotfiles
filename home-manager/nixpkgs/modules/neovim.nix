@@ -6,6 +6,9 @@
     vimdiffAlias = true;
 
     extraConfig = builtins.concatStringsSep "\n" [
+      # nvim-treesitter requires gcc and tree-sitter to be in the path as seen by neovim
+      "call setenv('PATH', '${pkgs.gcc}/bin:${pkgs.tree-sitter}/bin:' . getenv('PATH'))"
+      # set path the lua language server so we can pass it to respective lsp config
       "let s:sumneko_lua_ls_path = '${pkgs.sumneko-lua-language-server}'"
       (lib.strings.fileContents ../lib/init.vim)
     ];
@@ -20,6 +23,13 @@
     plugins = with pkgs.vimPlugins; [ packer-nvim ];
 
     extraPackages = (with pkgs; [
+      # required by tree-sitter
+      gcc
+      libcxx
+      tree-sitter
+      # end require by tree-sitter
+
+
       curl
       git
       gnutar
