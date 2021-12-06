@@ -12,7 +12,7 @@ for package in $(< $current_dir/packages); do
 done
 popd > /dev/null || exit 1
 
-curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.35.2
+curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.41.1
 
 
 temp="$(mktemp -d)"

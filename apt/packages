@@ -1,3 +1,4 @@
+apt-file
 apt-transport-https
 bind9-dnsutils
 build-essential
@@ -5,6 +6,7 @@ ca-certificates
 clang
 curl
 direnv
+gcc
 gawk
 gettext
 git
@@ -15,6 +17,7 @@ gnupg2
 grok
 htop
 jq
+libc++-dev
 libtool
 libxdo3
 lsb-release
