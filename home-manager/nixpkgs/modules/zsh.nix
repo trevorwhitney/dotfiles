@@ -18,6 +18,7 @@
       HYPHEN_INSENSITIVE = "true";
       GLOBAL_GIT_HOOK_DIR = "$HOME/.git/hooks";
       EDITOR = "vim";
+      ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];
     };
 
     initExtra = (with pkgs; ''
