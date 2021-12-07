@@ -5,22 +5,21 @@
     autocd = false;
     enableAutosuggestions = true;
     defaultKeymap = "viins";
+
     oh-my-zsh = {
       enable = true;
       theme = "twhitney";
       plugins = [ "ruby" "vi-mode" "mvn" "aws" "docker" "docker-compose" ];
       custom = "${../lib/oh-my-zsh-custom}";
     };
+
     sessionVariables = {
       WORDCHARS = "*?_-.[]~=&;!#$%^(){}<>";
       HYPHEN_INSENSITIVE = "true";
-      GLOBAL_GIT_HOOK_DIR="$HOME/.git/hooks";
-      EDITOR="vim";
+      GLOBAL_GIT_HOOK_DIR = "$HOME/.git/hooks";
+      EDITOR = "vim";
     };
-      /* # Direnv hook */
-      /* if [[ `command -v direnv` ]]; then */
-      /*   eval "$(direnv hook zsh)" */
-      /* fi */
+
     initExtra = (with pkgs; ''
       autoload -z edit-command-line
       zle -N edit-command-line

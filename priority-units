@@ -2,7 +2,5 @@ apt
 oh-my-zsh
 dotfiles
 commandline-tools
-homebrew
-homebrew-bundle
 vim-config
 go-linux

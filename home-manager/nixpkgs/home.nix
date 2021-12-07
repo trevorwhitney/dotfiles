@@ -17,6 +17,9 @@
   # changes in each release.
   home.stateVersion = "21.11";
 
+  # /usr/share/pop:/home/twhitney/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+  targets.genericLinux.enable = true;
+
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
       url =
@@ -67,9 +70,7 @@
   #TODO: lua53packages.luarocks
   #TODO: add luarocks and stylua
 
-  programs.direnv = {
-    enable = true;
-  };
-
+  programs.direnv = { enable = true; };
+  programs.bash = { enable = true; };
   imports = [ ./modules/neovim.nix ./modules/tmux.nix ./modules/zsh.nix ];
 }
