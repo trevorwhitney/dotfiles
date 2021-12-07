@@ -10,12 +10,11 @@ function msg {
 
 unit_name=$1
 unit_dir=$unit_name
-msg "-* Checking $unit_name for updates"
 test -d _units/$unit_name && unit_dir=_units/$unit_name
 
 kernel_file="$unit_dir/kernel"
 deps_file="$unit_dir/deps"
-check_for_update_file="$unit_dir/check_for_update.sh"
+check_for_update_file="$unit_dir/update.sh"
 
 test -d "$unit_dir" || {
   msg "-* $unit_name not found"
@@ -62,5 +61,5 @@ test -f "${HOME}/.dotexclude" && {
 
 # Exit if there's a guard file and the guard detects an install
 test -f "$check_for_update_file" && bash "$check_for_update_file" && {
-  msg "-* update available for $unit_name"
+  msg "-* updating $unit_name"
 }
