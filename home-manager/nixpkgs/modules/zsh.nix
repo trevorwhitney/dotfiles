@@ -87,11 +87,11 @@
       if [[ "$BACKGROUND" == "dark" ]]; then
         export BAT_THEME="Solarized (dark)"
         export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (dark)"
-        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36";
+        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36"
       else
         export BAT_THEME="Solarized (light)"
         export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (light)"
-        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=#93a1a1,bg=#fdf6e3";
+        export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#fdf6e3"
       fi
 
       autoload -Uz compinit
