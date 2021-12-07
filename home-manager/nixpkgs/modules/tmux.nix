@@ -38,7 +38,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
       rev = "main";
-      sha256 = "13xf5z2ir4pmabnagafx1qj1hlvh3s4gs9d0djl5ng01015ww1gf";
+      sha256 = "0z56k4wab86ys99s85ri3jrwsm6mnfcbckc0kpdrjkbc15mwci07";
     };
   };
   tmux-cpu = mkTmuxPlugin {
@@ -56,6 +56,7 @@ in {
     keyMode = "vi";
     shortcut = "q";
     terminal = "screen-256color";
+    shell = "${pkgs.zsh}/bin/zsh";
     baseIndex = 1;
     clock24 = true;
     historyLimit = 5000;

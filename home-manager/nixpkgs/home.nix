@@ -67,5 +67,9 @@
   #TODO: lua53packages.luarocks
   #TODO: add luarocks and stylua
 
-  imports = [ ./modules/neovim.nix ./modules/tmux.nix ];
+  programs.direnv = {
+    enable = true;
+  };
+
+  imports = [ ./modules/neovim.nix ./modules/tmux.nix ./modules/zsh.nix ];
 }
