@@ -195,7 +195,7 @@ prompt_status() {
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
-  [[ -n "$symbols" ]] && prompt_segment $black $prompt_fg "$symbols"
+  [[ -n "$symbols" ]] && prompt_segment $mode_bg $CURRENT_FG "$symbols"
 }
 
 #AWS Profile:
