@@ -49,6 +49,7 @@
     google-cloud-sdk
     gnused
     jsonnet-bundler
+    kotlin
     kube3d
     kubectl
     lm_sensors
@@ -76,6 +77,11 @@
   programs.bash = { enable = true; };
 
   programs.direnv = { enable = true; };
+
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk11;
+  };
 
   imports = [ ./modules/neovim.nix ./modules/tmux.nix ./modules/zsh.nix ];
 }

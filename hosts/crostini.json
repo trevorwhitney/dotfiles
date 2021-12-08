@@ -1,0 +1,26 @@
+{
+  "excluded": [
+    "apt-desktop",
+    "docker-linux",
+    "gogh",
+    "k3s",
+    "kubectl",
+    "rust",
+    "snap",
+    "ssh-server-linux",
+    "vs-code"
+  ],
+  "units": [
+    "alacritty",
+    "apt",
+    "crostini",
+    "dotfiles",
+    "git-authors",
+    "grafana",
+    "home-manager",
+    "jetbrains-mono",
+    "one-password-cli",
+    "powerline-fonts"
+  ],
+  "name": "crostini"
+}
