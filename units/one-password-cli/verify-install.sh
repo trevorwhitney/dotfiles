@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+set -e
+
 command -v op > /dev/null
 op --version > /dev/null
 
