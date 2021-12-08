@@ -2,7 +2,10 @@
 
 function verify_package() {
   package=${1}
-  dpkg -s "$package" > /dev/null
+  # libc package different on debian vs ubuntu
+  if [[ "$package" != "libc++-dev" ]]; then
+  	dpkg -s "$package" > /dev/null
+  fi
 }
 
 current_dir=$(cd "$(dirname $0)" && pwd)
