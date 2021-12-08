@@ -39,8 +39,8 @@ if [[ -f $kernel_file ]] && [[ -n "$(cat "${kernel_file}")" ]] && [[ ! $(uname) 
 fi
 
 # Skip if this unit or any deps are excluded
-excluded=$(cat $HOME/.config/dotfiles/host.json | jq -r '.excluded | join(" ")')
-echo $excluded | grep $unit_name > /dev/null && {
+excluded=$(cat $HOME/.config/dotfiles/host.json | jq -r '.excluded | join("\n")')
+echo $excluded | grep "^$unit_name\$" > /dev/null && {
     msg "-* skipping excluded $unit_name"
     exit
   }
