@@ -20,6 +20,7 @@ source "$current_dir/lib.sh"
 
 # initialize last update with some time
 if [[ ! -e "$$HOME/.config/dotfiles/last-update" ]]; then
+  mkdir -p "$HOME/.config/dotfiles"
   echo "LAST_EPOCH=18694" > "$HOME/.config/dotfiles/last-update"
 fi
 
