@@ -13,7 +13,6 @@ function update_last_updated_file() {
 
 function update_dotfiles() {
   pushd $dotfiles_dir > /dev/null
-  git submodule update --init --recursive
 
   # Keep us from getting verify authenticity prompts from GitHub
   update_github_ssh_keys

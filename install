@@ -28,12 +28,6 @@ set -e # Exit if any command fails
 current_dir=$(cd "$(dirname $0)" && pwd)
 pushd $current_dir
 
-# only update submodules if this is still a git repo
-# git stuff removed in containers
-if [[ -e "$current_dir/.git" ]]; then
-  git submodule update --init --recursive
-fi
-
 # Keep us from getting verify authenticity prompts from GitHub
 update_github_ssh_keys
 
