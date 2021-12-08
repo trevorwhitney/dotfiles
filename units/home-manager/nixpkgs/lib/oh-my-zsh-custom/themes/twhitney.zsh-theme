@@ -216,8 +216,8 @@ prompt_k8s() {
   #Only show if kubectl is installed 
   if [[ $(command -v kubectl) ]]; then
     #Only show if there is a context
-    context="$(kubectl config view -ojson | jq -r '."curent-context"')"
-    if [[ "$context" != "null" ]]; then
+    context="$(kubectl config view -ojson | jq -r '."current-context"')"
+    if [[ "v$context" != "vnull" ]]; then
       context="$(kubectl config current-context || echo "-")"
       prompt_segment $violent $prompt_fg "$context"
     fi
