@@ -29,8 +29,5 @@ Because I keep forgetting them
   Usually assigned to: Ctrl+b, Alt+1
 
 ## TODO:
-  - make install take a json list of packages to install (or look for said list in predetermined location)
-    - currently the pattern is to _exclude_ packages, but I think it would be better to _include_ them
   - move more stuff into home-manager
-    - adoptopenjdk
     - dotfiles
