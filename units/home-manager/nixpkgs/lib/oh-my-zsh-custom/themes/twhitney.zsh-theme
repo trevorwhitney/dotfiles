@@ -218,7 +218,6 @@ prompt_k8s() {
     #Only show if there is a context
     context="$(kubectl config view -ojson | jq -r '."current-context"')"
     if [[ -n "$context" ]]; then
-      context="$(kubectl config current-context || echo "-")"
       prompt_segment $violent $prompt_fg "$context"
     fi
 	fi
