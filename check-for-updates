@@ -16,8 +16,9 @@ function update_dotfiles() {
   mkdir -p $HOME/.ssh && chmod 0700 $HOME/.ssh
   ssh-keyscan github.com >> ~/.ssh/known_hosts
 
+  # TODO: should only check the installed host
   # Then install the rest of the units
-  for unit in `ls -d */ | grep -v '^_' | sed 's/\///'`
+  for unit in `ls -d units/*/ | grep -v '^_' | sed 's/\///'`
   do ./check-unit-for-update $unit
   done
 

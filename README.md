@@ -4,7 +4,7 @@ This repo contains my dotfiles for setting up a new computer.
 
 # Installation
 
-`./install`
+`./install [host]`
 
 # Bash tricks
 
