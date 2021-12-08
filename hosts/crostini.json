@@ -11,6 +11,14 @@
     "ssh-server-linux",
     "vs-code"
   ],
+  "name": "crostini",
+  "nix": {
+    "user": "twhitney",
+    "group": "nix-users",
+    "sandbox": {
+      "enabled": false
+    }
+  },
   "units": [
     "alacritty",
     "apt",
@@ -21,6 +29,5 @@
     "jetbrains-mono",
     "one-password-cli",
     "powerline-fonts"
-  ],
-  "name": "crostini"
+  ]
 }

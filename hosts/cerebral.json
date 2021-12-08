@@ -1,4 +1,15 @@
 {
+  "excluded": [
+    "crostini"
+  ],
+  "name": "cerebral",
+  "nix": {
+    "user": "twhitney",
+    "group": "nix-users",
+    "sandbox": {
+      "enabled": true
+    }
+  },
   "units": [
     "alacritty",
     "apt",
@@ -18,9 +29,5 @@
     "snap",
     "ssh-server-linux",
     "vs-code"
-  ],
-  "excluded": [
-    "crostini"
-  ],
-  "name": "cerebral"
+  ]
 }

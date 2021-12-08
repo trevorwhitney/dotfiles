@@ -1,15 +1,22 @@
 #!/bin/bash
 current_dir=$(cd "$(dirname $0)" && pwd)
 
-# TODO: separate steps needed on crostini
-# mkdir -p ~/.config/nix/nix
-# specify sandbox.enable
-# echo 'sandbox = false' >> ~/.config/nix/nix.conf
-# sudo groupadd nix-users
-# sudo usermod -aG nix-users twhitney
-# mkdir -p /nix
-# sudo chown -R twhitney:nix-users /nix
-# specify nix user and group
+nix_config="$(cat "$HOME/.config/dotfiles/host.json")"
+nix_user="$(echo "$nix_config" | jq -r '.nix.user')"
+nix_group="$(echo "$nix_config" | jq -r '.nix.group')"
+nix_sandbox="$(echo "$nix_config" | jq -r '.nix.sandbox.enabled')"
+
+if [[ ! $(grep "^$nix_group" /etc/group) ]]; then sudo groupadd "$nix_group"; fi
+sudo usermod -aG "$nix_group" "$nix_user"
+
+mkdir -p /nix
+sudo chown -R "$nix_user":"$nix_group" /nix
+
+if [[ "$nix_sandbox" != "true" ]]; then
+  echo "disabling nix sandbox"
+  mkdir -p "$HOME/.config/nix/nix"
+  echo 'sandbox = false' >> "$HOME/.config/nix/nix.conf"
+fi
 
 . "$HOME/.nix-profile/etc/profile.d/nix.sh"
 
