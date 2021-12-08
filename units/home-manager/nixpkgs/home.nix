@@ -37,6 +37,8 @@
   # TODO: mkdir $HOME/go?
   # TODO: add lua?
 
+  home.sessionVariables = { EDITOR = "vim"; };
+
   home.packages = with pkgs; [
     azure-cli
     bash
@@ -72,16 +74,16 @@
   #TODO: lua53packages.luarocks
   #TODO: add luarocks and stylua
 
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk11;
+  };
+
   # enabling bash makes sure ~/.profile is setup correctly
   # which some other things rely on
   programs.bash = { enable = true; };
 
   programs.direnv = { enable = true; };
-
-  programs.java = {
-    enable = true;
-    package = pkgs.jdk11;
-  };
 
   imports = [ ./modules/neovim.nix ./modules/tmux.nix ./modules/zsh.nix ];
 }

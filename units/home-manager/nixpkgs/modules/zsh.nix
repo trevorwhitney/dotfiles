@@ -16,8 +16,6 @@
     sessionVariables = {
       WORDCHARS = "*?_-.[]~=&;!#$%^(){}<>";
       HYPHEN_INSENSITIVE = "true";
-      GLOBAL_GIT_HOOK_DIR = "$HOME/.git/hooks";
-      EDITOR = "vim";
       ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];
     };
 
@@ -44,7 +42,7 @@
 
       # needed for vi-mode indication in theme
       function zle-line-init zle-keymap-select {
-      zle reset-prompt
+        zle reset-prompt
       }
 
       zle -N zle-line-init
@@ -78,8 +76,8 @@
           | sed -e 's/DISPLAY=//g'
       }
 
-      # Needing for some copy/paste oddity with X11 forwarding
-      if [[ `command -v tmux` ]] && [[ `tmux ls` ]]; then
+      # Needed for some copy/paste oddity with X11 forwarding
+      if [[ `command -v tmux` ]] && [[ `tmux ls 2> /dev/null` ]]; then
         export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
         # tmux clobbers our default DISPLAY env var, which reaks havoc
         # on copy/paste behavior in vim and terminal, so reset it when
