@@ -1,6 +1,14 @@
 #!/usr/bin/bash
 current_dir=$(cd "$(dirname $0)" && pwd)
 
+# TODO: separate steps needed on crostini
+# mkdir -p ~/.config/nix/nix
+# echo 'sandbox = false' >> ~/.config/nix/nix.conf
+# sudo groupadd nix-users
+# sudo usermod -aG nix-users twhitney
+# mkdir -p /nix
+# sudo chown -R twhitney:nix-users /nix
+
 if [[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
   . $HOME/.nix-profile/etc/profile.d/nix.sh
 fi
