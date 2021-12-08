@@ -2,16 +2,6 @@
 
 set -e # Exit if any command fails
 
-# If multiple args given run this script once for each arg
-test $2 && {
-  for arg in $@
-    do $0 $arg
-  done
-  exit
-}
-
-# ---
-
 function msg {
   local blue="\e[0;34m"
   local reset="\e[m\n"
@@ -24,10 +14,9 @@ test -d _units/$unit_name && unit_dir=_units/$unit_name
 
 kernel_file="$unit_dir/kernel"
 deps_file="$unit_dir/deps"
-guard_file="$unit_dir/verify-install.sh"
-install_file="$unit_dir/install.sh"
+update_script="$unit_dir/update.sh"
 
-test -d $unit_dir || {
+test -d "$unit_dir" || {
   msg "-* $unit_name not found"
   exit 1
 }
@@ -52,23 +41,9 @@ test -f "$deps_file" && {
     }
   done
 }
-# Exit if there's a guard file and the guard detects an install
-test -f $guard_file && zsh -l $guard_file && {
-  msg "-* $unit_name already installed"
-  exit
+
+# Update the unit if it has an update script
+test -f "$update_script" && {
+  msg "-* updating $unit_name"
+  zsh "$update_script"
 }
-
-# Otherwise install deps (if the deps file contains some)
-test -s $deps_file && $0 `cat $deps_file`
-
-# Then install unit
-msg "-* installing $unit_name"
-zsh -l $install_file
-
-# Exit error if the guard still doesn't pass after install
-test -f $guard_file && (zsh -l $guard_file || {
-  msg "-* $unit_name install script finished but verify-install test failed"
-  exit 1
-})
-
-msg "-* $unit_name installed"

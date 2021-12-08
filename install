@@ -16,8 +16,11 @@ if [[ ! -f "$host_path" ]]; then
   exit 1
 fi
 
-if [[ ! -e "$current_dir/.last-update" ]]; then
-  echo "LAST_EPOCH=18694" > "$current_dir/.last-update"
+source "$current_dir/lib.sh"
+
+# initialize last update with some time
+if [[ ! -e "$$HOME/.config/dotfiles/last-update" ]]; then
+  echo "LAST_EPOCH=18694" > "$HOME/.config/dotfiles/last-update"
 fi
 
 set -e # Exit if any command fails
@@ -32,14 +35,13 @@ if [[ -e "$current_dir/.git" ]]; then
 fi
 
 # Keep us from getting verify authenticity prompts from GitHub
-mkdir -p $HOME/.ssh && chmod 0700 $HOME/.ssh
-ssh-keyscan github.com >> ~/.ssh/known_hosts
+update_github_ssh_keys
 
-# Install the priority units in the order they are listed
 # TODO: move priority-units into host file if needed
-#./install-unit < priority-units
+ln -sf $host_path $HOME/.config/dotfiles/host.json
 
-# Then install the rest of the units
+# Insall the units
 pushd $current_dir
 ./install-unit $(cat "$host_path" | jq -r '.units | join(" ")')
+mkdir -p $HOME/.config/dotfiles/
 popd

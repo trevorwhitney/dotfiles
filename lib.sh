@@ -62,3 +62,9 @@ create_alacritty_link() {
   ln -sf "$1" "$HOME/.config/alacritty/$file_name"
 }
 
+update_github_ssh_keys() {
+  mkdir -p $HOME/.ssh && chmod 0700 $HOME/.ssh
+  ssh-keyscan github.com 1>> ~/.ssh/known_hosts 2>/dev/null
+  sort $HOME/.ssh/known_hosts | uniq > $HOME/.ssh/known_hosts.uniq
+  mv ~/.ssh/known_hosts{.uniq,}
+}

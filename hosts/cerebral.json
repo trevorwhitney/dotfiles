@@ -4,7 +4,6 @@
     "alacritty",
     "apt",
     "apt-desktop",
-    "crostini",
     "docker-linux",
     "dotfiles",
     "git-authors",
@@ -20,5 +19,9 @@
     "snap",
     "ssh-server-linux",
     "vs-code"
-  ]
+  ],
+  "excluded": [
+    "crostini"
+  ],
+  "name": "cerebral"
 }

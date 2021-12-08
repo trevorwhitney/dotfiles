@@ -1,25 +1,26 @@
 #!/usr/bin/env zsh
+dotfiles_dir=$(cd "$(dirname "$0")" && pwd)
+source "$dotfiles_dir/lib.sh"
+
 function current_epoch() {
   zmodload zsh/datetime
   echo $(( EPOCHSECONDS / 60 / 60 / 24 ))
 }
 
 function update_last_updated_file() {
-  echo "LAST_EPOCH=$(current_epoch)" >! "$DOTFILES/.last-update"
+  echo "LAST_EPOCH=$(current_epoch)" >! "$HOME/.config/dotfiles/last-update"
 }
 
 function update_dotfiles() {
-  pushd $DOTFILES
+  pushd $dotfiles_dir > /dev/null
   git submodule update --init --recursive
 
   # Keep us from getting verify authenticity prompts from GitHub
-  mkdir -p $HOME/.ssh && chmod 0700 $HOME/.ssh
-  ssh-keyscan github.com >> ~/.ssh/known_hosts
+  update_github_ssh_keys
 
-  # TODO: should only check the installed host
   # Then install the rest of the units
-  for unit in `ls -d units/*/ | grep -v '^_' | sed 's/\///'`
-  do ./check-unit-for-update $unit
+  for unit in $(cat ~/.config/dotfiles/host.json | jq -r '.units | join(" ")'); do
+    ./update-unit $unit
   done
 
   update_last_updated_file
@@ -33,14 +34,14 @@ function update_dotfiles() {
   # Remove lock directory if older than a day
   zmodload zsh/datetime
   zmodload -F zsh/stat b:zstat
-  if mtime=$(zstat +mtime "$DOTFILES/.update-lock" 2>/dev/null); then
+  if mtime=$(zstat +mtime "$HOME/.config/dotfiles/update-lock" 2>/dev/null); then
     if (( (mtime + 3600 * 24) < EPOCHSECONDS )); then
-      command rm -rf "$DOTFILES/.update-lock"
+      command rm -rf "$HOME/.config/dotfiles/update-lock"
     fi
   fi
 
   # Check for lock directory
-  if ! command mkdir "$DOTFILES/.update-lock" 2>/dev/null; then
+  if ! command mkdir "$HOME/.config/dotfiles/update-lock" 2>/dev/null; then
     return
   fi
 
@@ -50,18 +51,19 @@ function update_dotfiles() {
   #  will behave as interrupted except that the return status of the trap is retained.
   trap "
   unset -f current_epoch update_last_updated_file update_dotfiles
-  command rm -rf '$DOTFILES/.update-lock'
+  command rm -rf '$HOME/.config/dotfiles/update-lock'
   return 1
   " EXIT INT QUIT
 
   # Create or update .zsh-update file if missing or malformed
-  if ! source "$DOTFILES/.last-update" 2>/dev/null || [[ -z "$LAST_EPOCH" ]]; then
+  if ! source "$HOME/.config/dotfiles/last-update" 2>/dev/null || [[ -z "$LAST_EPOCH" ]]; then
     update_last_updated_file
     return
   fi
 
   # Number of days before trying to update again
   epoch_target=${UPDATE_ZSH_DAYS:-13}
+
   # Test if enough time has passed until the next update
   if (( ( $(current_epoch) - $LAST_EPOCH ) < $epoch_target )); then
     return

@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
 
-command -v docker
-docker --version
+command -v docker > /dev/null
+docker --version > /dev/null
