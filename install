@@ -1,12 +1,19 @@
 #!/usr/bin/env zsh
 set -e
 
-current_dir=$(cd "$(dirname "$0")" && pwd)
+if [[ $# -ne 1 ]]; then
+  echo "must specify a host"
+  echo "$0 host"
+  exit 1
+fi
 
-if [[ "$current_dir" != "$HOME/.dotfiles" ]]; then
-  if [[ ! -e "$HOME/.dotfiles" ]]; then
-    ln -sf "$current_dir" "$HOME/.dotfiles"
-  fi
+host="$1"
+current_dir=$(cd "$(dirname "$0")" && pwd)
+host_path="$current_dir/hosts/$host.json"
+
+if [[ ! -f "$host_path" ]]; then
+  echo "host $host not found"
+  exit 1
 fi
 
 if [[ ! -e "$current_dir/.last-update" ]]; then
@@ -33,5 +40,5 @@ ssh-keyscan github.com >> ~/.ssh/known_hosts
 
 # Then install the rest of the units
 pushd $current_dir
-  ./install-unit $(ls -d */ | sed 's/\///')
+./install-unit $(cat "$host_path" | jq -r '.units | join(" ")')
 popd

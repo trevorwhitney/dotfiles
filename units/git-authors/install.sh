@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+set -ex
 
 dir=$(cd $(dirname $0); pwd)
 

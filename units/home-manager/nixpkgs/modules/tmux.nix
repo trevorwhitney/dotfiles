@@ -54,7 +54,7 @@ in {
   programs.tmux = {
     enable = true;
     keyMode = "vi";
-    shortcut = "q";
+    prefix = "C-q";
     terminal = "screen-256color";
     shell = "${pkgs.zsh}/bin/zsh";
     baseIndex = 1;
