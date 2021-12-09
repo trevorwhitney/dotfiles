@@ -30,6 +30,6 @@ Because I keep forgetting them
 
 ## TODO:
   - move more stuff into home-manager
-    - dotfiles
+    - kubectl
   - promote home-manager to top level?
-   - does the host file need an entry for the home-manager file to use?
+    - does the host file need an entry for the home-manager file to use?

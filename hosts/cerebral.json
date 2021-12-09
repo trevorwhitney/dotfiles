@@ -15,8 +15,6 @@
     "apt",
     "apt-desktop",
     "docker-linux",
-    "dotfiles",
-    "git-authors",
     "gogh",
     "grafana",
     "home-manager",

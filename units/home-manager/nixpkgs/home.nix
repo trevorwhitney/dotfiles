@@ -1,4 +1,6 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+let dotfiles = (pkgs.callPackage ./pkgs/dotfiles { });
+in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -27,6 +29,14 @@
     }))
   ];
 
+  home.sessionVariables = { EDITOR = "vim"; };
+
+  home.file.".ctags".source = "${dotfiles}/ctags";
+  home.file.".dircolors".source = "${dotfiles}/dircolors";
+  home.file.".git-authors".source = "${dotfiles}/git-authors";
+  xdg.configFile."k9s/gruvbox-light-skin.yml".source =
+    "${dotfiles}/gruvbox-light-skin.yml";
+
   # these are packages I need on the command line as well
   # TODO: move lua-language-server to neovim extra package
   # and refactor config to take base sumneko path
@@ -36,8 +46,6 @@
   # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc 
   # TODO: mkdir $HOME/go?
   # TODO: add lua?
-
-  home.sessionVariables = { EDITOR = "vim"; };
 
   home.packages = with pkgs; [
     (pkgs.callPackage ./pkgs/goimports { })
