@@ -1,6 +1,7 @@
 {
   "excluded": [
-    "crostini"
+    "crostini",
+    "intellij"
   ],
   "name": "cerebral",
   "nix": {

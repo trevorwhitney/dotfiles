@@ -4,6 +4,7 @@
     "docker-linux",
     "gogh",
     "grafana",
+    "intellij",
     "k3s",
     "kubectl",
     "rust",
