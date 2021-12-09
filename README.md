@@ -28,6 +28,14 @@ Because I keep forgetting them
   `select-layout even-horizontal`
   Usually assigned to: Ctrl+b, Alt+1
 
+## Nix
+
+When creating a local package, the following command is useful:
+
+```
+nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+```
+
 ## TODO:
   - move more stuff into home-manager
     - kubectl
