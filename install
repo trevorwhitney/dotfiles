@@ -18,6 +18,14 @@ fi
 
 source "$current_dir/lib.sh"
 
+# jq is a required dependency
+if [[ ! $(command -v jq) ]]; then
+  temp=$(mktemp -d)
+  curl -L https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 -o "${tmp}/jq"
+  sudo mv "${tmp}/jq" /usr/local/bin/jq
+  sudo chmod +x /usr/local/bin/jq
+fi
+
 # initialize last update with some time
 if [[ ! -e "$$HOME/.config/dotfiles/last-update" ]]; then
   mkdir -p "$HOME/.config/dotfiles"
@@ -27,16 +35,18 @@ fi
 set -e # Exit if any command fails
 
 current_dir=$(cd "$(dirname $0)" && pwd)
-pushd $current_dir
+pushd $current_dir > /dev/null
 
-# Keep us from getting verify authenticity prompts from GitHub
-update_github_ssh_keys
+  # Keep us from getting verify authenticity prompts from GitHub
+  update_github_ssh_keys
 
-# TODO: move priority-units into host file if needed
-ln -sf $host_path $HOME/.config/dotfiles/host.json
+  ln -sf $host_path $HOME/.config/dotfiles/host.json
 
-# Insall the units
-pushd $current_dir
-./install-unit $(cat "$host_path" | jq -r '.units | join(" ")')
-mkdir -p $HOME/.config/dotfiles/
+  # TODO: move priority-units into host file if needed
+  # Insall the units
+  pushd $current_dir
+    ./install-unit $(cat "$host_path" | jq -r '.units | join(" ")')
+    mkdir -p $HOME/.config/dotfiles/
+  popd
+
 popd

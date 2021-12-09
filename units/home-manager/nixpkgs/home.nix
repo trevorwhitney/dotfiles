@@ -40,6 +40,14 @@
   home.sessionVariables = { EDITOR = "vim"; };
 
   home.packages = with pkgs; [
+    (pkgs.callPackage ./pkgs/goimports { })
+    (pkgs.callPackage ./pkgs/gocomplete { })
+    (pkgs.callPackage ./pkgs/jsonnet { })
+    (pkgs.callPackage ./pkgs/jsonnet-lint { })
+    (pkgs.callPackage ./pkgs/jsonnetfmt { })
+    (pkgs.callPackage ./pkgs/protoc-gen-gogofast { })
+    (pkgs.callPackage ./pkgs/protoc-gen-gogoslick { })
+
     azure-cli
     bash
     bat

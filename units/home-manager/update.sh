@@ -8,3 +8,4 @@ if [[ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]]; then
 fi
 
 home-manager switch
+home-manager expire-generations "-7 days"
