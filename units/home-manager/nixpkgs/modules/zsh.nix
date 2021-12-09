@@ -1,5 +1,7 @@
 # vi: ft=nix
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+let custom = (pkgs.callPackage ../pkgs/oh-my-zsh-custom { });
+in {
   programs.zsh = {
     enable = true;
     autocd = false;
@@ -10,7 +12,7 @@
       enable = true;
       theme = "twhitney";
       plugins = [ "ruby" "vi-mode" "mvn" "aws" "docker" "docker-compose" ];
-      custom = "${../lib/oh-my-zsh-custom}";
+      custom = "${custom}";
     };
 
     sessionVariables = {
