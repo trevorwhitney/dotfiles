@@ -52,6 +52,7 @@
     bash
     bat
     curl
+    delta
     drone-cli
     fzf
     gh
@@ -96,5 +97,10 @@
 
   programs.direnv = { enable = true; };
 
-  imports = [ ./modules/neovim.nix ./modules/tmux.nix ./modules/zsh.nix ];
+  imports = [
+    ./modules/git.nix
+    ./modules/neovim.nix
+    ./modules/tmux.nix
+    ./modules/zsh.nix
+  ];
 }

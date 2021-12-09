@@ -1,5 +1,15 @@
 #!/bin/bash
-current_dir=$(cd "$(dirname $0)" && pwd)
+current_dir=$(cd "$(dirname "$0")" && pwd)
+dot_files_dir=$(cd "$current_dir/../.." && pwd)
+
+# shellcheck source=../../lib.sh
+source "$dot_files_dir/lib.sh"
+
+# Fetch secrets from 1password
+op_signin
+secrets_dir="$current_dir/nixpkgs/secrets"
+mkdir -p "$secrets_dir"
+op get document "git secrets" > "$secrets_dir/git"
 
 nix_config="$(cat "$HOME/.config/dotfiles/host.json")"
 nix_user="$(echo "$nix_config" | jq -r '.nix.user')"

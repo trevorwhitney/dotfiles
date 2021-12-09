@@ -18,6 +18,8 @@ fi
 
 source "$current_dir/lib.sh"
 
+set -e # Exit if any command fails
+
 # jq is a required dependency
 if [[ ! $(command -v jq) ]]; then
   temp=$(mktemp -d)
@@ -32,11 +34,7 @@ if [[ ! -e "$$HOME/.config/dotfiles/last-update" ]]; then
   echo "LAST_EPOCH=18694" > "$HOME/.config/dotfiles/last-update"
 fi
 
-set -e # Exit if any command fails
-
-current_dir=$(cd "$(dirname $0)" && pwd)
 pushd $current_dir > /dev/null
-
   # Keep us from getting verify authenticity prompts from GitHub
   update_github_ssh_keys
 

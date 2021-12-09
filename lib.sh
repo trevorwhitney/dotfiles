@@ -68,3 +68,12 @@ update_github_ssh_keys() {
   sort $HOME/.ssh/known_hosts | uniq > $HOME/.ssh/known_hosts.uniq
   mv ~/.ssh/known_hosts{.uniq,}
 }
+
+op_signin() {
+  set +e
+  op list items 2>&1 > /dev/null 
+  if [[ $? -ne 0 ]]; then
+    eval "$(op signin my)"
+  fi
+  set -e
+}

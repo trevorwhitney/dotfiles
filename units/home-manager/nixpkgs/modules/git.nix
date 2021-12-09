@@ -1,5 +1,5 @@
-{ config, pkgs, lib, ... }: { 
-  programs.git {
+{ config, pkgs, lib, ... }: {
+  programs.git = {
     enable = true;
     userName = "Trevor Whitney";
     userEmail = "trevorjwhitney@gmail.com";
@@ -12,7 +12,8 @@
       sta = "stash";
       llog = "log --date=local";
       flog = "log --pretty=fuller --decorate";
-      lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+      lg =
+        "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       lol = "log --graph --decorate --oneline";
       lola = "log --graph --decorate --oneline --all";
       blog = "log origin/master... --left-right";
@@ -25,13 +26,14 @@
       sur = "submodule update --recursive";
       cane = "commit --amend --no-edit";
     };
-    delta = {
-      enable = true;
-    };
-    singing = {
+    delta = { enable = true; };
+    signing = {
+      key = "D6E15E6AAB792668BB207FD478F930867F302694";
       signByDefault = true;
+      gpgPath = "/usr/bin/gpg";
     };
-    iniContent = ''
+    includes = [{ path = "${../secrets/git}"; }];
+    extraConfig = ''
       [core]
         editor = vim
       [apply]
@@ -63,20 +65,20 @@
         clean = git-lfs clean -- %f
         smudge = git-lfs smudge -- %f
         '';
-        ignores = ''
-          .DS_Store
-          *.iml
-          *.classpath
-          *.project
-          *.eml
-          .gradle
-          .vagrant
-          .envrc
-          .idea
-          .vscode
-          .vim
-          shell.nix
-          '';
+    ignores = [
+      ".DS_Store"
+      "*.iml"
+      "*.classpath"
+      "*.project"
+      "*.eml"
+      ".gradle"
+      ".vagrant"
+      ".envrc"
+      ".idea"
+      ".vscode"
+      ".vim"
+      "shell.nix"
+    ];
 
   };
 }
