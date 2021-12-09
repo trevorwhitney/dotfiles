@@ -27,21 +27,18 @@
       gcc
       libcxx
       tree-sitter
-      # end require by tree-sitter
+      # end required by tree-sitter
 
-
-      curl
+      #TODO: move to programs.git
       git
+
       gnutar
       gopls
-      kotlin
       nixfmt
-      nodejs
       python39
       rnix-lsp
       shellcheck
       shfmt
-      terraform
       terraform-ls
       vale
       yamllint

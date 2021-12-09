@@ -51,6 +51,7 @@
     azure-cli
     bash
     bat
+    curl
     drone-cli
     fzf
     gh
@@ -66,6 +67,7 @@
     # TODO: refactor to get stylua binary in
     # neovim module
     lua53Packages.luarocks
+    nodejs
     ncurses
     rbenv
     ruby
@@ -74,6 +76,7 @@
     sumneko-lua-language-server
     sysstat
     tanka
+    terraform
     vault
     xsel
     yarn
