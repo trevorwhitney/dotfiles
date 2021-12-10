@@ -16,8 +16,10 @@
     withNodeJs = true;
     withRuby = true;
     withPython3 = true;
-    extraPython3Packages =
-      (ps: with ps; [ "python-language-server" "pynvim" "vim-vint" ]);
+    extraPython3Packages = (ps:
+      with ps; [
+        pynvim
+      ]);
 
     # Will use packer to grab everything else
     plugins = with pkgs.vimPlugins; [ packer-nvim ];
@@ -36,11 +38,13 @@
       gopls
       nixfmt
       python39
+      python-language-server
       rnix-lsp
       shellcheck
       shfmt
       terraform-ls
       vale
+      vim-vint
       yamllint
 
       nodePackages.bash-language-server

@@ -17,7 +17,6 @@ pandoc
 pavucontrol
 protobuf-compiler
 pulseaudio
-python2
 python3
 python3-gpg
 python3-pip
