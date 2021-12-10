@@ -37,7 +37,6 @@
       gnutar
       gopls
       nixfmt
-      python39
       python-language-server
       rnix-lsp
       shellcheck
