@@ -55,6 +55,7 @@ in {
     (pkgs.callPackage ./pkgs/jsonnetfmt { })
     (pkgs.callPackage ./pkgs/protoc-gen-gogofast { })
     (pkgs.callPackage ./pkgs/protoc-gen-gogoslick { })
+    (pkgs.callPackage ./pkgs/kns-ktx { })
 
     azure-cli
     bash
