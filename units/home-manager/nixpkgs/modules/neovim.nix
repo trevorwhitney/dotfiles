@@ -5,13 +5,14 @@
     vimAlias = true;
     vimdiffAlias = true;
 
-    extraConfig = builtins.concatStringsSep "\n" [
+    extraConfig = builtins.concatStringsSep "\n" (with pkgs; [
       # nvim-treesitter requires gcc and tree-sitter to be in the path as seen by neovim
-      "call setenv('PATH', '${pkgs.gcc}/bin:${pkgs.tree-sitter}/bin:' . getenv('PATH'))"
+      "call setenv('PATH', '${gcc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
       # set path the lua language server so we can pass it to respective lsp config
-      "let s:sumneko_lua_ls_path = '${pkgs.sumneko-lua-language-server}'"
+      "let s:sumneko_lua_ls_path = '${sumneko-lua-language-server}'"
+      "let s:rocks_tree_root = '${lua53Packages.luarocks}'"
       (lib.strings.fileContents ../lib/init.vim)
-    ];
+    ]);
 
     withNodeJs = true;
     withRuby = true;
@@ -41,6 +42,7 @@
       rnix-lsp
       shellcheck
       shfmt
+      sumneko-lua-language-server
       terraform-ls
       vale
       vim-vint

@@ -73,16 +73,12 @@ in {
     kube3d
     kubectl
     lm_sensors
-    # TODO: refactor to get stylua binary in
-    # neovim module
     lua53Packages.luarocks
+    luajit
     nodejs
     ncurses
     rbenv
     ruby
-    # todo should be able to remove this once config
-    # is refactored to take path
-    sumneko-lua-language-server
     sysstat
     tanka
     terraform

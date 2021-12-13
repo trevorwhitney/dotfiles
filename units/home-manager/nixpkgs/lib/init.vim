@@ -29,7 +29,9 @@ if vim_lib_bootstrap then
   require('packer').sync()
 end
 
-require('tw.config').setup()
+local sumneko_lua_ls_path = vim.api.nvim_eval("s:sumneko_lua_ls_path")
+local rocks_tree_root = vim.api.nvim_eval("s:rocks_tree_root")
+require('tw.config').setup(sumneko_lua_ls_path, rocks_tree_root)
 EOF
 
 " turn off CGO for go diagnostic tools
