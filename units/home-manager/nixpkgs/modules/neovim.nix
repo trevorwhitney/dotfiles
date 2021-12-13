@@ -42,6 +42,7 @@
       rnix-lsp
       shellcheck
       shfmt
+      statix
       sumneko-lua-language-server
       terraform-ls
       vale
@@ -51,6 +52,7 @@
       nodePackages.bash-language-server
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.fixjson
+      nodePackages.markdownlint-cli
       nodePackages.neovim
       nodePackages.prettier
       nodePackages.vim-language-server
