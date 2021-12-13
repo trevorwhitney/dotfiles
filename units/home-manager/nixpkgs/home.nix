@@ -73,7 +73,7 @@ in {
     kube3d
     kubectl
     lm_sensors
-    lua53Packages.luarocks
+    lua51Packages.luarocks
     luajit
     nodejs
     ncurses

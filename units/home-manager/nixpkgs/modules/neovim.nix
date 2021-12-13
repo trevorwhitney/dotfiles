@@ -10,7 +10,7 @@
       "call setenv('PATH', '${gcc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
       # set path the lua language server so we can pass it to respective lsp config
       "let s:sumneko_lua_ls_path = '${sumneko-lua-language-server}'"
-      "let s:rocks_tree_root = '${lua53Packages.luarocks}'"
+      "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
       (lib.strings.fileContents ../lib/init.vim)
     ]);
 
