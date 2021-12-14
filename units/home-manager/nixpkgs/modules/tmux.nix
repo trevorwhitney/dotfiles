@@ -64,7 +64,13 @@ in {
     plugins = with pkgs; [
       tw-tmux-lib
       tmuxPlugins.resurrect
-      tmuxPlugins.continuum
+      {
+        plugin = tmuxPlugins.continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+          set -g @continuum-boot 'on'
+        '';
+      }
       tmuxPlugins.sessionist
       {
         plugin = tmux-cpu;

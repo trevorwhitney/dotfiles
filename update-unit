@@ -12,7 +12,6 @@ unit_name=$1
 unit_dir="units/$unit_name"
 test -d _units/$unit_name && unit_dir=_units/$unit_name
 
-kernel_file="$unit_dir/kernel"
 deps_file="$unit_dir/deps"
 update_script="$unit_dir/update.sh"
 
@@ -20,12 +19,6 @@ test -d "$unit_dir" || {
   msg "-* $unit_name not found"
   exit 1
 }
-
-# Skip if this unit is incompatible with current kernel
-if [[ -f $kernel_file ]] && [[ -n "$(cat "${kernel_file}")" ]] && [[ ! $(uname) =~ $(cat "$kernel_file") ]]; then
-  echo "Skipping $unit_name, not compatible with current kernel $(uname)"
-  exit
-fi
 
 # Skip if this unit or any deps are excluded
 excluded=$(cat $HOME/.config/dotfiles/host.json | jq -r '.excluded | join(" ")')
