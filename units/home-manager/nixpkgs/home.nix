@@ -35,7 +35,11 @@ in {
   home.file.".dircolors".source = "${dotfiles}/dircolors";
   home.file.".git-authors".source = "${dotfiles}/git-authors";
   xdg.configFile."k9s/gruvbox-light-skin.yml".source =
-    "${dotfiles}/gruvbox-light-skin.yml";
+    "${dotfiles}/config/gruvbox-light-skin.yml";
+  xdg.dataFile."applications/defaults.list".source =
+    "${dotfiles}/share/applications/defaults.list";
+  xdg.dataFile."applications/gnvim.desktop".source =
+    "${dotfiles}/share/applications/gnvim.desktop";
 
   # these are packages I need on the command line as well
   # TODO: move lua-language-server to neovim extra package
@@ -60,19 +64,22 @@ in {
     azure-cli
     bash
     bat
+    cargo
     curl
     delta
     drone-cli
     fzf
     gh
+    gnused
     go_1_17
     golangci-lint
     google-cloud-sdk
-    gnused
+    helm-docs
     jsonnet-bundler
     kotlin
     kube3d
     kubectl
+    kubernetes-helm
     lm_sensors
     lua51Packages.luarocks
     luajit
@@ -80,6 +87,7 @@ in {
     ncurses
     rbenv
     ruby
+    rustc
     sysstat
     tanka
     terraform

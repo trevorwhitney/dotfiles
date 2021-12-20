@@ -36,14 +36,6 @@ if [[ $(command -v luarocks) ]]; then
   eval "$(luarocks path --bin)"
 fi
 
-# completions
-complete -o nospace -C /usr/local/bin/tk tk
-complete -o nospace -C "$GOPATH/bin/gocomplete" go
-complete -o nospace -C /usr/bin/nomad nomad
-complete -o nospace -C /home/twhitney/workspace/k3d-sonnet/tool/k3dsonnet k3dsonnet
-
-autoload -U +X bashcompinit && bashcompinit
-
 # Return the lowest numbered display in use by current user
 # which is usually what we want
 function get_default_display() {
@@ -80,3 +72,13 @@ if [[ `command -v kubectl` ]]; then
   source <(kubectl completion zsh)
   complete -F __start_kubectl k
 fi
+
+NIX_PROFILE="$HOME/.nix-profile"
+
+# completions
+complete -o nospace -C "$NIX_PROFILE/bin/tk" tk
+complete -o nospace -C "$NIX_PROFILE/bin/gocomplete" go
+complete -o nospace -C /usr/bin/nomad nomad
+complete -o nospace -C /usr/local/bin/k3dsonnet k3dsonnet
+
+autoload -U +X bashcompinit && bashcompinit
