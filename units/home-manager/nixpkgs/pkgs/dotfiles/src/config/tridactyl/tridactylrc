@@ -1,3 +1,9 @@
 set editorcmd gnvim -- %f
+
 autocmd DocLoad .* no_mouse_mode
 bind <C-\> mouse_mode
+
+bind x tabclose
+
+" don't start tridactyl on certain pages
+autocmd DocStart mail.google.com mode ignore
