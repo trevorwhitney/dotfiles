@@ -47,13 +47,15 @@ function get_default_display() {
 }
 
 # Needed for some copy/paste oddity with X11 forwarding
-if [[ `command -v tmux` ]] && [[ `tmux ls 2> /dev/null` ]]; then
-  export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
-  # tmux clobbers our default DISPLAY env var, which reaks havoc
-  # on copy/paste behavior in vim and terminal, so reset it when
-  # tmux is active
-  export DISPLAY="$(get_default_display)"
-fi
+# TODO: this doesn't work if there are multiple X servers, ie
+# sometimes you get 0 and 1, how do you pick between them?
+# if [[ `command -v tmux` ]] && [[ `tmux ls 2> /dev/null` ]]; then
+#   export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
+#   # tmux clobbers our default DISPLAY env var, which reaks havoc
+#   # on copy/paste behavior in vim and terminal, so reset it when
+#   # tmux is active
+#   export DISPLAY="$(get_default_display)"
+# fi
 
 if [[ "$BACKGROUND" == "dark" ]]; then
   export BAT_THEME="Solarized (dark)"

@@ -35,7 +35,9 @@ in {
   home.file.".dircolors".source = "${dotfiles}/dircolors";
   home.file.".git-authors".source = "${dotfiles}/git-authors";
   xdg.configFile."k9s/gruvbox-light-skin.yml".source =
-    "${dotfiles}/config/gruvbox-light-skin.yml";
+    "${dotfiles}/config/k9s/gruvbox-light-skin.yml";
+  xdg.configFile."tridactyl/tridactylrc".source =
+    "${dotfiles}/config/tridactyl/tridactylrc";
   xdg.dataFile."applications/defaults.list".source =
     "${dotfiles}/share/applications/defaults.list";
   xdg.dataFile."applications/gnvim.desktop".source =
