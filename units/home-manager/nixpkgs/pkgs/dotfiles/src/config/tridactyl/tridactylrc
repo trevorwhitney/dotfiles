@@ -1,7 +1,8 @@
-set editorcmd gnvim -- %f
+set editorcmd open-in-vim %f
 
-autocmd DocLoad .* no_mouse_mode
-bind <C-\> mouse_mode
+autocmd DocLoad .* mouse_mode
+
+bind <C-\> no_mouse_mode
 
 bind x tabclose
 
