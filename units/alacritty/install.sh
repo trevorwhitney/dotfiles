@@ -36,3 +36,6 @@ create_alacritty_link "$current_dir/solarized-dark.yml"
 create_alacritty_link "$current_dir/solarized.yml"
 create_alacritty_link "$current_dir/remote-dark.yml"
 create_alacritty_link "$current_dir/remote.yml"
+create_alacritty_link "$current_dir/open-file.yml"
+
+sudo ln -s "$current_dir/open-file" /usr/local/bin/open-file
