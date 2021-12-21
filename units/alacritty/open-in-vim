@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-open-file() {
+open-in-vim() {
 	local target="${PWD}"
 	if [ -n "${1}" ]; then
 		target=$(realpath "$1")
@@ -17,4 +17,4 @@ open-file() {
 		-e "$SHELL" -lc "tmux -u new nvim \"${target}\"" >/dev/null &
 }
 
-open-file "$@"
+open-in-vim "$@"

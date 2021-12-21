@@ -38,12 +38,6 @@ in {
     "${dotfiles}/config/k9s/gruvbox-light-skin.yml";
   xdg.configFile."tridactyl/tridactylrc".source =
     "${dotfiles}/config/tridactyl/tridactylrc";
-  xdg.dataFile."applications/defaults.list".source =
-    "${dotfiles}/share/applications/defaults.list";
-  xdg.dataFile."applications/gnvim.desktop".source =
-    "${dotfiles}/share/applications/gnvim.desktop";
-  xdg.dataFile."applications/open-file.desktop".source =
-    "${dotfiles}/share/applications/open-file.desktop";
 
   # these are packages I need on the command line as well
   # TODO: move lua-language-server to neovim extra package
