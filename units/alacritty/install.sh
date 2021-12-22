@@ -36,7 +36,7 @@ create_alacritty_link "$current_dir/solarized-dark.yml"
 create_alacritty_link "$current_dir/solarized.yml"
 create_alacritty_link "$current_dir/remote-dark.yml"
 create_alacritty_link "$current_dir/remote.yml"
-create_alacritty_link "$current_dir/open-file.yml"
+create_alacritty_link "$current_dir/open-in-vim.yml"
 
 sudo ln -s "$current_dir/open-in-vim" /usr/local/bin/open-in-vim
 

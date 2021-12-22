@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+session_exists() {
+	tmux has-session -t open-in-vim >/dev/null 2>&1
+}
+
 open-in-vim() {
 	local target="${PWD}"
 	if [ -n "${1}" ]; then
@@ -11,10 +15,15 @@ open-in-vim() {
 		wdir=$(dirname "${target}")
 	fi
 
-	nohup alacritty --config-file ~/.config/alacritty/open-file.yml \
+	tmux_command="tmux -u new-session -s open-in-vim nvim \"${target}\""
+	if session_exists; then
+		tmux_command="tmux -u new-session nvim \"${target}\""
+	fi
+
+	nohup alacritty --config-file ~/.config/alacritty/open-in-vim.yml \
 		--working-directory "${wdir}" \
 		-t "nvim - ${target}" \
-		-e "$SHELL" -lc "tmux -u new nvim \"${target}\"" >/dev/null &
+		-e "$SHELL" -lc "${tmux_command}" >/dev/null &
 }
 
 open-in-vim "$@"

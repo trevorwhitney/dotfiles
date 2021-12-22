@@ -1,10 +1,17 @@
+" vim: filetype=vim
+"
+" This wipes all existing settings, setting them to defaults
+" if not set in this file
+sanitize tridactyllocal tridactylsync
+
 set editorcmd open-in-vim %f
 
-autocmd DocLoad .* mouse_mode
-
 bind <C-\> no_mouse_mode
-
 bind x tabclose
+bind --mode=normal u undo tab
+bind --mode=normal U undo window
+bind --mode=normal [b tabprev
+bind --mode=normal ]b tabnext
 
 " don't start tridactyl on certain pages
 autocmd DocStart mail.google.com mode ignore
