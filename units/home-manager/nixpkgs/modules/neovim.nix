@@ -32,9 +32,7 @@
       tree-sitter
       # end required by tree-sitter
 
-      #TODO: move to programs.git
-      git
-
+      delve
       gnutar
       gopls
       nixfmt

@@ -63,6 +63,8 @@ in {
     bash
     bat
     cargo
+    chart-testing
+    cmake
     curl
     delta
     drone-cli
@@ -91,6 +93,7 @@ in {
     terraform
     vault
     xsel
+    yamale
     yarn
   ];
 
@@ -104,11 +107,10 @@ in {
 
   # enabling bash makes sure ~/.profile is setup correctly
   # which some other things rely on
-  programs.bash = { enable = true; };
-
   programs.direnv = { enable = true; };
 
   imports = [
+    ./modules/bash.nix
     ./modules/git.nix
     ./modules/neovim.nix
     ./modules/tmux.nix

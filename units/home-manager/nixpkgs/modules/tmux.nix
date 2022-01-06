@@ -38,7 +38,7 @@ let
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
       rev = "main";
-      sha256 = "1s9sagwvkg58dw6r5abb9vvnd2yfwhpfbd7wb2w1ac9f2adbpvxv";
+      sha256 = "007ar126v2lbvgmqrs6fwyfxmcvhr22jynk5js1w8vc3p1s1grsc";
     };
   };
   tmux-cpu = mkTmuxPlugin {
@@ -47,7 +47,7 @@ let
       owner = "tmux-plugins";
       repo = "tmux-cpu";
       rev = "master";
-      sha256 = "00knxwys8aknjram44mhvswg7bpcsvz7kzwa3fv4j9p2bk0v38rl";
+      sha256 = "1vnkkhyln4m69nrj6jzzfcs0327z99jxz01r5890n9xyqv3dky5z";
     };
   };
 in {

@@ -13,6 +13,7 @@ lnav
 nmap
 nodejs
 npm
+openjdk-8-jdk
 pandoc
 pavucontrol
 protobuf-compiler

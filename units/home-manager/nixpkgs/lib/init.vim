@@ -36,7 +36,3 @@ EOF
 
 " turn off CGO for go diagnostic tools
 call setenv('CGO_ENABLED', 0)
-
-" For some reason I have to set this last or it ends up
-" being set to dark. I'm guessing a plugin is doing this?
-set background=light
