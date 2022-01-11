@@ -17,3 +17,5 @@ bind --mode=normal ]b tabnext
 autocmd DocStart mail.google.com mode ignore
 autocmd DocStart drive.google.com mode ignore
 autocmd DocStart docs.google.com mode ignore
+autocmd DocStart meet.google.com mode ignore
+autocmd DocStart miro.com mode ignore
