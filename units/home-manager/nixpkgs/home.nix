@@ -59,6 +59,7 @@ in {
     (pkgs.callPackage ./pkgs/protoc-gen-gogoslick { })
     (pkgs.callPackage ./pkgs/kns-ktx { })
 
+    awscli2
     azure-cli
     bash
     bat

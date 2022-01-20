@@ -1,9 +1,7 @@
-aws-shell
-awscli
 bat
 clipit
-gnome-tweaks
 gnome-shell-pomodoro
+gnome-tweaks
 gradle
 haskell-platform
 haskell-stack
@@ -24,6 +22,7 @@ python3-gpg
 python3-pip
 rbenv
 ruby-build
+samba
 sysstat
 taskwarrior
 texlive-xetex
