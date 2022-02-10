@@ -19,7 +19,7 @@ nix_sandbox="$(echo "$nix_config" | jq -r '.nix.sandbox.enabled')"
 if [[ ! $(grep "^$nix_group" /etc/group) ]]; then sudo groupadd "$nix_group"; fi
 sudo usermod -aG "$nix_group" "$nix_user"
 
-mkdir -p /nix
+sudo mkdir -p /nix
 sudo chown -R "$nix_user":"$nix_group" /nix
 
 if [[ "$nix_sandbox" != "true" ]]; then
@@ -28,7 +28,10 @@ if [[ "$nix_sandbox" != "true" ]]; then
   echo 'sandbox = false' >> "$HOME/.config/nix/nix.conf"
 fi
 
-. "$HOME/.nix-profile/etc/profile.d/nix.sh"
+nix_profile="$HOME/.nix-profile/etc/profile.d/nix.sh"
+if [[ -e "${nix_profile}" ]]; then
+  . "${nix_profile}"
+fi
 
 test ! $(command -v nix) && curl -L https://nixos.org/nix/install | sh
 

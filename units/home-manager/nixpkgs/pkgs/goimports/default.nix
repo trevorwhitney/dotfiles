@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "goimports";
-  version = "0.1.8";
+  version = "0.1.9";
 
   src = fetchFromGitHub {
     owner = "golang";
     repo = "tools";
     rev = "v${version}";
-    sha256 = "0h9ip7sry1y8z94jypygas4ylb403wji3vljcc5jlb54rf51x3z7";
+    sha256 = "1vpigdysgqw3086bd2372arjnq9i2fyss5f4l6p8z1kjy36qb1cc";
   };
 
-  vendorSha256 = "1zzx6vwwi2wj1mgbpck5vlj91xlrj006cvmxm5cn49rqr9dir2pd";
+  vendorSha256 = "UbQrjMv5x2zREeHDlIffri6PylE75vEwD9n0S3XyC8I=";
 
   subPackages = [ "cmd/goimports" ];
 

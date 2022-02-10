@@ -79,6 +79,7 @@ in {
     google-cloud-sdk
     helm-docs
     jsonnet-bundler
+    k9s
     kotlin
     kube3d
     kubectl
@@ -110,7 +111,12 @@ in {
 
   # enabling bash makes sure ~/.profile is setup correctly
   # which some other things rely on
-  programs.direnv = { enable = true; };
+  programs.direnv = { 
+    enable = true; 
+    nix-direnv = {
+      enable = true;
+    };
+  };
 
   imports = [
     ./modules/bash.nix
