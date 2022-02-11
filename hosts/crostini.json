@@ -1,7 +1,6 @@
 {
   "excluded": [
     "apt-desktop",
-    "docker-linux",
     "gogh",
     "grafana",
     "intellij",

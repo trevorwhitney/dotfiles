@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let dotfiles = (pkgs.callPackage ./pkgs/dotfiles { });
+let dotfiles = (pkgs.callPackage ../pkgs/dotfiles { });
 in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -36,8 +36,8 @@ in {
   home.file.".git-authors".source = "${dotfiles}/git-authors";
   home.file.".prettierrc".source = "${dotfiles}/prettierrc.json";
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
-  xdg.configFile."k9s/gruvbox-light-skin.yml".source =
-    "${dotfiles}/config/k9s/gruvbox-light-skin.yml";
+  xdg.configFile."k9s/skin.yml".source =
+    "${dotfiles}/config/k9s/solarized_light.yml";
   xdg.configFile."tridactyl/tridactylrc".source =
     "${dotfiles}/config/tridactyl/tridactylrc";
 
@@ -52,14 +52,14 @@ in {
   # TODO: add lua?
 
   home.packages = with pkgs; [
-    (pkgs.callPackage ./pkgs/goimports { })
-    (pkgs.callPackage ./pkgs/gocomplete { })
-    (pkgs.callPackage ./pkgs/jsonnet { })
-    (pkgs.callPackage ./pkgs/jsonnet-lint { })
-    (pkgs.callPackage ./pkgs/jsonnetfmt { })
-    (pkgs.callPackage ./pkgs/protoc-gen-gogofast { })
-    (pkgs.callPackage ./pkgs/protoc-gen-gogoslick { })
-    (pkgs.callPackage ./pkgs/kns-ktx { })
+    (pkgs.callPackage ../pkgs/goimports { })
+    (pkgs.callPackage ../pkgs/gocomplete { })
+    (pkgs.callPackage ../pkgs/jsonnet { })
+    (pkgs.callPackage ../pkgs/jsonnet-lint { })
+    (pkgs.callPackage ../pkgs/jsonnetfmt { })
+    (pkgs.callPackage ../pkgs/protoc-gen-gogofast { })
+    (pkgs.callPackage ../pkgs/protoc-gen-gogoslick { })
+    (pkgs.callPackage ../pkgs/kns-ktx { })
 
     awscli2
     azure-cli
@@ -70,6 +70,8 @@ in {
     cmake
     curl
     delta
+    docker
+    docker-compose
     drone-cli
     fzf
     gh
@@ -117,12 +119,4 @@ in {
       enable = true;
     };
   };
-
-  imports = [
-    ./modules/bash.nix
-    ./modules/git.nix
-    ./modules/neovim.nix
-    ./modules/tmux.nix
-    ./modules/zsh.nix
-  ];
 }

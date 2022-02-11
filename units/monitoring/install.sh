@@ -13,8 +13,8 @@ function install_from_github_release() {
   version=$(jq -r ".$process" "$current_dir/versions.json")
 
   pushd "$tmp" > /dev/null || exit 1
-    extrapolated_url=${url//%v/$version}
-    extrapolated_package=${package//%v/$version}
+    extrapolated_url=${url//\%v/${version}}
+    extrapolated_package=${package//\%v/${version}}
     echo "Downloading release from $extrapolated_url/$extrapolated_package"
     curl -LkO "$extrapolated_url/$extrapolated_package"
 
@@ -25,4 +25,5 @@ function install_from_github_release() {
 
 install_from_github_release process_exporter "https://github.com/ncabatoff/process-exporter/releases/download/v%v" "process-exporter_%v_linux_amd64.deb"
 
+sudo mkdir -p /etc/prometheus
 sudo cp "$current_dir/prometheus.yml" /etc/prometheus/prometheus.yml
