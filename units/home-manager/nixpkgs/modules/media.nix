@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-  home.packages = with pkgs; [ radarr sonarr ];
+  home.packages = with pkgs; [ radarr sonarr jellyfin ];
 
   systemd.user.services.radarr = {
     Unit = {
@@ -48,6 +48,25 @@
       #ProtectSystem=strict
       #PrivateDevices=true
       #ProtectHome=true
+    };
+
+    Install = { WantedBy = [ "default.target" ]; };
+  };
+
+  systemd.user.services.jellyfin = {
+    Unit = {
+      Description = "Jellyfin Media Server";
+      After = [ "network.target" ];
+    };
+
+    Service = {
+      Type = "simple";
+
+      # Change the path to Radarr or mono here if it is in a different location for you.
+      ExecStart = "${pkgs.jellyfin}/bin/jellyfin";
+      TimeoutSec = 15;
+      KillMode = "process";
+      Restart = "on-failure";
     };
 
     Install = { WantedBy = [ "default.target" ]; };
