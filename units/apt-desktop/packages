@@ -23,6 +23,7 @@ python3-pip
 rbenv
 ruby-build
 samba
+snapd
 sysstat
 taskwarrior
 texlive-xetex

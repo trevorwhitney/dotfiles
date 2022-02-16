@@ -27,6 +27,7 @@ export DRONE_TOKEN="$(get_op_credential grafana-drone)"
 export TREVORWHITNEY_TOKEN="$(get_op_credential github-token)"
 export CLOUDSDK_PYTHON=python2
 export GCOM_TOKEN="$(get_op_credential grafana-com-gcom-admin)"
+export GCOM_STAGING_TOKEN="$(get_op_credential grafana-staging-gcom-admin)"
 ENVRC
 
 cat <<SHELL > "$HOME/workspace/grafana/shell.nix"

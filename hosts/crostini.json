@@ -1,12 +1,12 @@
 {
   "excluded": [
     "apt-desktop",
+    "flatpak",
     "gogh",
     "grafana",
     "intellij",
     "k3s",
     "monitoring",
-    "snap",
     "ssh-server-linux",
     "vs-code"
   ],

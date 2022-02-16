@@ -91,6 +91,7 @@ in {
     luajit
     nodejs
     ncurses
+    python38
     rbenv
     ruby
     rustc
@@ -98,6 +99,7 @@ in {
     tanka
     terraform
     vault
+    virtualenv
     xsel
     yamale
     yarn
