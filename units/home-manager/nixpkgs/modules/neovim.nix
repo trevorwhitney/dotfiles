@@ -26,6 +26,8 @@
     plugins = with pkgs.vimPlugins; [ packer-nvim ];
 
     extraPackages = (with pkgs; [
+      (pkgs.callPackage ../pkgs/jsonnet-language-server { })
+
       # required by tree-sitter
       gcc
       libcxx
