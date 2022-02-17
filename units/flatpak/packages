@@ -1,6 +1,5 @@
-uom.github.phase1geo.annotator
+com.github.phase1geo.annotator
 com.obsproject.Studio
-com.slack.Slack
 com.spotify.Client
 com.visualstudio.code
 org.chromium.Chromium

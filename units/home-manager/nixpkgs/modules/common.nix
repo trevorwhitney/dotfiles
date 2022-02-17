@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
-let dotfiles = (pkgs.callPackage ../pkgs/dotfiles { });
-in {
+let dotfiles = pkgs.callPackage ../pkgs/dotfiles { };
+in
+{
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -17,7 +18,7 @@ in {
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.11";
+  /* home.stateVersion = "21.11"; */
 
   # /usr/share/pop:/home/twhitney/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
   targets.genericLinux.enable = true;
@@ -47,7 +48,7 @@ in {
   # TODO: install stylua via luarocks
   # TODO: copy google cloud sdk completion
   # ln -sf /usr/share/google-cloud-sdk/completion.zsh.inc "$HOME/.oh-my-zsh/custom/gcloud-completion.zsh"
-  # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc 
+  # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
   # TODO: mkdir $HOME/go?
   # TODO: add lua?
 
@@ -60,6 +61,7 @@ in {
     (pkgs.callPackage ../pkgs/protoc-gen-gogofast { })
     (pkgs.callPackage ../pkgs/protoc-gen-gogoslick { })
     (pkgs.callPackage ../pkgs/kns-ktx { })
+    (pkgs.callPackage ../pkgs/xk6 { })
 
     awscli2
     azure-cli
@@ -115,10 +117,8 @@ in {
 
   # enabling bash makes sure ~/.profile is setup correctly
   # which some other things rely on
-  programs.direnv = { 
-    enable = true; 
-    nix-direnv = {
-      enable = true;
-    };
+  programs.direnv = {
+    enable = true;
+    nix-direnv = { enable = true; };
   };
 }

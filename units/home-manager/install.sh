@@ -24,11 +24,12 @@ sudo usermod -aG "${nix_group}" "${nix_user}"
 sudo mkdir -p /nix
 sudo chown -R "${nix_user}":"${nix_group}" /nix
 
+mkdir -p "${HOME}/.config/nix/nix"
 if [[ "${nix_sandbox}" != "true" ]]; then
   echo "disabling nix sandbox"
-  mkdir -p "${HOME}/.config/nix/nix"
   echo 'sandbox = false' >> "${HOME}/.config/nix/nix.conf"
 fi
+echo 'experimental-features = nix-command flakes' >> "${HOME}/.config/nix/nix.conf"
 
 nix_profile="${HOME}/.nix-profile/etc/profile.d/nix.sh"
 if [[ -e "${nix_profile}" ]]; then
@@ -53,9 +54,12 @@ if [[ ! -e "${HOME}/.config/nixpkgs/home.nix" ]]; then
   ln -s "${current_dir}/hosts/${host}.nix" "${HOME}/.config/nixpkgs/home.nix"
 fi
 
+shopt -s nullglub
 # enable the docker systemd unit
-sudo ln -sf ~/.nix-profile/etc/systemd/system/docker.socket /etc/systemd/system/docker.socket
-sudo ln -sf ~/.nix-profile/etc/systemd/system/docker.service /etc/systemd/system/docker.service
+for unit in "${HOME}"/.nix-profile/etc/systemd/system/*.service; do
+  sudo ln -sf "${HOME}/.nix-profile/etc/systemd/system/${unit}" "/etc/systemd/system/${unit}"
+done
+
 sudo systemctl daemon-reload
 sudo systemctl enable docker.socket
 sudo systemctl enable docker.service
