@@ -46,18 +46,24 @@ if [[ ! $(command -v home-manager) ]]; then
   nix-shell '<home-manager>' -A install
 fi
 
-if [[ ! -e "${HOME}/.config/nixpkgs" ]]; then
-  ln -s "${current_dir}/nixpkgs" "${HOME}/.config/nixpkgs"
-fi
+mkdir -p "${HOME}/.config/nixpkgs"
+for dir in lib modules pkgs secrets; do
+  if [[ ! -e "${HOME}/.config/nixpkgs/${dir}" ]]; then
+    ln -sf "${current_dir}/nixpkgs/${dir}" "${HOME}/.config/nixpkgs/${dir}"
+  fi
+done
+
 
 if [[ ! -e "${HOME}/.config/nixpkgs/home.nix" ]]; then
   ln -s "${current_dir}/hosts/${host}.nix" "${HOME}/.config/nixpkgs/home.nix"
 fi
 
-shopt -s nullglub
+home-manager switch
+
+set -o nullglob
 # enable the docker systemd unit
 for unit in "${HOME}"/.nix-profile/etc/systemd/system/*.service; do
-  sudo ln -sf "${HOME}/.nix-profile/etc/systemd/system/${unit}" "/etc/systemd/system/${unit}"
+  sudo ln -sf "${unit}" "/etc/systemd/system/$(basename unit)"
 done
 
 sudo systemctl daemon-reload
