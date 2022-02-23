@@ -26,6 +26,8 @@ sudo apt-get install -y tailscale
 
 if [[ "${host}" == "cerebral" ]]; then
   sudo tailscale up --advertise-exit-node --advertise-routes=10.11.0.0/24 --hostname=cerebral
+elif [[ "${host}" == "crostini" ]]; then
+  sudo tailscale up --accept-dns=false --hostname=crostini
 else
   sudo tailscale up --hostname="${host}"
 fi
