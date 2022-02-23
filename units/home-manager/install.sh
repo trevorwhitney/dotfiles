@@ -60,4 +60,4 @@ fi
 
 home-manager switch
 
-"./${current_dir}/link-systemd-units.sh"
+"${current_dir}/link-systemd-units.sh"

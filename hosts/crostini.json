@@ -1,5 +1,6 @@
 {
   "excluded": [
+    "1password",
     "apt-desktop",
     "flatpak",
     "gogh",
@@ -26,6 +27,7 @@
     "home-manager",
     "jetbrains-mono",
     "one-password-cli",
-    "powerline-fonts"
+    "powerline-fonts",
+    "tailscale"
   ]
 }

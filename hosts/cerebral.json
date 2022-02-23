@@ -12,6 +12,7 @@
     }
   },
   "units": [
+    "1password",
     "alacritty",
     "apt",
     "apt-desktop",
@@ -26,6 +27,7 @@
     "powerline-fonts",
     "snap",
     "ssh-server-linux",
+    "tailscale",
     "vs-code"
   ]
 }

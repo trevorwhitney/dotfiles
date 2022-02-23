@@ -5,7 +5,6 @@
     ../nixpkgs/modules/git.nix
     ../nixpkgs/modules/neovim.nix
     ../nixpkgs/modules/tmux.nix
-    ../nixpkgs/modules/tailscale.nix
     ../nixpkgs/modules/zsh.nix
 
     # cerebral specific
