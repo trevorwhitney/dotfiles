@@ -2,13 +2,21 @@
 
 This repo contains my dotfiles for setting up a new computer.
 
-# Installation
+## Installation
 
 `./install [host]`
 
-# Bash tricks
+### Starting Tailscale
 
-## Tmux Integration
+For exit nodes:
+
+* `tailscale up --advertise-exit-node --advertise-routes=10.11.0.0/24 --operator=twhitney --hostname=cerebral`
+
+For other nodes
+
+* `tailscale up --operator=twhitney`
+
+## Tmux
 
 * Use `<C-j>` and friends to move between vim panes and tmux panes.
 * `<C-a>` is a lot easier for me to type than `<C-b>`. The tmux bind key
@@ -16,7 +24,7 @@ This repo contains my dotfiles for setting up a new computer.
   a value in vim, use `<C-a>a`.
 * On OSX hold down the 'Option' key to select text with the mouse
 
-### Tmux Trics
+### Tmux Tricks
 
 Because I keep forgetting them
 
@@ -32,12 +40,13 @@ Because I keep forgetting them
 
 When creating a local package, the following command is useful:
 
-```
+```bash
 nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
 ```
 
-## TODO:
-  - move more stuff into home-manager
-    - kubectl
-  - promote home-manager to top level?
-    - does the host file need an entry for the home-manager file to use?
+## TODO
+
+* move more stuff into home-manager
+  * kubectl
+* promote home-manager to top level?
+  * does the host file need an entry for the home-manager file to use?

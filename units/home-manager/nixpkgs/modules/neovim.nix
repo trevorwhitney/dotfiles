@@ -34,6 +34,7 @@
       tree-sitter
       # end required by tree-sitter
 
+      ccls # c++ language server
       delve
       gnutar
       gopls

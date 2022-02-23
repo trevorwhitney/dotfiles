@@ -60,12 +60,4 @@ fi
 
 home-manager switch
 
-set -o nullglob
-# enable the docker systemd unit
-for unit in "${HOME}"/.nix-profile/etc/systemd/system/*.service; do
-  sudo ln -sf "${unit}" "/etc/systemd/system/$(basename unit)"
-done
-
-sudo systemctl daemon-reload
-sudo systemctl enable docker.socket
-sudo systemctl enable docker.service
+"./${current_dir}/link-systemd-units.sh"
