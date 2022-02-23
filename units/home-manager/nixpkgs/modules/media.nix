@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }: {
+  /* home.packages = with pkgs; [ deluge nzbget prowlarr radarr sonarr jellyfin ]; */
   home.packages = with pkgs; [ prowlarr radarr sonarr jellyfin ];
 
   systemd.user.services.radarr = {
@@ -41,13 +42,6 @@
       TimeoutStopSec = 20;
       KillMode = "process";
       Restart = "on-failure";
-
-      # These lines optionally isolate (sandbox) Radarr from the rest of the system.
-      # Make sure to add any paths it might use to the list below (space-separated).
-      #ReadWritePaths=/opt/Radarr /path/to/movies/folder
-      #ProtectSystem=strict
-      #PrivateDevices=true
-      #ProtectHome=true
     };
 
     Install = { WantedBy = [ "default.target" ]; };
@@ -67,13 +61,6 @@
       TimeoutStopSec = 20;
       KillMode = "process";
       Restart = "on-failure";
-
-      # These lines optionally isolate (sandbox) Radarr from the rest of the system.
-      # Make sure to add any paths it might use to the list below (space-separated).
-      #ReadWritePaths=/opt/Radarr /path/to/movies/folder
-      #ProtectSystem=strict
-      #PrivateDevices=true
-      #ProtectHome=true
     };
 
     Install = { WantedBy = [ "default.target" ]; };
@@ -97,4 +84,42 @@
 
     Install = { WantedBy = [ "default.target" ]; };
   };
+
+  # systemd.user.services.deluged = {
+  # Unit = {
+  # Description = "Deluge Torrent Client";
+  # After = [ "network-online.target" ];
+  # };
+
+  # Service = {
+  # Type = "simple";
+
+  # # Change the path to Radarr or mono here if it is in a different location for you.
+  # ExecStart = "${pkgs.deluge}/bin/deluged -d -c \${HOME}/.config/deluge -L info";
+  # TimeoutStopSec = 300;
+  # KillMode = "process";
+  # Restart = "on-failure";
+  # };
+
+  # Install = { WantedBy = [ "default.target" ]; };
+  # };
+
+  # systemd.user.services.nzbget = {
+  # Unit = {
+  # Description = "NZBget Usenet Downloader";
+  # After = [ "network.target" ];
+  # };
+
+  # Service = {
+  # Type = "simple";
+
+  # # Change the path to Radarr or mono here if it is in a different location for you.
+  # ExecStart = "${pkgs.nzbget}/bin/nzbget -D ";
+  # TimeoutSec = 15;
+  # KillMode = "process";
+  # Restart = "on-failure";
+  # };
+
+  # Install = { WantedBy = [ "default.target" ]; };
+  # };
 }
