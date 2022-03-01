@@ -75,10 +75,13 @@ if [[ `command -v kubectl` ]]; then
   complete -F __start_kubectl k
 fi
 
-NIX_PROFILE="$HOME/.nix-profile"
+export NIX_PROFILE="$HOME/.nix-profile"
 . $NIX_PROFILE/etc/profile.d/nix.sh
 
 PATH="${HOME}/.local/bin:$PATH"
+export NIX_STORE_DIR=/nix/store
+export NIX_STATE_DIR=/nix/var/nix
+export NIX_LOG_DIR=/nix/var/log/nix
 
 # completions
 complete -o nospace -C "$NIX_PROFILE/bin/tk" tk
