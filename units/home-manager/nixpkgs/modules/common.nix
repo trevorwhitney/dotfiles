@@ -81,6 +81,7 @@ in
     go_1_17
     golangci-lint
     google-cloud-sdk
+    gradle
     helm-docs
     jsonnet-bundler
     k9s

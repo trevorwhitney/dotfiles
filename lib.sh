@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Linking files is good for configurations
 # we want to track changes to
@@ -90,4 +90,86 @@ op_signin() {
     eval "$(op signin my)"
   fi
   set -e
+}
+
+download_from_github_release() {
+  project="$1"
+  url="$2"
+  package="$3"
+  versions_file="$4"
+
+  tmp=$(mktemp -d)
+  version=$(jq -r ".$project" "$versions_file")
+
+  pushd "$tmp" > /dev/null || exit 1
+    extrapolated_url=${url//\%v/${version}}
+    extrapolated_package=${package//\%v/${version}}
+    curl -LkO "$extrapolated_url/$extrapolated_package"
+  popd > /dev/null || exit 1
+
+  echo "$tmp/$extrapolated_package"
+}
+
+download_from_github_tag() {
+  project="$1"
+  url="$2"
+  package="$3"
+  versions_file="$4"
+
+  tmp=$(mktemp -d)
+  version=$(jq -r ".$project" "$versions_file")
+
+  pushd "$tmp" > /dev/null || exit 1
+    extrapolated_url=${url//\%v/${version}}
+    extrapolated_package=${package//\%v/${version}}
+    curl -Lk "$extrapolated_url" -o "$extrapolated_package"
+  popd > /dev/null || exit 1
+
+  echo "$tmp/$extrapolated_package"
+}
+
+update_from_github_release() {
+	project="$1"
+	url="$2"
+	versions_file="$3"
+
+	current_versions=$(<"${versions_file}")
+	current_version=$(echo "$current_versions" | jq -r ".$project")
+
+	latest_version=$(curl --silent -L -H 'Accept: application/json' \
+		"$url" |
+		jq -r .tag_name |
+		sed 's/v//')
+
+	temp=$(mktemp)
+
+	if [[ "v$current_version" != "v$latest_version" ]]; then
+		echo "Updating $project from $current_version to $latest_version"
+		jq ".$project = \"$latest_version\"" "${versions_file}" >"$temp"
+		mv "$temp" "${versions_file}"
+	else
+		echo "$process at most recent verstion $current_version"
+	fi
+}
+
+update_from_github_tag() {
+	project="$1"
+	url="$2"
+	versions_file="$3"
+
+	current_versions="$(cat "${versions_file}")"
+	current_version=$(cat "$versions_file" | jq -r ".$project")
+
+  latest_version=$(curl -L "$url" -H "Accept: application/json" | jq -r '.[0].name' | sed 's/v//')
+
+	temp=$(mktemp)
+
+	echo "comparing $project version v$current_version to v$latest_version"
+	if [[ "v$current_version" != "v$latest_version" ]]; then
+		echo "Updating $project from $current_version to $latest_version"
+		jq ".$project = \"$latest_version\"" "${versions_file}" >"$temp"
+		mv "$temp" "${versions_file}"
+	else
+		echo "$project at most recent verstion $current_version"
+	fi
 }

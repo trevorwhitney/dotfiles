@@ -11,22 +11,21 @@
       # set path the lua language server so we can pass it to respective lsp config
       "let s:sumneko_lua_ls_path = '${sumneko-lua-language-server}'"
       "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
+      "let s:jdtls_root = expand('~/.local/share/jdtls')" # TODO: fix jdtls package to not require root
       (lib.strings.fileContents ../lib/init.vim)
     ]);
 
     withNodeJs = true;
     withRuby = true;
     withPython3 = true;
-    extraPython3Packages = (ps:
-      with ps; [
-        pynvim
-      ]);
+    extraPython3Packages = ps: with ps; [ pynvim ];
 
     # Will use packer to grab everything else
     plugins = with pkgs.vimPlugins; [ packer-nvim ];
 
-    extraPackages = (with pkgs; [
+    extraPackages = with pkgs; [
       (pkgs.callPackage ../pkgs/jsonnet-language-server { })
+      (pkgs.callPackage ../pkgs/stylua { })
 
       # required by tree-sitter
       gcc
@@ -60,7 +59,6 @@
       nodePackages.vscode-langservers-extracted
       nodePackages.write-good
       nodePackages.yaml-language-server
-    ]);
-
+    ];
   };
 }

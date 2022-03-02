@@ -3,27 +3,19 @@
 set -e
 
 current_dir="$(cd "$(dirname "$0")" && pwd)"
+dotfiles_dir="$(cd "${current_dir}/../.." && pwd)"
 
-function install_from_github_release() {
-  process="$1"
-  url="$2"
-  package="$3"
+source "${dotfiles_dir}/lib.sh"
 
-  tmp=$(mktemp -d)
-  version=$(jq -r ".$process" "$current_dir/versions.json")
+artifact="$(download_from_github_release process_exporter \
+  "https://github.com/ncabatoff/process-exporter/releases/download/v%v" \
+  "process-exporter_%v_linux_amd64.deb" \
+  "${current_dir}/versions.json")"
 
-  pushd "$tmp" > /dev/null || exit 1
-    extrapolated_url=${url//\%v/${version}}
-    extrapolated_package=${package//\%v/${version}}
-    echo "Downloading release from $extrapolated_url/$extrapolated_package"
-    curl -LkO "$extrapolated_url/$extrapolated_package"
+echo "installing ${artifact}"
+sudo dpkg -i "${artifact}"
+rm -rf "${artifact}"
 
-    sudo dpkg -i "$extrapolated_package"
-  popd > /dev/null || exit 1
-  rm -rf "$tmp"
-}
-
-install_from_github_release process_exporter "https://github.com/ncabatoff/process-exporter/releases/download/v%v" "process-exporter_%v_linux_amd64.deb"
 
 sudo mkdir -p /etc/prometheus
 sudo cp "$current_dir/prometheus.yml" /etc/prometheus/prometheus.yml
