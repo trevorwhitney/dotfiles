@@ -32,9 +32,8 @@ end
 local sumneko_lua_ls_path = vim.api.nvim_eval("s:sumneko_lua_ls_path")
 local rocks_tree_root = vim.api.nvim_eval("s:rocks_tree_root")
 local jdtls_root = vim.api.nvim_eval("s:jdtls_root")
-vim.loop.os_setenv("JDTLS_HOME", jdtls_root)
 
-require('tw.config').setup(sumneko_lua_ls_path, rocks_tree_root, jdtls_root)
+require('tw.config').setup(sumneko_lua_ls_path, rocks_tree_root)
 EOF
 
 " turn off CGO for go diagnostic tools
