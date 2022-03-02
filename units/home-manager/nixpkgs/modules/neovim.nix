@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, lib, ... }:
+let jdtls = pkgs.callPackage ../pkgs/jdtls { };
+in
+{
+  xdg.dataFile."jdtls/config_linux/config.ini".source = "${jdtls}/config_linux/config.ini";
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
@@ -11,6 +16,7 @@
       # set path the lua language server so we can pass it to respective lsp config
       "let s:sumneko_lua_ls_path = '${sumneko-lua-language-server}'"
       "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
+      "let g:jdtls_home = '${jdtls}'"
       (lib.strings.fileContents ../lib/init.vim)
     ]);
 
@@ -25,6 +31,7 @@
     extraPackages = with pkgs; [
       (pkgs.callPackage ../pkgs/jsonnet-language-server { })
       (pkgs.callPackage ../pkgs/stylua { })
+      jdtls
 
       # required by tree-sitter
       gcc
