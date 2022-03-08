@@ -37,6 +37,8 @@ in
   home.file.".git-authors".source = "${dotfiles}/git-authors";
   home.file.".prettierrc".source = "${dotfiles}/prettierrc.json";
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
+  xdg.configFile."yamllint/config".source =
+    "${dotfiles}/yamllint.yaml";
   xdg.configFile."k9s/skin.yml".source =
     "${dotfiles}/config/k9s/solarized_light.yml";
   xdg.configFile."tridactyl/tridactylrc".source =

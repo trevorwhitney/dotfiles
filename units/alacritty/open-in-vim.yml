@@ -7,8 +7,7 @@ window:
   decorations: full
   dynamic_title: true
   gtk_theme_variant: light
-
-background_opacity: 0.9
+  opacity: 0.9
 
 font:
   size: 12.0

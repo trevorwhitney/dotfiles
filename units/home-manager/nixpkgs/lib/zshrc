@@ -78,6 +78,7 @@ fi
 NIX_PROFILE="$HOME/.nix-profile"
 . $NIX_PROFILE/etc/profile.d/nix.sh
 
+PATH="${HOME}/.local/bin:$PATH"
 
 # completions
 complete -o nospace -C "$NIX_PROFILE/bin/tk" tk
