@@ -12,3 +12,5 @@ sudo ufw default allow outgoing
 sudo ufw status verbose
 sudo ufw reload
 ```
+
+Followed this [doc](https://tailscale.com/kb/1077/secure-server-ubuntu-18-04/)
