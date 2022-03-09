@@ -94,6 +94,7 @@ in
     lm_sensors
     lua51Packages.luarocks
     luajit
+    lynis
     nodejs
     ncurses
     python38

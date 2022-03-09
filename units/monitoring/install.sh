@@ -16,6 +16,59 @@ echo "installing ${artifact}"
 sudo dpkg -i "${artifact}"
 rm -rf "${artifact}"
 
+function get_op_credential() {
+  op get item $1 | jq -r '.details.sections | .[].fields | .[] | select(.n == "credential") | .v'
+}
+
+function get_op_username() {
+  op get item $1 | jq -r '.details.sections | .[].fields | .[] | select(.n == "username") | .v'
+}
+
 
 sudo mkdir -p /etc/prometheus
-sudo cp "$current_dir/prometheus.yml" /etc/prometheus/prometheus.yml
+
+cat <<PROMETHEUS | sudo tee /etc/prometheus/prometheus.yml
+---
+global:
+  scrape_interval: 60s
+  evaluation_interval: 60s
+  scrape_timeout: 45s
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ["localhost:9093"]
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: "speedtest"
+    scrape_interval: 5m
+    static_configs:
+      - targets: ["localhost:9112"]
+
+  - job_name: node
+    static_configs:
+      - targets: ["localhost:9100"]
+
+  - job_name: process_exporter
+    static_configs:
+      - targets: ["localhost:9256"]
+
+remote_write:
+  - url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+    basic_auth:
+      username: $(op_get_username grafana-cloud-cerebral-publish)
+      password: $(op_get_credential grafana-cloud-cerebral-publish)
+PROMETHEUS
