@@ -46,7 +46,4 @@ nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
 
 ## TODO
 
-* move more stuff into home-manager
-  * kubectl
-* promote home-manager to top level?
-  * does the host file need an entry for the home-manager file to use?
+* template `~/.config/spotifyd/spotifyd.conf` and `~/.conifg/spotify-tui/config.yaml` and move to desktop unit

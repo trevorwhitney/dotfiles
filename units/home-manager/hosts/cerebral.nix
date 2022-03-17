@@ -9,5 +9,6 @@
 
     # cerebral specific
     ../nixpkgs/modules/media.nix
+    ../nixpkgs/modules/spotify.nix
   ];
 }
