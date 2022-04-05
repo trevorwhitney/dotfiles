@@ -79,6 +79,7 @@ in
     drone-cli
     fzf
     gh
+    glow
     gnused
     go_1_17
     golangci-lint
@@ -95,8 +96,8 @@ in
     lua51Packages.luarocks
     luajit
     lynis
-    nodejs
     ncurses
+    nodejs
     python38
     rbenv
     ruby
@@ -104,6 +105,7 @@ in
     sysstat
     tanka
     terraform
+    tz
     vault
     virtualenv
     xsel

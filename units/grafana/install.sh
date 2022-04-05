@@ -30,14 +30,4 @@ export GCOM_TOKEN="$(get_op_credential grafana-com-gcom-admin)"
 export GCOM_STAGING_TOKEN="$(get_op_credential grafana-staging-gcom-admin)"
 ENVRC
 
-cat <<SHELL > "$HOME/workspace/grafana/shell.nix"
-{ pkgs ? import <nixpkgs> {}}:
-
-pkgs.mkShell {
-  nativeBuildInputs = [ 
-    pkgs.go
-    pkgs.gcc
-    pkgs.systemd
-  ];
-}
-SHELL
+cat $current_dir/shell.nix > "$HOME/workspace/grafana/shell.nix"
