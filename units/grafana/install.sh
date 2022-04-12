@@ -15,6 +15,8 @@ if [[ $? -ne 0 ]]; then
   eval "$(op signin my)"
 fi
 
+ln -sf "$current_dir/shell.nix" $HOME/workspace/grafana/shell.nix"
+
 cat <<ENVRC > "$HOME/workspace/grafana/.envrc"
 use nix
 export BACKEND_ENTERPRISE_CHECKOUT_DIR=/home/twhitney/workspace/grafana/backend-enterprise
@@ -30,4 +32,4 @@ export GCOM_TOKEN="$(get_op_credential grafana-com-gcom-admin)"
 export GCOM_STAGING_TOKEN="$(get_op_credential grafana-staging-gcom-admin)"
 ENVRC
 
-cat $current_dir/shell.nix > "$HOME/workspace/grafana/shell.nix"
+ln -sf "$current_dir/shell.nix" "$HOME/workspace/grafana/shell.nix"

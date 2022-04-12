@@ -1,11 +1,12 @@
 { stdenv, fetchzip, lib, pkgs }:
 stdenv.mkDerivation rec {
   pname = "jdtls";
-  version = "1.9.0-202202240210";
+  version = "1.9.0";
+  version_date = "202203031534";
 
   src = fetchzip {
     url =
-      "https://download.eclipse.org/jdtls/snapshots/jdt-language-server-${version}.tar.gz";
+      "https://download.eclipse.org/jdtls/milestones/${version}/jdt-language-server-${version}-${version_date}.tar.gz";
     sha256 = "0pq3njzl8knp1jsgp6rd9gyippzb6wrwdif6rjjqw9q2bjbi2xz0";
     stripRoot = false;
   };
@@ -13,7 +14,7 @@ stdenv.mkDerivation rec {
   buildInputs = with pkgs; [ rsync ];
   installPhase = ''
     mkdir -p $out
-    rsync -av $src/ $out
+    rsync -av --no-group $src/ $out
   '';
 
   meta = with lib; {

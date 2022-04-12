@@ -1,29 +1,16 @@
-with import <nixpkgs> {};
+with import <nixpkgs> { };
 
 let
-  golangci-lint = buildGoModule rec {
-    pname = "golangci-lint";
-    version = "1.41.1";
+  # find historical versions here: https://lazamar.co.uk/nix-versions
+  # golangci-lint v1.41.1
+  golangci-lint-pkgs = import
+    (builtins.fetchTarball {
+      url =
+        "https://github.com/NixOS/nixpkgs/archive/9986226d5182c368b7be1db1ab2f7488508b5a87.tar.gz";
+    })
+    { };
 
-    src = fetchFromGitHub {
-      owner = "golangci";
-      repo = "golangci-lint";
-      rev = "v${version}";
-      sha256 = "1lcfp924zc98rlsv68v7z7f7i7d8bzijmlrahsbqivmhdd9j86pg";
-    };
-
-    vendorSha256 = "s0ZFQJIhF23FtLol1Gegljf6eyGkCmVxTKmHbQBtPvM=";
-
-    subPackages = [ "cmd/golangci-lint" ];
-
-    meta = with lib; {
-      description = "Fast Go linters and runners";
-      homepage = "https://github.com/golangci/golangci-lint";
-      license = licenses.gpl3Only;
-      maintainers = with maintainers; [ trevorwhitney ];
-      platforms = platforms.linux ++ platforms.darwin;
-    };
-  };
+  golangci-lint_1_41_1 = golangci-lint-pkgs.golangci-lint;
 
   faillint = buildGoModule rec {
     pname = "faillint";
@@ -40,12 +27,15 @@ let
     doCheck = false;
 
     meta = with lib; {
-      description = "Fast Go linters and runners";
-      homepage = "https://github.com/golangci/golangci-lint";
-      license = licenses.gpl3Only;
+      description =
+        "Simple Go linter than fails when specific import paths are present";
+      homepage = "https://github.com/fatih/faillint";
+      license = licenses.bsd3;
       maintainers = with maintainers; [ trevorwhitney ];
       platforms = platforms.linux ++ platforms.darwin;
     };
   };
 in
-mkShell { nativeBuildInputs = [ go gcc systemd golangci-lint faillint]; }
+mkShell {
+  nativeBuildInputs = [ faillint gcc go golangci-lint_1_41_1 systemd ];
+}
