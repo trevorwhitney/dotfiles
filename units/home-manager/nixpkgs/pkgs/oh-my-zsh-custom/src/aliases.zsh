@@ -85,3 +85,6 @@ alias op_cred=get_op_credential
 if [[ `command -v bat` ]]; then
   alias cat="bat -pp "
 fi
+
+# todo
+alias todo="todo.sh"
