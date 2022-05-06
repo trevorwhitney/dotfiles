@@ -29,8 +29,10 @@ if vim_lib_bootstrap then
   require('packer').sync()
 end
 
-local sumneko_lua_ls_path = vim.api.nvim_eval("s:sumneko_lua_ls_path")
-local rocks_tree_root = vim.api.nvim_eval("s:rocks_tree_root")
+local lsp_support = vim.api.nvim_eval("s:lsp_support")
+
+local sumneko_lua_ls_path = vim.api.nvim_eval('get(s:, "sumneko_lua_ls_path", "")')
+local rocks_tree_root = vim.api.nvim_eval('get(s:, "rocks_tree_root", "")')
 
 require('tw.config').setup(sumneko_lua_ls_path, rocks_tree_root)
 EOF
