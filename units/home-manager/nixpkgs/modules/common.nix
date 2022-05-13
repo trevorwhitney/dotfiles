@@ -97,7 +97,6 @@ in
     lua51Packages.luarocks
     luajit
     lynis
-    mosh
     ncurses
     nodejs
     python38
