@@ -1,6 +1,43 @@
 { config, pkgs, lib, ... }: {
-  /* home.packages = with pkgs; [ deluge nzbget prowlarr radarr sonarr jellyfin ]; */
-  home.packages = with pkgs; [ prowlarr radarr sonarr jellyfin ];
+  home.packages = with pkgs; [ jellyfin prowlarr radarr sonarr ];
+
+  systemd.user.services.jellyfin = {
+    Unit = {
+      Description = "Jellyfin Media Server";
+      After = [ "network.target" ];
+    };
+
+    Service = {
+      Type = "simple";
+
+      # Change the path to Radarr or mono here if it is in a different location for you.
+      ExecStart = "${pkgs.jellyfin}/bin/jellyfin";
+      TimeoutSec = 15;
+      KillMode = "process";
+      Restart = "on-failure";
+    };
+
+    Install = { WantedBy = [ "default.target" ]; };
+  };
+
+  systemd.user.services.prowlarr = {
+    Unit = {
+      Description = "Prowlarr Daemon";
+      After = [ "network.target" ];
+    };
+
+    Service = {
+      Type = "simple";
+
+      # Change the path to Radarr or mono here if it is in a different location for you.
+      ExecStart = "${pkgs.prowlarr}/bin/Prowlarr -nobrowser";
+      TimeoutStopSec = 20;
+      KillMode = "process";
+      Restart = "on-failure";
+    };
+
+    Install = { WantedBy = [ "default.target" ]; };
+  };
 
   systemd.user.services.radarr = {
     Unit = {
@@ -46,80 +83,4 @@
 
     Install = { WantedBy = [ "default.target" ]; };
   };
-
-  systemd.user.services.prowlarr = {
-    Unit = {
-      Description = "Prowlarr Daemon";
-      After = [ "network.target" ];
-    };
-
-    Service = {
-      Type = "simple";
-
-      # Change the path to Radarr or mono here if it is in a different location for you.
-      ExecStart = "${pkgs.prowlarr}/bin/Prowlarr -nobrowser";
-      TimeoutStopSec = 20;
-      KillMode = "process";
-      Restart = "on-failure";
-    };
-
-    Install = { WantedBy = [ "default.target" ]; };
-  };
-
-  systemd.user.services.jellyfin = {
-    Unit = {
-      Description = "Jellyfin Media Server";
-      After = [ "network.target" ];
-    };
-
-    Service = {
-      Type = "simple";
-
-      # Change the path to Radarr or mono here if it is in a different location for you.
-      ExecStart = "${pkgs.jellyfin}/bin/jellyfin";
-      TimeoutSec = 15;
-      KillMode = "process";
-      Restart = "on-failure";
-    };
-
-    Install = { WantedBy = [ "default.target" ]; };
-  };
-
-  # systemd.user.services.deluged = {
-  # Unit = {
-  # Description = "Deluge Torrent Client";
-  # After = [ "network-online.target" ];
-  # };
-
-  # Service = {
-  # Type = "simple";
-
-  # # Change the path to Radarr or mono here if it is in a different location for you.
-  # ExecStart = "${pkgs.deluge}/bin/deluged -d -c \${HOME}/.config/deluge -L info";
-  # TimeoutStopSec = 300;
-  # KillMode = "process";
-  # Restart = "on-failure";
-  # };
-
-  # Install = { WantedBy = [ "default.target" ]; };
-  # };
-
-  # systemd.user.services.nzbget = {
-  # Unit = {
-  # Description = "NZBget Usenet Downloader";
-  # After = [ "network.target" ];
-  # };
-
-  # Service = {
-  # Type = "simple";
-
-  # # Change the path to Radarr or mono here if it is in a different location for you.
-  # ExecStart = "${pkgs.nzbget}/bin/nzbget -D ";
-  # TimeoutSec = 15;
-  # KillMode = "process";
-  # Restart = "on-failure";
-  # };
-
-  # Install = { WantedBy = [ "default.target" ]; };
-  # };
 }
