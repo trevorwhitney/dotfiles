@@ -12,4 +12,8 @@
       withLspSupport = false;
     })
   ];
+
+  programs.zsh.sessionVariables = {
+    GPG_TTY="$(tty)";
+  };
 }

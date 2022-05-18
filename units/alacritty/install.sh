@@ -12,17 +12,13 @@ function install_from_package() {
 
   pushd "$tmp" > /dev/null || exit 1
   echo "$tmp"
-  curl -LkO "https://github.com/barnumbirr/alacritty-debian/releases/download/v${version}/alacritty_${version}_amd64_debian_unstable.deb"
-  sudo dpkg -i "alacritty_${version}_amd64_debian_unstable.deb"
+  curl -LkO "https://github.com/barnumbirr/alacritty-debian/releases/download/v${version}/alacritty_${version}_amd64_unstable.deb"
+  sudo dpkg -i "alacritty_${version}_amd64_unstable.deb"
   popd > /dev/null || exit 1
   rm -rf "$tmp"
 }
 
-if [[ $(uname) = "Darwin" ]]; then
-  brew install alacritty || true
-else
-  sudo apt-get install -y alacritty || install_from_package
-fi
+install_from_package
 
 mkdir -p $HOME/.config/alacritty
 
