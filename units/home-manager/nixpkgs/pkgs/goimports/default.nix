@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "1vpigdysgqw3086bd2372arjnq9i2fyss5f4l6p8z1kjy36qb1cc";
   };
 
-  vendorSha256 = "UbQrjMv5x2zREeHDlIffri6PylE75vEwD9n0S3XyC8I=";
+  vendorSha256 = "7YocW8o4J2JZqb1uZgCQmfaQJN1lsrteDZKLyPk2/f8=";
 
   subPackages = [ "cmd/goimports" ];
 

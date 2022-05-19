@@ -6,7 +6,6 @@ in {
     userName = "Trevor Whitney";
     userEmail = "trevorjwhitney@gmail.com";
     delta = { enable = true; };
-    includes = [{ path = "${../secrets/git}"; }];
 
     signing = {
       key = "D6E15E6AAB792668BB207FD478F930867F302694";
