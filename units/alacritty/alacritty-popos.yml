@@ -16,7 +16,7 @@ window:
   decorations: full
   dynamic_title: true
   gtk_theme_variant: light
-  opacity: 1.0
+  opacity: 1
 
 font:
   size: 12.0

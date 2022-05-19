@@ -1,5 +1,4 @@
 .last-update
 units/home-manager/nixpkgs/home.nix
-flake.nix
 units/monitoring/prometheus.yml
 units/jdtls/prometheus.yml
