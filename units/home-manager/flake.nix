@@ -87,17 +87,17 @@
                 };
 
                 imports = [
-                  ./nixpkgs/modules/media.nix
-                  ./nixpkgs/modules/spotify.nix
                   (import ./nixpkgs/modules/neovim.nix {
                     inherit config pkgs lib;
-                    withLspSupport = true;
+                    withLspSupport = false;
                   })
                 ] ++ commonImports;
 
                 programs.git.includes = [{
                   path = "${inputs.secrets.defaultPackage.x86_64-linux}/git";
                 }];
+
+                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
               };
             });
         };

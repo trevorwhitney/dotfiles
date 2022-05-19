@@ -15,6 +15,6 @@ nix-channel --update
 if [[ -e /homeless-shelter ]]; then
   sudo rm -rf /homeless-shelter
 fi
-home-manager switch
+home-manager switch --impure
 
 nix-store --gc

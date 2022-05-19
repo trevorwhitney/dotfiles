@@ -7,12 +7,6 @@ host="$(cat "$host_path" | jq -r '.name')"
 # shellcheck source=../../lib.sh
 source "${dot_files_dir}/lib.sh"
 
-# Fetch secrets from 1password
-op_signin
-secrets_dir="${current_dir}/nixpkgs/secrets"
-mkdir -p "${secrets_dir}"
-op get document "git secrets" >"${secrets_dir}/git"
-
 nix_config="$(cat "$HOME/.config/dotfiles/host.json")"
 nix_user="$(echo "${nix_config}" | jq -r '.nix.user')"
 nix_group="$(echo "${nix_config}" | jq -r '.nix.group')"
@@ -47,17 +41,21 @@ if [[ ! $(command -v home-manager) ]]; then
 fi
 
 mkdir -p "${HOME}/.config/nixpkgs"
-for dir in lib modules pkgs secrets; do
+for dir in lib modules pkgs; do
 	if [[ ! -e "${HOME}/.config/nixpkgs/${dir}" ]]; then
 		ln -sf "${current_dir}/nixpkgs/${dir}" "${HOME}/.config/nixpkgs/${dir}"
 	fi
 done
 
-if [[ ! -e "${HOME}/.config/nixpkgs/home.nix" ]]; then
-	ln -s "${current_dir}/hosts/${host}.nix" "${HOME}/.config/nixpkgs/home.nix"
+if [[ ! -e "${HOME}/.config/nixpkgs/flake.nix" ]]; then
+	ln -s "${current_dir}/flake.nix" "${HOME}/.config/nixpkgs/flake.nix"
 fi
 
-home-manager switch
+if [[ ! -e "${HOME}/.config/nixpkgs/flake.lock" ]]; then
+	ln -s "${current_dir}/flake.lock" "${HOME}/.config/nixpkgs/flake.lock"
+fi
+
+home-manager switch --impure
 
 "${current_dir}/link-systemd-units.sh"
 
