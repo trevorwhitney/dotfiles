@@ -55,6 +55,10 @@ if [[ ! -e "${HOME}/.config/nixpkgs/flake.lock" ]]; then
 	ln -s "${current_dir}/flake.lock" "${HOME}/.config/nixpkgs/flake.lock"
 fi
 
+if [[ ! -e "${HOME}/.config/flakes" ]]; then
+	ln -s "${current_dir}/flakes" "${HOME}/.config/nixpkgs/flakes"
+fi
+
 home-manager switch --impure
 
 "${current_dir}/link-systemd-units.sh"
