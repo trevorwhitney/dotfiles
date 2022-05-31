@@ -35,7 +35,6 @@ pkgs.stdenv.mkDerivation rec {
     ./mosh-client_path.patch
     # Fix build with bash-completion 2.10
     ./bash_completion_datadir.patch
-    ./locale.patch
   ];
 
   postPatch = with pkgs; ''
@@ -46,8 +45,9 @@ pkgs.stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-completion" ];
 
-  postInstall = ''
-    wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB
+  postInstall = with pkgs; ''
+    wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB;
+    wrapProgram $out/bin/mosh-server --set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive;
   '';
 
   CXXFLAGS = with pkgs; lib.optionalString stdenv.cc.isClang "-std=c++11";
