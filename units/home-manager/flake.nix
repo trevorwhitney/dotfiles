@@ -75,7 +75,7 @@
           };
         });
 
-        "twhitney@crostini" = let system = "x86_64-linux";
+        "twhitney@penguin" = let system = "x86_64-linux";
         in self.inputs.home-manager.lib.homeManagerConfiguration
         (commonConfig system // {
           configuration = { config, pkgs, lib, ... }: {
