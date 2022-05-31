@@ -88,6 +88,7 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
+        "lastModified": 1,
         "narHash": "sha256-aVjLrc/lyqdAeGhhfT/aksSZl3ri23PkErKArV9ntZc=",
         "path": "/nix/store/5myarwawv7fpyj0p2avs0ka5zjm2wmwg-source/units/home-manager/flakes/mosh",
         "type": "path"
