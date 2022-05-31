@@ -35,6 +35,7 @@ pkgs.stdenv.mkDerivation rec {
     ./mosh-client_path.patch
     # Fix build with bash-completion 2.10
     ./bash_completion_datadir.patch
+    ./locale.patch
   ];
 
   postPatch = with pkgs; ''
