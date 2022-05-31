@@ -28,80 +28,78 @@
         };
 
         overlay-neovim = neovim-nightly-overlay.overlay;
-        commonConfig = {
-          system = "x86_64-linux";
+        commonConfig = system: {
+          inherit system;
           # TODO: can you use builtins here?
           homeDirectory = "/home/twhitney";
           username = "twhitney";
         };
 
-        commonImports = { config, pkgs, lib }: [
+        commonImports = { system, config, pkgs, lib }: [
           ./nixpkgs/modules/common.nix
           ./nixpkgs/modules/bash.nix
           ./nixpkgs/modules/git.nix
           (import ./nixpkgs/modules/tmux.nix {
             inherit config pkgs lib;
             # TODO: is there a way to use a builtin to get the current system
-            nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+            nixpkgs = import nixpkgs { inherit system; };
           })
           ./nixpkgs/modules/zsh.nix
         ];
 
         commonPackages = [ mosh.defaultPackage.x86_64-linux ];
       in {
-        "twhitney@cerebral" =
-          self.inputs.home-manager.lib.homeManagerConfiguration (commonConfig
-            // {
-              configuration = { config, pkgs, lib, ... }: {
-                nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
-                nixpkgs.config = {
-                  allowUnfree = true;
-                  allowBroken = true;
-                };
+        "twhitney@cerebral" = let system = "x86_64-linux";
+        in self.inputs.home-manager.lib.homeManagerConfiguration
+        (commonConfig system // {
+          configuration = { config, pkgs, lib, ... }: {
+            nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
+            nixpkgs.config = {
+              allowUnfree = true;
+              allowBroken = true;
+            };
 
-                imports = [
-                  ./nixpkgs/modules/media.nix
-                  ./nixpkgs/modules/spotify.nix
-                  (import ./nixpkgs/modules/neovim.nix {
-                    inherit config pkgs lib;
-                    withLspSupport = true;
-                  })
-                ] ++ commonImports { inherit config pkgs lib; };
+            imports = [
+              ./nixpkgs/modules/media.nix
+              ./nixpkgs/modules/spotify.nix
+              (import ./nixpkgs/modules/neovim.nix {
+                inherit config pkgs lib;
+                withLspSupport = true;
+              })
+            ] ++ commonImports { inherit config pkgs lib system; };
 
-                home.packages = commonPackages;
+            home.packages = commonPackages;
 
-                programs.git.includes = [{
-                  path = "${inputs.secrets.defaultPackage.x86_64-linux}/git";
-                }];
-              };
-            });
+            programs.git.includes =
+              [{ path = "${inputs.secrets.defaultPackage.${system}}/git"; }];
+          };
+        });
 
-        "twhitney@crostini" =
-          self.inputs.home-manager.lib.homeManagerConfiguration (commonConfig
-            // {
-              configuration = { config, pkgs, lib, ... }: {
-                nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
-                nixpkgs.config = {
-                  allowUnfree = true;
-                  allowBroken = true;
-                };
+        "twhitney@crostini" = let system = "x86_64-linux";
+        in self.inputs.home-manager.lib.homeManagerConfiguration
+        (commonConfig system // {
+          configuration = { config, pkgs, lib, ... }: {
+            nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
+            nixpkgs.config = {
+              allowUnfree = true;
+              allowBroken = true;
+            };
 
-                imports = [
-                  (import ./nixpkgs/modules/neovim.nix {
-                    inherit config pkgs lib;
-                    withLspSupport = false;
-                  })
-                ] ++ commonImports { inherit config pkgs lib; };
+            imports = [
+              (import ./nixpkgs/modules/neovim.nix {
+                inherit config pkgs lib;
+                withLspSupport = false;
+              })
+            ] ++ commonImports { inherit config pkgs lib system; };
 
-                home.packages = commonPackages;
+            home.packages = commonPackages;
 
-                programs.git.includes = [{
-                  path = "${inputs.secrets.defaultPackage.x86_64-linux}/git";
-                }];
+            programs.git.includes =
+              [{ path = "${inputs.secrets.defaultPackage.${system}}/git"; }];
 
-                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
-              };
-            });
+            programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+          };
+        });
       };
     };
 }
