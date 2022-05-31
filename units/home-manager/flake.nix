@@ -88,7 +88,6 @@
 
                   programs.zsh.sessionVariables = {
                     GPG_TTY = "$(tty)";
-                    LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive";
                   };
                 };
               });
@@ -119,7 +118,6 @@
 
                   programs.zsh.sessionVariables = {
                     GPG_TTY = "$(tty)";
-                    LOCALE_ARCHIVE = "/usr/lib/locale/locale-archive";
                   };
                 };
               });

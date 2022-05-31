@@ -88,12 +88,12 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "narHash": "sha256-F2qYf0b0LIF28OzTyZPPuYwGcJ0iUV5btZZUVV0oK6k=",
-        "path": "/nix/store/f4d4ind51krcfniibdrr96371fjnzhpl-source/units/home-manager/flakes/mosh",
+        "narHash": "sha256-SZPOL4wEqD53sKFuMJUZzEaVu7uDOKCq0YQsTRoWwto=",
+        "path": "/nix/store/lk8qidv2n3061jdy1fghmmvavhk783x6-source/units/home-manager/flakes/mosh",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/f4d4ind51krcfniibdrr96371fjnzhpl-source/units/home-manager/flakes/mosh",
+        "path": "/nix/store/lk8qidv2n3061jdy1fghmmvavhk783x6-source/units/home-manager/flakes/mosh",
         "type": "path"
       }
     },

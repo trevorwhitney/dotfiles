@@ -12,18 +12,19 @@ pkgs.stdenv.mkDerivation rec {
 
   nativeBuildInputs = with pkgs; [
     autoreconfHook
-    pkg-config
     makeWrapper
-    protobuf
     perl
+    pkg-config
+    protobuf
   ];
   buildInputs = with pkgs; [
-    protobuf
-    ncurses
-    zlib
-    openssl
     bash-completion
+    glibcLocales
+    ncurses
+    openssl
     perl
+    protobuf
+    zlib
   ];
 
   strictDeps = true;
