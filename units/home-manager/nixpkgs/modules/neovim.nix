@@ -44,14 +44,13 @@ in
       let
         lspPackages = with pkgs;
           if withLspSupport then [
-            /* (pkgs.callPackage ../pkgs/jsonnet-language-server { }) */
-            jsonnet-language-server
             (pkgs.callPackage ../pkgs/stylua { })
             jdtls
 
             ccls # c++ language server
             delve
             gopls
+            jsonnet-language-server
             nixfmt
             python-language-server
             rnix-lsp

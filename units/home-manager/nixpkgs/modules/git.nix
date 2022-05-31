@@ -76,7 +76,6 @@ in {
       ".idea"
       ".vscode"
       ".vim"
-      "shell.nix"
     ];
   };
 }

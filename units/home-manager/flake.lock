@@ -92,12 +92,12 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-Cgj7zmoFjcSLYaUxxxCTrXRDBLJGKecy8SLZPRBg628=",
-        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/jsonnet-language-server",
+        "narHash": "sha256-9PqIp3cTKDXJRmRpEvkKWlrNK71x46zBNKUkQyDB/0M=",
+        "path": "/nix/store/gya75dl7462xpdna434p35j8z40c5mxy-source/units/home-manager/flakes/jsonnet-language-server",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/jsonnet-language-server",
+        "path": "/nix/store/gya75dl7462xpdna434p35j8z40c5mxy-source/units/home-manager/flakes/jsonnet-language-server",
         "type": "path"
       }
     },
@@ -107,12 +107,12 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "narHash": "sha256-SZPOL4wEqD53sKFuMJUZzEaVu7uDOKCq0YQsTRoWwto=",
-        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/mosh",
+        "narHash": "sha256-V25Q2RH53YfKvx2wffZ+y8gXmsUDQEkHls9P1up/MZ0=",
+        "path": "/nix/store/gya75dl7462xpdna434p35j8z40c5mxy-source/units/home-manager/flakes/mosh",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/mosh",
+        "path": "/nix/store/gya75dl7462xpdna434p35j8z40c5mxy-source/units/home-manager/flakes/mosh",
         "type": "path"
       }
     },

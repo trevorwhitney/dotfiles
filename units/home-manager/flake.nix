@@ -38,11 +38,6 @@
     }: {
       homeConfigurations =
         let
-          overlay-unstable = system: final: prev: {
-            unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
-          };
-
-          overlay-neovim = neovim-nightly-overlay.overlay;
           commonConfig = system: {
             inherit system;
             homeDirectory = "/home/twhitney";
@@ -60,77 +55,70 @@
             ./nixpkgs/modules/zsh.nix
           ];
 
-          commonPackages = system: [ mosh.defaultPackage."${system}" ];
-
-          jsonnet-lsp-overlay = (system: final: prev: {
-            jsonnet-language-server =
-              inputs.jsonnet-language-server.defaultPackage."${system}";
-          });
+          overlays = system: [
+            neovim-nightly-overlay.overlay
+            (final: prev: {
+              jsonnet-language-server =
+                jsonnet-language-server.defaultPackage."${system}";
+              unstable = nixpkgs-unstable.legacyPackages."${system}";
+              mosh = mosh.defaultPackage."${system}";
+            })
+          ];
         in
         {
           "twhitney@cerebral" =
             let system = "x86_64-linux";
             in
-            self.inputs.home-manager.lib.homeManagerConfiguration
-              (commonConfig system // {
-                configuration = { config, pkgs, lib, ... }: {
-                  nixpkgs.overlays = [
-                    (overlay-unstable system)
-                    overlay-neovim
-                    (jsonnet-lsp-overlay system)
-                  ];
-                  nixpkgs.config = {
-                    allowUnfree = true;
-                    allowBroken = true;
-                  };
-
-                  imports = [
-                    ./nixpkgs/modules/media.nix
-                    ./nixpkgs/modules/spotify.nix
-                    (import ./nixpkgs/modules/neovim.nix {
-                      inherit config lib pkgs;
-                      withLspSupport = true;
-                    })
-                  ] ++ commonImports { inherit config pkgs lib system; };
-
-                  home.packages = commonPackages system;
-
-                  programs.git.includes =
-                    [{ path = "${inputs.secrets.defaultPackage.${system}}/git"; }];
-
-                  programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
-
-                  /* programs.neovim.extraPackages = [ jsonnet-language-server ]; */
+            home-manager.lib.homeManagerConfiguration (commonConfig system // {
+              configuration = { config, pkgs, lib, ... }: {
+                nixpkgs.overlays = overlays system;
+                nixpkgs.config = {
+                  allowUnfree = true;
+                  allowBroken = true;
                 };
-              });
+
+                imports = [
+                  ./nixpkgs/modules/media.nix
+                  ./nixpkgs/modules/spotify.nix
+                  (import ./nixpkgs/modules/neovim.nix {
+                    inherit config lib pkgs;
+                    withLspSupport = true;
+                  })
+                ] ++ commonImports { inherit config pkgs lib system; };
+
+                # home.packages = commonPackages system;
+
+                programs.git.includes =
+                  [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+              };
+            });
 
           "twhitney@penguin" =
             let system = "x86_64-linux";
             in
-            self.inputs.home-manager.lib.homeManagerConfiguration
-              (commonConfig system // {
-                configuration = { config, pkgs, lib, ... }: {
-                  nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
-                  nixpkgs.config = {
-                    allowUnfree = true;
-                    allowBroken = true;
-                  };
-
-                  imports = [
-                    (import ./nixpkgs/modules/neovim.nix {
-                      inherit config pkgs lib;
-                      withLspSupport = false;
-                    })
-                  ] ++ commonImports { inherit config pkgs lib system; };
-
-                  home.packages = commonPackages system;
-
-                  programs.git.includes =
-                    [{ path = "${inputs.secrets.defaultPackage.${system}}/git"; }];
-
-                  programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+            home-manager.lib.homeManagerConfiguration (commonConfig system // {
+              configuration = { config, pkgs, lib, ... }: {
+                nixpkgs.overlays = overlays system;
+                nixpkgs.config = {
+                  allowUnfree = true;
+                  allowBroken = true;
                 };
-              });
+
+                imports = [
+                  (import ./nixpkgs/modules/neovim.nix {
+                    inherit config pkgs lib;
+                    withLspSupport = false;
+                  })
+                ] ++ commonImports { inherit config pkgs lib system; };
+
+                programs.git.includes =
+                  [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+              };
+            });
         };
     };
 }
