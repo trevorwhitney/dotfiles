@@ -82,6 +82,25 @@
         "type": "github"
       }
     },
+    "jsonnet-language-server": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "narHash": "sha256-Cgj7zmoFjcSLYaUxxxCTrXRDBLJGKecy8SLZPRBg628=",
+        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/jsonnet-language-server",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/jsonnet-language-server",
+        "type": "path"
+      }
+    },
     "mosh": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -89,11 +108,11 @@
       },
       "locked": {
         "narHash": "sha256-SZPOL4wEqD53sKFuMJUZzEaVu7uDOKCq0YQsTRoWwto=",
-        "path": "/nix/store/lk8qidv2n3061jdy1fghmmvavhk783x6-source/units/home-manager/flakes/mosh",
+        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/mosh",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/lk8qidv2n3061jdy1fghmmvavhk783x6-source/units/home-manager/flakes/mosh",
+        "path": "/nix/store/6xjsc9h7s9w6nfnlr6ngj861195syc4l-source/units/home-manager/flakes/mosh",
         "type": "path"
       }
     },
@@ -209,6 +228,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "jsonnet-language-server": "jsonnet-language-server",
         "mosh": "mosh",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_3",

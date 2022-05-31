@@ -44,7 +44,8 @@ in
       let
         lspPackages = with pkgs;
           if withLspSupport then [
-            (pkgs.callPackage ../pkgs/jsonnet-language-server { })
+            /* (pkgs.callPackage ../pkgs/jsonnet-language-server { }) */
+            jsonnet-language-server
             (pkgs.callPackage ../pkgs/stylua { })
             jdtls
 

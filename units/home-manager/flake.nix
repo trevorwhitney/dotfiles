@@ -18,6 +18,10 @@
     mosh.url = "./flakes/mosh";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    jsonnet-language-server.url = "./flakes/jsonnet-language-server";
+    jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
+    jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs =
@@ -29,18 +33,18 @@
     , secrets
     , mosh
     , neovim-nightly-overlay
+    , jsonnet-language-server
     , ...
     }: {
       homeConfigurations =
         let
-          overlay-unstable = final: prev: {
-            unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
+          overlay-unstable = system: final: prev: {
+            unstable = inputs.nixpkgs-unstable.legacyPackages."${system}";
           };
 
           overlay-neovim = neovim-nightly-overlay.overlay;
           commonConfig = system: {
             inherit system;
-            # TODO: can you use builtins here?
             homeDirectory = "/home/twhitney";
             username = "twhitney";
           };
@@ -51,13 +55,17 @@
             ./nixpkgs/modules/git.nix
             (import ./nixpkgs/modules/tmux.nix {
               inherit config pkgs lib;
-              # TODO: is there a way to use a builtin to get the current system
               nixpkgs = import nixpkgs { inherit system; };
             })
             ./nixpkgs/modules/zsh.nix
           ];
 
-          commonPackages = [ mosh.defaultPackage.x86_64-linux ];
+          commonPackages = system: [ mosh.defaultPackage."${system}" ];
+
+          jsonnet-lsp-overlay = (system: final: prev: {
+            jsonnet-language-server =
+              inputs.jsonnet-language-server.defaultPackage."${system}";
+          });
         in
         {
           "twhitney@cerebral" =
@@ -66,7 +74,11 @@
             self.inputs.home-manager.lib.homeManagerConfiguration
               (commonConfig system // {
                 configuration = { config, pkgs, lib, ... }: {
-                  nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
+                  nixpkgs.overlays = [
+                    (overlay-unstable system)
+                    overlay-neovim
+                    (jsonnet-lsp-overlay system)
+                  ];
                   nixpkgs.config = {
                     allowUnfree = true;
                     allowBroken = true;
@@ -76,19 +88,19 @@
                     ./nixpkgs/modules/media.nix
                     ./nixpkgs/modules/spotify.nix
                     (import ./nixpkgs/modules/neovim.nix {
-                      inherit config pkgs lib;
+                      inherit config lib pkgs;
                       withLspSupport = true;
                     })
                   ] ++ commonImports { inherit config pkgs lib system; };
 
-                  home.packages = commonPackages;
+                  home.packages = commonPackages system;
 
                   programs.git.includes =
                     [{ path = "${inputs.secrets.defaultPackage.${system}}/git"; }];
 
-                  programs.zsh.sessionVariables = {
-                    GPG_TTY = "$(tty)";
-                  };
+                  programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+
+                  /* programs.neovim.extraPackages = [ jsonnet-language-server ]; */
                 };
               });
 
@@ -111,14 +123,12 @@
                     })
                   ] ++ commonImports { inherit config pkgs lib system; };
 
-                  home.packages = commonPackages;
+                  home.packages = commonPackages system;
 
                   programs.git.includes =
                     [{ path = "${inputs.secrets.defaultPackage.${system}}/git"; }];
 
-                  programs.zsh.sessionVariables = {
-                    GPG_TTY = "$(tty)";
-                  };
+                  programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
                 };
               });
         };
