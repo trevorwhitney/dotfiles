@@ -45,15 +45,9 @@ in
   xdg.configFile."tridactyl/tridactylrc".source =
     "${dotfiles}/config/tridactyl/tridactylrc";
 
-  # these are packages I need on the command line as well
-  # TODO: move lua-language-server to neovim extra package
-  # and refactor config to take base sumneko path
-  # TODO: install stylua via luarocks
   # TODO: copy google cloud sdk completion
   # ln -sf /usr/share/google-cloud-sdk/completion.zsh.inc "$HOME/.oh-my-zsh/custom/gcloud-completion.zsh"
   # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
-  # TODO: mkdir $HOME/go?
-  # TODO: add lua?
 
   home.packages = with pkgs; [
     (pkgs.callPackage ../pkgs/goimports { })

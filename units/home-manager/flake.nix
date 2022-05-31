@@ -14,6 +14,8 @@
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
+
+    mosh.url = "./flakes/mosh";
   };
 
   outputs =
@@ -23,6 +25,7 @@
     , home-manager
     , flake-utils
     , secrets
+    , mosh
     , ...
     }: {
       homeConfigurations =
@@ -49,6 +52,10 @@
             ./nixpkgs/modules/tmux.nix
             ./nixpkgs/modules/zsh.nix
           ];
+
+          commonPackages = [
+            mosh.defaultPackage.x86_64-linux
+          ];
         in
         {
           "twhitney@cerebral" =
@@ -69,6 +76,8 @@
                     withLspSupport = true;
                   })
                 ] ++ commonImports;
+
+                home.packages = commonPackages;
 
                 programs.git.includes = [{
                   path = "${inputs.secrets.defaultPackage.x86_64-linux}/git";
@@ -92,6 +101,8 @@
                     withLspSupport = false;
                   })
                 ] ++ commonImports;
+
+                home.packages = commonPackages;
 
                 programs.git.includes = [{
                   path = "${inputs.secrets.defaultPackage.x86_64-linux}/git";
