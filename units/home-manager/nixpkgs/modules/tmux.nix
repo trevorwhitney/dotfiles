@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ nixpkgs, config, pkgs, lib, ... }:
 
 let
   rtpPath = "share/tmux-plugins";
@@ -22,7 +22,7 @@ let
     , path ? lib.getName pluginName
     , ...
     }:
-    addRtp "${rtpPath}/${path}" rtpFilePath a (with (import <nixpkgs> { });
+    addRtp "${rtpPath}/${path}" rtpFilePath a (with nixpkgs;
     stdenv.mkDerivation (a // {
       pname = namePrefix + pluginName;
       name = namePrefix + pluginName;

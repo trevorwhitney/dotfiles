@@ -16,51 +16,42 @@
     secrets.inputs.flake-utils.follows = "flake-utils";
 
     mosh.url = "./flakes/mosh";
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
-  outputs =
-    inputs@{ self
-    , nixpkgs
-    , nixpkgs-unstable
-    , home-manager
-    , flake-utils
-    , secrets
-    , mosh
-    , ...
-    }: {
-      homeConfigurations =
-        let
-          overlay-unstable = final: prev: {
-            unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
-          };
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, flake-utils
+    , secrets, mosh, neovim-nightly-overlay, ... }: {
+      homeConfigurations = let
+        overlay-unstable = final: prev: {
+          unstable = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
+        };
 
-          overlay-neovim = import (builtins.fetchTarball {
-            url =
-              "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
-          });
+        overlay-neovim = neovim-nightly-overlay.overlay;
+        commonConfig = {
+          system = "x86_64-linux";
+          # TODO: can you use builtins here?
+          homeDirectory = "/home/twhitney";
+          username = "twhitney";
+        };
 
-          commonConfig = {
-            system = "x86_64-linux";
-            homeDirectory = "/home/twhitney";
-            username = "twhitney";
-          };
+        commonImports = { config, pkgs, lib }: [
+          ./nixpkgs/modules/common.nix
+          ./nixpkgs/modules/bash.nix
+          ./nixpkgs/modules/git.nix
+          (import ./nixpkgs/modules/tmux.nix {
+            inherit config pkgs lib;
+            # TODO: is there a way to use a builtin to get the current system
+            nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+          })
+          ./nixpkgs/modules/zsh.nix
+        ];
 
-          commonImports = [
-            ./nixpkgs/modules/common.nix
-            ./nixpkgs/modules/bash.nix
-            ./nixpkgs/modules/git.nix
-            ./nixpkgs/modules/tmux.nix
-            ./nixpkgs/modules/zsh.nix
-          ];
-
-          commonPackages = [
-            mosh.defaultPackage.x86_64-linux
-          ];
-        in
-        {
-          "twhitney@cerebral" =
-            self.inputs.home-manager.lib.homeManagerConfiguration (commonConfig
-              // {
+        commonPackages = [ mosh.defaultPackage.x86_64-linux ];
+      in {
+        "twhitney@cerebral" =
+          self.inputs.home-manager.lib.homeManagerConfiguration (commonConfig
+            // {
               configuration = { config, pkgs, lib, ... }: {
                 nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
                 nixpkgs.config = {
@@ -75,7 +66,7 @@
                     inherit config pkgs lib;
                     withLspSupport = true;
                   })
-                ] ++ commonImports;
+                ] ++ commonImports { inherit config pkgs lib; };
 
                 home.packages = commonPackages;
 
@@ -85,9 +76,9 @@
               };
             });
 
-          "twhitney@crostini" =
-            self.inputs.home-manager.lib.homeManagerConfiguration (commonConfig
-              // {
+        "twhitney@crostini" =
+          self.inputs.home-manager.lib.homeManagerConfiguration (commonConfig
+            // {
               configuration = { config, pkgs, lib, ... }: {
                 nixpkgs.overlays = [ overlay-unstable overlay-neovim ];
                 nixpkgs.config = {
@@ -100,7 +91,7 @@
                     inherit config pkgs lib;
                     withLspSupport = false;
                   })
-                ] ++ commonImports;
+                ] ++ commonImports { inherit config pkgs lib; };
 
                 home.packages = commonPackages;
 
@@ -111,6 +102,6 @@
                 programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
               };
             });
-        };
+      };
     };
 }
