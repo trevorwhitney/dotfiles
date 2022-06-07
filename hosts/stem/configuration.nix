@@ -51,7 +51,7 @@
   services.xserver.displayManager.gdm.settings = {
     daemon = {
       AutomaticLoginEnable = true;
-      AutomaticLogin = twhitney;
+      AutomaticLogin = "twhitney";
     };
   };
 
