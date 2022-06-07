@@ -44,16 +44,14 @@
   services.xserver.displayManager.gdm = {
     enable = true;
     autoSuspend = false;
-  };
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Auto-login to gnome
-  services.xserver.displayManager.gdm.settings = {
-    daemon = {
-      AutomaticLoginEnable = true;
-      AutomaticLogin = "twhitney";
+    settings = {
+      daemon = {
+        AutomaticLoginEnable = true;
+        AutomaticLogin = "twhitney";
+      };
     };
   };
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
   # If no user is logged in, the machine will power down after 20 minutes.
