@@ -43,29 +43,29 @@
     fsType = "vfat";
   };
 
-  fileSystems."/mnt/seagate" = {
-    device = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
-    depends = [ "/" ];
-    encrypted = {
-      enable = true;
-      keyFile = "/etc/luks-keys/seagate_secret_key";
-      label = "seagate_crypt";
-      blkDev = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
-      # blkDev = "/dev/sdb1";
-    };
-  };
+  /* fileSystems."/mnt/seagate" = { */
+  /*   device = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a"; */
+  /*   depends = [ "/" ]; */
+  /*   encrypted = { */
+  /*     enable = true; */
+  /*     keyFile = "/etc/luks-keys/seagate_secret_key"; */
+  /*     label = "seagate_crypt"; */
+  /*     blkDev = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a"; */
+  /*     # blkDev = "/dev/sdb1"; */
+  /*   }; */
+  /* }; */
 
-  fileSystems."/mnt/wd" = {
-    device = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
-    depends = [ "/" ];
-    encrypted = {
-      enable = true;
-      keyFile = "/etc/luks-keys/wd_secret_key";
-      label = "wd_crypt";
-      blkDev = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
-      # blkDev = "/dev/sdc1";
-    };
-  };
+  /* fileSystems."/mnt/wd" = { */
+  /*   device = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f"; */
+  /*   depends = [ "/" ]; */
+  /*   encrypted = { */
+  /*     enable = true; */
+  /*     keyFile = "/etc/luks-keys/wd_secret_key"; */
+  /*     label = "wd_crypt"; */
+  /*     blkDev = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f"; */
+  /*     # blkDev = "/dev/sdc1"; */
+  /*   }; */
+  /* }; */
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/19e4f435-3a75-497f-9e5b-eba1409850dd"; }];

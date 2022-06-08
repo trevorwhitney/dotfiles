@@ -79,6 +79,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     alacritty
+    cryptsetup
     docker
     firefox
     git
