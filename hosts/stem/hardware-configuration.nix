@@ -50,7 +50,8 @@
       enable = true;
       keyFile = "/mnt-root/etc/luks-keys/seagate_secret_key";
       label = "seagate_crypt";
-      blkDev = "/dev/sdb1";
+      blkDev = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
+      # blkDev = "/dev/sdb1";
     };
   };
 
@@ -61,7 +62,8 @@
       enable = true;
       keyFile = "/mnt-root/etc/luks-keys/wd_secret_key";
       label = "wd_crypt";
-      blkDev = "/dev/sdc1";
+      blkDev = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
+      # blkDev = "/dev/sdc1";
     };
   };
 
