@@ -14,8 +14,8 @@
   boot.initrd.kernelModules = [ "usb_storage" ];
 
   boot.initrd.secrets = {
-    "seagate_crypt" = "/etc/luks-keys/seagate_secret_key";
-    "wd_crypt" = "/etc/luks-keys/wd_secret_key";
+    "seagate_secret_key" = "/etc/luks-keys/seagate_secret_key";
+    "wd_secret_key" = "/etc/luks-keys/wd_secret_key";
   };
 
   boot.kernelModules = [ "kvm-intel" ];
