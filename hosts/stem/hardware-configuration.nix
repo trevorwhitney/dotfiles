@@ -12,12 +12,6 @@
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ "usb_storage" ];
-
-  boot.initrd.secrets = {
-    "seagate_secret_key" = "/etc/luks-keys/seagate_secret_key";
-    "wd_secret_key" = "/etc/luks-keys/wd_secret_key";
-  };
-
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
@@ -51,9 +45,10 @@
 
   fileSystems."/mnt/seagate" = {
     device = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
+    depends = [ "/" ];
     encrypted = {
       enable = true;
-      keyFile = "/seagate_secret_key";
+      keyFile = "/etc/luks-keys/seagate_secret_key";
       label = "seagate_crypt";
       blkDev = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
       # blkDev = "/dev/sdb1";
@@ -62,9 +57,10 @@
 
   fileSystems."/mnt/wd" = {
     device = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
+    depends = [ "/" ];
     encrypted = {
       enable = true;
-      keyFile = "/wd_secret_key";
+      key_file = "/etc/luks-keys/wd_secret_key";
       label = "wd_crypt";
       blkDev = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
       # blkDev = "/dev/sdc1";
