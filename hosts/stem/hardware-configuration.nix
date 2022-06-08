@@ -58,7 +58,7 @@
 
   systemd.services."mnt-wd" = {
     script = ''
-      sudo cryptsetup -v luksOpen /dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f wd_crypt --key-file=/etc/luks-keys/wd_secret_key
+      cryptsetup -v luksOpen /dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f wd_crypt --key-file=/etc/luks-keys/wd_secret_key
       mkdir -p /mnt/wd
       mount -t ext4 /dev/mapper/wd_crypt /mnt/wd
     '';
