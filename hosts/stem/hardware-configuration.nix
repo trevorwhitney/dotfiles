@@ -17,13 +17,13 @@
 
   boot.initrd.luks.devices = {
     "wd_crypt" = {
-      keyFile = "/etc/luks-keys/wd_secret_key";
+      /* keyFile = "/etc/luks-keys/wd_secret_key"; */
       device = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
       preLVM = true;
       allowDiscards = true;
     };
     "seagate_crypt" = {
-      keyFile = "/etc/luks-keys/seagate_secret_key";
+      /* keyFile = "/etc/luks-keys/seagate_secret_key"; */
       device = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
       preLVM = true;
       allowDiscards = true;
