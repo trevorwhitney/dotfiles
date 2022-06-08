@@ -46,8 +46,8 @@
   # Manually add systemd services to mount encrypted devices as the USB drives
   # are not seen at boot for some reason
   systemd.services."mnt-seagate" = {
-    script = ''
-      cryptsetup -v luksOpen /dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a seagate_crypt --key-file=/etc/luks-keys/seagate_secret_key
+    script = with pkgs; ''
+      ${pkgs.cryptsetup}/bin/cryptsetup -v luksOpen /dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a seagate_crypt --key-file=/etc/luks-keys/seagate_secret_key
       mkdir -p /mnt/seagate
       mount -t ext4 /dev/mapper/seagate_crypt /mnt/seagate
     '';
@@ -57,8 +57,8 @@
   };
 
   systemd.services."mnt-wd" = {
-    script = ''
-      cryptsetup -v luksOpen /dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f wd_crypt --key-file=/etc/luks-keys/wd_secret_key
+    script = with pkgs; ''
+      ${pkgs.cryptsetup}/bin/cryptsetup -v luksOpen /dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f wd_crypt --key-file=/etc/luks-keys/wd_secret_key
       mkdir -p /mnt/wd
       mount -t ext4 /dev/mapper/wd_crypt /mnt/wd
     '';
