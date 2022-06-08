@@ -4,69 +4,69 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/hardware/network/broadcom-43xx.nix")
-      (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [
+    (modulesPath + "/hardware/network/broadcom-43xx.nix")
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "sdhci_pci" ];
+  boot.initrd.kernelModules = [ "usb_storage" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/6883de9d-4e75-46df-ae4b-132655badce9";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/6883de9d-4e75-46df-ae4b-132655badce9";
+    fsType = "ext4";
+  };
 
-  fileSystems."/data" =
-    { device = "/dev/disk/by-uuid/e6118f1f-f28b-4a5d-bf2a-e0788426c244";
-      fsType = "ext4";
-      neededForBoot = true;
-    };
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/e6118f1f-f28b-4a5d-bf2a-e0788426c244";
+    fsType = "ext4";
+    neededForBoot = true;
+  };
 
-  fileSystems."/nix/store" =
-    { device = "/data/nix/store";
-      fsType = "none";
-      options = [ "bind" ];
-    };
+  fileSystems."/nix/store" = {
+    device = "/data/nix/store";
+    fsType = "none";
+    options = [ "bind" ];
+  };
 
-  fileSystems."/home" =
-    { device = "/data/home";
-      fsType = "none";
-      options = [ "bind" ];
-    };
+  fileSystems."/home" = {
+    device = "/data/home";
+    fsType = "none";
+    options = [ "bind" ];
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4455-E47D";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/4455-E47D";
+    fsType = "vfat";
+  };
 
-  fileSystems."/mnt/seagate" =
-    { device = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
-      fsType = "ext4";
-      encrypted = {
-        enable = true;
-        keyFile = "/etc/luks-keys/seagate_secret_key";
-        label = "seagate_crypt";
-        blkDev = "/dev/sdb1";
-      };
+  fileSystems."/mnt/seagate" = {
+    # device = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
+    fsType = "ext4";
+    encrypted = {
+      enable = true;
+      keyFile = "/mnt-root/etc/luks-keys/seagate_secret_key";
+      label = "seagate_crypt";
+      blkDev = "/dev/sdb1";
     };
+  };
 
-  fileSystems."/mnt/wd" =
-    { device = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
-      fsType = "ext4";
-      encrypted = {
-        enable = true;
-        keyFile = "/etc/luks-keys/wd_secret_key";
-        label = "wd_crypt";
-        blkDev = "/dev/sdc1";
-      };
+  fileSystems."/mnt/wd" = {
+    # device = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
+    fsType = "ext4";
+    encrypted = {
+      enable = true;
+      keyFile = "/mnt-root/etc/luks-keys/wd_secret_key";
+      label = "wd_crypt";
+      blkDev = "/dev/sdc1";
     };
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/19e4f435-3a75-497f-9e5b-eba1409850dd"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/19e4f435-3a75-497f-9e5b-eba1409850dd"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -77,7 +77,8 @@
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display
   hardware.video.hidpi.enable = lib.mkDefault true;
 }
