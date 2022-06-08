@@ -49,6 +49,7 @@
         enable = true;
         keyFile = "/etc/luks-keys/seagate_secret_key";
         label = "seagate_crypt";
+        blkDev = "/deb/sdb1";
       };
     };
 
@@ -59,6 +60,7 @@
         enable = true;
         keyFile = "/etc/luks-keys/wd_secret_key";
         label = "wd_crypt";
+        blkDev = "/deb/sdc1";
       };
     };
 
