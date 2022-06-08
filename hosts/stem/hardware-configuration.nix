@@ -51,6 +51,10 @@
       mkdir -p /mnt/seagate
       ${pkgs.mount}/bin/mount -t ext4 /dev/mapper/seagate_crypt /mnt/seagate
     '';
+    preStop = with pkgs; ''
+      ${pkgs.umount}/bin/umount /mnt/seagate
+      ${pkgs.cryptsetup}/bin/cryptsetup -v luksClose wd_seagate
+    '';
     wantedBy = [ "multi-user.target" ];
     after = [ "local-fs.target" ];
 
@@ -61,6 +65,10 @@
       ${pkgs.cryptsetup}/bin/cryptsetup -v luksOpen /dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f wd_crypt --key-file=/etc/luks-keys/wd_secret_key
       mkdir -p /mnt/wd
       ${pkgs.mount}/bin/mount -t ext4 /dev/mapper/wd_crypt /mnt/wd
+    '';
+    preStop = with pkgs; ''
+      ${pkgs.umount}/bin/umount /mnt/wd
+      ${pkgs.cryptsetup}/bin/cryptsetup -v luksClose wd_crypt
     '';
     wantedBy = [ "multi-user.target" ];
     after = [ "local-fs.target" ];
