@@ -49,7 +49,7 @@
     script = with pkgs; ''
       ${pkgs.cryptsetup}/bin/cryptsetup -v luksOpen /dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a seagate_crypt --key-file=/etc/luks-keys/seagate_secret_key
       mkdir -p /mnt/seagate
-      mount -t ext4 /dev/mapper/seagate_crypt /mnt/seagate
+      ${pkgs.mount}/bin/mount -t ext4 /dev/mapper/seagate_crypt /mnt/seagate
     '';
     wantedBy = [ "multi-user.target" ];
     after = [ "local-fs.target" ];
@@ -60,7 +60,7 @@
     script = with pkgs; ''
       ${pkgs.cryptsetup}/bin/cryptsetup -v luksOpen /dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f wd_crypt --key-file=/etc/luks-keys/wd_secret_key
       mkdir -p /mnt/wd
-      mount -t ext4 /dev/mapper/wd_crypt /mnt/wd
+      ${pkgs.mount}/bin/mount -t ext4 /dev/mapper/wd_crypt /mnt/wd
     '';
     wantedBy = [ "multi-user.target" ];
     after = [ "local-fs.target" ];
