@@ -53,16 +53,16 @@
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."seagate_crypt".device =
-    "/dev/sdd1";
+  /* boot.initrd.luks.devices."seagate_crypt".device = */
+  /*   "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a"; */
 
-  fileSystems."/mnt/wd" = {
-    device = "/dev/disk/by-uuid/98799e04-a47e-4596-abc1-c03ffa17ad28";
-    fsType = "ext4";
-  };
+  /* fileSystems."/mnt/wd" = { */
+  /*   device = "/dev/disk/by-uuid/98799e04-a47e-4596-abc1-c03ffa17ad28"; */
+  /*   fsType = "ext4"; */
+  /* }; */
 
   boot.initrd.luks.devices."wd_crypt".device =
-    "/dev/sdb1";
+    "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/19e4f435-3a75-497f-9e5b-eba1409850dd"; }];
