@@ -45,7 +45,7 @@
 
   fileSystems."/mnt/seagate" = {
     device = "/dev/disk/by-uuid/3466bf26-59db-471f-85f9-610fd8807c1a";
-    fsType = "ext4";
+    fsType = "crypto_LUKS";
     encrypted = {
       enable = true;
       keyFile = "/mnt-root/etc/luks-keys/seagate_secret_key";
@@ -57,7 +57,7 @@
 
   fileSystems."/mnt/wd" = {
     device = "/dev/disk/by-uuid/a0ac0856-8d02-4c96-bc6d-4d990e6ef67f";
-    fsType = "ext4";
+    fsType = "crypto_LUKS";
     encrypted = {
       enable = true;
       keyFile = "/mnt-root/etc/luks-keys/wd_secret_key";
