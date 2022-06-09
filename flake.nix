@@ -79,25 +79,25 @@
               homeDirectory = "/home/twhitney";
               username = "twhitney";
 
-              nixpkgs.overlays = overlays system;
+              /* nixpkgs.overlays = overlays system; */
 
-              imports = [
-                "${self}/units/home-manager/nixpkgs/modules/common.nix"
-                "${self}/units/home-manager/nixpkgs/modules/bash.nix"
-                "${self}/units/home-manager/nixpkgs/modules/git.nix"
-                /* (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" { */
-                /*   inherit config pkgs lib; */
-                /*   nixpkgs = pkgs; */
-                /* }) */
-                /* "${self}/units/home-manager/nixpkgs/modules/zsh.nix" */
-                /* (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" { */
-                /*   inherit config pkgs lib; */
-                /*   withLspSupport = true; */
-                /* }) */
-              ];
+              /* imports = [ */
+              /*   "${self}/units/home-manager/nixpkgs/modules/common.nix" */
+              /*   "${self}/units/home-manager/nixpkgs/modules/bash.nix" */
+              /*   "${self}/units/home-manager/nixpkgs/modules/git.nix" */
+              /*   /1* (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" { *1/ */
+              /*   /1*   inherit config pkgs lib; *1/ */
+              /*   /1*   nixpkgs = pkgs; *1/ */
+              /*   /1* }) *1/ */
+              /*   /1* "${self}/units/home-manager/nixpkgs/modules/zsh.nix" *1/ */
+              /*   /1* (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" { *1/ */
+              /*   /1*   inherit config pkgs lib; *1/ */
+              /*   /1*   withLspSupport = true; *1/ */
+              /*   /1* }) *1/ */
+              /* ]; */
 
-              programs.git.includes =
-                [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+              /* programs.git.includes = */
+              /*   [{ path = "${secrets.defaultPackage.${system}}/git"; }]; */
             };
           };
         };
