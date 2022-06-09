@@ -73,33 +73,33 @@
             (import "${home-manager}/nixos")
           ];
 
-          home-manager.users = {
-            twhitney = {
-              inherit system pkgs self;
-              homeDirectory = "/home/twhitney";
-              username = "twhitney";
+          /* home-manager.users = { */
+          /*   twhitney = { */
+          /*     inherit system pkgs self; */
+          /*     homeDirectory = "/home/twhitney"; */
+          /*     username = "twhitney"; */
 
-              /* nixpkgs.overlays = overlays system; */
+          /*     /1* nixpkgs.overlays = overlays system; *1/ */
 
-              /* imports = [ */
-              /*   "${self}/units/home-manager/nixpkgs/modules/common.nix" */
-              /*   "${self}/units/home-manager/nixpkgs/modules/bash.nix" */
-              /*   "${self}/units/home-manager/nixpkgs/modules/git.nix" */
-              /*   /1* (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" { *1/ */
-              /*   /1*   inherit config pkgs lib; *1/ */
-              /*   /1*   nixpkgs = pkgs; *1/ */
-              /*   /1* }) *1/ */
-              /*   /1* "${self}/units/home-manager/nixpkgs/modules/zsh.nix" *1/ */
-              /*   /1* (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" { *1/ */
-              /*   /1*   inherit config pkgs lib; *1/ */
-              /*   /1*   withLspSupport = true; *1/ */
-              /*   /1* }) *1/ */
-              /* ]; */
+          /*     /1* imports = [ *1/ */
+          /*     /1*   "${self}/units/home-manager/nixpkgs/modules/common.nix" *1/ */
+          /*     /1*   "${self}/units/home-manager/nixpkgs/modules/bash.nix" *1/ */
+          /*     /1*   "${self}/units/home-manager/nixpkgs/modules/git.nix" *1/ */
+          /*     /1*   /2* (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" { *2/ *1/ */
+          /*     /1*   /2*   inherit config pkgs lib; *2/ *1/ */
+          /*     /1*   /2*   nixpkgs = pkgs; *2/ *1/ */
+          /*     /1*   /2* }) *2/ *1/ */
+          /*     /1*   /2* "${self}/units/home-manager/nixpkgs/modules/zsh.nix" *2/ *1/ */
+          /*     /1*   /2* (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" { *2/ *1/ */
+          /*     /1*   /2*   inherit config pkgs lib; *2/ *1/ */
+          /*     /1*   /2*   withLspSupport = true; *2/ *1/ */
+          /*     /1*   /2* }) *2/ *1/ */
+          /*     /1* ]; *1/ */
 
-              /* programs.git.includes = */
-              /*   [{ path = "${secrets.defaultPackage.${system}}/git"; }]; */
-            };
-          };
+          /*     /1* programs.git.includes = *1/ */
+          /*     /1*   [{ path = "${secrets.defaultPackage.${system}}/git"; }]; *1/ */
+          /*   }; */
+          /* }; */
         };
       };
     };
