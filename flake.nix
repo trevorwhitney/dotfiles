@@ -68,6 +68,13 @@
             "${self}/hosts/stem/configuration.nix"
             (import "${home-manager}/nixos")
           ];
+
+          home-manager.users = {
+            twhitney = {
+              home.homeDirectory = "/home/twhitney";
+              home.username = "twhitney";
+            };
+          };
         };
       };
 
