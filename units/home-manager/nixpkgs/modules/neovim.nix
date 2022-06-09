@@ -3,8 +3,8 @@ let
   # jdtls = pkgs.callPackage ../pkgs/jdtls { };
 in
 {
-  xdg.dataFile."jdtls/config_linux/config.ini" =
-    lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
+  /* xdg.dataFile."jdtls/config_linux/config.ini" = */
+  /*   lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; }; */
 
   programs.neovim = {
     enable = true;
