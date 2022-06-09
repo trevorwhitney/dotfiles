@@ -38,6 +38,10 @@
     , ...
     }:
     let
+      inherit (builtins) attrValues;
+      inherit (flake-utils.lib) eachSystemMap defaultSystems;
+      eachDefaultSystemMap = eachSystemMap defaultSystems;
+
       system = "x86_64-linux";
 
       pkgs = import nixpkgs {
@@ -98,7 +102,17 @@
         };
       };
 
-      devShells = { default = import ./shell.nix { inherit pkgs; }; };
+      # Packages
+      # Accessible via 'nix build'
+      packages = eachDefaultSystemMap (system:
+        # Propagate nixpkgs' packages, with our overlays applied
+        import nixpkgs { inherit system; });
+
+      # Devshell for bootstrapping
+      # Accessible via 'nix develop'
+      devShells = eachDefaultSystemMap (system: {
+        default = import ./shell.nix { pkgs = packages.${system}; };
+      });
     };
 
 }
