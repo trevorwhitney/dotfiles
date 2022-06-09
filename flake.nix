@@ -7,12 +7,15 @@
     nixpkgs.url = "nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    configuration.url = "./hosts/stem/configuration.nix";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    jsonnet-language-server.url = "./units/home-manager/flakes/jsonnet-language-server";
+    jsonnet-language-server.url =
+      "./units/home-manager/flakes/jsonnet-language-server";
     jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
     jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
 
@@ -30,6 +33,7 @@
   outputs =
     { nixpkgs
     , nixpkgs-unstable
+    , configuration
     , flake-utils
     , home-manager
     , jsonnet-language-server
@@ -65,10 +69,7 @@
         stem = lib.nixosSystem {
           inherit system;
 
-          modules = [
-            "./hosts/stem/configuration.nix"
-            (import "${home-manager}/nixos")
-          ];
+          modules = [ (import configuration) (import "${home-manager}/nixos") ];
         };
       };
 
