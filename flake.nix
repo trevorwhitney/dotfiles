@@ -14,19 +14,19 @@
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    jsonnet-language-server.url =
-      "./units/home-manager/flakes/jsonnet-language-server";
-    jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
-    jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
+    # jsonnet-language-server.url =
+    # "./units/home-manager/flakes/jsonnet-language-server";
+    # jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
+    # jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
 
-    mosh.url = "./units/home-manager/flakes/mosh";
+    # mosh.url = "./units/home-manager/flakes/mosh";
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    # neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-    secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
-    secrets.inputs.nixpkgs.follows = "nixpkgs";
-    secrets.inputs.flake-utils.follows = "flake-utils";
+    # secrets.url =
+    # "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
+    # secrets.inputs.nixpkgs.follows = "nixpkgs";
+    # secrets.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs =
@@ -53,15 +53,15 @@
 
       config = nixpkgs.config;
 
-      /* overlays = system: [ */
-      /*   neovim-nightly-overlay.overlay */
-      /*   (final: prev: { */
-      /*     jsonnet-language-server = */
-      /*       jsonnet-language-server.defaultPackage."${system}"; */
-      /*     unstable = nixpkgs-unstable.legacyPackages."${system}"; */
-      /*     mosh = mosh.defaultPackage."${system}"; */
-      /*   }) */
-      /* ]; */
+      # overlays = system: [
+      # neovim-nightly-overlay.overlay
+      # (final: prev: {
+      # jsonnet-language-server =
+      # jsonnet-language-server.defaultPackage."${system}";
+      # unstable = nixpkgs-unstable.legacyPackages."${system}";
+      # mosh = mosh.defaultPackage."${system}";
+      # })
+      # ];
     in
     {
       nixosConfigurations = {
@@ -73,33 +73,33 @@
             (import "${home-manager}/nixos")
           ];
 
-          /* home-manager.users = { */
-          /*   twhitney = { */
-          /*     inherit system pkgs self; */
-          /*     homeDirectory = "/home/twhitney"; */
-          /*     username = "twhitney"; */
+          # home-manager.users = {
+          # twhitney = {
+          # inherit system pkgs self;
+          # homeDirectory = "/home/twhitney";
+          # username = "twhitney";
 
-          /*     /1* nixpkgs.overlays = overlays system; *1/ */
+          # /1* nixpkgs.overlays = overlays system; *1/
 
-          /*     /1* imports = [ *1/ */
-          /*     /1*   "${self}/units/home-manager/nixpkgs/modules/common.nix" *1/ */
-          /*     /1*   "${self}/units/home-manager/nixpkgs/modules/bash.nix" *1/ */
-          /*     /1*   "${self}/units/home-manager/nixpkgs/modules/git.nix" *1/ */
-          /*     /1*   /2* (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" { *2/ *1/ */
-          /*     /1*   /2*   inherit config pkgs lib; *2/ *1/ */
-          /*     /1*   /2*   nixpkgs = pkgs; *2/ *1/ */
-          /*     /1*   /2* }) *2/ *1/ */
-          /*     /1*   /2* "${self}/units/home-manager/nixpkgs/modules/zsh.nix" *2/ *1/ */
-          /*     /1*   /2* (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" { *2/ *1/ */
-          /*     /1*   /2*   inherit config pkgs lib; *2/ *1/ */
-          /*     /1*   /2*   withLspSupport = true; *2/ *1/ */
-          /*     /1*   /2* }) *2/ *1/ */
-          /*     /1* ]; *1/ */
+          # /1* imports = [ *1/
+          # /1*   "${self}/units/home-manager/nixpkgs/modules/common.nix" *1/
+          # /1*   "${self}/units/home-manager/nixpkgs/modules/bash.nix" *1/
+          # /1*   "${self}/units/home-manager/nixpkgs/modules/git.nix" *1/
+          # /1*   /2* (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" { *2/ *1/
+          # /1*   /2*   inherit config pkgs lib; *2/ *1/
+          # /1*   /2*   nixpkgs = pkgs; *2/ *1/
+          # /1*   /2* }) *2/ *1/
+          # /1*   /2* "${self}/units/home-manager/nixpkgs/modules/zsh.nix" *2/ *1/
+          # /1*   /2* (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" { *2/ *1/
+          # /1*   /2*   inherit config pkgs lib; *2/ *1/
+          # /1*   /2*   withLspSupport = true; *2/ *1/
+          # /1*   /2* }) *2/ *1/
+          # /1* ]; *1/
 
-          /*     /1* programs.git.includes = *1/ */
-          /*     /1*   [{ path = "${secrets.defaultPackage.${system}}/git"; }]; *1/ */
-          /*   }; */
-          /* }; */
+          # /1* programs.git.includes = *1/
+          # /1*   [{ path = "${secrets.defaultPackage.${system}}/git"; }]; *1/
+          # };
+          # };
         };
       };
     };
