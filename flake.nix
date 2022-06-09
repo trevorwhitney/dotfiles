@@ -74,7 +74,7 @@
 
       # nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
       # ./result/activate
-      homeManagerConfigurations = {
+      homeConfigurations = {
         "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
           inherit system pkgs;
           homeDirectory = "/home/twhitney";
@@ -101,18 +101,5 @@
             [{ path = "${secrets.defaultPackage.${system}}/git"; }];
         };
       };
-
-      # Packages
-      # Accessible via 'nix build'
-      packages = eachDefaultSystemMap (system:
-        # Propagate nixpkgs' packages, with our overlays applied
-        import nixpkgs { inherit system; });
-
-      # Devshell for bootstrapping
-      # Accessible via 'nix develop'
-      devShells = eachDefaultSystemMap (system: {
-        default = import ./shell.nix { pkgs = packages.${system}; };
-      });
     };
-
 }
