@@ -86,6 +86,7 @@
     gnome3.gnome-tweaks
     gnomeExtensions.appindicator
     gnomeExtensions.pop-shell
+    home-manager
     k9s
     kind
     kube3d
