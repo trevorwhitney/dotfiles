@@ -1,5 +1,5 @@
 withLspSupport:
-{ config, pkgs, lib }:
+{ config, pkgs, lib, ... }:
 let
   # jdtls = pkgs.callPackage ../pkgs/jdtls { };
 in
