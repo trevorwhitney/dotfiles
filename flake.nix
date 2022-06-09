@@ -48,7 +48,7 @@
 
       lib = nixpkgs.lib;
 
-      config = nixkpkgs.config;
+      config = nixpkgs.config;
 
       overlays = system: [
         neovim-nightly-overlay.overlay
