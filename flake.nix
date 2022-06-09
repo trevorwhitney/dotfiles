@@ -55,10 +55,8 @@
 
       pkgs = import nixpkgs {
         inherit system;
-        config = {
-          allowUnfree = true;
-          overlays = overlays;
-        };
+        overlays = overlays;
+        config = { allowUnfree = true; };
       };
 
       lib = nixpkgs.lib;
@@ -76,8 +74,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.twhitney = { config, pkgs, lib, ... }: {
-                nixpkgs.overlays = overlays;
-                nixpkgs.config = { allowUnfree = true; };
 
                 imports = [
                   ./units/home-manager/nixpkgs/modules/common.nix
