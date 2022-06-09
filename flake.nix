@@ -66,37 +66,34 @@
 
           modules = [
             "${self}/hosts/stem/configuration.nix"
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.users.twhitney = {
+                homeDirectory = "/home/twhitney";
+                username = "twhitney";
+
+                nixpkgs.overlays = overlays system;
+
+                imports = [
+                  ./units/home-manager/nixpkgs/modules/common.nix
+                  ./units/home-manager/nixpkgs/modules/bash.nix
+                  ./units/home-manager/nixpkgs/modules/git.nix
+                  (import ./units/home-manager/nixpkgs/modules/tmux.nix {
+                    inherit config pkgs lib;
+                    nixpkgs = pkgs;
+                  })
+                  ./units/home-manager/nixpkgs/modules/zsh.nix
+                  (import ./units/home-manager/nixpkgs/modules/neovim.nix {
+                    inherit config pkgs lib;
+                    withLspSupport = true;
+                  })
+                ];
+
+                programs.git.includes =
+                  [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+              };
+            }
           ];
-        };
-      };
-
-      # nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
-      # ./result/activate
-      homeManagerConfigurations = {
-        "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
-          inherit system pkgs;
-          homeDirectory = "/home/twhitney";
-          username = "twhitney";
-
-          nixpkgs.overlays = overlays system;
-
-          imports = [
-            ./units/home-manager/nixpkgs/modules/common.nix
-            ./units/home-manager/nixpkgs/modules/bash.nix
-            ./units/home-manager/nixpkgs/modules/git.nix
-            (import ./units/home-manager/nixpkgs/modules/tmux.nix {
-              inherit config pkgs lib;
-              nixpkgs = pkgs;
-            })
-            ./units/home-manager/nixpkgs/modules/zsh.nix
-            (import ./units/home-manager/nixpkgs/modules/neovim.nix {
-              inherit config pkgs lib;
-              withLspSupport = true;
-            })
-          ];
-
-          programs.git.includes =
-            [{ path = "${secrets.defaultPackage.${system}}/git"; }];
         };
       };
     };
