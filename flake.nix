@@ -67,7 +67,7 @@
 
           modules = [
             "./hosts/stem/configuration.nix"
-            (import "${home-mananger}/nixos")
+            (import "${home-manager}/nixos")
           ];
         };
       };
