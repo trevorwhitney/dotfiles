@@ -12,7 +12,7 @@
     home-manager.url = "github:nix-community/home-manager/releasse-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    jsonnet-language-server.url = "./flakes/jsonnet-language-server";
+    jsonnet-language-server.url = "./units/home-manager/flakes/jsonnet-language-server";
     jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
     jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
 
