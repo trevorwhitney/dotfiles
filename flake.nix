@@ -82,6 +82,11 @@
           username = "twhitney";
 
           configuration = { config, pkgs, lib, ... }: {
+            nixpkgs.overlays = overlays;
+            nixpkgs.config = {
+              allowUnfree = true;
+            };
+
             imports = [
               ./units/home-manager/nixpkgs/modules/common.nix
               ./units/home-manager/nixpkgs/modules/bash.nix
