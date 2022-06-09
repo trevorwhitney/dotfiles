@@ -64,39 +64,37 @@
         stem = lib.nixosSystem {
           inherit system;
 
-          modules = [
-            "${self}/hosts/stem/configuration.nix"
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.users = {
-                "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
-                  inherit system pkgs;
-                  homeDirectory = "/home/twhitney";
-                  username = "twhitney";
+          modules = [ "${self}/hosts/stem/configuration.nix" ];
+        };
+      };
 
-                  nixpkgs.overlays = overlays system;
+      # nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
+      # ./result/activate
+      homeManagerConfiguration = {
+        "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
+          inherit system pkgs;
+          homeDirectory = "/home/twhitney";
+          username = "twhitney";
 
-                  imports = [
-                    ./units/home-manager/nixpkgs/modules/common.nix
-                    ./units/home-manager/nixpkgs/modules/bash.nix
-                    ./units/home-manager/nixpkgs/modules/git.nix
-                    (import ./units/home-manager/nixpkgs/modules/tmux.nix {
-                      inherit config pkgs lib;
-                      nixpkgs = pkgs;
-                    })
-                    ./units/home-manager/nixpkgs/modules/zsh.nix
-                    (import ./units/home-manager/nixpkgs/modules/neovim.nix {
-                      inherit config pkgs lib;
-                      withLspSupport = true;
-                    })
-                  ];
+          nixpkgs.overlays = overlays system;
 
-                  programs.git.includes =
-                    [{ path = "${secrets.defaultPackage.${system}}/git"; }];
-                };
-              };
-            }
+          imports = [
+            ./units/home-manager/nixpkgs/modules/common.nix
+            ./units/home-manager/nixpkgs/modules/bash.nix
+            ./units/home-manager/nixpkgs/modules/git.nix
+            (import ./units/home-manager/nixpkgs/modules/tmux.nix {
+              inherit config pkgs lib;
+              nixpkgs = pkgs;
+            })
+            ./units/home-manager/nixpkgs/modules/zsh.nix
+            (import ./units/home-manager/nixpkgs/modules/neovim.nix {
+              inherit config pkgs lib;
+              withLspSupport = true;
+            })
           ];
+
+          programs.git.includes =
+            [{ path = "${secrets.defaultPackage.${system}}/git"; }];
         };
       };
     };
