@@ -43,6 +43,14 @@
     fsType = "vfat";
   };
 
+  environment.etc.crypttab = {
+    enable = true;
+    text = ''
+      seagate_crypt UUID=3466bf26-59db-471f-85f9-610fd8807c1a /etc/luks-keys/seagate_secret_key luks
+      wd_crypt UUID=a0ac0856-8d02-4c96-bc6d-4d990e6ef67f /etc/luks-keys/wd_secret_key luks
+    '';
+  };
+
   # Manually add systemd services to mount encrypted devices as the USB drives
   # are not seen at boot for some reason
   systemd.services."mnt-seagate" = {
