@@ -5,11 +5,39 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-22.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    flake-utils.url = "github:numtide/flake-utils";
+
     home-manager.url = "github:nix-community/home-manager/releasse-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    jsonnet-language-server.url = "./flakes/jsonnet-language-server";
+    jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
+    jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
+
+    mosh.url = "./units/home-manager/flakes/mosh";
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
+    secrets.url =
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
+    secrets.inputs.nixpkgs.follows = "nixpkgs";
+    secrets.inputs.flake-utils.follows = "flake-utils";
+
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs =
+    { nixpkgs
+    , nixpgks-unstable
+    , flake-utils
+    , home-manager
+    , jsonnet-language-server
+    , mosh
+    , neovim-nightly-overlay
+    , secrets
+    , ...
+    }:
     let
       system = "x86_64-linux";
 
