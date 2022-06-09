@@ -1,5 +1,6 @@
 { withLspSupport ? false, config, pkgs, lib }:
-let jdtls = pkgs.callPackage ../pkgs/jdtls { };
+let
+  # jdtls = pkgs.callPackage ../pkgs/jdtls { };
 in
 {
   xdg.dataFile."jdtls/config_linux/config.ini" =
@@ -19,7 +20,7 @@ in
             "let s:lsp_support = 1"
             "let s:sumneko_lua_ls_path = '${sumneko-lua-language-server}'"
             "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
-            "let g:jdtls_home = '${jdtls}'"
+            # "let g:jdtls_home = '${jdtls}'"
             (lib.strings.fileContents ../lib/init.vim)
           ] else [
             "let s:lsp_support = 0"
@@ -45,7 +46,7 @@ in
         lspPackages = with pkgs;
           if withLspSupport then [
             (pkgs.callPackage ../pkgs/stylua { })
-            jdtls
+            # jdtls
 
             ccls # c++ language server
             delve
