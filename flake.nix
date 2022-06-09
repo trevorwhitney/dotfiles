@@ -69,8 +69,9 @@
             home-manager.nixosModules.home-manager
             {
               home-manager.users.twhitney = {
-                homeDirectory = "/home/twhitney";
-                username = "twhitney";
+                inherit pkgs config lib;
+                home.directory = "/home/twhitney";
+                home.username = "twhitney";
 
                 nixpkgs.overlays = overlays system;
 
