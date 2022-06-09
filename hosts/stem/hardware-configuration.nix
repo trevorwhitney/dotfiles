@@ -46,11 +46,6 @@ in
     fsType = "vfat";
   };
 
-  fileSystems."/mnt/seagate" = {
-    device = "/dev/mapper/${seagate_crypt}";
-    fsType = "ext4";
-  };
-
   environment.etc.crypttab = {
     enable = true;
     text = ''
@@ -59,26 +54,14 @@ in
     '';
   };
 
-  # Manually add systemd services to mount encrypted devices as the USB drives
-  # are not seen at boot for some reason
-  systemd.services."mnt-seagate" = {
-    script = with pkgs; ''
-      mkdir -p /mnt/seagate
-      ${pkgs.mount}/bin/mount -t ext4 /dev/mapper/${seagate_crypt} /mnt/seagate || true
-      chown -R plex:plex /mnt/seagate
-    '';
-    wantedBy = [ "multi-user.target" ];
-    after = [ "systemd-cryptsetup@${seagate_crypt}.service" ];
+  fileSystems."/mnt/seagate" = {
+    device = "/dev/mapper/${seagate_crypt}";
+    fsType = "ext4";
   };
 
-  systemd.services."mnt-wd" = {
-    script = with pkgs; ''
-      mkdir -p /mnt/wd
-      ${pkgs.mount}/bin/mount -t ext4 /dev/mapper/${wd_crypt} /mnt/wd || true
-      chown -R plex:plex /mnt/wd
-    '';
-    wantedBy = [ "multi-user.target" ];
-    after = [ "systemd-cryptsetup@${wd_crypt}.service" ];
+  fileSystems."/mnt/wd" = {
+    device = "/dev/mapper/${wd_crypt}";
+    fsType = "ext4";
   };
 
   swapDevices =
