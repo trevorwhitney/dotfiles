@@ -64,13 +64,15 @@
         stem = lib.nixosSystem {
           inherit system;
 
-          modules = [ "${self}/hosts/stem/configuration.nix" ];
+          modules = [
+            "${self}/hosts/stem/configuration.nix"
+          ];
         };
       };
 
       # nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
       # ./result/activate
-      homeManagerConfiguration = {
+      homeManagerConfigurations = {
         "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
           inherit system pkgs;
           homeDirectory = "/home/twhitney";
