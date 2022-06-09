@@ -43,7 +43,7 @@
       eachDefaultSystemMap = eachSystemMap defaultSystems;
 
       system = "x86_64-linux";
-      overlays = system: [
+      overlays = [
         neovim-nightly-overlay.overlay
         (final: prev: {
           jsonnet-language-server =
@@ -57,14 +57,12 @@
         inherit system;
         config = {
           allowUnfree = true;
-          overlays = overlays system;
+          overlays = overlays;
         };
       };
 
       lib = nixpkgs.lib;
-
       config = nixpkgs.config;
-
     in
     {
       nixosConfigurations = {
@@ -79,14 +77,16 @@
       # ./result/activate
       homeConfigurations = {
         "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
-          inherit system;
+          inherit system pkgs;
           homeDirectory = "/home/twhitney";
           username = "twhitney";
 
-          nixpkgs = pkgs;
-
           configuration = { config, pkgs, lib, ... }: {
             nixpkgs.overlays = overlays system;
+            nixpkgs.config = {
+              allowUnfree = true;
+              allowBroken = true;
+            };
 
             imports = [
               ./units/home-manager/nixpkgs/modules/common.nix
