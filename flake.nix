@@ -85,15 +85,15 @@
                 "${self}/units/home-manager/nixpkgs/modules/common.nix"
                 "${self}/units/home-manager/nixpkgs/modules/bash.nix"
                 "${self}/units/home-manager/nixpkgs/modules/git.nix"
-                (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" {
-                  inherit config pkgs lib;
-                  nixpkgs = pkgs;
-                })
-                "${self}/units/home-manager/nixpkgs/modules/zsh.nix"
-                (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" {
-                  inherit config pkgs lib;
-                  withLspSupport = true;
-                })
+                /* (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" { */
+                /*   inherit config pkgs lib; */
+                /*   nixpkgs = pkgs; */
+                /* }) */
+                /* "${self}/units/home-manager/nixpkgs/modules/zsh.nix" */
+                /* (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" { */
+                /*   inherit config pkgs lib; */
+                /*   withLspSupport = true; */
+                /* }) */
               ];
 
               programs.git.includes =
