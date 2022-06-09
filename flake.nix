@@ -1,7 +1,3 @@
-# nixos-rebuild swith --flake .#
-# nix flake update --recreate-lock-file
-# nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
-# ./result/activate
 {
   description = "Stem NixOS System Config";
 
