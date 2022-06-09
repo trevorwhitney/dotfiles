@@ -69,7 +69,36 @@
         stem = lib.nixosSystem {
           inherit system;
 
-          modules = [ "${self}/hosts/stem/configuration.nix" ];
+          modules = [
+            "${self}/hosts/stem/configuration.nix"
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.twhitney = { config, pkgs, lib, ... }: {
+                nixpkgs.overlays = overlays;
+                nixpkgs.config = { allowUnfree = true; };
+
+                imports = [
+                  ./units/home-manager/nixpkgs/modules/common.nix
+                  ./units/home-manager/nixpkgs/modules/bash.nix
+                  ./units/home-manager/nixpkgs/modules/git.nix
+                  (import ./units/home-manager/nixpkgs/modules/tmux.nix {
+                    inherit config pkgs lib;
+                    nixpkgs = pkgs;
+                  })
+                  ./units/home-manager/nixpkgs/modules/zsh.nix
+                  (import ./units/home-manager/nixpkgs/modules/neovim.nix {
+                    inherit config pkgs lib;
+                    withLspSupport = true;
+                  })
+                ];
+
+                programs.git.includes =
+                  [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+              };
+            }
+          ];
         };
       };
 
@@ -83,9 +112,7 @@
 
           configuration = { config, pkgs, lib, ... }: {
             nixpkgs.overlays = overlays;
-            nixpkgs.config = {
-              allowUnfree = true;
-            };
+            nixpkgs.config = { allowUnfree = true; };
 
             imports = [
               ./units/home-manager/nixpkgs/modules/common.nix
