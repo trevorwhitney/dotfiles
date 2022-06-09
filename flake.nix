@@ -1,25 +1,3 @@
-let
-  system = "x86_64-linux";
-
-  pkgs = import nixpkgs {
-    inherit system;
-    config = { allowUnfree = true; };
-  };
-
-  lib = nixpkgs.lib;
-
-  config = nixpkgs.config;
-
-  overlays = system: [
-    neovim-nightly-overlay.overlay
-    (final: prev: {
-      jsonnet-language-server =
-        jsonnet-language-server.defaultPackage."${system}";
-      unstable = nixpkgs-unstable.legacyPackages."${system}";
-      mosh = mosh.defaultPackage."${system}";
-    })
-  ];
-in
 {
   description = "Stem NixOS System Config";
 
@@ -58,7 +36,30 @@ in
     , neovim-nightly-overlay
     , secrets
     , ...
-    }: {
+    }:
+    let
+      system = "x86_64-linux";
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+
+      lib = nixpkgs.lib;
+
+      config = nixpkgs.config;
+
+      overlays = system: [
+        neovim-nightly-overlay.overlay
+        (final: prev: {
+          jsonnet-language-server =
+            jsonnet-language-server.defaultPackage."${system}";
+          unstable = nixpkgs-unstable.legacyPackages."${system}";
+          mosh = mosh.defaultPackage."${system}";
+        })
+      ];
+    in
+    {
       nixosConfigurations = {
         stem = lib.nixosSystem {
           inherit system;
@@ -98,5 +99,14 @@ in
       };
     };
 
-  devShells = { default = import ./shell.nix { inherit pkgs; }; };
+  devShells = { self, nixpkgs, ... }:
+    let
+      system = "x86_64-linux";
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config = { allowUnfree = true; };
+      };
+    in
+    { default = import ./shell.nix { inherit pkgs; }; };
 }
