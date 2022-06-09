@@ -15,11 +15,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     jsonnet-language-server.url =
-      "${self}/units/home-manager/flakes/jsonnet-language-server";
+      "./units/home-manager/flakes/jsonnet-language-server";
     jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
     jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
 
-    mosh.url = "${self}/units/home-manager/flakes/mosh";
+    mosh.url = "./units/home-manager/flakes/mosh";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -75,7 +75,7 @@
 
           home-manager.users = {
             twhitney = {
-              inherit system pkgs;
+              inherit system pkgs self;
               homeDirectory = "/home/twhitney";
               username = "twhitney";
 
@@ -90,12 +90,10 @@
                   nixpkgs = pkgs;
                 })
                 "${self}/units/home-manager/nixpkgs/modules/zsh.nix"
-                (import
-                  "${self}/units/home-manager/nixpkgs/modules/neovim.nix"
-                  {
-                    inherit config pkgs lib;
-                    withLspSupport = true;
-                  })
+                (import "${self}/units/home-manager/nixpkgs/modules/neovim.nix" {
+                  inherit config pkgs lib;
+                  withLspSupport = true;
+                })
               ];
 
               programs.git.includes =
