@@ -53,15 +53,15 @@
 
       config = nixpkgs.config;
 
-      overlays = system: [
-        neovim-nightly-overlay.overlay
-        (final: prev: {
-          jsonnet-language-server =
-            jsonnet-language-server.defaultPackage."${system}";
-          unstable = nixpkgs-unstable.legacyPackages."${system}";
-          mosh = mosh.defaultPackage."${system}";
-        })
-      ];
+      /* overlays = system: [ */
+      /*   neovim-nightly-overlay.overlay */
+      /*   (final: prev: { */
+      /*     jsonnet-language-server = */
+      /*       jsonnet-language-server.defaultPackage."${system}"; */
+      /*     unstable = nixpkgs-unstable.legacyPackages."${system}"; */
+      /*     mosh = mosh.defaultPackage."${system}"; */
+      /*   }) */
+      /* ]; */
     in
     {
       nixosConfigurations = {
