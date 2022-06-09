@@ -9,7 +9,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/releasse-22.05";
+    home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     jsonnet-language-server.url = "./units/home-manager/flakes/jsonnet-language-server";
