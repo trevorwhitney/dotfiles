@@ -43,16 +43,6 @@
       eachDefaultSystemMap = eachSystemMap defaultSystems;
 
       system = "x86_64-linux";
-
-      pkgs = import nixpkgs {
-        inherit system;
-        config = { allowUnfree = true; };
-      };
-
-      lib = nixpkgs.lib;
-
-      config = nixpkgs.config;
-
       overlays = system: [
         neovim-nightly-overlay.overlay
         (final: prev: {
@@ -62,6 +52,19 @@
           mosh = mosh.defaultPackage."${system}";
         })
       ];
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          overlays = overlays system;
+        };
+      };
+
+      lib = nixpkgs.lib;
+
+      config = nixpkgs.config;
+
     in
     {
       nixosConfigurations = {
@@ -81,7 +84,6 @@
           username = "twhitney";
 
           nixpkgs = pkgs;
-          nixpkgs.overlays = overlays system;
 
           configuration = { config, pkgs, lib, ... }: {
             nixpkgs.overlays = overlays system;
