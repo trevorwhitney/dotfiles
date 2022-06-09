@@ -15,11 +15,11 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     jsonnet-language-server.url =
-      "./units/home-manager/flakes/jsonnet-language-server";
+      "${self}/units/home-manager/flakes/jsonnet-language-server";
     jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
     jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
 
-    mosh.url = "./units/home-manager/flakes/mosh";
+    mosh.url = "${self}/units/home-manager/flakes/mosh";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
@@ -82,18 +82,20 @@
               nixpkgs.overlays = overlays system;
 
               imports = [
-                ./units/home-manager/nixpkgs/modules/common.nix
-                ./units/home-manager/nixpkgs/modules/bash.nix
-                ./units/home-manager/nixpkgs/modules/git.nix
-                (import ./units/home-manager/nixpkgs/modules/tmux.nix {
+                "${self}/units/home-manager/nixpkgs/modules/common.nix"
+                "${self}/units/home-manager/nixpkgs/modules/bash.nix"
+                "${self}/units/home-manager/nixpkgs/modules/git.nix"
+                (import "${self}/units/home-manager/nixpkgs/modules/tmux.nix" {
                   inherit config pkgs lib;
                   nixpkgs = pkgs;
                 })
-                ./units/home-manager/nixpkgs/modules/zsh.nix
-                (import ./units/home-manager/nixpkgs/modules/neovim.nix {
-                  inherit config pkgs lib;
-                  withLspSupport = true;
-                })
+                "${self}/units/home-manager/nixpkgs/modules/zsh.nix"
+                (import
+                  "${self}/units/home-manager/nixpkgs/modules/neovim.nix"
+                  {
+                    inherit config pkgs lib;
+                    withLspSupport = true;
+                  })
               ];
 
               programs.git.includes =
