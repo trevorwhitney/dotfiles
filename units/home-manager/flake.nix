@@ -90,8 +90,6 @@
 
                 programs.git.includes =
                   [{ path = "${secrets.defaultPackage.${system}}/git"; }];
-
-                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
               };
             });
 
