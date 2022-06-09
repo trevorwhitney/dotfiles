@@ -1,5 +1,7 @@
 # nixos-rebuild swith --flake .#
 # nix flake update --recreate-lock-file
+# nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
+# ./result/activate
 {
   description = "Stem NixOS System Config";
 
@@ -70,36 +72,34 @@
             "${self}/hosts/stem/configuration.nix"
             (import "${home-manager}/nixos")
           ];
-        };
-      };
 
-      # nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
-      # ./result/activate
-      home-manager.users = {
-        "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
-          inherit system pkgs;
-          homeDirectory = "/home/twhitney";
-          username = "twhitney";
+          home-manager.users = {
+            twhitney = {
+              inherit system pkgs;
+              homeDirectory = "/home/twhitney";
+              username = "twhitney";
 
-          nixpkgs.overlays = overlays system;
+              nixpkgs.overlays = overlays system;
 
-          imports = [
-            ./units/home-manager/nixpkgs/modules/common.nix
-            ./units/home-manager/nixpkgs/modules/bash.nix
-            ./units/home-manager/nixpkgs/modules/git.nix
-            (import ./units/home-manager/nixpkgs/modules/tmux.nix {
-              inherit config pkgs lib;
-              nixpkgs = pkgs;
-            })
-            ./units/home-manager/nixpkgs/modules/zsh.nix
-            (import ./units/home-manager/nixpkgs/modules/neovim.nix {
-              inherit config pkgs lib;
-              withLspSupport = true;
-            })
-          ];
+              imports = [
+                ./units/home-manager/nixpkgs/modules/common.nix
+                ./units/home-manager/nixpkgs/modules/bash.nix
+                ./units/home-manager/nixpkgs/modules/git.nix
+                (import ./units/home-manager/nixpkgs/modules/tmux.nix {
+                  inherit config pkgs lib;
+                  nixpkgs = pkgs;
+                })
+                ./units/home-manager/nixpkgs/modules/zsh.nix
+                (import ./units/home-manager/nixpkgs/modules/neovim.nix {
+                  inherit config pkgs lib;
+                  withLspSupport = true;
+                })
+              ];
 
-          programs.git.includes =
-            [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+              programs.git.includes =
+                [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+            };
+          };
         };
       };
     };
