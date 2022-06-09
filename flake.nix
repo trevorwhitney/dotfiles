@@ -44,12 +44,12 @@
 
       system = "x86_64-linux";
       overlays = [
+        neovim-nightly-overlay.overlay
         (final: prev: {
           jsonnet-language-server =
             jsonnet-language-server.defaultPackage."${system}";
           unstable = nixpkgs-unstable.legacyPackages."${system}";
           mosh = mosh.defaultPackage."${system}";
-          neovim-nightlty = neovim-nightly-overlay.packages."${system}".neovim;
         })
       ];
 
@@ -73,20 +73,20 @@
             "${self}/hosts/stem/configuration.nix"
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
+              home-manager.useGlobalPkgs = false;
               home-manager.useUserPackages = true;
-              home-manager.users.twhitney = {
-                # nixpkgs.overlays = overlays;
-                # nixpkgs.config = { allowUnfree = true; };
+              home-manager.users.twhitney = { config, pkgs, lib, ... }: {
+                nixpkgs.overlays = overlays;
+                nixpkgs.config = { allowUnfree = true; };
 
                 imports = [
                   ./units/home-manager/nixpkgs/modules/common.nix
                   ./units/home-manager/nixpkgs/modules/bash.nix
                   ./units/home-manager/nixpkgs/modules/git.nix
-                  # (import ./units/home-manager/nixpkgs/modules/tmux.nix {
-                  # inherit config pkgs lib;
-                  # nixpkgs = pkgs;
-                  # })
+                  (import ./units/home-manager/nixpkgs/modules/tmux.nix {
+                    inherit config pkgs lib;
+                    nixpkgs = pkgs;
+                  })
                   ./units/home-manager/nixpkgs/modules/zsh.nix
                   (import ./units/home-manager/nixpkgs/modules/neovim.nix true)
                 ];
