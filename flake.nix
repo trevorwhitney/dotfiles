@@ -29,7 +29,7 @@
 
   outputs =
     { nixpkgs
-    , nixpgks-unstable
+    , nixpkgs-unstable
     , flake-utils
     , home-manager
     , jsonnet-language-server
