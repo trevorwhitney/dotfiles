@@ -24,8 +24,6 @@ in
         inherit (cfg) gpgPath;
         key = "D6E15E6AAB792668BB207FD478F930867F302694";
         signByDefault = true;
-        /* gpgPath = "/usr/bin/gpg"; */
-        /* gpgPath = cfg.gpgPath; */
       };
 
       lfs = {
