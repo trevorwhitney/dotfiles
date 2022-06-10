@@ -93,7 +93,6 @@
     kube3d
     kubectl
     nerdfonts
-    neovim-nightly
     vim
     wget
   ];

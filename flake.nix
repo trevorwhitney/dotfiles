@@ -18,6 +18,7 @@
     mosh.url = "./units/home-manager/flakes/mosh";
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim.url = "github:neovim/neovim?dir=contrib";
 
     secrets.url =
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
@@ -33,6 +34,7 @@
     , home-manager
     , jsonnet-language-server
     , mosh
+    , neovim
     , neovim-nightly-overlay
     , secrets
     , ...
@@ -44,12 +46,13 @@
 
       system = "x86_64-linux";
       overlays = [
-        neovim-nightly-overlay.overlay
+        /* neovim-nightly-overlay.overlay */
         (final: prev: {
           jsonnet-language-server =
             jsonnet-language-server.defaultPackage."${system}";
           unstable = nixpkgs-unstable.legacyPackages."${system}";
           mosh = mosh.defaultPackage."${system}";
+          neovim = neovim.defaultPackage."${system}";
         })
       ];
 
@@ -84,7 +87,7 @@
                   /*   nixpkgs = pkgs; */
                   /* }) */
                   ./units/home-manager/nixpkgs/modules/zsh.nix
-                  /* (import ./units/home-manager/nixpkgs/modules/neovim.nix true) */
+                  (import ./units/home-manager/nixpkgs/modules/neovim.nix true)
                 ];
 
                 programs.git.includes =
