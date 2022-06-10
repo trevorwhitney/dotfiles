@@ -34,5 +34,4 @@ vim-nox
 wget
 xdotool
 xclip
-xsel
 zsh
