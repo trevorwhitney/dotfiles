@@ -55,10 +55,9 @@
 
       pkgs = import nixpkgs {
         inherit system;
-        config = {
-          allowUnfree = true;
-          overlays = overlays;
-        };
+        overlays = overlays;
+
+        config = { allowUnfree = true; };
       };
 
       lib = nixpkgs.lib;
