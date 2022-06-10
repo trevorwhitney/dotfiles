@@ -73,12 +73,9 @@
             "${self}/hosts/stem/configuration.nix"
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = false;
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.twhitney = { config, pkgs, lib, ... }: {
-                nixpkgs.overlays = overlays;
-                nixpkgs.config = { allowUnfree = true; };
-
                 imports = [
                   ./units/home-manager/nixpkgs/modules/common.nix
                   ./units/home-manager/nixpkgs/modules/bash.nix
