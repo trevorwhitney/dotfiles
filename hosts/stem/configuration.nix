@@ -73,6 +73,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSeuF+NMj8sKD8kWuahlSasaPzHzT5Jhip+Y+EAcfEv trevorjwhitney@gmail.com"
     ];
+    shell = pkgs.zsh;
   };
 
   # List packages installed in system profile. To search, run:
