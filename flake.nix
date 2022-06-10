@@ -84,7 +84,7 @@
                   /*   nixpkgs = pkgs; */
                   /* }) */
                   ./units/home-manager/nixpkgs/modules/zsh.nix
-                  (import ./units/home-manager/nixpkgs/modules/neovim.nix true)
+                  /* (import ./units/home-manager/nixpkgs/modules/neovim.nix true) */
                 ];
 
                 programs.git.includes =
