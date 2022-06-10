@@ -74,6 +74,7 @@ in
     nodejs
     python38
     rbenv
+    ripgrep
     ruby
     rustc
     sysstat

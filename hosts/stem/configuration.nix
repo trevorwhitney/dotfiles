@@ -83,15 +83,18 @@
     cryptsetup
     docker
     firefox
+    gcc
     git
     gnome3.gnome-tweaks
     gnomeExtensions.appindicator
     gnomeExtensions.pop-shell
+    gnumake
     home-manager
     k9s
     kind
     kube3d
     kubectl
+    libcxx
     nerdfonts
     vim
     wget
@@ -142,4 +145,10 @@
 
   # enable docker
   virtualisation.docker.enable = true;
+
+  # enable gpg
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 }

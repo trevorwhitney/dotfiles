@@ -75,7 +75,9 @@
                 imports = [
                   ./units/home-manager/nixpkgs/modules/common.nix
                   ./units/home-manager/nixpkgs/modules/bash.nix
-                  ./units/home-manager/nixpkgs/modules/git.nix
+                  ./units/home-manager/nixpkgs/modules/git.nix {
+                    programs.git.gpgPath = with pkgs; "${gnupg}/bin/gpg";
+                  }
                   # (import ./units/home-manager/nixpkgs/modules/tmux.nix {
                   # inherit config pkgs lib;
                   # nixpkgs = pkgs;
