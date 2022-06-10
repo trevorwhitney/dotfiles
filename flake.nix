@@ -17,7 +17,6 @@
 
     mosh.url = "./units/home-manager/flakes/mosh";
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim.url = "github:neovim/neovim?dir=contrib";
 
     secrets.url =
@@ -35,18 +34,12 @@
     , jsonnet-language-server
     , mosh
     , neovim
-    , neovim-nightly-overlay
     , secrets
     , ...
     }:
     let
-      inherit (builtins) attrValues;
-      inherit (flake-utils.lib) eachSystemMap defaultSystems;
-      eachDefaultSystemMap = eachSystemMap defaultSystems;
-
       system = "x86_64-linux";
       overlays = [
-        /* neovim-nightly-overlay.overlay */
         (final: prev: {
           jsonnet-language-server =
             jsonnet-language-server.defaultPackage."${system}";
@@ -64,7 +57,7 @@
       };
 
       lib = nixpkgs.lib;
-      config = nixpkgs.config;
+      config = nixpkgs.config; # TODO: is this used?
     in
     {
       nixosConfigurations = {
@@ -72,6 +65,7 @@
           inherit system;
 
           modules = [
+            { nixpkgs.pkgs = pkgs; }
             "${self}/hosts/stem/configuration.nix"
             home-manager.nixosModules.home-manager
             {
@@ -82,10 +76,10 @@
                   ./units/home-manager/nixpkgs/modules/common.nix
                   ./units/home-manager/nixpkgs/modules/bash.nix
                   ./units/home-manager/nixpkgs/modules/git.nix
-                  /* (import ./units/home-manager/nixpkgs/modules/tmux.nix { */
-                  /*   inherit config pkgs lib; */
-                  /*   nixpkgs = pkgs; */
-                  /* }) */
+                  # (import ./units/home-manager/nixpkgs/modules/tmux.nix {
+                  # inherit config pkgs lib;
+                  # nixpkgs = pkgs;
+                  # })
                   ./units/home-manager/nixpkgs/modules/zsh.nix
                   (import ./units/home-manager/nixpkgs/modules/neovim.nix true)
                 ];
@@ -95,39 +89,6 @@
               };
             }
           ];
-        };
-      };
-
-      # nix build .#homeManagerConfigurations.twhitney@stem.activationPackage
-      # ./result/activate
-      homeConfigurations = {
-        "twhitney@stem" = home-manager.lib.homeManagerConfiguration {
-          inherit system pkgs;
-          homeDirectory = "/home/twhitney";
-          username = "twhitney";
-
-          configuration = { config, pkgs, lib, ... }: {
-            nixpkgs.overlays = overlays;
-            nixpkgs.config = { allowUnfree = true; };
-
-            imports = [
-              ./units/home-manager/nixpkgs/modules/common.nix
-              ./units/home-manager/nixpkgs/modules/bash.nix
-              ./units/home-manager/nixpkgs/modules/git.nix
-              (import ./units/home-manager/nixpkgs/modules/tmux.nix {
-                inherit config pkgs lib;
-                nixpkgs = pkgs;
-              })
-              ./units/home-manager/nixpkgs/modules/zsh.nix
-              (import ./units/home-manager/nixpkgs/modules/neovim.nix {
-                inherit config pkgs lib;
-                withLspSupport = true;
-              })
-            ];
-
-            programs.git.includes =
-              [{ path = "${secrets.defaultPackage.${system}}/git"; }];
-          };
         };
       };
     };

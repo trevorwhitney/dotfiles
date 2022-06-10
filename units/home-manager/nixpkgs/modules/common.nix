@@ -59,6 +59,7 @@ in
     gradle
     helm-docs
     jsonnet-bundler
+    jq
     k9s
     kotlin
     kube3d
