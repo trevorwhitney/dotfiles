@@ -83,7 +83,6 @@
     cryptsetup
     docker
     firefox
-    gcc
     git
     gnome3.gnome-tweaks
     gnomeExtensions.appindicator

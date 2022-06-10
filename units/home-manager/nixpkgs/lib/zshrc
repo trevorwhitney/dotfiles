@@ -75,8 +75,12 @@ if [[ `command -v kubectl` ]]; then
   complete -F __start_kubectl k
 fi
 
-export NIX_PROFILE="$HOME/.nix-profile"
-. $NIX_PROFILE/etc/profile.d/nix.sh
+
+# this path isn't there on nixos systems
+if [[ -e "$HOME/.nix-profile" ]]; then
+  export NIX_PROFILE="$HOME/.nix-profile"
+  . $NIX_PROFILE/etc/profile.d/nix.sh
+fi
 
 PATH="${HOME}/.local/bin:$PATH"
 export NIX_STORE_DIR=/nix/store

@@ -75,7 +75,8 @@
                 imports = [
                   ./units/home-manager/nixpkgs/modules/common.nix
                   ./units/home-manager/nixpkgs/modules/bash.nix
-                  ./units/home-manager/nixpkgs/modules/git.nix {
+                  ./units/home-manager/nixpkgs/modules/git.nix
+                  {
                     programs.git.gpgPath = with pkgs; "${gnupg}/bin/gpg";
                   }
                   # (import ./units/home-manager/nixpkgs/modules/tmux.nix {
@@ -88,6 +89,13 @@
 
                 programs.git.includes =
                   [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+                # TODO: this was an attempt to fix tree-sitter grammars on stem,
+                # currently not working
+                programs.zsh.sessionVariables = {
+                  LD_LIBRARY_PATH =
+                    "${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
+                };
               };
             }
           ];

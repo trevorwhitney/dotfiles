@@ -81,8 +81,11 @@ in
       with pkgs;
       [
         # required by tree-sitter
-        gcc
-        libcxx
+        # TODO: this worked on cerebral, but is it better to include stdenv?
+        /* gcc */
+        /* libcxx */
+        # TODO: some tree-sitter grammars are not building on stem
+        stdenv
         tree-sitter
         # end required by tree-sitter
 
