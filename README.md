@@ -44,6 +44,18 @@ When creating a local package, the following command is useful:
 nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
 ```
 
+## Forwarding GPG and SSH Agent
+
+This is useful for machines you remote into but don't want to store secrets on.
+
+```bash
+Host ...
+  HostName ...
+  User ...
+  RemoteForward /run/user/1000/gnupg/S.gpg-agent /run/user/1000/gnupg/S.gpg-agent.extra
+  ForwardAgent yes
+```
+
 ## TODO
 
 * template `~/.config/spotifyd/spotifyd.conf` and `~/.conifg/spotify-tui/config.yaml` and move to desktop unit
