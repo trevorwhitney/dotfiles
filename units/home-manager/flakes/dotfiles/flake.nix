@@ -11,29 +11,42 @@
           tmuxPlugins = prev.callPackage ./packages/tmux-plugins/default.nix {
             nixpkgs = prev;
           };
+
+          callRunCommandPkg = file:
+            prev.callPackage file { inherit (prev) lib runCommand; };
+
+          callBuildGoModulePkg = file:
+            prev.callPackage file {
+              inherit (prev) lib buildGoModule fetchFromGitHub;
+            };
         in
         {
           dotfiles =
             prev.callPackage ./default.nix { inherit (prev) stdenv pkgs lib; };
-          git-template = prev.callPackage ./packages/git-template/default.nix {
-            inherit (prev) lib runCommand;
-          };
-          gocomplete = prev.callPackage ./packages/gocomplete/default.nix {
-            inherit (prev) lib buildGoModule fetchFromGitHub;
-          };
+
+          git-template = callRunCommandPkg ./packages/git-template/default.nix;
+          kns-ktx = callRunCommandPkg ./packages/kns-ktx/default.nix;
+          oh-my-zsh-custom =
+            callRunCommandPkg ./packages/oh-my-zsh-custom/default.nix;
+
+          gocomplete = callBuildGoModulePkg ./packages/gocomplete/default.nix;
+          jsonnet-language-server =
+            callBuildGoModulePkg ./packages/jsonnet-language-server/default.nix;
+          jsonnet-lint =
+            callBuildGoModulePkg ./packages/jsonnet-lint/default.nix;
+          protoc-gen-gogofast =
+            callBuildGoModulePkg ./packages/protoc-gen-gogofast/default.nix;
+          protoc-gen-gogoslick =
+            callBuildGoModulePkg ./packages/protoc-gen-gogoslick/default.nix;
+          xk6 = callBuildGoModulePkg ./packages/xk6/default.nix;
+
+          tmux-cpu = tmuxPlugins.tmux-cpu;
+          tw-tmux-lib = tmuxPlugins.tw-tmux-lib;
+
           jdtls = prev.callPackage ./packages/jdtls/default.nix {
             inherit (prev) stdenv fetchzip lib pkgs;
           };
-          jsonnet-language-server =
-            prev.callPackage ./packages/jsonnet-language-server/default.nix {
-              inherit (prev) lib buildGoModule fetchFromGitHub;
-            };
-          jsonnet-lint = prev.callPackage ./packages/jsonnet-lint/default.nix {
-            inherit (prev) lib buildGoModule fetchFromGitHub;
-          };
-          kns-ktx = prev.callPackage ./packages/kns-ktx/default.nix {
-            inherit (prev) lib runCommand;
-          };
+
           mosh = prev.mosh.overrideAttrs (oldAttrs: rec {
             buildInputs = oldAttrs.buildInputs ++ (with prev; [ glibcLocales ]);
             postInstall = with prev; ''
@@ -41,27 +54,10 @@
               wrapProgram $out/bin/mosh-server --set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive;
             '';
           });
-          oh-my-zsh-custom =
-            prev.callPackage ./packages/oh-my-zsh-custom/default.nix {
-              inherit (prev) lib runCommand;
-            };
-          protoc-gen-gogofast =
-            prev.callPackage ./packages/protoc-gen-gogofast/default.nix {
-              inherit (prev) lib buildGoModule fetchFromGitHub;
-            };
-          protoc-gen-gogoslick =
-            prev.callPackage ./packages/protoc-gen-gogoslick/default.nix {
-              inherit (prev) lib buildGoModule fetchFromGitHub;
-            };
+
           stylua = prev.callPackage ./packages/stylua/default.nix {
             inherit (prev) lib rustPlatform fetchFromGitHub;
           };
-          xk6 = prev.callPackage ./packages/xk6/default.nix {
-            inherit (prev) lib buildGoModule fetchFromGitHub;
-          };
-
-          tw-tmux-lib = tmuxPlugins.tw-tmux-lib;
-          tmux-cpu = tmuxPlugins.tmux-cpu;
         });
     } // (flake-utils.lib.eachDefaultSystem (system:
       let
