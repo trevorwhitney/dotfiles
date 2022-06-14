@@ -9,10 +9,8 @@ mkShell {
     gocomplete
     gotools
     jdtls
-    jsonnet
     jsonnet-language-server
     jsonnet-lint
-    jsonnetfmt
     kns-ktx
     mosh
     oh-my-zsh-custom

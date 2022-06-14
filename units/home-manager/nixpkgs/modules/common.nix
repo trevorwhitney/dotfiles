@@ -28,9 +28,8 @@ in
   home.packages = with pkgs; [
     goimports
     gocomplete
-    jsonnet
+    unstable.jsonnet
     jsonnet-lint
-    jsonnetfmt
     protoc-gen-gogofast
     protoc-gen-gogoslick
     kns-ktx

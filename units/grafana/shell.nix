@@ -12,15 +12,6 @@ let
 
   golangci-lint_1_41_1 = golangci-lint-pkgs.golangci-lint;
 
-  jsonnet-pkgs = import
-    (builtins.fetchTarball {
-      url =
-        "https://github.com/NixOS/nixpkgs/archive/bf972dc380f36a3bf83db052380e55f0eaa7dcb6.tar.gz";
-    })
-    { };
-
-  jsonnet_0_18 = jsonnet-pkgs.jsonnet;
-
   faillint = buildGoModule rec {
     pname = "faillint";
     version = "1.5.0";
@@ -72,5 +63,5 @@ let
 in
 mkShell {
   nativeBuildInputs =
-    [ faillint gcc go golangci-lint_1_41_1 systemd helm-docs-1_8_1 jsonnet_0_18];
+    [ faillint gcc go golangci-lint_1_41_1 systemd helm-docs-1_8_1 ];
 }

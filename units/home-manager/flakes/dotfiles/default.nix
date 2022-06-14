@@ -13,7 +13,6 @@ stdenv.mkDerivation rec {
     jsonnet
     jsonnet-language-server
     jsonnet-lint
-    jsonnetfmt
     kns-ktx
     mosh
     oh-my-zsh-custom
@@ -36,7 +35,6 @@ stdenv.mkDerivation rec {
     cp ${jsonnet}/bin/jsonnet $out/bin
     cp ${jsonnet-language-server}/bin/jsonnet-language-server $out/bin
     cp ${jsonnet-lint}/bin/jsonnet-lint $out/bin
-    cp ${jsonnetfmt}/bin/jsonnetfmt $out/bin
     cp ${kns-ktx}/bin/kns $out/bin
     cp ${kns-ktx}/bin/ktx $out/bin
     cp ${mosh}/bin/mosh $out/bin

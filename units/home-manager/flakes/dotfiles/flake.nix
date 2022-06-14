@@ -22,17 +22,11 @@
         jdtls = prev.callPackage ./packages/jdtls/default.nix {
           inherit (prev) stdenv fetchzip lib pkgs;
         };
-        jsonnet = prev.callPackage ./packages/jsonnet/default.nix {
-          inherit (prev) lib buildGoModule fetchFromGitHub;
-        };
         jsonnet-language-server =
           prev.callPackage ./packages/jsonnet-language-server/default.nix {
             inherit (prev) lib buildGoModule fetchFromGitHub;
           };
         jsonnet-lint = prev.callPackage ./packages/jsonnet-lint/default.nix {
-          inherit (prev) lib buildGoModule fetchFromGitHub;
-        };
-        jsonnetfmt = prev.callPackage ./packages/jsonnetfmt/default.nix {
           inherit (prev) lib buildGoModule fetchFromGitHub;
         };
         kns-ktx = prev.callPackage ./packages/kns-ktx/default.nix {
@@ -80,10 +74,8 @@
           gocomplete = pkgs.gocomplete;
           gotools = pkgs.gotools;
           jdtls = pkgs.jdtls;
-          jsonnet = pkgs.jsonnet;
           jsonnet-language-server = pkgs.jsonnet-language-server;
           jsonnet-lint = pkgs.jsonnet-lint;
-          jsonnetfmt = pkgs.jsonnetfmt;
           kns-ktx = pkgs.kns-ktx;
           mosh = pkgs.mosh;
           oh-my-zsh-custom = pkgs.oh-my-zsh-custom;
