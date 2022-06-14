@@ -12,6 +12,15 @@ let
 
   golangci-lint_1_41_1 = golangci-lint-pkgs.golangci-lint;
 
+  jsonnet-pkgs = import
+    (builtins.fetchTarball {
+      url =
+        "https://github.com/NixOS/nixpkgs/archive/bf972dc380f36a3bf83db052380e55f0eaa7dcb6.tar.gz";
+    })
+    { };
+
+  jsonnet_0_18 = jsonnet-pkgs.jsonnet;
+
   faillint = buildGoModule rec {
     pname = "faillint";
     version = "1.5.0";
@@ -37,33 +46,31 @@ let
   };
 
   helm-docs-1_8_1 = buildGoModule rec {
-  pname = "helm-docs";
-  version = "1.8.1";
+    pname = "helm-docs";
+    version = "1.8.1";
 
-  src = fetchFromGitHub {
-    owner = "norwoodj";
-    repo = "helm-docs";
-    rev = "v${version}";
-    sha256 = "1z4w0kprdimdfjidpqasn558rdgx62lqdi6vj9xbkn2vh04vz51s";
+    src = fetchFromGitHub {
+      owner = "norwoodj";
+      repo = "helm-docs";
+      rev = "v${version}";
+      sha256 = "1z4w0kprdimdfjidpqasn558rdgx62lqdi6vj9xbkn2vh04vz51s";
+    };
+
+    vendorSha256 = "FpmeOQ8nV+sEVu2+nY9o9aFbCpwSShQUFOmyzwEQ9Pw=";
+
+    subPackages = [ "cmd/helm-docs" ];
+    ldflags = [ "-w" "-s" "-X main.version=v${version}" ];
+
+    meta = with lib; {
+      homepage = "https://github.com/norwoodj/helm-docs";
+      description =
+        "A tool for automatically generating markdown documentation for Helm charts";
+      license = licenses.gpl3Only;
+      maintainers = with maintainers; [ trevorwhitney ];
+    };
   };
-
-  vendorSha256 = "FpmeOQ8nV+sEVu2+nY9o9aFbCpwSShQUFOmyzwEQ9Pw=";
-
-  subPackages = [ "cmd/helm-docs" ];
-  ldflags = [
-    "-w"
-    "-s"
-    "-X main.version=v${version}"
-  ];
-
-  meta = with lib; {
-    homepage = "https://github.com/norwoodj/helm-docs";
-    description = "A tool for automatically generating markdown documentation for Helm charts";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ trevorwhitney ];
-  };
-};
 in
 mkShell {
-  nativeBuildInputs = [ faillint gcc go golangci-lint_1_41_1 systemd helm-docs-1_8_1 ];
+  nativeBuildInputs =
+    [ faillint gcc go golangci-lint_1_41_1 systemd helm-docs-1_8_1 jsonnet_0_18];
 }
