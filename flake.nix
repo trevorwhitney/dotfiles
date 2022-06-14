@@ -84,7 +84,13 @@
                   # nixpkgs = pkgs;
                   # })
                   ./units/home-manager/nixpkgs/modules/zsh.nix
-                  (import ./units/home-manager/nixpkgs/modules/neovim.nix true)
+                  ./units/home-manager/nixpkgs/modules/neovim.nix
+                  {
+                    programs.neovim = {
+                      withLspSupport = true;
+                      package = pkgs.neovim;
+                    };
+                  }
                 ];
 
                 programs.git.includes =

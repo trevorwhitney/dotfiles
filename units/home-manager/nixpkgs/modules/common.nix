@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let dotfiles = pkgs.callPackage ../pkgs/dotfiles { };
+let dotfiles = pkgs.dotfiles;
 in
 {
   # Let Home Manager install and manage itself.
@@ -15,8 +15,7 @@ in
   home.file.".prettierrc".source = "${dotfiles}/prettierrc.json";
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
   home.file.".todo/config".source = "${dotfiles}/todo.cfg";
-  xdg.configFile."yamllint/config".source =
-    "${dotfiles}/yamllint.yaml";
+  xdg.configFile."yamllint/config".source = "${dotfiles}/yamllint.yaml";
   xdg.configFile."k9s/skin.yml".source =
     "${dotfiles}/config/k9s/solarized_light.yml";
   xdg.configFile."tridactyl/tridactylrc".source =
@@ -27,15 +26,15 @@ in
   # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
 
   home.packages = with pkgs; [
-    /* (pkgs.callPackage ../pkgs/goimports { }) */
-    /* (pkgs.callPackage ../pkgs/gocomplete { }) */
-    /* (pkgs.callPackage ../pkgs/jsonnet { }) */
-    /* (pkgs.callPackage ../pkgs/jsonnet-lint { }) */
-    /* (pkgs.callPackage ../pkgs/jsonnetfmt { }) */
-    /* (pkgs.callPackage ../pkgs/protoc-gen-gogofast { }) */
-    /* (pkgs.callPackage ../pkgs/protoc-gen-gogoslick { }) */
-    /* (pkgs.callPackage ../pkgs/kns-ktx { }) */
-    /* (pkgs.callPackage ../pkgs/xk6 { }) */
+    goimports
+    gocomplete
+    jsonnet
+    jsonnet-lint
+    jsonnetfmt
+    protoc-gen-gogofast
+    protoc-gen-gogoslick
+    kns-ktx
+    xk6
 
     awscli2
     azure-cli

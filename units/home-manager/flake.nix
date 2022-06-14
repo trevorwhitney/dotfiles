@@ -15,25 +15,22 @@
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
-    mosh.url = "./flakes/mosh";
-
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-    jsonnet-language-server.url = "./flakes/jsonnet-language-server";
-    jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
-    jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
+    dotfiles.url = "./flakes/dotfiles";
+    dotfiles.inputs.nixpkgs.follows = "nixpkgs";
+    dotfiles.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs =
     inputs@{ self
     , nixpkgs
     , nixpkgs-unstable
+    , dotfiles
     , home-manager
     , flake-utils
     , secrets
-    , mosh
     , neovim-nightly-overlay
-    , jsonnet-language-server
     , ...
     }: {
       homeConfigurations =
@@ -48,6 +45,7 @@
             ./nixpkgs/modules/common.nix
             ./nixpkgs/modules/bash.nix
             ./nixpkgs/modules/git.nix
+            { programs.git.gpgPath = "/usr/bin/gpg"; }
             (import ./nixpkgs/modules/tmux.nix {
               inherit config pkgs lib;
               nixpkgs = import nixpkgs { inherit system; };
@@ -57,11 +55,9 @@
 
           overlays = system: [
             neovim-nightly-overlay.overlay
+            dotfiles.overlay
             (final: prev: {
-              jsonnet-language-server =
-                jsonnet-language-server.defaultPackage."${system}";
               unstable = nixpkgs-unstable.legacyPackages."${system}";
-              mosh = mosh.defaultPackage."${system}";
             })
           ];
         in
@@ -80,10 +76,13 @@
                 imports = [
                   ./nixpkgs/modules/media.nix
                   ./nixpkgs/modules/spotify.nix
-                  (import ./nixpkgs/modules/neovim.nix {
-                    inherit config lib pkgs;
-                    withLspSupport = true;
-                  })
+                  ./nixpkgs/modules/neovim.nix
+                  {
+                    programs.neovim = {
+                      withLspSupport = true;
+                      package = pkgs.neovim-nightly;
+                    };
+                  }
                 ] ++ commonImports { inherit config pkgs lib system; };
 
                 # home.packages = commonPackages system;
@@ -105,10 +104,13 @@
                 };
 
                 imports = [
-                  (import ./nixpkgs/modules/neovim.nix {
-                    inherit config pkgs lib;
-                    withLspSupport = false;
-                  })
+                  ./nixpkgs/modules/neovim.nix
+                  {
+                    programs.neovim = {
+                      withLspSupport = false;
+                      package = pkgs.neovim-nightly;
+                    };
+                  }
                 ] ++ commonImports { inherit config pkgs lib system; };
 
                 programs.git.includes =

@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
-let 
-  git-template = (pkgs.callPackage ../pkgs/git-template { });
+let
+  git-template = pkgs.git-template;
   cfg = config.programs.git;
 in
 {

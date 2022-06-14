@@ -1,7 +1,8 @@
 # vi: ft=nix
 { config, pkgs, lib, ... }:
-let custom = (pkgs.callPackage ../pkgs/oh-my-zsh-custom { });
-in {
+let custom = pkgs.oh-my-zsh-custom;
+in
+{
   programs.zsh = {
     enable = true;
     autocd = false;
@@ -25,8 +26,8 @@ in {
     initExtra = builtins.concatStringsSep "\n" (with pkgs; [
       ''
         # Fuzzy completion for history
-        [ -f "${fzf}/share/fzf/completion.zsh" ] && source "${fzf}/share/fzf/completion.zsh" 
-        [ -f "${fzf}/share/fzf/key-bindings.zsh" ] && source "${fzf}/share/fzf/key-bindings.zsh" 
+        [ -f "${fzf}/share/fzf/completion.zsh" ] && source "${fzf}/share/fzf/completion.zsh"
+        [ -f "${fzf}/share/fzf/key-bindings.zsh" ] && source "${fzf}/share/fzf/key-bindings.zsh"
       ''
       (lib.strings.fileContents ../lib/zshrc)
     ]);
