@@ -26,7 +26,6 @@ in
   # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
 
   home.packages = with pkgs; [
-    goimports
     unstable.gotools
     unstable.jsonnet
     jsonnet-lint
@@ -73,7 +72,6 @@ in
     python38
     rbenv
     ripgrep
-    ruby
     rustc
     sysstat
     tanka

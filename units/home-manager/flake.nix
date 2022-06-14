@@ -46,10 +46,7 @@
             ./nixpkgs/modules/bash.nix
             ./nixpkgs/modules/git.nix
             { programs.git.gpgPath = "/usr/bin/gpg"; }
-            (import ./nixpkgs/modules/tmux.nix {
-              inherit config pkgs lib;
-              nixpkgs = import nixpkgs { inherit system; };
-            })
+            ./nixpkgs/modules/tmux.nix
             ./nixpkgs/modules/zsh.nix
           ];
 
