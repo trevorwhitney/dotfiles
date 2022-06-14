@@ -16,9 +16,6 @@
         gocomplete = prev.callPackage ./packages/gocomplete/default.nix {
           inherit (prev) lib buildGoModule fetchFromGitHub;
         };
-        gotools = prev.callPackage ./packages/goimports/default.nix {
-          inherit (prev) lib buildGoModule fetchFromGitHub;
-        };
         jdtls = prev.callPackage ./packages/jdtls/default.nix {
           inherit (prev) stdenv fetchzip lib pkgs;
         };
@@ -72,7 +69,6 @@
           dotfiles = pkgs.dotfiles;
           git-template = pkgs.git-template;
           gocomplete = pkgs.gocomplete;
-          gotools = pkgs.gotools;
           jdtls = pkgs.jdtls;
           jsonnet-language-server = pkgs.jsonnet-language-server;
           jsonnet-lint = pkgs.jsonnet-lint;

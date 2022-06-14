@@ -8,7 +8,6 @@ stdenv.mkDerivation rec {
   buildInputs = with pkgs; [
     git-template
     gocomplete
-    gotools
     jdtls
     jsonnet
     jsonnet-language-server
@@ -31,7 +30,6 @@ stdenv.mkDerivation rec {
     cp -r ${oh-my-zsh-custom} $out/oh-my-zsh-custom
 
     cp ${gocomplete}/bin/gocomplete $out/bin
-    cp ${gotools}/bin/goimports $out/bin
     cp ${jsonnet}/bin/jsonnet $out/bin
     cp ${jsonnet-language-server}/bin/jsonnet-language-server $out/bin
     cp ${jsonnet-lint}/bin/jsonnet-lint $out/bin

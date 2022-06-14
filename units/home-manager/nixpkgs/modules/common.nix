@@ -27,7 +27,7 @@ in
 
   home.packages = with pkgs; [
     goimports
-    gocomplete
+    unstable.gotools
     unstable.jsonnet
     jsonnet-lint
     protoc-gen-gogofast

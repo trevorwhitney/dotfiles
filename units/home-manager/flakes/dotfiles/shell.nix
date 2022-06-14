@@ -7,7 +7,7 @@ mkShell {
     dotfiles
     git-template
     gocomplete
-    gotools
+    /* gotools */
     jdtls
     jsonnet-language-server
     jsonnet-lint
