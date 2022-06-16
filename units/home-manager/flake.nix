@@ -57,6 +57,7 @@
             (final: prev: {
               unstable = nixpkgs-unstable.legacyPackages."${system}";
               mosh = dotfiles.packages."${system}".mosh;
+              jdtls = dotfiles.packages."${system}".jdtls;
             })
           ];
         in
