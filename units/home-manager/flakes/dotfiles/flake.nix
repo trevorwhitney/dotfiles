@@ -49,13 +49,9 @@
             inherit (prev) stdenv fetchzip lib pkgs;
           };
 
-          mosh = prev.mosh.overrideAttrs (oldAttrs: rec {
-            buildInputs = oldAttrs.buildInputs ++ (with prev; [ glibcLocales ]);
-            postInstall = with prev; ''
-              wrapProgram $out/bin/mosh --prefix PERL5LIB : $PERL5LIB;
-              wrapProgram $out/bin/mosh-server --set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive;
-            '';
-          });
+          mosh = prev.callPackage ./packages/mosh/default.nix {
+            inherit (prev) pkgs;
+          };
 
           stylua = prev.callPackage ./packages/stylua/default.nix {
             inherit (prev) lib rustPlatform fetchFromGitHub;
