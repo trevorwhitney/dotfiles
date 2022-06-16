@@ -19,6 +19,7 @@
 
     dotfiles.url = "./flakes/dotfiles";
     dotfiles.inputs.nixpkgs.follows = "nixpkgs";
+    dotfiles.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     dotfiles.inputs.flake-utils.follows = "flake-utils";
   };
 
@@ -55,6 +56,7 @@
             dotfiles.overlay
             (final: prev: {
               unstable = nixpkgs-unstable.legacyPackages."${system}";
+              mosh = dotfiles.packages."${system}".mosh;
             })
           ];
         in

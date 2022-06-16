@@ -4,7 +4,9 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs, flake-utils }:
+  inputs.nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+  outputs = { self, nixpkgs, nixpkgs-unstable, flake-utils }:
     {
       overlay = (final: prev:
         let
@@ -61,7 +63,7 @@
         });
     } // (flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs {
+        pkgs = import nixpkgs-unstable {
           inherit system;
           overlays = [ self.overlay ];
         };

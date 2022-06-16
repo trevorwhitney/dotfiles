@@ -7,15 +7,18 @@
         ],
         "nixpkgs": [
           "nixpkgs"
+        ],
+        "nixpkgs-unstable": [
+          "nixpkgs-unstable"
         ]
       },
       "locked": {
-        "narHash": "sha256-nANOzNmhfW+KTdzHBj1VFEE4IrB44SPa0RLeqOHTo+w=",
-        "path": "/nix/store/krg3qf6qv28p3g8sks140sjdlz96x0r8-source/units/home-manager/flakes/dotfiles",
+        "narHash": "sha256-FRy7caiu1s+apg9VbD1eqEiSFbTEtbQxJAuDSSogKaE=",
+        "path": "/nix/store/05l1281xahkqvra3h2v3h51ny0907g77-source/units/home-manager/flakes/dotfiles",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/krg3qf6qv28p3g8sks140sjdlz96x0r8-source/units/home-manager/flakes/dotfiles",
+        "path": "/nix/store/05l1281xahkqvra3h2v3h51ny0907g77-source/units/home-manager/flakes/dotfiles",
         "type": "path"
       }
     },
