@@ -10,19 +10,17 @@
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    jsonnet-language-server.url =
-      "./units/home-manager/flakes/jsonnet-language-server";
-    jsonnet-language-server.inputs.nixpkgs.follows = "nixpkgs";
-    jsonnet-language-server.inputs.flake-utils.follows = "flake-utils";
-
-    mosh.url = "./units/home-manager/flakes/mosh";
-
     neovim.url = "github:neovim/neovim?dir=contrib";
 
     secrets.url =
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
+
+    dotfiles.url = "./units/home-manager/flakes/dotfiles";
+    dotfiles.inputs.nixpkgs.follows = "nixpkgs";
+    dotfiles.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+    dotfiles.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs =
@@ -31,10 +29,9 @@
     , nixpkgs-unstable
     , flake-utils
     , home-manager
-    , jsonnet-language-server
-    , mosh
     , neovim
     , secrets
+    , dotfiles
     , ...
     }:
     let
@@ -42,9 +39,9 @@
       overlays = [
         (final: prev: {
           jsonnet-language-server =
-            jsonnet-language-server.defaultPackage."${system}";
+            dotfiles.packages."${system}";
           unstable = nixpkgs-unstable.legacyPackages."${system}";
-          mosh = mosh.defaultPackage."${system}";
+          mosh = dotfiles.packages."${system}";
           neovim = neovim.defaultPackage."${system}";
         })
       ];
