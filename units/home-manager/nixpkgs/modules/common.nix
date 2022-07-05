@@ -34,6 +34,7 @@ in
     kns-ktx
     xk6
 
+    _1password
     awscli2
     azure-cli
     bash

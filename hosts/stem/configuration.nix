@@ -3,7 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
+let tailscaleInf = "tailscale0";
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -60,6 +61,8 @@
   # Configure keymap in X11
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "caps:ctrl";
+
+  services.resolved.enable = true;
 
   # Enable sound.
   sound.enable = true;
@@ -128,11 +131,18 @@
     openFirewall = true;
   };
 
+  # Enable tailscale
+  services.tailscale.enable = true;
+  services.tailscale.interfaceName = tailscaleInf;
+  networking.firewall.checkReversePath = "loose";
+  networking.firewall.trustedInterfaces = [ tailscaleInf ];
+
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ 6443 ];
+  networking.firewall.enable = true;
+  # Docker will open these up anyway...
+  # Maybe I want ufw on top of iptables?
+  networking.firewall.allowedTCPPorts = [ 7878 8989 9696 6789 30004 30005 30008 30009 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
