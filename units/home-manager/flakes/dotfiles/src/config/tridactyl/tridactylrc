@@ -6,7 +6,6 @@ sanitize tridactyllocal tridactylsync
 
 set editorcmd open-in-vim %f
 
-bind <C-\> no_mouse_mode
 bind x tabclose
 bind --mode=normal u undo tab
 bind --mode=normal U undo window
@@ -19,3 +18,6 @@ autocmd DocStart drive.google.com mode ignore
 autocmd DocStart docs.google.com mode ignore
 autocmd DocStart meet.google.com mode ignore
 autocmd DocStart miro.com mode ignore
+
+guiset_quiet gui none
+guiset_quiet tabs none
