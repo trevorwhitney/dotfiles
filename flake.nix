@@ -10,7 +10,7 @@
     home-manager.url = "github:nix-community/home-manager/release-22.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    neovim.url = "github:neovim/neovim?dir=contrib";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     secrets.url =
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
@@ -29,7 +29,7 @@
     , nixpkgs-unstable
     , flake-utils
     , home-manager
-    , neovim
+    , neovim-nightly-overlay
     , secrets
     , dotfiles
     , ...
@@ -37,28 +37,22 @@
     let
       system = "x86_64-linux";
       overlays = [
+        neovim-nightly-overlay.overlay
+        dotfiles.overlay
         (final: prev: {
-          jsonnet-language-server =
-            dotfiles.packages."${system}";
           unstable = nixpkgs-unstable.legacyPackages."${system}";
-          mosh = dotfiles.packages."${system}";
-          neovim = neovim.defaultPackage."${system}";
         })
       ];
 
       pkgs = import nixpkgs {
-        inherit system;
-        overlays = overlays;
+        inherit system overlays;
 
         config = { allowUnfree = true; };
       };
-
-      lib = nixpkgs.lib;
-      config = nixpkgs.config; # TODO: is this used?
     in
     {
       nixosConfigurations = {
-        stem = lib.nixosSystem {
+        stem = nixpkgs.lib.nixosSystem {
           inherit system;
 
           modules = [
@@ -80,7 +74,6 @@
                   {
                     programs.neovim = {
                       withLspSupport = true;
-                      package = pkgs.neovim;
                     };
                   }
                 ];
@@ -92,7 +85,7 @@
                 # currently not working
                 programs.zsh.sessionVariables = {
                   LD_LIBRARY_PATH =
-                    "${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
+                    "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
                 };
               };
             }

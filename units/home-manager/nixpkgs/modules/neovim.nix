@@ -18,6 +18,7 @@ in
 
   config =
     let withLspSupport = cfg.withLspSupport;
+    cc = "${pkgs.unstable.stdenv.cc}";
     in
     {
       xdg.dataFile."jdtls/config_linux/config.ini" =
@@ -45,7 +46,7 @@ in
           builtins.concatStringsSep "\n" (with pkgs;
           [
             # nvim-treesitter requires gcc and tree-sitter to be in the path as seen by neovim
-            "call setenv('PATH', '${gcc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
+            "call setenv('PATH', '${cc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
           ] ++ exCfg);
 
         withNodeJs = true;
@@ -99,7 +100,7 @@ in
             # gcc
             # libcxx
             # TODO: some tree-sitter grammars are not building on stem
-            unstable.stdenv
+            cc
             tree-sitter
             # end required by tree-sitter
 
