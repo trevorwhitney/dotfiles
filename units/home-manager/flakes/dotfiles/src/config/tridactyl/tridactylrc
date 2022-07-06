@@ -20,5 +20,5 @@ autocmd DocStart meet.google.com mode ignore
 autocmd DocStart miro.com mode ignore
 
 guiset_quiet gui none
-guiset_quiet tabs none
 guiset_quiet hoverlink top-left
+guiset_quiet navbar always

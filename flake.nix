@@ -25,13 +25,13 @@
 
   outputs =
     { self
-    , nixpkgs
-    , nixpkgs-unstable
+    , dotfiles
     , flake-utils
     , home-manager
     , neovim-nightly-overlay
+    , nixpkgs
+    , nixpkgs-unstable
     , secrets
-    , dotfiles
     , ...
     }:
     let
@@ -46,7 +46,6 @@
 
       pkgs = import nixpkgs {
         inherit system overlays;
-
         config = { allowUnfree = true; };
       };
     in
@@ -71,11 +70,7 @@
                   ./units/home-manager/nixpkgs/modules/tmux.nix
                   ./units/home-manager/nixpkgs/modules/zsh.nix
                   ./units/home-manager/nixpkgs/modules/neovim.nix
-                  {
-                    programs.neovim = {
-                      withLspSupport = true;
-                    };
-                  }
+                  { programs.neovim = { withLspSupport = true; }; }
                 ];
 
                 programs.git.includes =
@@ -92,5 +87,64 @@
           ];
         };
       };
+
+      homeConfigurations =
+        let
+          username = "twhitney";
+          homeDirectory = "/home/${username}";
+          baseConfig = {
+            inherit username homeDirectory pkgs;
+
+          };
+
+          sharedConfig = {
+            programs.git.includes =
+              [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+          };
+
+          sharedImports = [
+            ./units/home-manager/nixpkgs/modules/common.nix
+            ./units/home-manager/nixpkgs/modules/bash.nix
+            ./units/home-manager/nixpkgs/modules/git.nix
+            { programs.git.gpgPath = "/usr/bin/gpg"; }
+            ./units/home-manager/nixpkgs/modules/neovim.nix
+            ./units/home-manager/nixpkgs/modules/tmux.nix
+            ./units/home-manager/nixpkgs/modules/zsh.nix
+          ];
+
+        in
+        {
+          "twhitney@cerebral" = home-manager.lib.homeManagerConfiguration
+            (baseConfig // {
+              system = "x86_64-linux";
+
+              configuration = sharedConfig // {
+                imports = [
+                  ./units/home-manager/nixpkgs/modules/spotify.nix
+                  {
+                    programs.neovim = {
+                      withLspSupport = true;
+                      package = pkgs.neovim-nightly;
+                    };
+                  }
+                ] ++ sharedImports;
+              };
+            });
+
+          "twhitney@penguin" = home-manager.lib.homeManagerConfiguration
+            (baseConfig // {
+              system = "x86_64-linux";
+              configuration = sharedConfig // {
+                imports = [{
+                  programs.neovim = {
+                    withLspSupport = false;
+                    package = pkgs.neovim-nightly;
+                  };
+                }] ++ sharedImports;
+
+                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+              };
+            });
+        };
     };
 }

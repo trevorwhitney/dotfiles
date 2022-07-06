@@ -48,11 +48,11 @@ for dir in lib modules pkgs; do
 done
 
 if [[ ! -e "${HOME}/.config/nixpkgs/flake.nix" ]]; then
-	ln -s "${current_dir}/flake.nix" "${HOME}/.config/nixpkgs/flake.nix"
+	ln -s "${dot_files_dir}/flake.nix" "${HOME}/.config/nixpkgs/flake.nix"
 fi
 
 if [[ ! -e "${HOME}/.config/nixpkgs/flake.lock" ]]; then
-	ln -s "${current_dir}/flake.lock" "${HOME}/.config/nixpkgs/flake.lock"
+	ln -s "${dot_files_dir}/flake.lock" "${HOME}/.config/nixpkgs/flake.lock"
 fi
 
 if [[ ! -e "${HOME}/.config/flakes" ]]; then
