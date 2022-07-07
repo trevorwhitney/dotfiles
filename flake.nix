@@ -17,7 +17,7 @@
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
-    dotfiles.url = "./units/home-manager/flakes/dotfiles";
+    dotfiles.url = "./nix/flakes/dotfiles";
     dotfiles.inputs.nixpkgs.follows = "nixpkgs";
     dotfiles.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     dotfiles.inputs.flake-utils.follows = "flake-utils";
@@ -63,21 +63,19 @@
               home-manager.useUserPackages = true;
               home-manager.users.twhitney = {
                 imports = [
-                  ./units/home-manager/nixpkgs/modules/common.nix
-                  ./units/home-manager/nixpkgs/modules/bash.nix
-                  ./units/home-manager/nixpkgs/modules/git.nix
+                  ./nix/home-manager/common.nix
+                  ./nix/home-manager/bash.nix
+                  ./nix/home-manager/git.nix
                   { programs.git.gpgPath = with pkgs; "${gnupg}/bin/gpg"; }
-                  ./units/home-manager/nixpkgs/modules/tmux.nix
-                  ./units/home-manager/nixpkgs/modules/zsh.nix
-                  ./units/home-manager/nixpkgs/modules/neovim.nix
+                  ./nix/home-manager/tmux.nix
+                  ./nix/home-manager/zsh.nix
+                  ./nix/home-manager/neovim.nix
                   { programs.neovim = { withLspSupport = true; }; }
                 ];
 
                 programs.git.includes =
                   [{ path = "${secrets.defaultPackage.${system}}/git"; }];
 
-                # TODO: this was an attempt to fix tree-sitter grammars on stem,
-                # currently not working
                 programs.zsh.sessionVariables = {
                   LD_LIBRARY_PATH =
                     "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
@@ -94,7 +92,6 @@
           homeDirectory = "/home/${username}";
           baseConfig = {
             inherit username homeDirectory pkgs;
-
           };
 
           sharedConfig = {
@@ -103,13 +100,13 @@
           };
 
           sharedImports = [
-            ./units/home-manager/nixpkgs/modules/common.nix
-            ./units/home-manager/nixpkgs/modules/bash.nix
-            ./units/home-manager/nixpkgs/modules/git.nix
+            ./nix/home-manager/common.nix
+            ./nix/home-manager/bash.nix
+            ./nix/home-manager/git.nix
             { programs.git.gpgPath = "/usr/bin/gpg"; }
-            ./units/home-manager/nixpkgs/modules/neovim.nix
-            ./units/home-manager/nixpkgs/modules/tmux.nix
-            ./units/home-manager/nixpkgs/modules/zsh.nix
+            ./nix/home-manager/neovim.nix
+            ./nix/home-manager/tmux.nix
+            ./nix/home-manager/zsh.nix
           ];
 
         in
@@ -120,7 +117,7 @@
 
               configuration = sharedConfig // {
                 imports = [
-                  ./units/home-manager/nixpkgs/modules/spotify.nix
+                  ./nix/home-manager/spotify.nix
                   {
                     programs.neovim = {
                       withLspSupport = true;

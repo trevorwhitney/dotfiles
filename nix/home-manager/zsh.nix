@@ -29,7 +29,7 @@ in
         [ -f "${fzf}/share/fzf/completion.zsh" ] && source "${fzf}/share/fzf/completion.zsh"
         [ -f "${fzf}/share/fzf/key-bindings.zsh" ] && source "${fzf}/share/fzf/key-bindings.zsh"
       ''
-      (lib.strings.fileContents ../lib/zshrc)
+      (lib.strings.fileContents ./lib/zshrc)
     ]);
   };
 }

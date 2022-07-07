@@ -40,26 +40,9 @@ if [[ ! $(command -v home-manager) ]]; then
 	nix-shell '<home-manager>' -A install
 fi
 
-mkdir -p "${HOME}/.config/nixpkgs"
-for dir in lib modules pkgs; do
-	if [[ ! -e "${HOME}/.config/nixpkgs/${dir}" ]]; then
-		ln -sf "${current_dir}/nixpkgs/${dir}" "${HOME}/.config/nixpkgs/${dir}"
-	fi
-done
-
-if [[ ! -e "${HOME}/.config/nixpkgs/flake.nix" ]]; then
-	ln -s "${dot_files_dir}/flake.nix" "${HOME}/.config/nixpkgs/flake.nix"
-fi
-
-if [[ ! -e "${HOME}/.config/nixpkgs/flake.lock" ]]; then
-	ln -s "${dot_files_dir}/flake.lock" "${HOME}/.config/nixpkgs/flake.lock"
-fi
-
-if [[ ! -e "${HOME}/.config/flakes" ]]; then
-	ln -s "${current_dir}/flakes" "${HOME}/.config/nixpkgs/flakes"
-fi
-
-home-manager switch --impure
+pushd "${dot_files_dir}" || exit 1
+  home-manager switch --flake .
+popd || exit 1
 
 "${current_dir}/link-systemd-units.sh"
 

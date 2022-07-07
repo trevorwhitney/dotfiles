@@ -37,10 +37,10 @@ in
                 "let s:sumneko_lua_ls_path = '${sumneko-lua-language-server}'"
                 "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
                 "let g:jdtls_home = '${jdtls}'"
-                (lib.strings.fileContents ../lib/init.vim)
+                (lib.strings.fileContents ./lib/init.vim)
               ] else [
                 "let s:lsp_support = 0"
-                (lib.strings.fileContents ../lib/init.vim)
+                (lib.strings.fileContents ./lib/init.vim)
               ];
           in
           builtins.concatStringsSep "\n" (with pkgs;
