@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  jdtls = pkgs.jdtls;
+  inherit (pkgs) jdtls;
   cfg = config.programs.neovim;
 in
 {
@@ -17,10 +17,11 @@ in
   };
 
   config =
-    let withLspSupport = cfg.withLspSupport;
-    cc = "${pkgs.unstable.stdenv.cc}";
+    let
+      inherit (cfg) withLspSupport;
+      cc = "${pkgs.unstable.stdenv.cc}";
     in
-    {
+    rec {
       xdg.dataFile."jdtls/config_linux/config.ini" =
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
       programs.neovim = {
@@ -96,10 +97,6 @@ in
           with pkgs;
           [
             # required by tree-sitter
-            # TODO: this worked on cerebral, but is it better to include stdenv?
-            # gcc
-            # libcxx
-            # TODO: some tree-sitter grammars are not building on stem
             cc
             tree-sitter
             # end required by tree-sitter
@@ -108,5 +105,4 @@ in
           ] ++ lspPackages;
       };
     };
-
 }

@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  git-template = pkgs.git-template;
+  inherit (pkgs) git-template;
   cfg = config.programs.git;
 in
 {

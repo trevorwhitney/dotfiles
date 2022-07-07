@@ -36,11 +36,14 @@
     }:
     let
       system = "x86_64-linux";
+      unstable = nixpkgs-unstable.legacyPackages."${system}";
       overlays = [
         neovim-nightly-overlay.overlay
         dotfiles.overlay
         (final: prev: {
-          unstable = nixpkgs-unstable.legacyPackages."${system}";
+          inherit unstable;
+          #Packages to override from unstable
+          inherit (unstable) gopls gotools jsonnet;
         })
       ];
 
@@ -90,9 +93,7 @@
         let
           username = "twhitney";
           homeDirectory = "/home/${username}";
-          baseConfig = {
-            inherit username homeDirectory pkgs;
-          };
+          baseConfig = { inherit username homeDirectory pkgs; };
 
           sharedConfig = {
             programs.git.includes =

@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let dotfiles = pkgs.dotfiles;
+let inherit (pkgs) dotfiles;
 in
 {
   # Let Home Manager install and manage itself.
@@ -26,8 +26,8 @@ in
   # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
 
   home.packages = with pkgs; [
-    unstable.gotools
-    unstable.jsonnet
+    gotools
+    jsonnet
     jsonnet-lint
     protoc-gen-gogofast
     protoc-gen-gogoslick
@@ -86,16 +86,11 @@ in
     yarn
   ];
 
-  #TODO: lua53packages.luarocks
-  #TODO: add luarocks and stylua
-
   programs.java = {
     enable = true;
     package = pkgs.jdk11;
   };
 
-  # enabling bash makes sure ~/.profile is setup correctly
-  # which some other things rely on
   programs.direnv = {
     enable = true;
     nix-direnv = { enable = true; };
