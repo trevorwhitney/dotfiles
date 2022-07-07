@@ -77,6 +77,7 @@ in
     sysstat
     tanka
     terraform
+    tmate
     todo-txt-cli
     tz
     vault
