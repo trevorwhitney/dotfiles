@@ -63,5 +63,5 @@ let
 in
 mkShell {
   nativeBuildInputs =
-    [ faillint gcc go golangci-lint_1_41_1 systemd helm-docs-1_8_1 ];
+    [ faillint gcc go golangci-lint_1_41_1 systemd helm-docs-1_8_1 yamllint ];
 }
