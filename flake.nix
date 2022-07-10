@@ -66,6 +66,7 @@
               home-manager.useUserPackages = true;
               home-manager.users.twhitney = {
                 imports = [
+                  ./nix/home-manager/alacritty.nix
                   ./nix/home-manager/common.nix
                   ./nix/home-manager/bash.nix
                   ./nix/home-manager/git.nix

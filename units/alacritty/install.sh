@@ -22,16 +22,6 @@ install_from_package
 
 mkdir -p $HOME/.config/alacritty
 
-create_alacritty_link "$current_dir/alacritty-light.yml"
-create_alacritty_link "$current_dir/alacritty-dark.yml"
-create_alacritty_link "$current_dir/alacritty-popos.yml"
-create_alacritty_link "$current_dir/base.yml"
-create_alacritty_link "$current_dir/gruvbox-dark.yml"
-create_alacritty_link "$current_dir/gruvbox.yml"
-create_alacritty_link "$current_dir/solarized-dark.yml"
-create_alacritty_link "$current_dir/solarized.yml"
-create_alacritty_link "$current_dir/remote-dark.yml"
-create_alacritty_link "$current_dir/remote.yml"
 create_alacritty_link "$current_dir/open-in-vim.yml"
 
 sudo ln -sf "$current_dir/open-in-vim" /usr/local/bin/open-in-vim

@@ -64,8 +64,8 @@ function gen-logs() {
 
 if [[ `command -v alacritty` ]]; then
   alias term-remote="alacritty --config-file=/home/twhitney/.config/alacritty/remote.yml & "
-  alias term-remote-dark="alacritty --config-file=/home/twhitney/.config/alacritty/remote-dark.yml & "
-  alias term-dark="alacritty --config-file=/home/twhitney/.config/alacritty/alacritty-dark.yml & "
+  alias term-remote-alt="alacritty --config-file=/home/twhitney/.config/alacritty/remote-alt.yml & "
+  alias term-alt="alacritty --config-file=/home/twhitney/.config/alacritty/alacritty-alt.yml & "
 fi
 
 alias git-root="git rev-parse --show-toplevel"
