@@ -74,7 +74,10 @@ in
     home = "/home/twhitney";
     extraGroups = [ "wheel" "networkmanager" "docker" "plex" ];
     openssh.authorizedKeys.keys = [
+      # cerebral
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSeuF+NMj8sKD8kWuahlSasaPzHzT5Jhip+Y+EAcfEv trevorjwhitney@gmail.com"
+      # crostini
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINX1x10BU/7kbO24ZtX7Lz6IHd55KiWt0cMdlxlTHjlp trevorjwhitney@gmail.com"
     ];
     shell = pkgs.zsh;
   };
