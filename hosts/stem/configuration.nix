@@ -38,15 +38,39 @@ in
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable gnome
-  services.xserver.displayManager.gdm = {
+  ##### Xfce + i3 ####
+  services.xserver = {
     enable = true;
-    autoSuspend = false;
+
+    displayManager = {
+      gdm = {
+        enable = true;
+        autoSuspend = false;
+      };
+      defaultSession = "xfce"; # TODO: does this need to be xfce+i3?
+    };
+
+    desktopManager = {
+      xterm.enable = false;
+      xfce = {
+        enable = true;
+        noDesktop = true;
+        enableXfwm = false;
+      };
+    };
+
+    windowManager.i3 = {
+      enable = true;
+      package = pkgs.i3-gaps;
+      extraPackages = with pkgs; [ i3status i3lock i3blocks-gaps ];
+    };
   };
-  services.xserver.desktopManager.gnome.enable = true;
+
+  environment.pathsToLink =
+    [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+
+  programs.dconf.enable = true;
+  services.dbus.packages = with pkgs; [ xfce.xfconf ];
 
   # Pretty boot screen
   boot.plymouth.enable = false;
@@ -90,9 +114,6 @@ in
     docker
     firefox
     git
-    gnome3.gnome-tweaks
-    gnomeExtensions.appindicator
-    gnomeExtensions.pop-shell
     gnumake
     home-manager
     k9s
@@ -100,25 +121,13 @@ in
     kube3d
     kubectl
     libcxx
+    lxappearance
     nerdfonts
+    polybarFull
+    rofi
     vim
     wget
   ];
-
-  environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
-    ++ (with pkgs.gnome; [
-    atomix # puzzle game
-    epiphany # web browser
-    evince # document viewer
-    geary # email reader
-    gnome-music
-    hitori # sudoku game
-    iagno # go game
-    tali # poker game
-    totem # video player
-  ]);
-
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # List services that you want to enable:
 
@@ -144,7 +153,8 @@ in
   networking.firewall.enable = true;
   # Docker will open these up anyway...
   # Maybe I want ufw on top of iptables?
-  networking.firewall.allowedTCPPorts = [ 7878 8989 9696 6789 30004 30005 30008 30009 ];
+  networking.firewall.allowedTCPPorts =
+    [ 7878 8989 9696 6789 30004 30005 30008 30009 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
 
   # This value determines the NixOS release from which the default

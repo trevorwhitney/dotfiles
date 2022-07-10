@@ -70,6 +70,7 @@
                   ./nix/home-manager/bash.nix
                   ./nix/home-manager/git.nix
                   { programs.git.gpgPath = with pkgs; "${gnupg}/bin/gpg"; }
+                  ./nix/home-manager/i3.nix
                   ./nix/home-manager/tmux.nix
                   ./nix/home-manager/zsh.nix
                   ./nix/home-manager/neovim.nix
