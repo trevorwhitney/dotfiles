@@ -103,6 +103,7 @@
           };
 
           sharedImports = [
+            ./nix/home-manager/alacritty.nix
             ./nix/home-manager/common.nix
             ./nix/home-manager/bash.nix
             ./nix/home-manager/git.nix
