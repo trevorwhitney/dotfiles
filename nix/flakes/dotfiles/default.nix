@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
     kns-ktx
     mosh
     oh-my-zsh-custom
+    polybar-themes
     protoc-gen-gogofast
     protoc-gen-gogoslick
     rsync
@@ -40,6 +41,11 @@ stdenv.mkDerivation rec {
     cp ${protoc-gen-gogoslick}/bin/protoc-gen-gogoslick $out/bin
     cp ${rsync}/bin/rsync $out/bin
     cp ${xk6}/bin/xk6 $out/bin
+
+    mkdir -p $out/fonts
+    mkdir -p $out/polybar
+    rsync -av --no-group ${polybar-themes}/fonts/ $out/fonts
+    rsync -av --no-group ${polybar-themes}/polybar/ $out/polybar
 
     rsync -av --no-group $src/ $out
   '';
