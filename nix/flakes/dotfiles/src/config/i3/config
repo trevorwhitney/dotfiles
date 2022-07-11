@@ -227,3 +227,6 @@ client.background       $base07
 # Polybar
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
+
+# Wallpaper
+exec --no-startup-id nitrogen --set-auto $HOME/.local/share/backgrounds/solarized-bubbles.png --head=0
