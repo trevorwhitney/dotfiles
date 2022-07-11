@@ -127,6 +127,7 @@ in
     nitrogen
     polybarFull
     psmisc
+    redshift
     rofi
     vim
     wget

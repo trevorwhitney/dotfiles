@@ -52,6 +52,8 @@ bindsym $mod+d exec "rofi -no-config -no-lazy-grab -show drun -modi drun -theme 
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+# use rofi to provide alt+tab
+bindsym Mod1+Tab exec --no-startup-id "rofi -no-config -no-lazy-grab -modi combi -combi-modi window -show combi -theme $HOME/.config/polybar/shapes/scripts/rofi/launcher.rasi"
 
 # change focus
 bindsym $mod+h focus left
@@ -220,6 +222,3 @@ client.background       $base3
 # Polybar
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
-
-# Wallpaper
-exec --no-startup-id nitrogen --set-auto $HOME/.local/share/backgrounds/solarized-bubbles.png
