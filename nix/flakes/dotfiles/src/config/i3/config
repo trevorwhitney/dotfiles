@@ -54,10 +54,10 @@ bindsym $mod+d exec "rofi -no-config -no-lazy-grab -show drun -modi drun -theme 
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -66,10 +66,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -78,10 +78,11 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+v split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+x split v
+
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -149,84 +150,76 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+  # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+  # Pressing left will shrink the window’s width.
+  # Pressing right will grow the window’s width.
+  # Pressing up will shrink the window’s height.
+  # Pressing down will grow the window’s height.
+  bindsym h resize shrink width 10 px or 10 ppt
+  bindsym j resize grow height 10 px or 10 ppt
+  bindsym k resize shrink height 10 px or 10 ppt
+  bindsym l resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+  # same bindings, but for the arrow keys
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
+  # back to normal: Enter or Escape or $mod+r
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 # gaps
-for_window [class=".*"] border pixel 0
+for_window [class=".*"] border pixel 5
 
-gaps inner 5
-gaps outer 3
+gaps inner 10
+# outer gaps are added to inner
+gaps outer -5
 
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
-
-# Only enable outer gaps when there is exactly one container
-smart_gaps inverse_outer
+smart_borders on
 
 # for use with i3-msg
 # gaps inner|outer|horizontal|vertical|top|right|bottom|left current|all set|plus|minus|toggle <px>
 
 # colors
-# client.focused #000000 #000000 #000000 #000000
-# client.focused_inactive #626262 #626262 #626262
-# client.unfocused #626262 #626262 #626262 #626262
-# client.urgent #dc322f #dc322f #dc322f #dc332f
-# client.placeholder #626262 #626262 #626262 #626262
+set $base03 #002b36
+set $base02 #073642
+set $base01 #586e75
+set $base00 #657b83
+set $base0 #839496
+set $base1 #93a1a1
+set $base2 #eee8d5
+set $base3 #fdf6e3
 
-# client.background #fdf6e3
-
-set $base00 #fdf6e3
-set $base01 #eee8d5
-set $base02 #93a1a1
-set $base03 #839496
-set $base04 #657b83
-set $base05 #586e75
-set $base06 #073642
-set $base07 #002b36
-set $base08 #dc322f
-set $base09 #cb4b16
-set $base0A #b58900
-set $base0B #859900
-set $base0C #2aa198
-set $base0D #268bd2
-set $base0E #6c71c4
-set $base0F #d33682
+set $yellow #b58900
+set $orange #cb4b16
+set $red #dc322f
+set $magenta #d33682
+set $violet #6c71c4
+set $blue #268bd2
+set $cyan #2aa198
+set $green #859900
 
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base05 $base0D $base00 $base0D $base0C
-client.focused_inactive $base01 $base01 $base05 $base03 $base01
-client.unfocused        $base01 $base00 $base05 $base01 $base01
-client.urgent           $base08 $base08 $base00 $base08 $base08
-client.placeholder      $base00 $base00 $base05 $base00 $base00
-client.background       $base07
+client.focused          $base3  $base3  $blue   $green    $blue
+client.focused_inactive $base3  $base3  $blue   $green    $base2
+client.unfocused        $base3  $base2  $base1  $green    $base2
+client.urgent           $base3  $base2  $base3  $red      $red
+client.placeholder      $base3  $base2  $base3  $base1    $base2
+client.background       $base3
 
 # Polybar
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --shapes
 
 # Wallpaper
-exec --no-startup-id nitrogen --set-auto $HOME/.local/share/backgrounds/solarized-bubbles.png --head=0
+exec --no-startup-id nitrogen --set-auto $HOME/.local/share/backgrounds/solarized-bubbles.png
