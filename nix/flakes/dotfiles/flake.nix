@@ -43,15 +43,14 @@
             callBuildGoModulePkg ./packages/protoc-gen-gogoslick/default.nix;
           xk6 = callBuildGoModulePkg ./packages/xk6/default.nix;
 
-
           jdtls = prev.callPackage ./packages/jdtls/default.nix {
             inherit (prev) stdenv fetchzip lib pkgs;
           };
+          polybar-themes = prev.callPackage ./packages/polybar-themes/default.nix {
+            inherit (prev) fetchFromGitHub lib runCommand;
+          };
           mosh = prev.callPackage ./packages/mosh/default.nix {
             inherit (prev) pkgs;
-          };
-          polybar-themes = prev.callPackage ./packages/polybar-themes/default.nix {
-            inherit (prev) stdenv fetchFromGitHub lib pkgs;
           };
           stylua = prev.callPackage ./packages/stylua/default.nix {
             inherit (prev) lib rustPlatform fetchFromGitHub;

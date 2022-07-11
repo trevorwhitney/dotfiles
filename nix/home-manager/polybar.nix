@@ -2,6 +2,6 @@
 let inherit (pkgs) dotfiles;
 in
 {
-  xdg.configFile."polybar".source = "${dotfiles}/polybar";
-  xdg.homeFile.".local/share/fonts".source = "${dotfiles}/polybar-fonts";
+  home.file.".local/share/fonts".source = "${dotfiles}/polybar-fonts";
+  xdg.configFile."polybar".source = "${dotfiles}/config/polybar";
 }

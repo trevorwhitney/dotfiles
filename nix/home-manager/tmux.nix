@@ -20,10 +20,11 @@
         '';
       }
       tmuxPlugins.sessionist
-      {
-        plugin = tmux-cpu;
-        extraConfig = "set -g @cpu_temp_unit 'F'";
-      }
+      # Failing on nixOS stem
+      # {
+      # plugin = tmux-cpu;
+      # extraConfig = "set -g @cpu_temp_unit 'F'";
+      # }
     ];
   };
 }

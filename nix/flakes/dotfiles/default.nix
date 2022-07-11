@@ -42,11 +42,7 @@ stdenv.mkDerivation rec {
     cp ${rsync}/bin/rsync $out/bin
     cp ${xk6}/bin/xk6 $out/bin
 
-    mkdir -p $out/fonts
-    mkdir -p $out/polybar
-    rsync -av --no-group ${polybar-themes}/fonts/ $out/fonts
-    rsync -av --no-group ${polybar-themes}/polybar/ $out/polybar
-
+    rsync -av --no-group ${polybar-themes}/fonts $out/polybar-fonts
     rsync -av --no-group $src/ $out
   '';
 

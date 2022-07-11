@@ -124,7 +124,9 @@ in
     kubectl
     libcxx
     lxappearance
+    nitrogen
     polybarFull
+    psmisc
     rofi
     vim
     wget
