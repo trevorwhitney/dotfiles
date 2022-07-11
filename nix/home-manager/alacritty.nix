@@ -46,10 +46,10 @@ in
       gtkThemeVariant = if cfg.lightTheme then "light" else "dark";
       altGtkThemeVariant = if cfg.lightTheme then "dark" else "light";
 
-      localShell = ''
+      localShell = with pkgs; ''
         shell:
           working_directory: "$HOME"
-          program: /bin/zsh
+          program: ${zsh}/bin/zsh
           args:
             - -i
             - -l
@@ -57,10 +57,10 @@ in
             - "tmux attach || tmux"
       '';
 
-      remoteShell = ''
+      remoteShell = with pkgs; ''
         shell:
           working_directory: "$HOME"
-          program: /bin/zsh
+          program: ${zsh}/bin/zsh
           args:
             - -i
             - -l

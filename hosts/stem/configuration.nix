@@ -109,6 +109,8 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    _1password
+    _1password-gui
     alacritty
     cryptsetup
     docker
@@ -122,12 +124,25 @@ in
     kubectl
     libcxx
     lxappearance
-    nerdfonts
     polybarFull
     rofi
     vim
     wget
   ];
+
+  fonts.fonts = with pkgs;
+    [
+      (nerdfonts.override {
+        fonts = [
+          "DroidSansMono"
+          "FantasqueSansMono"
+          "Iosevka"
+          "JetBrainsMono"
+          "Noto"
+          "Terminus"
+        ];
+      })
+    ];
 
   # List services that you want to enable:
 
