@@ -13,7 +13,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=6a441cb9b9d44c9e925cd227043e3afe013e135b";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=ea38cf5ecec5b6a0eebb8bbe1416bcff4bea55aa";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
@@ -90,6 +90,9 @@
                   LD_LIBRARY_PATH =
                     "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
                 };
+
+                home.file.".local/share/backgrounds/family.jpg".source =
+                  "${pkgs.secrets}/backgrounds/family.jpg";
               };
             }
           ];
@@ -105,6 +108,9 @@
           sharedConfig = {
             programs.git.includes =
               [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+            home.file.".local/share/backgrounds/family.jpg".source =
+              "${pkgs.secrets}/backgrounds/family.jpg";
           };
 
           sharedImports = [

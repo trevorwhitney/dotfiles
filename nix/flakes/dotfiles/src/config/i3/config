@@ -224,3 +224,6 @@ client.background       $base3
 # Polybar
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --$polybar_theme
+
+# Wallpaper
+exec --no-startup-id nitrogen --set-auto $HOME/.local/share/backgrounds/family.jpg

@@ -13,13 +13,12 @@
         ]
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-c71h0sQEVFspB29ed/mOh4iEb9OBaNBtqVewcRQTM0k=",
-        "path": "/nix/store/8nswn9msa2xcqnhjcc3xg0hwjm7dsx43-source/nix/flakes/dotfiles",
+        "narHash": "sha256-n98mFsqLK8BPRvSk7++ZE6WdZCJ0z/QEnYtCRWC/vLI=",
+        "path": "/nix/store/cvjcyaj5x5q25ss025a74b6l236yfasp-source/nix/flakes/dotfiles",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/8nswn9msa2xcqnhjcc3xg0hwjm7dsx43-source/nix/flakes/dotfiles",
+        "path": "/nix/store/cvjcyaj5x5q25ss025a74b6l236yfasp-source/nix/flakes/dotfiles",
         "type": "path"
       }
     },
@@ -202,17 +201,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1657642973,
-        "narHash": "sha256-CrWHqDR5SDiaW2WSor7c64c4ePnxlcGZZ0UEndrMF/o=",
+        "lastModified": 1657668137,
+        "narHash": "sha256-YZ0FfwLLlVGnO0JZ0QjWT0ChecJe3ZdcZ/sUh3hPnLM=",
         "ref": "main",
-        "rev": "6a441cb9b9d44c9e925cd227043e3afe013e135b",
-        "revCount": 4,
+        "rev": "ea38cf5ecec5b6a0eebb8bbe1416bcff4bea55aa",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       },
       "original": {
         "ref": "main",
-        "rev": "6a441cb9b9d44c9e925cd227043e3afe013e135b",
+        "rev": "ea38cf5ecec5b6a0eebb8bbe1416bcff4bea55aa",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }
