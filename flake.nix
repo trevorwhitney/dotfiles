@@ -13,7 +13,7 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=6a441cb9b9d44c9e925cd227043e3afe013e135b";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
@@ -40,6 +40,7 @@
       overlays = [
         neovim-nightly-overlay.overlay
         dotfiles.overlay
+        secrets.overlay
         (final: prev: {
           inherit unstable;
           #Packages to override from unstable
@@ -51,6 +52,8 @@
         inherit system overlays;
         config = { allowUnfree = true; };
       };
+
+      secretsPkg = secrets.defaultPackage."${system}";
     in
     {
       nixosConfigurations = {
@@ -60,6 +63,7 @@
           modules = [
             { nixpkgs.pkgs = pkgs; }
             "${self}/hosts/stem/configuration.nix"
+            "${pkgs.secrets}/hosts/stem/secrets.nix"
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

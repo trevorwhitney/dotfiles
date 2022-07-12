@@ -64,6 +64,8 @@ in
       package = pkgs.i3-gaps;
       extraPackages = with pkgs; [ i3status i3lock i3blocks-gaps ];
     };
+
+    libinput.mouse.naturalScrolling = true;
   };
 
   environment.pathsToLink =
@@ -127,8 +129,8 @@ in
     nitrogen
     polybarFull
     psmisc
-    redshift
     rofi
+    slack
     vim
     wget
   ];
@@ -148,6 +150,23 @@ in
     ];
 
   # List services that you want to enable:
+  services.redshift = {
+    enable = true;
+    brightness = {
+      day = "0.85";
+      night = "0.75";
+    };
+    temperature = {
+      day = 3810;
+      night = 2800;
+    };
+  };
+
+  # Needed for redshift
+  location = {
+    provider = "manual";
+    # lat/lon provided via secrets
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

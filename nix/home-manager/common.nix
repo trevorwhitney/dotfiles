@@ -5,6 +5,8 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  xdg.enable = true;
+
   targets.genericLinux.enable = true;
 
   home.sessionVariables = { EDITOR = "vim"; };
@@ -15,10 +17,15 @@ in
   home.file.".prettierrc".source = "${dotfiles}/prettierrc.json";
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
   home.file.".todo/config".source = "${dotfiles}/todo.cfg";
+
+  home.file.".mozilla/native-messaging-hosts/tridactyl.json".source = 
+  "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
+
   xdg.configFile."yamllint/config".source = "${dotfiles}/yamllint.yaml";
   xdg.configFile."k9s/skin.yml".source =
     "${dotfiles}/config/k9s/solarized_light.yml";
-  xdg.configFile."tridactyl/tridactylrc".source =
+
+  home.file.".tridactylrc".source =
     "${dotfiles}/config/tridactyl/tridactylrc";
 
   # TODO: copy google cloud sdk completion
@@ -79,6 +86,7 @@ in
     terraform
     tmate
     todo-txt-cli
+    tridactyl-native
     tz
     vault
     virtualenv
