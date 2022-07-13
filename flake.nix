@@ -163,6 +163,21 @@
                 programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
               };
             });
+
+          "twhitney@newImage" = home-manager.lib.homeManagerConfiguration
+            (baseConfig // {
+              system = "x86_64-linux";
+              configuration = sharedConfig // {
+                imports = [{
+                  programs.neovim = {
+                    withLspSupport = true;
+                    package = pkgs.neovim-nightly;
+                  };
+                }] ++ sharedImports;
+
+                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+              };
+            });
         };
     };
 }
