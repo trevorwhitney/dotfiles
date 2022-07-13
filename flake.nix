@@ -45,6 +45,12 @@
           inherit unstable;
           #Packages to override from unstable
           inherit (unstable) gopls gotools jsonnet;
+
+          # This might be needed to get gnome to work with i3
+          # gnome-flashback = prev.gnome-flashback.overrideAttrs (oldattrs: {
+          # requiredComponents =
+          # "RequiredComponents=gnome-flashback-init;gnome-flashback;i3;gnome-settings-daemon;nautilus-classic;";
+          # });
         })
       ];
 
@@ -63,7 +69,7 @@
           modules = [
             { nixpkgs.pkgs = pkgs; }
             "${self}/hosts/stem/configuration.nix"
-            "${pkgs.secrets}/hosts/stem/secrets.nix"
+            "${self}/nix/nixos/desktops/gnome.nix"
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

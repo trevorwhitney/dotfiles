@@ -38,33 +38,8 @@ in
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
-  ##### Xfce + i3 ####
   services.xserver = {
     enable = true;
-
-    displayManager = {
-      gdm = {
-        enable = true;
-        autoSuspend = false;
-      };
-      defaultSession = "xfce"; # TODO: does this need to be xfce+i3?
-    };
-
-    desktopManager = {
-      xterm.enable = false;
-      xfce = {
-        enable = true;
-        noDesktop = true;
-        enableXfwm = false;
-      };
-    };
-
-    windowManager.i3 = {
-      enable = true;
-      package = pkgs.i3-gaps;
-      extraPackages = with pkgs; [ i3status i3lock-color i3blocks-gaps ];
-    };
-
     libinput.mouse.naturalScrolling = true;
   };
 
@@ -72,7 +47,6 @@ in
     [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
   programs.dconf.enable = true;
-  services.dbus.packages = with pkgs; [ xfce.xfconf ];
 
   # Pretty boot screen
   boot.plymouth.enable = false;
@@ -152,23 +126,6 @@ in
     ];
 
   # List services that you want to enable:
-  services.redshift = {
-    enable = true;
-    brightness = {
-      day = "0.85";
-      night = "0.75";
-    };
-    temperature = {
-      day = 3810;
-      night = 2800;
-    };
-  };
-
-  # Needed for redshift
-  location = {
-    provider = "manual";
-    # lat/lon provided via secrets
-  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
