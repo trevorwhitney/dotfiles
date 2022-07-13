@@ -18,15 +18,14 @@ in
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
   home.file.".todo/config".source = "${dotfiles}/todo.cfg";
 
-  home.file.".mozilla/native-messaging-hosts/tridactyl.json".source = 
-  "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
+  home.file.".mozilla/native-messaging-hosts/tridactyl.json".source =
+    "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
 
   xdg.configFile."yamllint/config".source = "${dotfiles}/yamllint.yaml";
   xdg.configFile."k9s/skin.yml".source =
     "${dotfiles}/config/k9s/solarized_light.yml";
 
-  home.file.".tridactylrc".source =
-    "${dotfiles}/config/tridactyl/tridactylrc";
+  home.file.".tridactylrc".source = "${dotfiles}/config/tridactyl/tridactylrc";
 
   # TODO: copy google cloud sdk completion
   # ln -sf /usr/share/google-cloud-sdk/completion.zsh.inc "$HOME/.oh-my-zsh/custom/gcloud-completion.zsh"
@@ -77,7 +76,6 @@ in
     mosh
     ncurses
     nodejs
-    python38
     rbenv
     ripgrep
     rustc
@@ -93,6 +91,17 @@ in
     xsel
     yamale
     yarn
+
+    (
+      let
+        extra-python-packages = python-packages:
+          with python-packages; [
+            dbus-python
+          ];
+        python-with-packages = python38.withPackages extra-python-packages;
+      in
+      python-with-packages
+    )
   ];
 
   programs.java = {

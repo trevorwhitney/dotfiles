@@ -62,7 +62,7 @@ in
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
-      extraPackages = with pkgs; [ i3status i3lock i3blocks-gaps ];
+      extraPackages = with pkgs; [ i3status i3lock-color i3blocks-gaps ];
     };
 
     libinput.mouse.naturalScrolling = true;
@@ -128,9 +128,11 @@ in
     lxappearance
     nitrogen
     polybarFull
+    playerctl
     psmisc
     rofi
     slack
+    spotify
     vim
     wget
   ];
