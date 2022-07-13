@@ -37,6 +37,7 @@
         docker
         git
         gnumake
+        home-manager
         k9s
         kind
         kube3d
