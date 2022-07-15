@@ -138,6 +138,8 @@
 
               configuration = sharedConfig // {
                 imports = [
+                  ./nix/home-manager/i3.nix
+                  ./nix/home-manager/polybar.nix
                   ./nix/home-manager/spotify.nix
                   {
                     programs.neovim = {
