@@ -236,6 +236,9 @@ client.background       $base3
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --$polybar_theme
 
+# Rofi
+bindsym $mod+p exec --no-startup-id ~/.config/polybar/hack/scripts/powermenu.sh
+
 # Wallpaper (not needed on gnome)
 # exec --no-startup-id nitrogen --set-zoom-fill $HOME/.local/share/backgrounds/family.jpg
 

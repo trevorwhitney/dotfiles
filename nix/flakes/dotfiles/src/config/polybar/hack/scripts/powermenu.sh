@@ -11,18 +11,15 @@ uptime=$(uptime -p | sed -e 's/up //g')
 rofi_command="rofi -theme $dir/powermenu.rasi"
 
 # Options
-shutdown=" Shutdown"
-reboot=" Restart"
-lock=" Lock"
-suspend=" Sleep"
-logout=" Logout"
+shutdown=" Shutdown"
+reboot="ﰇ Restart"
+lock=" Lock"
+suspend="⏾ Sleep"
+logout=" Logout"
 
 # Confirmation
 confirm_exit() {
-	rofi -dmenu\
-		-i\
-		-no-fixed-num-lines\
-		-p "Are You Sure? : "\
+	rofi -dmenu -i -no-fixed-num-lines -p "Are You Sure? : " \
 		-theme $dir/confirm.rasi
 }
 
@@ -35,60 +32,73 @@ msg() {
 options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
 
 chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 0)"
-case $chosen in
-    $shutdown)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
+case "${chosen}" in
+"${shutdown}")
+	ans=$(confirm_exit &)
+	if [[ ${ans} == "yes" || ${ans} == "YES" || ${ans} == "y" || ${ans} == "Y" ]]; then
+		if [[ "${DESKTOP_SESSION}" == "i3-gnome-flashback-session" ]]; then
+
+			gnome-session-quit --power-off
+		else
 			systemctl poweroff
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-    $reboot)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			systemctl reboot
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-    $lock)
-		if [[ -f /usr/bin/i3lock ]]; then
-			i3lock
-		elif [[ -f /usr/bin/betterlockscreen ]]; then
-			betterlockscreen -l
 		fi
-        ;;
-    $suspend)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			mpc -q pause
-			amixer set Master mute
-			systemctl suspend
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
-    $logout)
-		ans=$(confirm_exit &)
-		if [[ $ans == "yes" || $ans == "YES" || $ans == "y" || $ans == "Y" ]]; then
-			if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
-				openbox --exit
-			elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
-				bspc quit
-			elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
-				i3-msg exit
-			fi
-		elif [[ $ans == "no" || $ans == "NO" || $ans == "n" || $ans == "N" ]]; then
-			exit 0
-        else
-			msg
-        fi
-        ;;
+	elif [[ ${ans} == "no" || ${ans} == "NO" || ${ans} == "n" || ${ans} == "N" ]]; then
+		exit 0
+	else
+		msg
+	fi
+	;;
+"${reboot}")
+	ans=$(confirm_exit &)
+	if [[ ${ans} == "yes" || ${ans} == "YES" || ${ans} == "y" || ${ans} == "Y" ]]; then
+		# systemctl reboot
+		gnome-session-quit --reboot
+	elif [[ ${ans} == "no" || ${ans} == "NO" || ${ans} == "n" || ${ans} == "N" ]]; then
+		exit 0
+	else
+		msg
+	fi
+	;;
+"${lock}")
+	if [[ "${DESKTOP_SESSION}" == "i3-gnome-flashback-session" ]]; then
+		dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
+	elif [[ -f /usr/bin/i3lock ]]; then
+		i3lock
+	elif [[ -f /usr/bin/betterlockscreen ]]; then
+		betterlockscreen -l
+	fi
+	;;
+"${suspend}")
+	ans=$(confirm_exit &)
+	if [[ ${ans} == "yes" || ${ans} == "YES" || ${ans} == "y" || ${ans} == "Y" ]]; then
+		mpc -q pause
+		amixer set Master mute
+		systemctl suspend
+	elif [[ ${ans} == "no" || ${ans} == "NO" || ${ans} == "n" || ${ans} == "N" ]]; then
+		exit 0
+	else
+		msg
+	fi
+	;;
+"${logout}")
+	ans=$(confirm_exit &)
+	if [[ ${ans} == "yes" || ${ans} == "YES" || ${ans} == "y" || ${ans} == "Y" ]]; then
+		if [[ "${DESKTOP_SESSION}" == "Openbox" ]]; then
+			openbox --exit
+		elif [[ "${DESKTOP_SESSION}" == "bspwm" ]]; then
+			bspc quit
+		elif [[ "${DESKTOP_SESSION}" == "i3" ]]; then
+			i3-msg exit
+		elif [[ "${DESKTOP_SESSION}" == "i3-gnome-flashback-session" ]]; then
+			gnome-session-quit --logout
+		fi
+	elif [[ ${ans} == "no" || ${ans} == "NO" || ${ans} == "n" || ${ans} == "N" ]]; then
+		exit 0
+	else
+		msg
+	fi
+	;;
+*)
+  exit 0
+  ;;
 esac
