@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ... }: {
-  inherit (pkgs) dotfiles;
-
+{ config, pkgs, lib, ... }:
+let inherit (pkgs) dotfiles;
+in
+{
   home.file.".local/share/fonts/fantasque_sans_mono.ttf".source =
     "${dotfiles}/polybar-fonts/fantasque_sans_mono.ttf";
   home.file.".local/share/fonts/feather.ttf".source =
