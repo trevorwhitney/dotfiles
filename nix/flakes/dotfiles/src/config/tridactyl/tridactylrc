@@ -12,6 +12,8 @@ bind --mode=normal U undo window
 bind --mode=normal [b tabprev
 bind --mode=normal ]b tabnext
 
+unbind <C-f>
+
 " don't start tridactyl on certain pages
 autocmd DocStart mail.google.com mode ignore
 autocmd DocStart drive.google.com mode ignore

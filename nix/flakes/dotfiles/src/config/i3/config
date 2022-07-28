@@ -267,7 +267,6 @@ bindsym $mod+Shift+p exec --no-startup-id ~/.config/polybar/hack/scripts/powerme
 bindsym $mod+c exec --no-startup-id gnome-control-center
 
 # Lock screen
-exec --no-startup-id /usr/bin/gnome-screensaver
 bindsym $mod+Escape exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 
 # Disable system tray so it's available to polybar
