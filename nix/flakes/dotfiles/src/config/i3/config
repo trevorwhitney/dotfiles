@@ -10,6 +10,8 @@ set $polybar_theme "hack"
 # is used in the bar {} block below.
 font pango:monospace 14
 
+focus_follows_mouse no
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -30,11 +32,11 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# set $refresh_i3status killall -SIGUSR1 i3status
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -145,16 +147,27 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+bindsym $mod+less move workspace to output down
+bindsym $mod+greater move workspace to output up
+
+bindsym $mod+n workspace next
+bindsym $mod+p workspace prev
+
 workspace $ws1 output "DisplayPort-0"
+workspace $ws2 output "DisplayPort-0"
 workspace $ws3 output "DisplayPort-0"
+workspace $ws4 output "DisplayPort-0"
 workspace $ws5 output "DisplayPort-0"
-workspace $ws7 output "DisplayPort-0"
-workspace $ws9 output "DisplayPort-0"
-workspace $ws2 output "HDMI-A-0"
-workspace $ws4 output "HDMI-A-0"
 workspace $ws6 output "HDMI-A-0"
+workspace $ws7 output "HDMI-A-0"
 workspace $ws8 output "HDMI-A-0"
-workspace $ws0 output "HDMI-A-0"
+workspace $ws9 output "HDMI-A-0"
+workspace $ws10 output "HDMI-A-0"
+
+for_window [class="Spotify"] move to workspace $ws10
+for_window [class="1Password"] move to workspace $ws10
+# example floating window exception
+# for_window [class="Gnome-tweaks"] floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -193,13 +206,13 @@ bindsym $mod+r mode "resize"
 # gaps
 for_window [class=".*"] border pixel 5
 
-gaps inner 15
+gaps inner 12
 # outer gaps are added to inner
-gaps outer -3
+gaps outer 3
 
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
-smart_borders on
+# smart_borders on
 
 # for use with i3-msg
 # gaps inner|outer|horizontal|vertical|top|right|bottom|left current|all set|plus|minus|toggle <px>
@@ -224,20 +237,25 @@ set $cyan #2aa198
 set $green #859900
 
 # Basic color configuration using the Base16 variables for windows and borders.
-# Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base3  $base3  $blue   $green    $blue
-client.focused_inactive $base3  $base3  $blue   $green    $base2
-client.unfocused        $base3  $base2  $base1  $green    $base2
-client.urgent           $base3  $base2  $base3  $red      $red
-client.placeholder      $base3  $base2  $base3  $base1    $base2
-client.background       $base3
+# Property Name         Border   BG       Text      Indicator  Child Border
+client.focused          $blue    $base2   $blue     $violet    $blue
+client.focused_inactive $base02  $base2   $base00   $violet    $base02
+client.unfocused        $base02  $base02  $base1    $violet    $base02
+client.urgent           $yellow  $yellow  $base02   $yellow    $yellow
+client.placeholder      $base3   $base2   $base3    $base1     $base2
+client.background       $base02
 
 # Polybar
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh --$polybar_theme
 
+# Diodon clipboard manager
+# Diodon launch script (located ~/.config/polybar/launch.sh) 
+exec_always --no-startup-id $HOME/.config/polybar/diodon.sh
+bindsym Mod1+Shift+v exec --no-startup-id /usr/bin/diodon
+
 # Rofi
-bindsym $mod+p exec --no-startup-id ~/.config/polybar/hack/scripts/powermenu.sh
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/polybar/hack/scripts/powermenu.sh
 
 # Wallpaper (not needed on gnome)
 # exec --no-startup-id nitrogen --set-zoom-fill $HOME/.local/share/backgrounds/family.jpg
@@ -251,3 +269,8 @@ bindsym $mod+c exec --no-startup-id gnome-control-center
 # Lock screen
 exec --no-startup-id /usr/bin/gnome-screensaver
 bindsym $mod+Escape exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
+
+# Disable system tray so it's available to polybar
+# bar {
+#     tray_output primary
+# }

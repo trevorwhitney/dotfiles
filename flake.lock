@@ -13,12 +13,12 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-AnOya78dweyX8EUjIiYB1pYofpmBLOCcHREiZ/sV3xg=",
-        "path": "/nix/store/sngnk61qzp32y5ajqadnqp25lb5pygn3-source/nix/flakes/dotfiles",
+        "narHash": "sha256-IroBJ6BcoMlIil95bPE9YyroBdQgnPNoOHYkXwJ85uQ=",
+        "path": "/nix/store/yvh7bamln6k61kffm3ycs1pr9ify2711-source/nix/flakes/dotfiles",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/sngnk61qzp32y5ajqadnqp25lb5pygn3-source/nix/flakes/dotfiles",
+        "path": "/nix/store/yvh7bamln6k61kffm3ycs1pr9ify2711-source/nix/flakes/dotfiles",
         "type": "path"
       }
     },
