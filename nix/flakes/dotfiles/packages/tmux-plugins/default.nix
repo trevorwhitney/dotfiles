@@ -49,17 +49,7 @@ in
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
       rev = "main";
-      sha256 = "0dp4dcpixgj6pkynp1zvn0azh6v4mj0awx8m58rv4kl2c9p3i2mv";
-    };
-  };
-
-  tmux-cpu = mkTmuxPlugin {
-    pluginName = "cpu";
-    src = pkgs.fetchFromGitHub {
-      owner = "tmux-plugins";
-      repo = "tmux-cpu";
-      rev = "master";
-      sha256 = "1vnkkhyln4m69nrj6jzzfcs0327z99jxz01r5890n9xyqv3dky5z";
+      sha256 = "0g7pc77w71yb9l3lvcb4132p8d8h6r97s7lfvq4rgzwm06y1gs50";
     };
   };
 }

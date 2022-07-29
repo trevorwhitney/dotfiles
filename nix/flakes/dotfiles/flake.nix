@@ -23,7 +23,7 @@
             };
         in
         {
-          inherit (tmuxPlugins) tmux-cpu tw-tmux-lib;
+          inherit (tmuxPlugins) tw-tmux-lib;
           dotfiles =
             prev.callPackage ./default.nix { inherit (prev) stdenv pkgs lib; };
 
@@ -70,7 +70,7 @@
           inherit (pkgs)
             dotfiles git-template gocomplete jdtls jsonnet-language-server
             jsonnet-lint kns-ktx mosh oh-my-zsh-custom protoc-gen-gogofast
-            protoc-gen-gogoslick stylua xk6 tw-tmux-lib tmux-cpu;
+            protoc-gen-gogoslick stylua xk6 tw-tmux-lib;
         };
       }));
 }
