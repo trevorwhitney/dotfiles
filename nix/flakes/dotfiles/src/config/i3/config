@@ -52,13 +52,13 @@ bindsym $mod+q kill
 # start dmenu (a program launcher)
 # bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
-bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme $HOME/.config/polybar/$polybar_theme/scripts/rofi/launcher.rasi
-# bindsym $mod+d exec "$HOME/.config/polybar/shpaes/scripts/launcher.sh"
+bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme $HOME/.config/polybar/scripts/rofi/launcher.rasi
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
+
 # use rofi to provide alt+tab
-bindsym Mod1+Tab exec --no-startup-id rofi -no-config -no-lazy-grab -modi combi -combi-modi window -show combi -theme $HOME/.config/polybar/$polybar_theme/scripts/rofi/launcher.rasi
+bindsym Mod1+Tab exec --no-startup-id rofi -no-config -no-lazy-grab -modi combi -combi-modi window -show combi -theme $HOME/.config/polybar/scripts/rofi/launcher.rasi
 
 # change focus
 bindsym $mod+h focus left
@@ -247,15 +247,15 @@ client.background       $base02
 
 # Polybar
 # Polybar launch script (located ~/.config/polybar/launch.sh) 
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh --$polybar_theme
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Diodon clipboard manager
-# Diodon launch script (located ~/.config/polybar/launch.sh) 
+# Diodon launch script (located ~/.config/polybar/diodon.sh) 
 exec_always --no-startup-id $HOME/.config/polybar/diodon.sh
 bindsym Mod1+Shift+v exec --no-startup-id /usr/bin/diodon
 
 # Rofi
-bindsym $mod+Shift+p exec --no-startup-id ~/.config/polybar/hack/scripts/powermenu.sh
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/polybar/scripts/powermenu.sh
 
 # Wallpaper (not needed on gnome)
 # exec --no-startup-id nitrogen --set-zoom-fill $HOME/.local/share/backgrounds/family.jpg
@@ -268,8 +268,3 @@ bindsym $mod+c exec --no-startup-id gnome-control-center
 
 # Lock screen
 bindsym $mod+Escape exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
-
-# Disable system tray so it's available to polybar
-# bar {
-#     tray_output primary
-# }

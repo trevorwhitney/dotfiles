@@ -6,6 +6,7 @@ stdenv.mkDerivation rec {
   src = ./src;
 
   buildInputs = with pkgs; [
+    bash
     git-template
     gocomplete
     jdtls
@@ -20,7 +21,27 @@ stdenv.mkDerivation rec {
     protoc-gen-gogoslick
     rsync
     xk6
+
+    # python with extra packages needed for scripts
+    (
+      let
+        extra-python-packages = python-packages:
+          with python-packages; [
+            dbus-python
+            i3ipc
+            speedtest-cli
+          ];
+        python-with-packages = python38.withPackages extra-python-packages;
+      in
+      python-with-packages
+    )
   ];
+
+  buildPhase = ''
+    patchShebangs config/polybar/scripts
+    patchShebangs config/polybar/launch.sh
+    patchShebangs config/polybar/diodon.sh
+  '';
 
   # rsync -av --no-group $src/ $out
   installPhase = with pkgs; ''

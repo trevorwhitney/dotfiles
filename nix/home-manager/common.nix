@@ -91,19 +91,6 @@ in
     xsel
     yamale
     yarn
-
-    (
-      let
-        extra-python-packages = python-packages:
-          with python-packages; [
-            dbus-python
-            i3ipc
-            speedtest-cli
-          ];
-        python-with-packages = python38.withPackages extra-python-packages;
-      in
-      python-with-packages
-    )
   ];
 
   programs.java = {

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # source: https://github.com/haideralipunjabi/polybar-speedtest
 import os
 import argparse

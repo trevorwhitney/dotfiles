@@ -2,7 +2,7 @@
 
 # Add this script to your wm startup file.
 
-DIR="$HOME/.config/polybar/hack"
+DIR="$HOME/.config/polybar"
 
 # Terminate already running bar instances
 killall -q polybar
@@ -11,5 +11,5 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch the bar
-polybar -q top -c "$DIR"/config.ini &
-polybar -q bottom -c "$DIR"/config.ini &
+polybar -q top -c "$DIR"/config/config.ini &
+polybar -q bottom -c "$DIR"/config/config.ini &
