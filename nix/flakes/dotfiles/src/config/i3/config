@@ -108,7 +108,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+c focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -142,6 +142,8 @@ bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
 bindsym $mod+Shift+6 move container to workspace number $ws6
+
+# primary workspaces accessed with right hand
 bindsym $mod+Shift+7 move container to workspace number $ws7
 bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
@@ -151,21 +153,24 @@ bindsym $mod+less move workspace to output down
 bindsym $mod+greater move workspace to output up
 
 bindsym $mod+n workspace next
+bindsym $mod+bracketright workspace next
 bindsym $mod+p workspace prev
+bindsym $mod+bracketleft workspace prev
 
-workspace $ws1 output "DisplayPort-0"
-workspace $ws2 output "DisplayPort-0"
-workspace $ws3 output "DisplayPort-0"
-workspace $ws4 output "DisplayPort-0"
-workspace $ws5 output "DisplayPort-0"
+workspace $ws1 output "HDMI-A-0"
+workspace $ws2 output "HDMI-A-0"
+workspace $ws3 output "HDMI-A-0"
+workspace $ws4 output "HDMI-A-0"
+workspace $ws5 output "HDMI-A-0"
 workspace $ws6 output "HDMI-A-0"
-workspace $ws7 output "HDMI-A-0"
-workspace $ws8 output "HDMI-A-0"
-workspace $ws9 output "HDMI-A-0"
-workspace $ws10 output "HDMI-A-0"
+# higher workspaces on primary monitor
+workspace $ws7 output "DisplayPort-0"
+workspace $ws8 output "DisplayPort-0"
+workspace $ws9 output "DisplayPort-0"
+workspace $ws10 output "DisplayPort-0"
 
-for_window [class="Spotify"] move to workspace $ws10
-for_window [class="1Password"] move to workspace $ws10
+for_window [class="Spotify"] move to workspace $ws1
+for_window [class="1Password"] move to workspace $ws1
 # example floating window exception
 # for_window [class="Gnome-tweaks"] floating enable
 
@@ -184,16 +189,16 @@ mode "resize" {
   # Pressing right will grow the window’s width.
   # Pressing up will shrink the window’s height.
   # Pressing down will grow the window’s height.
-  bindsym h resize shrink width 10 px or 10 ppt
-  bindsym j resize grow height 10 px or 10 ppt
-  bindsym k resize shrink height 10 px or 10 ppt
-  bindsym l resize grow width 10 px or 10 ppt
+  bindsym h resize shrink width 5 px or 5 ppt
+  bindsym j resize grow height 5 px or 5 ppt
+  bindsym k resize shrink height 5 px or 5 ppt
+  bindsym l resize grow width 5 px or 5 ppt
 
   # same bindings, but for the arrow keys
-  bindsym Left resize shrink width 10 px or 10 ppt
-  bindsym Down resize grow height 10 px or 10 ppt
-  bindsym Up resize shrink height 10 px or 10 ppt
-  bindsym Right resize grow width 10 px or 10 ppt
+  bindsym Left resize shrink width 5 px or 5 ppt
+  bindsym Down resize grow height 5 px or 5 ppt
+  bindsym Up resize shrink height 5 px or 5 ppt
+  bindsym Right resize grow width 5 px or 5 ppt
 
   # back to normal: Enter or Escape or $mod+r
   bindsym Return mode "default"
@@ -264,7 +269,7 @@ bindsym $mod+Shift+p exec --no-startup-id ~/.config/polybar/scripts/powermenu.sh
 # exec --no-startup-id /usr/lib/gsd-xsettings
 # exec_always --no-startup-id gnome-power-manager
 # exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-bindsym $mod+c exec --no-startup-id gnome-control-center
+bindsym $mod+z exec --no-startup-id gnome-control-center
 
 # Lock screen
 bindsym $mod+Escape exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock

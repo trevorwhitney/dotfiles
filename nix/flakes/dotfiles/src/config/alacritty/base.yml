@@ -68,3 +68,7 @@ cursor:
 
 # Live config reload (changes require restart)
 live_config_reload: true
+
+key_bindings:
+  # Vi Mode
+  - { key: Space, mods: Control, mode: ~Search, action: ToggleViMode }
