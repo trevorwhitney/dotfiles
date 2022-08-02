@@ -11,22 +11,36 @@ in
         default = false;
         description =
           "whether to enable lsp support and install required dependencies";
-
       };
     };
   };
 
   config =
     let
-      inherit (cfg) withLspSupport;
+      inherit (cfg) withLspSupport package;
       cc = "${pkgs.unstable.stdenv.cc}";
     in
     rec {
+      # always start vim in a tmux pane
+      home.file.".local/bin/vim".text = ''
+        #!${pkgs.bash}/bin/bash
+
+        current_dir="''$(basename ''$(pwd))"
+
+        if [[ -z "''${TMUX}" ]]; then
+          tmux new -s "vim ''${current_dir}" -n "''${current_dir}" ${package}/bin/nvim
+        else
+          ${package}/bin/nvim
+        fi
+      '';
+      home.file.".local/bin/vim".executable = true;
+
       xdg.dataFile."jdtls/config_linux/config.ini" =
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
       programs.neovim = {
         enable = true;
-        vimAlias = true;
+        # use own custom script above for starting in tmux
+        vimAlias = false;
         vimdiffAlias = true;
 
         extraConfig =

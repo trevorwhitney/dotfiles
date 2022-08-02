@@ -46,7 +46,7 @@ in
       gtkThemeVariant = if cfg.lightTheme then "light" else "dark";
       altGtkThemeVariant = if cfg.lightTheme then "dark" else "light";
 
-      localShell = with pkgs; ''
+      tmuxShell = with pkgs; ''
         shell:
           working_directory: "$HOME"
           program: ${zsh}/bin/zsh
@@ -54,10 +54,10 @@ in
             - -i
             - -l
             - -c
-            - "tmux attach || tmux"
+            - "tmux new || tmux"
       '';
 
-      remoteShell = with pkgs; ''
+      zshShell = with pkgs; ''
         shell:
           working_directory: "$HOME"
           program: ${zsh}/bin/zsh
@@ -83,8 +83,9 @@ in
           size: 12.0
       '';
 
-      localConfig = configFile localShell;
-      remoteConfig = configFile remoteShell;
+      # Not sure if I still want a tmux shell
+      localConfig = configFile zshShell;
+      remoteConfig = configFile zshShell;
     in
     {
       xdg.configFile."alacritty/base.yml".source =
