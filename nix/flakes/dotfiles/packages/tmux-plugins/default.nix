@@ -49,7 +49,7 @@ in
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
       rev = "main";
-      sha256 = "0g7pc77w71yb9l3lvcb4132p8d8h6r97s7lfvq4rgzwm06y1gs50";
+      sha256 = "03ma3cfvv5vi33r72ma01w89jm7ipymxkbc456hflgjhcvrrvgvb";
     };
   };
 }
