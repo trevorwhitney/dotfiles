@@ -27,8 +27,11 @@ stdenv.mkDerivation rec {
       let
         extra-python-packages = python-packages:
           with python-packages; [
+            click
             dbus-python
             i3ipc
+            pydbus
+            pygobject3
             speedtest-cli
           ];
         python-with-packages = python38.withPackages extra-python-packages;

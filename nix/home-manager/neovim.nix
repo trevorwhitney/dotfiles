@@ -17,7 +17,7 @@ in
 
   config =
     let
-      inherit (cfg) withLspSupport package;
+      inherit (cfg) withLspSupport finalPackage;
       cc = "${pkgs.unstable.stdenv.cc}";
     in
     rec {
@@ -25,12 +25,13 @@ in
       home.file.".local/bin/vim".text = ''
         #!${pkgs.bash}/bin/bash
 
-        current_dir="''$(basename ''$(pwd))"
+        current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+        dir_name="''$(basename ''${current_dir})"
 
         if [[ -z "''${TMUX}" ]]; then
-          tmux new -s "vim ''${current_dir}" -n "''${current_dir}" ${package}/bin/nvim
+          tmux new -s "vim ''${dir_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim ''$@
         else
-          ${package}/bin/nvim
+          ${finalPackage}/bin/nvim ''$@
         fi
       '';
       home.file.".local/bin/vim".executable = true;
