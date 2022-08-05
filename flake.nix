@@ -146,7 +146,10 @@
                       withLspSupport = true;
                       package = pkgs.neovim-nightly;
                     };
-                    polybar.hostConfig = ./hosts/cerebral/host.ini;
+                    polybar = {
+                      hostConfig = ./hosts/cerebral/host.ini;
+                      includeSecondary = true;
+                    };
                     i3.hostConfig = ./hosts/cerebral/host.conf;
                   }
                 ] ++ sharedImports;
@@ -161,12 +164,16 @@
                 imports = [
                   ./nix/home-manager/i3.nix
                   ./nix/home-manager/polybar.nix
+                  ./nix/home-manager/gtk.nix
                   {
                     programs.neovim = {
                       withLspSupport = false;
                       package = pkgs.neovim-nightly;
                     };
-                    polybar.hostConfig = ./hosts/virtualBox/host.ini;
+                    polybar = {
+                      hostConfig = ./hosts/virtualBox/host.ini;
+                      includeSecondary = false;
+                    };
                     i3.hostConfig = ./hosts/virtualBox/host.conf;
                   }
                 ] ++ sharedImports;
