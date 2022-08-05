@@ -1,12 +1,37 @@
 { config, pkgs, lib, ... }:
-let inherit (pkgs) dotfiles secrets;
+let
+  inherit (pkgs) dotfiles secrets;
+  cfg = config.i3;
 in
 {
-  xdg.configFile."i3".source = "${dotfiles}/config/i3";
-  home.file.".local/share/backgrounds/solarized-bubbles.png".source =
-    "${dotfiles}/wallpaper/solarized-bubbles.png";
-  home.file.".local/share/backgrounds/family.jpg".source =
-    "${secrets}/backgrounds/family.jpg";
 
-  home.packages = with pkgs; [ rofi ];
+  options = with lib; {
+    i3.hostConfig = mkOption {
+      description = "path to host specific i3 config file";
+      type = types.path;
+    };
+  };
+
+  config = {
+    xdg.configFile."i3/config".source = "${dotfiles}/config/i3/config";
+    xdg.configFile."i3/scripts".source = "${dotfiles}/config/i3/scripts";
+
+    xdg.configFile."i3/host.conf".source = "${cfg.hostConfig}";
+
+    home.packages = with pkgs; [ rofi i3-gaps ];
+
+    dconf = {
+      enable = true;
+      settings = {
+        "org/gnome/gnome-flashback" = {
+          desktop = false;
+          root-background = true;
+        };
+        "org/gnome/gnome-flashback/desktop/icons" = {
+          show-home = false;
+          show-trash = false;
+        };
+      };
+    };
+  };
 }

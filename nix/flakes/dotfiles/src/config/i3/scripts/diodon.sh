@@ -2,8 +2,6 @@
 
 # Add this script to your wm startup file.
 
-DIR="$HOME/.config/diodon/hack"
-
 # Terminate already running diodon instances
 killall -q diodon
 

@@ -44,7 +44,7 @@
         (final: prev: {
           inherit unstable;
           #Packages to override from unstable
-          inherit (unstable) gopls gotools jsonnet;
+          inherit (unstable) gopls gotools jsonnet i3-gaps;
 
           # This might be needed to get gnome to work with i3
           # gnome-flashback = prev.gnome-flashback.overrideAttrs (oldattrs: {
@@ -146,6 +146,28 @@
                       withLspSupport = true;
                       package = pkgs.neovim-nightly;
                     };
+                    polybar.hostConfig = ./hosts/cerebral/host.ini;
+                    i3.hostConfig = ./hosts/cerebral/host.conf;
+                  }
+                ] ++ sharedImports;
+              };
+            });
+
+          "twhitney@virtualbox" = home-manager.lib.homeManagerConfiguration
+            (baseConfig // {
+              system = "x86_64-linux";
+
+              configuration = sharedConfig // {
+                imports = [
+                  ./nix/home-manager/i3.nix
+                  ./nix/home-manager/polybar.nix
+                  {
+                    programs.neovim = {
+                      withLspSupport = false;
+                      package = pkgs.neovim-nightly;
+                    };
+                    polybar.hostConfig = ./hosts/virtualBox/host.ini;
+                    i3.hostConfig = ./hosts/virtualBox/host.conf;
                   }
                 ] ++ sharedImports;
               };

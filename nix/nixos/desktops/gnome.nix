@@ -12,25 +12,15 @@
       xterm.enable = false;
       gnome = {
         enable = true;
-        # Was only able to get flashback to work using this
-        # https://github.com/regolith-linux/i3-gnome-flashback
-        # TODO: compare nixos version with this and patch what's needed
         flashback = {
           enableMetacity = false;
           customSessions = [{
             wmName = "i3";
             wmLabel = "i3";
-            wmCommand = "${pkgs.i3-gaps}/bin/i3";
+            wmCommand = "${pkgs.i3-gnome-flashback}/bin/i3-gnome-flashback";
             enableGnomePanel = false;
           }];
         };
-        extraGSettingsOverrides = ''
-          [org.gnome.gnome-flashback]
-          desktop-false
-          [org.gnome.gnome-flashback.desktop.icons]
-          show-home=false
-          show-trash=false
-        '';
       };
     };
 
@@ -44,6 +34,7 @@
   environment.systemPackages = with pkgs; [
     gnome3.gnome-tweaks
     gnome.pomodoro
+    gnomeExtensions.appindicator
   ];
 
   environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
@@ -60,4 +51,7 @@
   ]);
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+
+  environment.pathsToLink =
+    [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 }

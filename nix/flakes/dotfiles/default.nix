@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
     kns-ktx
     mosh
     oh-my-zsh-custom
+    playerctl
     polybar-themes
     protoc-gen-gogofast
     protoc-gen-gogoslick
@@ -40,7 +41,7 @@ stdenv.mkDerivation rec {
     )
   ];
 
-  buildPhase = ''
+  buildPhase = with pkgs; ''
     patchShebangs config/polybar/scripts
     patchShebangs config/polybar/launch.sh
     patchShebangs config/polybar/diodon.sh
@@ -68,6 +69,9 @@ stdenv.mkDerivation rec {
 
     rsync -av --no-group ${polybar-themes}/fonts $out/polybar-fonts
     rsync -av --no-group $src/ $out
+
+    substitute $src/config/polybar/config/user_modules.ini $out/config/polybar/config/user_modules.ini --replace playerctl ${playerctl}/bin/playerctl
+    substitute $src/config/i3/config $out/config/i3/config --replace playerctl ${playerctl}/bin/playerctl
   '';
 
   meta = with lib; {
