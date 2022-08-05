@@ -35,8 +35,11 @@
     gnome3.gnome-tweaks
     gnome.pomodoro
     gnomeExtensions.appindicator
+    
+    # TODO: how to logout with nix? do I need this
+    # currently polybar is broken
+    # gnome.gnome-session
   ];
-
   environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
     ++ (with pkgs.gnome; [
     atomix # puzzle game
