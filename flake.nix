@@ -44,13 +44,7 @@
         (final: prev: {
           inherit unstable;
           #Packages to override from unstable
-          inherit (unstable) gopls gotools jsonnet i3-gaps;
-
-          # This might be needed to get gnome to work with i3
-          # gnome-flashback = prev.gnome-flashback.overrideAttrs (oldattrs: {
-          # requiredComponents =
-          # "RequiredComponents=gnome-flashback-init;gnome-flashback;i3;gnome-settings-daemon;nautilus-classic;";
-          # });
+          inherit (unstable) gopls gotools jsonnet i3-gaps nerdfonts;
         })
       ];
 
@@ -138,6 +132,7 @@
 
               configuration = sharedConfig // {
                 imports = [
+                  ./nix/home-manager/gtk.nix
                   ./nix/home-manager/i3.nix
                   ./nix/home-manager/polybar.nix
                   ./nix/home-manager/spotify.nix

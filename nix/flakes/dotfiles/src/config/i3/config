@@ -21,7 +21,7 @@ include ~/.config/i3/host.conf
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:JetBrainsMono Nerd Font Mono, DejaVu Sans Mono 14
+font pango:Ubuntu 14
 
 focus_follows_mouse no
 
@@ -46,10 +46,24 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
 
 # A more modern dmenu replacement is rofi:
-bindsym $mod+d exec rofi -no-config -no-lazy-grab -show drun -modi drun -theme $HOME/.config/polybar/scripts/rofi/launcher.rasi
+bindsym $mod+d exec rofi  -no-config \
+                          -no-lazy-grab \
+                          -matching fuzzy \
+                          -sorting-method fzf \
+                          -sort \
+                          -show drun \
+                          -modi drun \
+                          -theme $HOME/.config/polybar/scripts/rofi/kde_simplemenu.rasi
 
 # use rofi to provide alt+tab
-bindsym Mod1+Tab exec --no-startup-id rofi -no-config -no-lazy-grab -modi combi -combi-modi window -show combi -theme $HOME/.config/polybar/scripts/rofi/launcher.rasi
+bindsym Mod1+Tab exec --no-startup-id rofi -no-config \
+                                           -no-lazy-grab \
+                                           -matching fuzzy \
+                                           -sorting-method fzf \
+                                           -sort \
+                                           -show window \
+                                           -modi window \
+                                           -theme $HOME/.config/polybar/scripts/rofi/kde_simplemenu.rasi
 
 # change focus
 bindsym $mod+h focus left
@@ -219,7 +233,7 @@ set $green #859900
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border   BG       Text      Indicator  Child Border
 client.focused          $blue    $base2   $blue     $violet    $blue
-client.focused_inactive $base02  $base2   $base00   $violet    $base02
+client.focused_inactive $blue    $base2   $blue     $violet    $base02
 client.unfocused        $base02  $base02  $base1    $violet    $base02
 client.urgent           $yellow  $yellow  $base02   $yellow    $yellow
 client.placeholder      $base3   $base2   $base3    $base1     $base2

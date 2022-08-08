@@ -29,6 +29,7 @@
   users.users.twhitney = {
     isNormalUser = true;
     home = "/home/twhitney";
+    # TODO: this probably needs to be configurable, maybe just don't include it here?
     extraGroups = [ "wheel" "networkmanager" "docker" "plex" ];
     openssh.authorizedKeys.keys = [
       # cerebral
