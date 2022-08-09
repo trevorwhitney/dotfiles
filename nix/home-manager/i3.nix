@@ -18,7 +18,8 @@ in
 
     xdg.configFile."i3/host.conf".source = "${cfg.hostConfig}";
 
-    home.packages = with pkgs; [ rofi i3-gaps ];
+    # i3 config assumes dropbox and nm-applet are on path
+    home.packages = with pkgs; [ dropbox networkmanagerapplet rofi i3-gaps ];
 
     dconf = {
       enable = true;

@@ -232,8 +232,8 @@ set $green #859900
 
 # Basic color configuration using the Base16 variables for windows and borders.
 # Property Name         Border   BG       Text      Indicator  Child Border
-client.focused          $blue    $base2   $blue     $violet    $blue
-client.focused_inactive $blue    $base2   $blue     $violet    $base02
+client.focused          $blue    $base3   $blue     $violet    $blue
+client.focused_inactive $blue    $base3   $blue     $violet    $base02
 client.unfocused        $base02  $base02  $base1    $violet    $base02
 client.urgent           $yellow  $yellow  $base02   $yellow    $yellow
 client.placeholder      $base3   $base2   $base3    $base1     $base2

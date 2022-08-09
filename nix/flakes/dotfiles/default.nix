@@ -7,6 +7,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs; [
     bash
+    faillint
     git-template
     gocomplete
     jdtls
@@ -14,6 +15,7 @@ stdenv.mkDerivation rec {
     jsonnet-language-server
     jsonnet-lint
     kns-ktx
+    mixtool
     mosh
     oh-my-zsh-custom
     playerctl
@@ -55,12 +57,14 @@ stdenv.mkDerivation rec {
     cp -r ${jdtls} $out/jdtls
     cp -r ${oh-my-zsh-custom} $out/oh-my-zsh-custom
 
+    cp ${faillint}/bin/faillint $out/bin
     cp ${gocomplete}/bin/gocomplete $out/bin
     cp ${jsonnet}/bin/jsonnet $out/bin
     cp ${jsonnet-language-server}/bin/jsonnet-language-server $out/bin
     cp ${jsonnet-lint}/bin/jsonnet-lint $out/bin
     cp ${kns-ktx}/bin/kns $out/bin
     cp ${kns-ktx}/bin/ktx $out/bin
+    cp ${mixtool}/bin/mixtool $out/bin
     cp ${mosh}/bin/mosh $out/bin
     cp ${protoc-gen-gogofast}/bin/protoc-gen-gogofast $out/bin
     cp ${protoc-gen-gogoslick}/bin/protoc-gen-gogoslick $out/bin
@@ -71,7 +75,9 @@ stdenv.mkDerivation rec {
     rsync -av --no-group $src/ $out
 
     substitute $src/config/polybar/config/user_modules.ini $out/config/polybar/config/user_modules.ini --replace playerctl ${playerctl}/bin/playerctl
-    substitute $src/config/i3/config $out/config/i3/config --replace playerctl ${playerctl}/bin/playerctl
+    substitute $src/config/i3/config $out/config/i3/config --replace playerctl ${playerctl}/bin/playerctl \
+                                                           --replace dropbox ${dropbox}/bin/dropbox \
+                                                           --replace nm-applet ${networkmanagerapplet}/bin/nm-applet
   '';
 
   meta = with lib; {

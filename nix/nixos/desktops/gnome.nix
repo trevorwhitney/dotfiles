@@ -32,13 +32,14 @@
   };
 
   environment.systemPackages = with pkgs; [
-    gnome3.gnome-tweaks
+    gnome.dconf-editor
     gnome.pomodoro
+    gnome3.gnome-tweaks
     gnomeExtensions.appindicator
     
     # TODO: how to logout with nix? do I need this
     # currently polybar is broken
-    # gnome.gnome-session
+    gnome.gnome-session
   ];
   environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
     ++ (with pkgs.gnome; [

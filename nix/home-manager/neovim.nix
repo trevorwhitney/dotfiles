@@ -29,7 +29,7 @@ in
         dir_name="''$(basename ''${current_dir})"
 
         if [[ -z "''${TMUX}" ]]; then
-          tmux new -s "vim ''${dir_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim ''$@
+          tmux new-session -A -s "vim ''${dir_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim ''$@
         else
           ${finalPackage}/bin/nvim ''$@
         fi

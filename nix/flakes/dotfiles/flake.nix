@@ -32,11 +32,14 @@
           oh-my-zsh-custom =
             callRunCommandPkg ./packages/oh-my-zsh-custom/default.nix;
 
+          faillint = callBuildGoModulePkg ./packages/faillint/default.nix;
           gocomplete = callBuildGoModulePkg ./packages/gocomplete/default.nix;
           jsonnet-language-server =
             callBuildGoModulePkg ./packages/jsonnet-language-server/default.nix;
           jsonnet-lint =
             callBuildGoModulePkg ./packages/jsonnet-lint/default.nix;
+          mixtool =
+            callBuildGoModulePkg ./packages/mixtool/default.nix;
           protoc-gen-gogofast =
             callBuildGoModulePkg ./packages/protoc-gen-gogofast/default.nix;
           protoc-gen-gogoslick =
@@ -68,8 +71,8 @@
         devShell = import ./shell.nix { inherit pkgs; };
         packages = {
           inherit (pkgs)
-            dotfiles git-template gocomplete jdtls jsonnet-language-server
-            jsonnet-lint kns-ktx mosh oh-my-zsh-custom protoc-gen-gogofast
+            dotfiles faillint git-template gocomplete jdtls jsonnet-language-server
+            jsonnet-lint kns-ktx mixtool mosh oh-my-zsh-custom protoc-gen-gogofast
             protoc-gen-gogoslick stylua xk6 tw-tmux-lib;
         };
       }));

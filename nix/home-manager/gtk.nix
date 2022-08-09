@@ -24,6 +24,7 @@
   home.packages = with pkgs; [
     roboto
     dejavu_fonts
+    parcellite
     (nerdfonts.override {
       fonts = [
         "DroidSansMono"
@@ -40,6 +41,7 @@
   ];
 
   dconf = {
+    # `gsettings list-recursively` to find settings
     enable = true;
     settings = {
       "org/gnome/desktop/interface" = {
@@ -48,6 +50,33 @@
         gtk-key-theme = "Emacs";
         text-scaling-factor = 1.25;
       };
+      # at some point the default for this included <Control>period
+      # which is too commony used by other apps
+      "desktop/ibus/panel/emoji" = { hotkey = [ "<Control>semicolon" ]; };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote" =
+        {
+          binding = "<Primary><Alt>e";
+          command = "${pkgs.emote}/bin/emote";
+          name = "Emote";
+        };
+
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/parcellite" =
+        {
+          binding = "<Primary><Alt>h";
+          command = "${pkgs.parcellite}/bin/parcellite";
+          name = "Emote";
+        };
+
+      "org/gnome/settings-daemon/plugins/media-keys" = {
+        "custom-keybinding" = [
+          "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote"
+          "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/parcellite"
+        ];
+      };
     };
   };
+
+  xdg.configFile."autostart/parcellite-startup.desktop".source =
+    "${pkgs.parcellite}/etc/xdg/autostart/parcellite-startup.desktop";
 }
