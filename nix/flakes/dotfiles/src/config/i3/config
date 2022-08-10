@@ -265,6 +265,3 @@ bindsym $mod+z exec --no-startup-id gnome-control-center
 # Lock screen
 bindsym $mod+Escape exec --no-startup-id dbus-send --type=method_call --dest=org.gnome.ScreenSaver /org/gnome/ScreenSaver org.gnome.ScreenSaver.Lock
 
-# Desktop background color
-exec_always --no-startup-id xsetroot -solid "$base02"
-

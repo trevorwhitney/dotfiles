@@ -50,6 +50,19 @@
         gtk-key-theme = "Emacs";
         text-scaling-factor = 1.25;
       };
+      "org/gnome/desktop/screensaver" = {
+        picture-options = "none";
+        picture-uri = "";
+        primary-color = "#073642";
+        color-shading-type = "solid";
+      };
+      "org/gnome/desktop/background" = {
+        picture-options = "none";
+        picture-uri = "";
+        picture-uri-dark = "";
+        primary-color = "#073642";
+        color-shading-type = "solid";
+      };
       # at some point the default for this included <Control>period
       # which is too commony used by other apps
       "desktop/ibus/panel/emoji" = { hotkey = [ "<Control>semicolon" ]; };
