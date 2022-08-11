@@ -71,6 +71,9 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
+bindsym $mod+bracketright focus next sibling
+bindsym $mod+bracketleft focus prev sibling
+
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -145,13 +148,10 @@ bindsym $mod+less move workspace to output down
 bindsym $mod+greater move workspace to output up
 
 bindsym $mod+n workspace next
-bindsym $mod+bracketright workspace next
 bindsym $mod+p workspace prev
-bindsym $mod+bracketleft workspace prev
 
 for_window [class="Spotify"] move to workspace $ws1
 for_window [class="1Password"] move to workspace $ws1
-for_window [class="Slack"] move to workspace $ws8
 # example floating window exception
 # for_window [class="Gnome-tweaks"] floating enable
 
@@ -245,7 +245,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id dbus-launch nm-applet
+exec_always --no-startup-id bash -e $HOME/.config/i3/scripts/nm-applet.sh
 
 # Start dropbox so it's tray icon is available
 # may require: dropbox autostart n

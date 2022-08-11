@@ -8,7 +8,7 @@
     {
       overlay = final: prev: {
         i3-gnome-flashback =
-          prev.callPackage ./default.nix { inherit (prev) stdenv lib pkgs; };
+          prev.callPackage ./default.nix { inherit (prev) runCommand; };
       };
     } // (flake-utils.lib.eachDefaultSystem (system:
       let

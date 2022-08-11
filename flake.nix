@@ -21,6 +21,10 @@
     dotfiles.inputs.nixpkgs.follows = "nixpkgs";
     dotfiles.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
     dotfiles.inputs.flake-utils.follows = "flake-utils";
+
+    i3-gnome-flashback.url = "./nix/flakes/i3-gnome-flashback";
+    i3-gnome-flashback.inputs.nixpkgs.follows = "nixpkgs";
+    i3-gnome-flashback.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs =
@@ -28,6 +32,7 @@
     , dotfiles
     , flake-utils
     , home-manager
+    , i3-gnome-flashback
     , neovim-nightly-overlay
     , nixpkgs
     , nixpkgs-unstable
@@ -41,6 +46,7 @@
         neovim-nightly-overlay.overlay
         dotfiles.overlay
         secrets.overlay
+        i3-gnome-flashback.overlay
         (final: prev: {
           inherit unstable;
           #Packages to override from unstable
@@ -93,6 +99,56 @@
 
                 home.file.".local/share/backgrounds/family.jpg".source =
                   "${pkgs.secrets}/backgrounds/family.jpg";
+              };
+            }
+          ];
+        };
+
+        virtualbox = nixpkgs.lib.nixosSystem {
+          inherit system;
+
+          modules = [
+            { nixpkgs.pkgs = pkgs; }
+            "${self}/hosts/virtualBox/base.nix"
+            "${self}/hosts/virtualBox/configuration.nix"
+            "${self}/nix/nixos/desktops/gnome.nix"
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.twhitney = {
+                imports = [
+                  ./nix/home-manager/alacritty.nix
+                  ./nix/home-manager/common.nix
+                  ./nix/home-manager/bash.nix
+                  ./nix/home-manager/git.nix
+                  { programs.git.gpgPath = "/usr/bin/gpg"; }
+                  ./nix/home-manager/neovim.nix
+                  ./nix/home-manager/tmux.nix
+                  ./nix/home-manager/zsh.nix
+                  ./nix/home-manager/i3.nix
+                  ./nix/home-manager/polybar.nix
+                  ./nix/home-manager/gnome.nix
+                  {
+                    programs.neovim = {
+                      withLspSupport = false;
+                      package = pkgs.neovim-nightly;
+                    };
+                    polybar = {
+                      hostConfig = ./hosts/virtualBox/host.ini;
+                      includeSecondary = false;
+                    };
+                    i3.hostConfig = ./hosts/virtualBox/host.conf;
+                  }
+                ];
+
+                programs.git.includes =
+                  [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+                programs.zsh.sessionVariables = {
+                  LD_LIBRARY_PATH =
+                    "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
+                };
               };
             }
           ];

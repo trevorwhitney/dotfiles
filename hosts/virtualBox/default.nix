@@ -1,97 +1,50 @@
 let
+  system = "x86_64-linux";
+
+  neovim-nightly-overlay =
+    builtins.getFlake "github:nix-community/neovim-nightly-overlay";
+  dotfiles = builtins.getFlake (toString ../../nix/flakes/dotfiles);
+  secrets = builtins.getFlake
+    "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=ea38cf5ecec5b6a0eebb8bbe1416bcff4bea55aa";
+  unstable = import <nixpkgs-unstable> { };
+
+  overlay = final: prev: {
+    inherit unstable;
+
+    i3-gnome-flashback =
+      prev.callPackage ../../nix/flakes/i3-gnome-flashback/default.nix {
+        inherit (prev) runCommand;
+      };
+  };
+  overlays =
+    [ overlay neovim-nightly-overlay.overlay dotfiles.overlay secrets.overlay ];
+
+  pkgs = import <nixpkgs> {
+    inherit system overlays;
+    config = { allowUnfree = true; };
+  };
+
   # this creates a helper function that abstracts a bit of the boilerplate away
   # `mkVM` takes one argument, a list of `modules` to include in the image.
   mkVM = mods:
     (import <nixpkgs/nixos/lib/eval-config.nix> {
       modules =
-        let
-          system = "x86_64-linux";
-          overlay = final: prev: {
-            i3-gnome-flashback =
-              prev.callPackage ../../nix/flakes/i3-gnome-flashback/default.nix {
-                inherit (prev) runCommand;
-              };
-          };
-          overlays = [ overlay ];
-          pkgs = import <nixpkgs> {
-            inherit system overlays;
-            config = { allowUnfree = true; };
-          };
-          inherit (pkgs) lib;
+        let inherit (pkgs) lib;
         in
         [
           {
             nixpkgs.pkgs = pkgs;
           }
-
           # base virtualbox config
-          (with lib; {
-            imports = [
-              <nixpkgs/nixos/modules/virtualisation/virtualbox-image.nix>
-              <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
-              <nixpkgs/nixos/modules/profiles/clone-config.nix>
-            ];
-
-            # FIXME: UUID detection is currently broken
-            boot.loader.grub.fsIdentifier = "provided";
-
-            # requires a device to be created on the virutal machine named dotfiles
-            # fileSystems."/mnt/dotfiles" = {
-            # fsType = "vboxsf";
-            # device = "dotfiles";
-            # options = [ "rw" ];
-            # };
-
-            # Add some more video drivers to give X11 a shot at working in
-            # VMware and QEMU.
-            services.xserver.videoDrivers = mkOverride 40 [
-              "virtualbox"
-              "vmware"
-              "cirrus"
-              "vesa"
-              "modesetting"
-            ];
-
-            powerManagement.enable = false;
-            system.stateVersion = mkDefault "22.05";
-
-            # Define a user account. Don't forget to set a password with ‘passwd’.
-            users.users.twhitney = {
-              isNormalUser = true;
-              description = "Trevor's user account";
-              home = "/home/twhitney";
-              extraGroups = [ "wheel" "networkmanager" "vboxsf" ];
-              openssh.authorizedKeys.keys = [
-                # cerebral
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSeuF+NMj8sKD8kWuahlSasaPzHzT5Jhip+Y+EAcfEv trevorjwhitney@gmail.com"
-                # crostini
-                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINX1x10BU/7kbO24ZtX7Lz6IHd55KiWt0cMdlxlTHjlp trevorjwhitney@gmail.com"
-              ];
-              shell = pkgs.zsh;
-              password = "stones";
-              uid = 1000;
-            };
-
-            nix.settings.trusted-users = [ "twhitney" ];
-
-            services.xserver = {
-              displayManager = {
-                autoLogin = {
-                  enable = true;
-                  user = "twhitny";
-                };
-
-                sddm = { enable = mkForce false; };
-                gdm = { enable = true; };
-              };
-              desktopManager = { plasma5.enable = mkForce false; };
-            };
-          })
-
+          {
+            imports = [ ./base.nix ];
+          }
           # custom configuration
           { imports = [ ./configuration.nix ]; }
         ] ++ mods;
     }).config.system.build.virtualBoxOVA;
+
+  # home-manager = import <home-manager/nixos> { };
 in
 {
   # delcares the target of an example image with gnome
@@ -99,5 +52,53 @@ in
   withGnome = mkVM [
     # add some custom pkgs like vim and tmux, could be our internal packages
     { imports = [ ../../nix/nixos/desktops/gnome.nix ]; }
+  ];
+
+  withGnomeAndHM = mkVM [
+    {
+      imports = [ ../../nix/nixos/desktops/gnome.nix ];
+    }
+    # home-manager.nixosModules.home-manager
+    { imports = [ <home-manager/nixos> ]; }
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.twhitney = {
+        home.stateVersion = "22.05";
+
+        imports = [
+          ../../nix/home-manager/alacritty.nix
+          ../../nix/home-manager/common.nix
+          ../../nix/home-manager/bash.nix
+          ../../nix/home-manager/git.nix
+          { programs.git.gpgPath = "/usr/bin/gpg"; }
+          ../../nix/home-manager/neovim.nix
+          ../../nix/home-manager/tmux.nix
+          ../../nix/home-manager/zsh.nix
+          ../../nix/home-manager/i3.nix
+          ../../nix/home-manager/polybar.nix
+          ../../nix/home-manager/gnome.nix
+          {
+            programs.neovim = {
+              withLspSupport = false;
+              package = pkgs.neovim-nightly;
+            };
+            polybar = {
+              hostConfig = ./host.ini;
+              includeSecondary = false;
+            };
+            i3.hostConfig = ./host.conf;
+          }
+        ];
+
+        programs.git.includes =
+          [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+        programs.zsh.sessionVariables = {
+          LD_LIBRARY_PATH =
+            "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
+        };
+      };
+    }
   ];
 }
