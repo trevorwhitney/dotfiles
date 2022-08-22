@@ -39,7 +39,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec ~/.local/bin/kitty --single-instance
 
 # kill focused window
 # bindsym $mod+Shift+q kill
@@ -103,8 +103,8 @@ bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+w layout toggle tabbed split
+bindsym $mod+e layout toggle splitv splith
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle

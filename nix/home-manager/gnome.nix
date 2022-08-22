@@ -86,6 +86,8 @@
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote"
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/parcellite"
         ];
+        # disable <Super>l as default lock/screensaver
+        "screensaver" = [];
       };
     };
   };

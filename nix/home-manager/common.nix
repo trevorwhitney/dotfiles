@@ -75,6 +75,7 @@ in
     lynis
     mosh
     ncurses
+    ngrok
     nodejs
     rbenv
     ripgrep

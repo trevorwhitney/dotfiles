@@ -50,7 +50,7 @@
         (final: prev: {
           inherit unstable;
           #Packages to override from unstable
-          inherit (unstable) gopls gotools jsonnet i3-gaps nerdfonts;
+          inherit (unstable) gopls gotools jsonnet i3-gaps nerdfonts nodePackages;
         })
       ];
 
@@ -190,6 +190,7 @@
                 imports = [
                   ./nix/home-manager/gnome.nix
                   ./nix/home-manager/i3.nix
+                  ./nix/home-manager/kitty.nix
                   ./nix/home-manager/polybar.nix
                   ./nix/home-manager/spotify.nix
                   {
