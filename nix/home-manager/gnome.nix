@@ -25,6 +25,9 @@
     roboto
     dejavu_fonts
     parcellite
+    siji
+    xorg.xfd
+    fontconfig
     (nerdfonts.override {
       fonts = [
         "DroidSansMono"
@@ -87,7 +90,7 @@
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/parcellite"
         ];
         # disable <Super>l as default lock/screensaver
-        "screensaver" = [];
+        "screensaver" = [ ];
       };
     };
   };
