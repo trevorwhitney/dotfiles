@@ -72,9 +72,16 @@ def render_apps(i3):
     apps.sort(key=lambda app: app.workspace().name)
 
     current_workspace_apps = []
+    focused_app = apps[0]
     for app in apps:
         if app.workspace().num in focused_workspace:
-            current_workspace_apps.append(app)
+            if app.focused:
+                focused_app = app
+            else:
+                current_workspace_apps.append(app)
+
+    current_workspace_apps.sort(key=lambda app: app.name)
+    current_workspace_apps.insert(0, focused_app)
 
     out = '%{O12}'.join(format_entry(app) for app in current_workspace_apps[0:MAX_WINDOWS])
 
