@@ -19,8 +19,10 @@ ICON_FONT = 3
 HOSTNAME = platform.node()
 USER = getpass.getuser()
 
+# use xprop to get class names
 ICONS = [
     ('class=Slack', ''),
+    ('class=Spotify', ''),
     ('class=chromium-browser', ''),
     ('class=firefox', ''),
     ('class=kitty', ''),
