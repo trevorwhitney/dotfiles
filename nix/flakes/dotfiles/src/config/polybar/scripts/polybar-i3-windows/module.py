@@ -5,7 +5,6 @@ import asyncio
 import getpass
 import i3ipc
 import platform
-from time import sleep
 
 from icon_resolver import IconResolver
 
@@ -56,11 +55,11 @@ def main():
     loop.run_forever()
 
 
-def on_change(i3, e):
+def on_change(i3: i3ipc.Connection , e):
     render_apps(i3)
 
 
-def render_apps(i3):
+def render_apps(i3: i3ipc.Connection):
     focused_workspace = []
     workspaces = i3.get_workspaces()
     for workspace in workspaces:
@@ -88,7 +87,7 @@ def render_apps(i3):
     print(out, flush=True)
 
 
-def format_entry(app):
+def format_entry(app: i3ipc.Con):
     title = make_title(app)
     u_color = '#b4619a' if app.focused else\
         '#e84f4f' if app.urgent else\
@@ -97,7 +96,7 @@ def format_entry(app):
     return '%%{u%s} %s %%{u-}' % (u_color, title)
 
 
-def make_title(app):
+def make_title(app: i3ipc.Con):
     out = get_prefix(app) + ' ' + format_title(app)
 
     if app.focused:
@@ -106,7 +105,7 @@ def make_title(app):
     return '%%{A1:%s %s:}%s%%{A}' % (COMMAND_PATH, app.id, out)
 
 
-def get_prefix(app):
+def get_prefix(app: i3ipc.Con):
     icon = icon_resolver.resolve({
         'class': app.window_class,
         'name': app.name,
@@ -115,7 +114,7 @@ def get_prefix(app):
     return ('%%{T%s}%s%%{T-}' % (ICON_FONT, icon))
 
 
-def format_title(app):
+def format_title(app: i3ipc.Con):
     klass = app.window_class
     name = app.name
 

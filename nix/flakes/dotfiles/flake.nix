@@ -38,8 +38,7 @@
             callBuildGoModulePkg ./packages/jsonnet-language-server/default.nix;
           jsonnet-lint =
             callBuildGoModulePkg ./packages/jsonnet-lint/default.nix;
-          mixtool =
-            callBuildGoModulePkg ./packages/mixtool/default.nix;
+          mixtool = callBuildGoModulePkg ./packages/mixtool/default.nix;
           protoc-gen-gogofast =
             callBuildGoModulePkg ./packages/protoc-gen-gogofast/default.nix;
           protoc-gen-gogoslick =
@@ -49,9 +48,10 @@
           jdtls = prev.callPackage ./packages/jdtls/default.nix {
             inherit (prev) stdenv fetchzip lib pkgs;
           };
-          polybar-themes = prev.callPackage ./packages/polybar-themes/default.nix {
-            inherit (prev) fetchFromGitHub lib runCommand;
-          };
+          polybar-themes =
+            prev.callPackage ./packages/polybar-themes/default.nix {
+              inherit (prev) fetchFromGitHub lib runCommand;
+            };
           mosh = prev.callPackage ./packages/mosh/default.nix {
             inherit (prev) pkgs;
           };
@@ -64,6 +64,7 @@
         pkgs = import nixpkgs-unstable {
           inherit system;
           overlays = [ self.overlay ];
+          config = { allowUnfree = true; };
         };
       in
       {
@@ -71,9 +72,10 @@
         devShell = import ./shell.nix { inherit pkgs; };
         packages = {
           inherit (pkgs)
-            dotfiles faillint git-template gocomplete jdtls jsonnet-language-server
-            jsonnet-lint kns-ktx mixtool mosh oh-my-zsh-custom protoc-gen-gogofast
-            protoc-gen-gogoslick stylua xk6 tw-tmux-lib;
+            dotfiles faillint git-template gocomplete jdtls
+            jsonnet-language-server jsonnet-lint kns-ktx mixtool mosh
+            oh-my-zsh-custom protoc-gen-gogofast protoc-gen-gogoslick stylua xk6
+            tw-tmux-lib;
         };
       }));
 }

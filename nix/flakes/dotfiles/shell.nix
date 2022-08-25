@@ -17,5 +17,22 @@ mkShell {
     protoc-gen-gogoslick
     stylua
     xk6
+
+    # python with extra packages needed for scripts
+    (
+      let
+        extra-python-packages = python-packages:
+          with python-packages; [
+            click
+            dbus-python
+            i3ipc
+            pydbus
+            pygobject3
+            speedtest-cli
+          ];
+        python-with-packages = python38.withPackages extra-python-packages;
+      in
+      python-with-packages
+    )
   ];
 }

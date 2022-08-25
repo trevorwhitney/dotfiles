@@ -85,7 +85,7 @@ in
                 gopls
                 jsonnet-language-server
                 nixfmt
-                python-language-server
+                pyright
                 rnix-lsp
                 shellcheck
                 shfmt
