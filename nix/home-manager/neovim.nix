@@ -26,8 +26,18 @@ in
         #!${pkgs.bash}/bin/bash
 
         current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-        dir_name="''$(basename ''${current_dir})"
 
+        if [[ ! -z "''$@" ]]; then
+          dir="''$(dirname ''$@)"
+          if [[ -d "''$@" ]]; then
+            dir="''$@"
+          fi
+          pushd ''$dir > /dev/null
+          current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+          popd > /dev/null
+        fi
+
+        dir_name="''$(basename ''${current_dir})"
         if [[ -z "''${TMUX}" ]]; then
           tmux new-session -A -s "vim ''${dir_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim ''$@
         else
