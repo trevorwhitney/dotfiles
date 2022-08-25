@@ -20,6 +20,8 @@ USER = getpass.getuser()
 
 # use xprop to get class names
 ICONS = [
+    ('name=vim;class=kitty', ''),
+    ('name=nvim;class=kitty', ''),
     ('class=Slack', ''),
     ('class=Spotify', ''),
     ('class=chromium-browser', ''),
