@@ -9,7 +9,7 @@ gray="#586e75"
 green="#859900"
 magenta="#d33682"
 red="#dc322f"
-violent="#6c71c4"
+violet="#6c71c4"
 yellow="#b58900"
 
 base03="#002b36"
@@ -55,7 +55,7 @@ prompt_segment() {
 prompt_context() {
   # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
-    prompt_segment $cyan 歷 "%(!.%{%F{yellow}%}.)%n@%m"
+    prompt_segment $violet 歷 "%(!.%{%F{yellow}%}.)%n@%m"
     print_separator
   fi
 }
@@ -93,11 +93,13 @@ prompt_git() {
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
 
+    print_separator
+
     info="${ref/refs\/heads\//}${vcs_info_msg_0_%% }${mode}"
     if [[ -n $dirty ]]; then
-      prompt_segment $yellow  $info
+      prompt_segment $yellow  $info
     else
-      prompt_segment $green  $info
+      prompt_segment $green  $info
     fi
 
   fi
@@ -110,8 +112,6 @@ prompt_dir() {
   else
     prompt_segment $blue  '%2~'
   fi
-
-  print_separator
 }
 
 # current k8s context
