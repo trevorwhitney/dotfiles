@@ -1,39 +1,6 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 #
-# Based on agnoster's Theme - https://gist.github.com/3712874
-# A Powerline-inspired theme for ZSH
-#
-# # README
-#
-# In order for this theme to render correctly, you will need a
-# [Powerline-patched font](https://github.com/Lokaltog/powerline-fonts).
-# Make sure you have a recent version: the code points that Powerline
-# uses changed in 2012, and older versions will display incorrectly,
-# in confusing ways.
-#
-# In addition, I recommend the
-# [Solarized theme](https://github.com/altercation/solarized/) and, if you're
-# using it on Mac OS X, [iTerm 2](https://iterm2.com/) over Terminal.app -
-# it has significantly better color fidelity.
-#
-# If using with "light" variant of the Solarized color schema, set
-# SOLARIZED_THEME variable to "light". If you don't specify, we'll assume
-# you're using the "dark" variant.
-#
-# # Goals
-#
-# The aim of this theme is to only show you *relevant* information. Like most
-# prompts, it will only show git information when in a git working directory.
-# However, it goes a step further: everything from the current user and
-# hostname to whether the last call exited with an error to whether background
-# jobs are running in this shell will all be displayed automatically when
-# appropriate.
-
-### Segment drawing
-# A few utility functions to make it easy and re-usable to draw segmented prompts
-#
 ### Colors
-CURRENT_BG='NONE'
 black="#002b36"
 blue="#268bd2"
 bright_white="#fdf6e3"
@@ -45,6 +12,15 @@ magenta="#d33682"
 red="#dc322f"
 violent="#6c71c4"
 yellow="#b58900"
+
+base03="#002b36"
+base02="#073642"
+base01="#586e75"
+base00="#657b83"
+base0="#839496"
+base1="#93a1a1"
+base2="#eee8d5"
+base3="#fdf6e3"
 
 case ${BACKGROUND:-light} in
   dark)
@@ -61,58 +37,16 @@ esac
 
 # Special Powerline characters
 
-() {
-local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-# NOTE: This segment separator character is correct.  In 2012, Powerline changed
-# the code points they use for their special characters. This is the new code point.
-# If this is not working for you, you probably have an old version of the
-# Powerline-patched fonts installed. Download and install the new version.
-# Do not submit PRs to change this unless you have reviewed the Powerline code point
-# history and have new information.
-# This is defined using a Unicode escape sequence so it is unambiguously readable, regardless of
-# what font the user is viewing this source code in. Do not replace the
-# escape sequence with a single literal character.
-# Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
-# SEGMENT_SEPARATOR=$'\ue0b0'
-SEGMENT_SEPARATOR=""
-}
-
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
 # rendering default background/foreground.
 prompt_segment() {
   local bg fg
-  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
-  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
-  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
-  else
-    echo -n "%{$bg%}%{$fg%} "
-  fi
-  CURRENT_BG=$1
-  [[ -n $3 ]] && echo -n $3
-}
+  fg="%F{$1}"
+  echo -n "%{$fg%}"
+  echo -n "$2 "
+  echo -n "$3 %{%f%}"
 
-# End the prompt, closing any open segments
-prompt_end() {
-  if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
-  else
-    echo -n "%{%k%}"
-  fi
-  echo -n "%{%f%}"
-  CURRENT_BG=''
-}
-
-# End the prompt, closing any open segments
-prompt_end_prime() {
-  if [[ -n $CURRENT_BG ]]; then
-    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
-  else
-    echo -n "%{%k%}"
-  fi
-  echo -n "%{%f%}"
-  CURRENT_BG=''
 }
 
 ### Prompt components
@@ -122,7 +56,8 @@ prompt_end_prime() {
 prompt_context() {
   # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
-    prompt_segment $cyan $prompt_fg "%(!.%{%F{yellow}%}.)%n@%m"
+    prompt_segment $cyan 歷 "%(!.%{%F{yellow}%}.)%n@%m"
+    echo -n " | "
   fi
 }
 
@@ -143,12 +78,6 @@ prompt_git() {
     repo_path=$(git rev-parse --git-dir 2>/dev/null)
     dirty=$(parse_git_dirty)
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git rev-parse --short HEAD 2> /dev/null)"
-    if [[ -n $dirty ]]; then
-      prompt_segment $yellow $prompt_fg
-    else
-      prompt_segment $green $prompt_fg
-    fi
-
     if [[ -e "${repo_path}/BISECT_LOG" ]]; then
       mode=" <B>"
     elif [[ -e "${repo_path}/MERGE_HEAD" ]]; then
@@ -168,56 +97,24 @@ prompt_git() {
     zstyle ':vcs_info:*' formats ' %u%c'
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
-    echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+
+    info="${ref/refs\/heads\//}${vcs_info_msg_0_%% }${mode}"
+    if [[ -n $dirty ]]; then
+      prompt_segment $yellow  $info
+    else
+      prompt_segment $green  $info
+    fi
+
   fi
 }
 
 # Dir: current working directory
 prompt_dir() {
   if [[ $RETVAL -ne 0 ]]; then
-    prompt_segment $red $prompt_fg '%2~'
+    prompt_segment $red  '%2~'
   else
-    prompt_segment $blue $prompt_fg '%2~'
+    prompt_segment $blue  '%2~'
   fi
-}
-
-# Virtualenv: current working virtualenv
-prompt_virtualenv() {
-  local virtualenv_path="$VIRTUAL_ENV"
-  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment $blue $prompt_fg "(`basename $virtualenv_path`)"
-  fi
-}
-
-prompt_time() {
-  prompt_segment $green $prompt_fg '%*'
-}
-
-
-# Status:
-# - was there an error
-# - am I root
-# - are there background jobs?
-prompt_status() {
-  local -a symbols
-
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
-
-  [[ -n "$symbols" ]] && prompt_segment $mode_bg $CURRENT_FG "$symbols"
-}
-
-#AWS Profile:
-# - display current AWS_PROFILE name
-# - displays yellow on red if profile name contains 'production' or
-#   ends in '-prod'
-# - displays black on green otherwise
-prompt_aws() {
-  [[ -z "$aws_profile" || "$show_aws_prompt" = false ]] && return
-  case "$aws_profile" in
-    *-prod|*production*) prompt_segment $red $prompt_fg  "aws: $aws_profile" ;;
-    *) prompt_segment $cyan $prompt_fg "aws: $aws_profile" ;;
-  esac
 }
 
 # current k8s context
@@ -227,12 +124,12 @@ prompt_k8s() {
     #Only show if there is a context
     context="$(kubectl config view -ojson | jq -r '."current-context"')"
     if [[ -n "$context" ]]; then
-      prompt_segment $cyan $prompt_fg "$context"
+      prompt_segment $cyan ﯱ  "$context"
     fi
 	fi
 }
 
-prompt_vi_mode() {
+prompt() {
   local mode
   case $KEYMAP in
     vicmd) mode="%{%F{$magenta}%}normal%B>%b%{%F{$CURRENT_FG}%}";;
@@ -241,29 +138,19 @@ prompt_vi_mode() {
   echo -n "$mode"
 }
 
-prompt_ret_val() {
-  if [[ $RETVAL -ne 0 ]]; then
-    prompt_segment $red $prompt_fg $RETVAL
-  fi
-}
-
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  echo -n "%{%F{$blue}%}%f"
-  # prompt_ret_val
-  # prompt_time
   prompt_dir
-  # prompt_status
-  # prompt_virtualenv
-  # prompt_aws
-  # prompt_context
+  echo -n " | "
+  prompt_context
   prompt_k8s
+  echo -n " | "
   prompt_git
-  prompt_end
-  echo -n "\n"
-  prompt_vi_mode
-  echo -n "%{%f%}"
+  # echo -n "%{%f%k%}\n"
+  echo -n "%{%f%}\n"
+  prompt
 }
+
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
