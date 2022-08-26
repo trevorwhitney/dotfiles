@@ -84,7 +84,7 @@ def render_apps(i3: i3ipc.Connection):
     current_workspace_apps.sort(key=lambda app: app.name)
     current_workspace_apps.insert(0, focused_app)
 
-    out = '%{O12}'.join(format_entry(app) for app in current_workspace_apps[0:MAX_WINDOWS])
+    out = ' %{F#93a1a1}|%{F-} '.join(format_entry(app) for app in current_workspace_apps[0:MAX_WINDOWS])
 
     print(out, flush=True)
 
