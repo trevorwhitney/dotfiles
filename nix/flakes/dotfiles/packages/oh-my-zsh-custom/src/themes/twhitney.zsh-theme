@@ -44,7 +44,7 @@ prompt_segment() {
   fg="%F{$1}"
   echo -n "%{$fg%}"
   echo -n "$2 "
-  echo -n "$3%{%f%}"
+  echo -n "%{%B%}$3%{%f%}%{%b%}"
 
 }
 
