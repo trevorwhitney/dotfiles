@@ -53,6 +53,7 @@ in
         ctags = "!.git/hooks/ctags";
         sur = "submodule update --recursive";
         cane = "commit --amend --no-edit";
+        root = "rev-parse --show-toplevel";
       };
 
       extraConfig = {

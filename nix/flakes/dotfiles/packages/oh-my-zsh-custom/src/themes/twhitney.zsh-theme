@@ -103,6 +103,17 @@ prompt_end() {
   CURRENT_BG=''
 }
 
+# End the prompt, closing any open segments
+prompt_end_prime() {
+  if [[ -n $CURRENT_BG ]]; then
+    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  else
+    echo -n "%{%k%}"
+  fi
+  echo -n "%{%f%}"
+  CURRENT_BG=''
+}
+
 ### Prompt components
 # Each component will draw itself, and hide itself if no information needs to be shown
 
@@ -162,8 +173,11 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-  # prompt_segment cyan $CURRENT_FG '%~'
-  prompt_segment $blue $prompt_fg '%2~'
+  if [[ $RETVAL -ne 0 ]]; then
+    prompt_segment $red $prompt_fg '%2~'
+  else
+    prompt_segment $blue $prompt_fg '%2~'
+  fi
 }
 
 # Virtualenv: current working virtualenv
@@ -175,11 +189,7 @@ prompt_virtualenv() {
 }
 
 prompt_time() {
-  if [[ $RETVAL -eq 0 ]]; then
-    prompt_segment $violent $prompt_fg '%*'
-  else
-    prompt_segment $red $prompt_fg '%*'
-  fi
+  prompt_segment $green $prompt_fg '%*'
 }
 
 
@@ -190,8 +200,6 @@ prompt_time() {
 prompt_status() {
   local -a symbols
 
-  # this info is being covered in time now
-  # [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
 
@@ -207,7 +215,7 @@ prompt_aws() {
   [[ -z "$aws_profile" || "$show_aws_prompt" = false ]] && return
   case "$aws_profile" in
     *-prod|*production*) prompt_segment $red $prompt_fg  "aws: $aws_profile" ;;
-    *) prompt_segment $green $prompt_fg "aws: $aws_profile" ;;
+    *) prompt_segment $cyan $prompt_fg "aws: $aws_profile" ;;
   esac
 }
 
@@ -218,16 +226,18 @@ prompt_k8s() {
     #Only show if there is a context
     context="$(kubectl config view -ojson | jq -r '."current-context"')"
     if [[ -n "$context" ]]; then
-      prompt_segment $violent $prompt_fg "$context"
+      prompt_segment $cyan $prompt_fg "$context"
     fi
 	fi
 }
 
 prompt_vi_mode() {
+  local mode
   case $KEYMAP in
-    vicmd) prompt_segment $magenta $prompt_fg normal;;
-    viins|main) prompt_segment $mode_bg $CURRENT_FG ✎;;
+    vicmd) mode="%{%F{$magenta}%}normal%B>%b%{%F{$CURRENT_FG}%}";;
+    viins|main) mode="%{%F{$blue}%}%B>%b%{%F{$CURRENT_FG}%}";;
   esac
+  echo -n "$mode"
 }
 
 prompt_ret_val() {
@@ -239,19 +249,19 @@ prompt_ret_val() {
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  prompt_ret_val
-  # time was moved to the right side prompt
+  # prompt_ret_val
   # prompt_time
-  prompt_status
-  prompt_virtualenv
-  prompt_aws
-  prompt_context
-  prompt_k8s
   prompt_dir
+  # prompt_status
+  # prompt_virtualenv
+  # prompt_aws
+  # prompt_context
+  prompt_k8s
   prompt_git
-  prompt_vi_mode
   prompt_end
+  echo -n "\n"
+  prompt_vi_mode
+  echo -n "%{%f%}"
 }
 
-RPS1="$EPS1 %{$fg_bold[blue]%}[%*]%{$reset_color%}"
 PROMPT='%{%f%b%k%}$(build_prompt) '
