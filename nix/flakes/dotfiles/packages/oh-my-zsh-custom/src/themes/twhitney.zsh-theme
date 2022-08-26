@@ -121,7 +121,7 @@ prompt_k8s() {
     #Only show if there is a context
     context="$(kubectl config view -ojson | jq -r '."current-context"')"
     if [[ -n "$context" ]]; then
-      prompt_segment $cyan  "$context"
+      prompt_segment $cyan  "$context"
       print_separator
     fi
 	fi
