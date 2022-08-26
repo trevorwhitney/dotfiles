@@ -73,7 +73,8 @@ local LC_ALL="" LC_CTYPE="en_US.UTF-8"
 # what font the user is viewing this source code in. Do not replace the
 # escape sequence with a single literal character.
 # Do not change this! Do not make it '\u2b80'; that is the old, wrong code point.
-SEGMENT_SEPARATOR=$'\ue0b0'
+# SEGMENT_SEPARATOR=$'\ue0b0'
+SEGMENT_SEPARATOR=""
 }
 
 # Begin a segment
@@ -249,6 +250,7 @@ prompt_ret_val() {
 ## Main prompt
 build_prompt() {
   RETVAL=$?
+  echo -n "%{%F{$blue}%}%f"
   # prompt_ret_val
   # prompt_time
   prompt_dir
