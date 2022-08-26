@@ -3,7 +3,6 @@
 ### Colors
 black="#002b36"
 blue="#268bd2"
-bright_white="#fdf6e3"
 white="#eee8d5"
 cyan="#2aa198"
 gray="#586e75"
@@ -24,13 +23,13 @@ base3="#fdf6e3"
 
 case ${BACKGROUND:-light} in
   dark)
-    CURRENT_FG="$bright_white"
-    prompt_fg="$black"
+    CURRENT_FG="$base3"
+    prompt_fg="$base00"
     mode_bg="$gray"
     ;;
   *)
-    CURRENT_FG="$black"
-    prompt_fg="$bright_white"
+    CURRENT_FG="$base03"
+    prompt_fg="$base0"
     mode_bg="$white"
     ;;
 esac
@@ -45,7 +44,7 @@ prompt_segment() {
   fg="%F{$1}"
   echo -n "%{$fg%}"
   echo -n "$2 "
-  echo -n "$3 %{%f%}"
+  echo -n "$3%{%f%}"
 
 }
 
@@ -57,7 +56,7 @@ prompt_context() {
   # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
     prompt_segment $cyan 歷 "%(!.%{%F{yellow}%}.)%n@%m"
-    echo -n " | "
+    print_separator
   fi
 }
 
@@ -68,10 +67,6 @@ prompt_git() {
     return
   fi
   local PL_BRANCH_CHAR
-  () {
-    local LC_ALL="" LC_CTYPE="en_US.UTF-8"
-    PL_BRANCH_CHAR=$'\ue0a0'         # 
-  }
   local ref dirty mode repo_path
 
   if [[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]]; then
@@ -115,6 +110,8 @@ prompt_dir() {
   else
     prompt_segment $blue  '%2~'
   fi
+
+  print_separator
 }
 
 # current k8s context
@@ -124,16 +121,21 @@ prompt_k8s() {
     #Only show if there is a context
     context="$(kubectl config view -ojson | jq -r '."current-context"')"
     if [[ -n "$context" ]]; then
-      prompt_segment $cyan ﯱ  "$context"
+      prompt_segment $cyan  "$context"
+      print_separator
     fi
 	fi
+}
+
+print_separator() {
+  echo -n " %{%F{$base1}%}|%{%f%} "
 }
 
 prompt() {
   local mode
   case $KEYMAP in
-    vicmd) mode="%{%F{$magenta}%}normal%B>%b%{%F{$CURRENT_FG}%}";;
-    viins|main) mode="%{%F{$blue}%}%B>%b%{%F{$CURRENT_FG}%}";;
+    vicmd) mode="%{%F{$magenta}%}normal%{%B%}>%{%F{$CURRENT_FG}%b%}";;
+    viins|main) mode="%{%F{$blue}%B%}>%{%F{$CURRENT_FG}%b%}";;
   esac
   echo -n "$mode"
 }
@@ -141,15 +143,13 @@ prompt() {
 ## Main prompt
 build_prompt() {
   RETVAL=$?
-  prompt_dir
-  echo -n " | "
   prompt_context
   prompt_k8s
-  echo -n " | "
+  prompt_dir
   prompt_git
-  # echo -n "%{%f%k%}\n"
-  echo -n "%{%f%}\n"
+  echo -n "\n"
   prompt
+  echo -n "%{%f%k%}"
 }
 
 
