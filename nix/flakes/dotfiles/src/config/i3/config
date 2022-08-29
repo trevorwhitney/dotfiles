@@ -202,7 +202,7 @@ bindcode $mod+72 exec "playerctl --player=spotify next"
 # gaps
 for_window [class=".*"] border pixel 5
 
-gaps inner 12
+gaps inner 7
 # outer gaps are added to inner
 gaps outer 3
 

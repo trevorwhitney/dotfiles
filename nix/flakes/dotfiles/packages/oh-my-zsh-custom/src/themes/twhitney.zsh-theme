@@ -107,10 +107,14 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
+  prompt_segment $blue  '%2~'
+}
+
+# Print failed return values
+prompt_retval() {
   if [[ $RETVAL -ne 0 ]]; then
-    prompt_segment $red  '%2~'
-  else
-    prompt_segment $blue  '%2~'
+    prompt_segment $red  "$RETVAL"
+    print_separator
   fi
 }
 
@@ -143,6 +147,7 @@ prompt() {
 ## Main prompt
 build_prompt() {
   RETVAL=$?
+  prompt_retval
   prompt_context
   prompt_k8s
   prompt_dir
