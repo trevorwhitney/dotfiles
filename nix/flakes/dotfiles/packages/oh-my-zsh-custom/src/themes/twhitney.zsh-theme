@@ -138,8 +138,8 @@ print_separator() {
 prompt() {
   local mode
   case $KEYMAP in
-    vicmd) mode="%{%F{$magenta}%}normal%{%B%}>%{%F{$CURRENT_FG}%b%}";;
-    viins|main) mode="%{%F{$blue}%B%}>%{%F{$CURRENT_FG}%b%}";;
+    vicmd) mode="%{%F{$magenta}%}normal%{%B%}❯%{%F{$CURRENT_FG}%b%}";;
+    viins|main) mode="%{%F{$blue}%B%}❯%{%F{$CURRENT_FG}%b%}";;
   esac
   echo -n "$mode"
 }

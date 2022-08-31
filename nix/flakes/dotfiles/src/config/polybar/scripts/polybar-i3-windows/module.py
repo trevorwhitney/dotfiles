@@ -20,15 +20,17 @@ USER = getpass.getuser()
 
 # use xprop to get class names
 ICONS = [
-    ('name=vim;class=kitty', ''),
-    ('name=nvim;class=kitty', ''),
-    ('class=Slack', ''),
-    ('class=Spotify', ''),
-    ('class=chromium-browser', ''),
-    ('class=firefox', ''),
-    ('class=kitty', ''),
-    ('class=Alacritty', ''),
-    ('*', ''),
+    ('name=vim;class=kitty', ' '),
+    ('name=nvim;class=kitty', ' '),
+    ('class=Slack', ' '),
+    ('class=Spotify', ' '),
+    ('class=chromium-browser', ' '),
+    ('class=firefox', ' '),
+    ('class=kitty', ' '),
+    ('class=Alacritty', ' '),
+    ('class=zoom', ' '),
+    ('class=Insomnia', ' '),
+    ('*', ' '),
 ]
 
 FORMATERS = {
