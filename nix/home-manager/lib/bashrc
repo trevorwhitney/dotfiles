@@ -48,16 +48,10 @@ reset_color="\e[39m"
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-	local ref dirty
+	local ref
 	if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-		ZSH_THEME_GIT_PROMPT_DIRTY='±'
-	  dirty=$(git status -s 2>/dev/null | tail -n 1)
 		ref=$(git symbolic-ref HEAD 2>/dev/null) || ref="➦ $(git show-ref --head -s --abbrev | head -n1 2>/dev/null)"
-		if [[ -n $dirty ]]; then
-			echo -en "${yellow}${ref/refs\/heads\// }${normal}"
-		else
-			echo -en "${green}${ref/refs\/heads\// }${normal}"
-		fi
+		echo -n "${yellow}${ref/refs\/heads\// }${normal}"
 	fi
 }
 
