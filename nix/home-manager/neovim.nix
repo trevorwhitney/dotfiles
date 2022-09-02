@@ -94,7 +94,7 @@ in
                 delve
                 gopls
                 jsonnet-language-server
-                nixfmt
+                nixpkgs-fmt
                 pyright
                 rnix-lsp
                 shellcheck
