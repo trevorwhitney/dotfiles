@@ -177,6 +177,7 @@
             { programs.git.gpgPath = "/usr/bin/gpg"; }
             ./nix/home-manager/neovim.nix
             ./nix/home-manager/tmux.nix
+            ./nix/home-manager/xdg.nix
             ./nix/home-manager/zsh.nix
           ];
 
