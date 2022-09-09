@@ -3,9 +3,12 @@
     _1password-gui
     alacritty
     firefox
+    gimp
+    google-chrome
     insomnia
     kitty
     slack
     spotify
+    vlc
   ];
 }

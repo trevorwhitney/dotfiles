@@ -75,7 +75,9 @@ def render_apps(i3: i3ipc.Connection):
     apps.sort(key=lambda app: app.workspace().name)
 
     current_workspace_apps = []
-    focused_app = apps[0]
+    focused_app = None
+    if len(apps) > 0:
+        focused_app = apps[0]
     for app in apps:
         if app.workspace().num in focused_workspace:
             if app.focused:
@@ -84,7 +86,8 @@ def render_apps(i3: i3ipc.Connection):
                 current_workspace_apps.append(app)
 
     current_workspace_apps.sort(key=lambda app: app.name)
-    current_workspace_apps.insert(0, focused_app)
+    if focused_app != None:
+        current_workspace_apps.insert(0, focused_app)
 
     out = ' %{F#93a1a1}|%{F-} '.join(format_entry(app) for app in current_workspace_apps[0:MAX_WINDOWS])
 

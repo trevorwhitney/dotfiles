@@ -22,12 +22,13 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
-    roboto
     dejavu_fonts
+    emote
+    fontconfig
     parcellite
+    roboto
     siji
     xorg.xfd
-    fontconfig
     (nerdfonts.override {
       fonts = [
         "DroidSansMono"
