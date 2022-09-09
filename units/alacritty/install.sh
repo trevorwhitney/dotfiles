@@ -19,12 +19,3 @@ function install_from_package() {
 }
 
 install_from_package
-
-mkdir -p $HOME/.config/alacritty
-
-create_alacritty_link "$current_dir/open-in-vim.yml"
-
-sudo ln -sf "$current_dir/open-in-vim" /usr/local/bin/open-in-vim
-
-create_xdg_data_link applications "$current_dir/open-in-vim.desktop"
-create_xdg_data_link applications "$current_dir/defaults.list"
