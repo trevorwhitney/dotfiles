@@ -45,6 +45,8 @@
         "application/x-extension-xhtml" = "firefox.desktop";
         "application/xhtml+xml" = "firefox.desktop";
 
+        "inode/directory" = "org.gnome.Nautilus.desktop";
+
         "text/calendar" = "org.gnome.Calendar.desktop";
         "text/html" = "firefox.desktop";
         "text/plain" = "kitty-open.desktop";
