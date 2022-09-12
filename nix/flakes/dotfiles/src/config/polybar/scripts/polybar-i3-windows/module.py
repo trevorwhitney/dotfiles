@@ -30,6 +30,7 @@ ICONS = [
     ('class=Alacritty', ' '),
     ('class=zoom', ' '),
     ('class=Insomnia', ' '),
+    ('class=1Password', ' '),
     ('*', ' '),
 ]
 
