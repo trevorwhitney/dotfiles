@@ -22,6 +22,8 @@ USER = getpass.getuser()
 ICONS = [
     ('name=vim;class=kitty', ' '),
     ('name=nvim;class=kitty', ' '),
+    ('name=vim;class=Alacritty', ' '),
+    ('name=nvim;class=Alacritty', ' '),
     ('class=Slack', ' '),
     ('class=Spotify', ' '),
     ('class=chromium-browser', ' '),
