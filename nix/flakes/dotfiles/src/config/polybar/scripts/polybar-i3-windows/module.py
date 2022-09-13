@@ -24,6 +24,7 @@ ICONS = [
     ('name=nvim;class=kitty', ' '),
     ('name=vim;class=Alacritty', ' '),
     ('name=nvim;class=Alacritty', ' '),
+    ('class=Gvim', ' '),
     ('class=Slack', ' '),
     ('class=Spotify', ' '),
     ('class=chromium-browser', ' '),
@@ -33,6 +34,7 @@ ICONS = [
     ('class=zoom', ' '),
     ('class=Insomnia', ' '),
     ('class=1Password', ' '),
+    ('class=Org.gnome.Nautilus', ' '),
     ('*', ' '),
 ]
 
