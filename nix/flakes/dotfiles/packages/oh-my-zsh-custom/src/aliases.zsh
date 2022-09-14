@@ -76,8 +76,8 @@ alias gco="git checkout \$(git branch | fzf)"
 
 alias v="vim "
 # useful when piping output to vim
-alias vyaml="vim -c 'set filetype=yaml' -"
-alias vjson="vim -c 'set filetype=json' -"
+alias vyaml="nvim -c 'set filetype=yaml' -"
+alias vjson="nvim -c 'set filetype=json' -"
 
 # one-password
 function get_op_credential() {
