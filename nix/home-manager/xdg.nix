@@ -7,8 +7,7 @@
       enable = true;
       associations = {
         added = {
-          #TODO: replace with kitty-open?
-          "application/octet-stream" = "gvim.desktop";
+          "application/octet-stream" = "kitty-open.desktop";
           "application/text" = "kitty-open.desktop;gvim.desktop;vim.desktop";
           "application/x-extension-htm" = "firefox.desktop";
           "application/x-extension-html" = "firefox.desktop";

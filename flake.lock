@@ -13,12 +13,13 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-g7Q01U+wEMpiwqnlWJ5whwBk6pQeYKF6v4tH6InnRso=",
-        "path": "/nix/store/m6c6m4cq3wvramqdzix4r1pcyyw4xnrh-source/nix/flakes/dotfiles",
+        "lastModified": 1,
+        "narHash": "sha256-PGsl8qu+aFVK2u9Ygp5J5OjaXC2vPWao4DBqOgYC4D8=",
+        "path": "/nix/store/clqpzgdvbl5mq37r8zvrlfj270lxkwdb-source/nix/flakes/dotfiles",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/m6c6m4cq3wvramqdzix4r1pcyyw4xnrh-source/nix/flakes/dotfiles",
+        "path": "/nix/store/clqpzgdvbl5mq37r8zvrlfj270lxkwdb-source/nix/flakes/dotfiles",
         "type": "path"
       }
     },
@@ -68,6 +69,21 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1659877975,
+        "narHash": "sha256-zllb8aq3YO3h8B/U0/J1WBgAL8EX5yWf5pMj3G0NAmc=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c0e246b9b83f637f4681389ecabcb2681b4f3af0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -99,12 +115,13 @@
         ]
       },
       "locked": {
+        "lastModified": 1,
         "narHash": "sha256-LvYnl80RwIzjzvBUaqocVpb1pcC0lqaFdvDNZIMMiS0=",
-        "path": "/nix/store/m6c6m4cq3wvramqdzix4r1pcyyw4xnrh-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/clqpzgdvbl5mq37r8zvrlfj270lxkwdb-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/m6c6m4cq3wvramqdzix4r1pcyyw4xnrh-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/clqpzgdvbl5mq37r8zvrlfj270lxkwdb-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       }
     },
@@ -152,6 +169,25 @@
         "type": "github"
       }
     },
+    "nixgl": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1661367362,
+        "narHash": "sha256-Qc8MXcV+YCPREu8kk6oggk23ZBKLqeQRAIsLbHEviPE=",
+        "owner": "guibou",
+        "repo": "nixGL",
+        "rev": "7165ffbccbd2cf4379b6cd6d2edd1620a427e5ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "guibou",
+        "repo": "nixGL",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1659981942,
@@ -186,6 +222,21 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1660551188,
+        "narHash": "sha256-a1LARMMYQ8DPx1BgoI/UN4bXe12hhZkCNqdxNi6uS0g=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "441dc5d512153039f19ef198e662e4f3dbb9fd65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1660033036,
         "narHash": "sha256-GjwzXmdN5SVTT0RIZ11uDTQxaHLTLt9/AbBeIHNfidQ=",
         "owner": "NixOS",
@@ -206,7 +257,8 @@
         "home-manager": "home-manager",
         "i3-gnome-flashback": "i3-gnome-flashback",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "nixpkgs": "nixpkgs_2",
+        "nixgl": "nixgl",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "secrets": "secrets"
       }

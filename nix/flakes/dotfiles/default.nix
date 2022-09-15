@@ -80,7 +80,8 @@ stdenv.mkDerivation rec {
 
       substitute $src/config/polybar/config/user_modules.ini $out/config/polybar/config/user_modules.ini --replace playerctl ${playerctl}/bin/playerctl
       substitute $src/config/i3/config $out/config/i3/config --replace playerctl ${playerctl}/bin/playerctl \
-                                                             --replace dropbox ${dropbox}/bin/dropbox
+                                                             --replace dropbox ${dropbox}/bin/dropbox \
+                                                             --replace /bin/kitty ${kitty}/bin/kitty
 
       nm_applet="${nm_applet}"
       substitute $src/config/i3/scripts/nm-applet.sh $out/config/i3/scripts/nm-applet.sh --subst-var nm_applet

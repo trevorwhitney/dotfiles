@@ -25,6 +25,9 @@
     i3-gnome-flashback.url = "./nix/flakes/i3-gnome-flashback";
     i3-gnome-flashback.inputs.nixpkgs.follows = "nixpkgs";
     i3-gnome-flashback.inputs.flake-utils.follows = "flake-utils";
+
+    # For running OpenGL apps outside of NixOS
+    nixgl.url = "github:guibou/nixGL";
   };
 
   outputs =
@@ -36,6 +39,7 @@
     , neovim-nightly-overlay
     , nixpkgs
     , nixpkgs-unstable
+    , nixgl
     , secrets
     , ...
     }:
@@ -159,14 +163,11 @@
         let
           username = "twhitney";
           homeDirectory = "/home/${username}";
-          baseConfig = { inherit username homeDirectory pkgs; };
+          baseConfig = { inherit username homeDirectory; };
 
           sharedConfig = {
             programs.git.includes =
               [{ path = "${secrets.defaultPackage.${system}}/git"; }];
-
-            home.file.".local/share/backgrounds/family.jpg".source =
-              "${pkgs.secrets}/backgrounds/family.jpg";
           };
 
           sharedImports = [
@@ -183,34 +184,47 @@
 
         in
         {
-          "twhitney@cerebral" = home-manager.lib.homeManagerConfiguration
-            (baseConfig // {
-              system = "x86_64-linux";
-
-              configuration = sharedConfig // {
-                imports = [
-                  ./nix/home-manager/gnome.nix
-                  ./nix/home-manager/i3.nix
-                  ./nix/home-manager/kitty.nix
-                  ./nix/home-manager/polybar.nix
-                  ./nix/home-manager/spotify.nix
-                  {
-                    programs.neovim = {
-                      withLspSupport = true;
-                      package = pkgs.neovim-nightly;
-                    };
-                    polybar = {
-                      hostConfig = ./hosts/cerebral/host.ini;
-                      includeSecondary = true;
-                    };
-                    i3.hostConfig = ./hosts/cerebral/host.conf;
-                  }
-                ] ++ sharedImports;
+          "twhitney@cerebral" =
+            let
+              pkgs = import nixpkgs {
+                inherit system;
+                overlays = overlays ++ [
+                  nixgl.overlay
+                  (import ./nix/hosts/cerebral.nix).overlay
+                ];
+                config = { allowUnfree = true; };
               };
-            });
+            in
+            home-manager.lib.homeManagerConfiguration
+              (baseConfig // {
+                inherit pkgs;
+                system = "x86_64-linux";
+
+                configuration = sharedConfig // {
+                  imports = [
+                    ./nix/home-manager/gnome.nix
+                    ./nix/home-manager/i3.nix
+                    ./nix/home-manager/kitty.nix
+                    ./nix/home-manager/polybar.nix
+                    ./nix/home-manager/spotify.nix
+                    {
+                      programs.neovim = {
+                        withLspSupport = true;
+                        package = pkgs.neovim-nightly;
+                      };
+                      polybar = {
+                        hostConfig = ./hosts/cerebral/host.ini;
+                        includeSecondary = true;
+                      };
+                      i3.hostConfig = ./hosts/cerebral/host.conf;
+                    }
+                  ] ++ sharedImports;
+                };
+              });
 
           "twhitney@virtualbox" = home-manager.lib.homeManagerConfiguration
             (baseConfig // {
+              inherit pkgs;
               system = "x86_64-linux";
 
               configuration = sharedConfig // {
@@ -235,6 +249,7 @@
 
           "twhitney@penguin" = home-manager.lib.homeManagerConfiguration
             (baseConfig // {
+              inherit pkgs;
               system = "x86_64-linux";
               configuration = sharedConfig // {
                 imports = [{
@@ -250,6 +265,7 @@
 
           "twhitney@newImage" = home-manager.lib.homeManagerConfiguration
             (baseConfig // {
+              inherit pkgs;
               system = "x86_64-linux";
               configuration = sharedConfig // {
                 imports = [{

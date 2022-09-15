@@ -79,7 +79,7 @@ fi
 # this path isn't there on nixos systems
 if [[ -e "$HOME/.nix-profile" ]]; then
   export NIX_PROFILE="$HOME/.nix-profile"
-  . $NIX_PROFILE/etc/profile.d/nix.sh
+  . $NIX_PROFILE/etc/profile.d/hm-session-vars.sh
 fi
 
 PATH="${HOME}/.local/bin:$PATH"
