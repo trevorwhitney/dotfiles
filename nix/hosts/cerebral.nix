@@ -5,7 +5,7 @@
       let
         wrapped = prev.writeScriptBin "kitty" ''
           #!${prev.stdenv.shell}
-          ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.kitty}/bin/kitty "$@"
+          ${prev.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.kitty}/bin/kitty "$@"
         '';
       in
       prev.kitty.overrideAttrs

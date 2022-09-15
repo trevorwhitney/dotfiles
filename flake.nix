@@ -37,9 +37,9 @@
     , home-manager
     , i3-gnome-flashback
     , neovim-nightly-overlay
+    , nixgl
     , nixpkgs
     , nixpkgs-unstable
-    , nixgl
     , secrets
     , ...
     }:
