@@ -252,14 +252,21 @@
               inherit pkgs;
               system = "x86_64-linux";
               configuration = sharedConfig // {
-                imports = [{
+                imports = [
+                ./nix/home-manager/tmux.nix
+                {
                   programs.neovim = {
                     withLspSupport = false;
                     package = pkgs.neovim-nightly;
                   };
                 }] ++ sharedImports;
 
-                programs.zsh.sessionVariables = { GPG_TTY = "$(tty)"; };
+                programs.zsh.sessionVariables = { 
+                  GPG_TTY = "$(tty)"; 
+
+                  LD_LIBRARY_PATH =
+                    "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
+                  };
               };
             });
 

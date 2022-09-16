@@ -18,7 +18,7 @@ in
   config =
     let
       inherit (cfg) withLspSupport finalPackage;
-      cc = "${pkgs.unstable.stdenv.cc}";
+      _cc = "${pkgs.unstable.stdenv.cc}";
     in
     rec {
       # always start vim in a tmux pane
@@ -72,7 +72,7 @@ in
           builtins.concatStringsSep "\n" (with pkgs;
           [
             # nvim-treesitter requires gcc and tree-sitter to be in the path as seen by neovim
-            "call setenv('PATH', '${cc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
+            "call setenv('PATH', '${_cc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
           ] ++ exCfg);
 
         withNodeJs = true;
@@ -126,7 +126,7 @@ in
           with pkgs;
           [
             # required by tree-sitter
-            cc
+            _cc
             tree-sitter
             # end required by tree-sitter
 
