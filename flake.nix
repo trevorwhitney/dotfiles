@@ -247,28 +247,39 @@
               };
             });
 
-          "twhitney@penguin" = home-manager.lib.homeManagerConfiguration
-            (baseConfig // {
-              inherit pkgs;
-              system = "x86_64-linux";
-              configuration = sharedConfig // {
-                imports = [
-                ./nix/home-manager/tmux.nix
-                {
-                  programs.neovim = {
-                    withLspSupport = false;
-                    package = pkgs.neovim-nightly;
-                  };
-                }] ++ sharedImports;
-
-                programs.zsh.sessionVariables = { 
-                  GPG_TTY = "$(tty)"; 
-
-                  LD_LIBRARY_PATH =
-                    "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
-                  };
+          "twhitney@penguin" =
+            let
+              pkgs = import nixpkgs {
+                inherit system;
+                overlays = overlays ++ [
+                  nixgl.overlay
+                  (import ./nix/hosts/penguin.nix).overlay
+                ];
+                config = { allowUnfree = true; };
               };
-            });
+            in
+            home-manager.lib.homeManagerConfiguration
+              (baseConfig // {
+                inherit pkgs;
+                system = "x86_64-linux";
+                configuration = sharedConfig // {
+                  imports = [
+                    ./nix/home-manager/tmux.nix
+                    ./nix/home-manager/kitty.nix
+                    ./nix/home-manager/alacritty.nix
+                    {
+                      programs.neovim = {
+                        withLspSupport = false;
+                        package = pkgs.neovim-nightly;
+                      };
+                    }
+                  ] ++ sharedImports;
+
+                  programs.zsh.sessionVariables = {
+                    GPG_TTY = "$(tty)";
+                  };
+                };
+              });
 
           "twhitney@newImage" = home-manager.lib.homeManagerConfiguration
             (baseConfig // {

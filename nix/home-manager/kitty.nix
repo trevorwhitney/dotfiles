@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   inherit (pkgs) dotfiles;
-  cfg = config.programs.alacritty;
+  cfg = config.programs.kitty;
 in
 {
   options = { };
@@ -77,6 +77,5 @@ in
         "kitty_mod+k" = "clear_terminal to_cursor active";
       };
     };
-    home.packages = with pkgs; [ kitty ];
   };
 }

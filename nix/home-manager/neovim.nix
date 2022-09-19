@@ -65,7 +65,7 @@ in
                 "let g:jdtls_home = '${jdtls}'"
                 (lib.strings.fileContents ./lib/init.vim)
               ] else [
-                "let s:lsp_support = 0"
+                "let s:lsp_support = 1"
                 (lib.strings.fileContents ./lib/init.vim)
               ];
           in
@@ -96,10 +96,8 @@ in
                 jsonnet-language-server
                 nixpkgs-fmt
                 pyright
-                rnix-lsp
                 shellcheck
                 shfmt
-                statix
                 sumneko-lua-language-server
                 terraform-ls
                 vale
@@ -121,7 +119,10 @@ in
                 nodePackages.write-good
                 nodePackages.yaml-language-server
               ] else
-                [ ];
+                [ 
+                rnix-lsp
+                statix
+                ];
           in
           with pkgs;
           [
