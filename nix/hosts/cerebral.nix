@@ -19,9 +19,10 @@
       nixGLWrap = pkg: nixGLWrapWithName pkg pkg.name;
     in
     {
-      kitty = nixGLWrap prev.kitty;
-      slack = nixGLWrap prev.slack;
       _1password-gui = nixGLWrap prev._1password-gui;
+      kitty = nixGLWrap prev.kitty;
+      google-chrome = nixGLWrapWithName prev.google-chrome "google-chrome-stable";
+      slack = nixGLWrap prev.slack;
       spotify = nixGLWrapWithName prev.spotify "spotify";
 
       firefox =

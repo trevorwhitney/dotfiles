@@ -218,6 +218,7 @@
                         firefox
                         slack
                         spotify
+                        google-chrome
                       ];
                       programs.firefox = {
                         enable = true;
