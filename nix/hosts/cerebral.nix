@@ -26,16 +26,7 @@
 
       firefox =
         let
-          nixgl-wrapped = prev.writeScriptBin "firefox-nixgl" ''
-            #!${prev.stdenv.shell}
-            ${prev.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.latest.firefox-nightly-bin.unwrapped}/bin/firefox "$@"
-          '';
-          unwrapped = prev.latest.firefox-nightly-bin.unwrapped.overrideAttrs
-            (old: {
-              postInstall = ''
-                install -m755 ${nixgl-wrapped}/bin/firefox-nixgl $out/bin/firefox
-              '';
-            });
+          unwrapped = nixGLWrapWithName prev.latest.firefox-nightly-bin.unwrapped "firefox";
         in
         prev.wrapFirefox unwrapped
           {
