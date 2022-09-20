@@ -28,11 +28,15 @@
 
     # For running OpenGL apps outside of NixOS
     nixgl.url = "github:guibou/nixGL";
+
+    # Firefox nightly
+    nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
   };
 
   outputs =
     { self
     , dotfiles
+    , nixpkgs-mozilla
     , flake-utils
     , home-manager
     , i3-gnome-flashback
@@ -190,6 +194,7 @@
                 inherit system;
                 overlays = overlays ++ [
                   nixgl.overlay
+                  nixpkgs-mozilla.overlays.firefox
                   (import ./nix/hosts/cerebral.nix).overlay
                 ];
                 config = { allowUnfree = true; };
@@ -208,6 +213,16 @@
                     ./nix/home-manager/polybar.nix
                     ./nix/home-manager/spotify.nix
                     {
+                      home.packages = with pkgs; [
+                        _1password-gui
+                        firefox
+                        slack
+                        spotify
+                      ];
+                      programs.firefox = {
+                        enable = true;
+                        package = pkgs.firefox;
+                      };
                       programs.neovim = {
                         withLspSupport = true;
                         package = pkgs.neovim-nightly;
