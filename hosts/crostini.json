@@ -1,15 +1,10 @@
 {
   "excluded": [
-    "1password",
     "apt-desktop",
     "flatpak",
-    "gogh",
     "grafana",
-    "intellij",
     "monitoring",
-    "snap",
     "ssh-server-linux",
-    "vs-code"
   ],
   "name": "crostini",
   "nix": {
@@ -24,7 +19,6 @@
     "apt",
     "crostini",
     "home-manager",
-    "powerline-fonts",
     "tailscale"
   ]
 }

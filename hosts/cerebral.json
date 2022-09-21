@@ -1,7 +1,6 @@
 {
   "excluded": [
-    "crostini",
-    "intellij"
+    "crostini"
   ],
   "name": "cerebral",
   "nix": {
@@ -12,19 +11,13 @@
     }
   },
   "units": [
-    "1password",
-    "alacritty",
     "apt",
     "apt-desktop",
-    "gogh",
     "grafana",
     "home-manager",
     "flatpak",
     "monitoring",
-    "powerline-fonts",
-    "snap",
     "ssh-server-linux",
-    "tailscale",
-    "vs-code"
+    "tailscale"
   ]
 }

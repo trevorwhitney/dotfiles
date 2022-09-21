@@ -69,4 +69,7 @@
   # map caps -> ctrl
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "caps:ctrl";
+
+  # Enable flatpak
+  services.flatpak.enable = true;
 }

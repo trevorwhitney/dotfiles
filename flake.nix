@@ -175,7 +175,6 @@
           };
 
           sharedImports = [
-            ./nix/home-manager/alacritty.nix
             ./nix/home-manager/common.nix
             ./nix/home-manager/bash.nix
             ./nix/home-manager/git.nix
@@ -209,13 +208,18 @@
                   imports = [
                     ./nix/home-manager/gnome.nix
                     ./nix/home-manager/i3.nix
-                    ./nix/home-manager/kitty.nix
                     ./nix/home-manager/polybar.nix
                     ./nix/home-manager/spotify.nix
+                    ./nix/home-manager/alacritty.nix
+                    ./nix/home-manager/kitty.nix
                     {
                       home.packages = with pkgs; [
                         _1password-gui
+                        alacritty
+                        kitty
+                        # firefox requires --impure flag because of how it pulls binaries
                         firefox
+                        flatpak
                         slack
                         spotify
                         google-chrome
@@ -223,6 +227,12 @@
                       programs.firefox = {
                         enable = true;
                         package = pkgs.firefox;
+                      };
+                      programs.kitty = {
+                        package = pkgs.kitty;
+                      };
+                      programs.alacritty = {
+                        package = pkgs.alacritty;
                       };
                       programs.neovim = {
                         withLspSupport = true;

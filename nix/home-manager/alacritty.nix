@@ -88,7 +88,7 @@ in
       remoteConfig = configFile zshShell;
     in
     {
-      programs.alacritty.enable  = true;
+      programs.alacritty.enable = true;
       xdg.configFile."alacritty/base.yml".source =
         "${dotfiles}/config/alacritty/base.yml";
       xdg.configFile."alacritty/gruvbox.yml".source =

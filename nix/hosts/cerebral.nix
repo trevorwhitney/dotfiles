@@ -8,23 +8,30 @@
             #!${prev.stdenv.shell}
             ${prev.nixgl.nixGLIntel}/bin/nixGLIntel ${pkg}/bin/${name} "$@"
           '';
+          installString = "install -m755 ${wrapped}/bin/${name} $out/bin/${name}";
         in
         pkg.overrideAttrs
           (old: {
-            postInstall = ''
-              install -m755 ${wrapped}/bin/${name} $out/bin/${name}
-            '';
+            postInstall =
+              if (builtins.hasAttr "postInstall" old) then ''
+                ${old.postInstall}
+                ${installString}
+              '' else ''
+                ${installString}
+              '';
           });
 
       nixGLWrap = pkg: nixGLWrapWithName pkg pkg.name;
     in
     {
       _1password-gui = nixGLWrap prev._1password-gui;
+      alacritty = nixGLWrap prev.alacritty;
       kitty = nixGLWrap prev.kitty;
       google-chrome = nixGLWrapWithName prev.google-chrome "google-chrome-stable";
       slack = nixGLWrap prev.slack;
       spotify = nixGLWrapWithName prev.spotify "spotify";
 
+      # firefox requires --impure flag because of how it pulls binaries
       firefox =
         let
           unwrapped = nixGLWrapWithName prev.latest.firefox-nightly-bin.unwrapped "firefox";

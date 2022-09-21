@@ -85,6 +85,10 @@ in
 
         extraPackages =
           let
+            basePackages = with pkgs; [ 
+                rnix-lsp
+                statix
+                ];
             lspPackages = with pkgs;
               if withLspSupport then [
                 stylua
@@ -118,11 +122,7 @@ in
                 nodePackages.vscode-langservers-extracted
                 nodePackages.write-good
                 nodePackages.yaml-language-server
-              ] else
-                [ 
-                rnix-lsp
-                statix
-                ];
+              ] else [];
           in
           with pkgs;
           [
@@ -132,7 +132,7 @@ in
             # end required by tree-sitter
 
             gnutar
-          ] ++ lspPackages;
+          ] ++ basePackages ++ lspPackages;
       };
     };
 }
