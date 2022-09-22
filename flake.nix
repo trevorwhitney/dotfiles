@@ -58,7 +58,7 @@
         (final: prev: {
           inherit unstable;
           #Packages to override from unstable
-          inherit (unstable) gopls gotools jsonnet i3-gaps nerdfonts nodePackages siji;
+          inherit (unstable) go gopls gotools jsonnet i3-gaps nerdfonts nodePackages siji;
         })
       ];
 

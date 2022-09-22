@@ -1,7 +1,12 @@
 com.github.phase1geo.annotator
 com.obsproject.Studio
 com.visualstudio.code
+org.audacityteam.Audacity
 org.chromium.Chromium
+org.filezillaproject.Filezilla
 org.gimp.GIMP
 org.signal.Signal
+org.telegram.desktop
+org.videolan.VLC
+rest.insomnia.Insomnia
 us.zoom.Zoom

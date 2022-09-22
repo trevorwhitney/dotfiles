@@ -7,7 +7,9 @@ in
 
   targets.genericLinux.enable = true;
 
-  home.sessionVariables = { EDITOR = "vim"; };
+  home.sessionVariables = {
+    EDITOR = "vim";
+  };
 
   home.file.".ctags".source = "${dotfiles}/ctags";
   home.file.".dircolors".source = "${dotfiles}/dircolors";
@@ -55,7 +57,7 @@ in
     gh
     glow
     gnused
-    go_1_17
+    go
     golangci-lint
     google-cloud-sdk
     gradle

@@ -96,6 +96,7 @@ in
 
                 ccls # c++ language server
                 delve
+                go
                 gopls
                 jsonnet-language-server
                 nixpkgs-fmt
