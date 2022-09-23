@@ -6,7 +6,7 @@
         let
           wrapped = prev.writeScriptBin "${name}" ''
             #!${prev.stdenv.shell}
-            ${prev.nixgl.nixGLIntel}/bin/nixGLIntel ${pkg}/bin/${name} "$@"
+            ${prev.nixgl.auto.nixGLDefault}/bin/nixGL ${pkg}/bin/${name} "$@"
           '';
           installString = "install -m755 ${wrapped}/bin/${name} $out/bin/${name}";
         in
@@ -21,7 +21,7 @@
               '';
           });
 
-      nixGLWrap = pkg: nixGLWrapWithName pkg pkg.name;
+      nixGLWrap = pkg: nixGLWrapWithName pkg pkg.pname;
     in
     {
       _1password-gui = nixGLWrap prev._1password-gui;
