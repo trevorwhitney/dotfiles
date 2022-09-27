@@ -31,8 +31,10 @@
     xorg.xfd
     (nerdfonts.override {
       fonts = [
+        "CascadiaCode"
         "DroidSansMono"
         "FantasqueSansMono"
+        "FiraCode"
         "Hack"
         "Iosevka"
         "JetBrainsMono"
@@ -40,6 +42,7 @@
         "Terminus"
         "Ubuntu"
         "UbuntuMono"
+        "VictorMono"
       ];
     })
   ];

@@ -7,6 +7,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs; [
     bash
+    bc
     faillint
     git-template
     gocomplete
@@ -85,6 +86,7 @@ stdenv.mkDerivation rec {
 
       nm_applet="${nm_applet}"
       substitute $src/config/i3/scripts/nm-applet.sh $out/config/i3/scripts/nm-applet.sh --subst-var nm_applet
+      substitute $src/config/polybar/scripts/debian-updates.sh $out/config/polybar/scripts/debian-updates.sh --replace bc ${bc}/bin/bc
     '';
 
   meta = with lib; {
