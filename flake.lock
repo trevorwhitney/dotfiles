@@ -14,12 +14,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-SQZ3WMb8ivtmREamdGpJfVC4P6T2CNG9zZlocc4OAiM=",
-        "path": "/nix/store/ly9i4rzqfzmiirzijl93izzig08q8cpj-source/nix/flakes/dotfiles",
+        "narHash": "sha256-CBqg17tqOOb7JyTphI0p9O2cRGiUkDss8PevCfwSg0M=",
+        "path": "/nix/store/d4qwvazl67h3v4bri9k1pq26q13abp3x-source/nix/flakes/dotfiles",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ly9i4rzqfzmiirzijl93izzig08q8cpj-source/nix/flakes/dotfiles",
+        "path": "/nix/store/d4qwvazl67h3v4bri9k1pq26q13abp3x-source/nix/flakes/dotfiles",
         "type": "path"
       }
     },
@@ -117,11 +117,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-LvYnl80RwIzjzvBUaqocVpb1pcC0lqaFdvDNZIMMiS0=",
-        "path": "/nix/store/ly9i4rzqfzmiirzijl93izzig08q8cpj-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/d4qwvazl67h3v4bri9k1pq26q13abp3x-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ly9i4rzqfzmiirzijl93izzig08q8cpj-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/d4qwvazl67h3v4bri9k1pq26q13abp3x-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       }
     },
@@ -185,6 +185,25 @@
       "original": {
         "owner": "guibou",
         "repo": "nixGL",
+        "type": "github"
+      }
+    },
+    "nixops": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3",
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1664354598,
+        "narHash": "sha256-TqeTcBcHJ0hBaC84aljaoRlycV9UEZPVhNIFu7z+3gM=",
+        "owner": "nixos",
+        "repo": "nixops",
+        "rev": "683baa66c613216a662aad3fd58b0cdc5cd41adb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixops",
         "type": "github"
       }
     },
@@ -252,6 +271,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1656753965,
+        "narHash": "sha256-BCrB3l0qpJokOnIVc3g2lHiGhnjUi0MoXiw6t1o8H1E=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0ea7a8f1b939d74e5df8af9a8f7342097cdf69eb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1663855239,
         "narHash": "sha256-A2B7rlFKmBikRwz/cmayWcTAhyIOdp2whjVCDGhg9Xw=",
         "owner": "NixOS",
@@ -273,7 +308,8 @@
         "i3-gnome-flashback": "i3-gnome-flashback",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixgl": "nixgl",
-        "nixpkgs": "nixpkgs_3",
+        "nixops": "nixops",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-mozilla": "nixpkgs-mozilla",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "secrets": "secrets"
@@ -302,6 +338,21 @@
         "rev": "ea38cf5ecec5b6a0eebb8bbe1416bcff4bea55aa",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
+      }
+    },
+    "utils": {
+      "locked": {
+        "lastModified": 1634851050,
+        "narHash": "sha256-N83GlSGPJJdcqhUxSCS/WwW5pksYf3VP1M13cDRTSVA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "c91f3de5adaf1de973b797ef7485e441a65b8935",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
       }
     }
   },

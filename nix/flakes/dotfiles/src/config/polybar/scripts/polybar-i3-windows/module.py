@@ -36,6 +36,7 @@ ICONS = [
     ('class=Insomnia', ' '),
     ('class=1Password', ' '),
     ('class=Gnome-calendar', ' '),
+    ('class=Gnome-control-center', ' '),
     ('class=Org.gnome.Nautilus', ' '),
     ('class=File-roller', ' '),
     ('class=Com.github.donadigo.eddy', ' '),

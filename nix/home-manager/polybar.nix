@@ -63,6 +63,11 @@ in
 
     xdg.configFile."polybar/host.ini".source = "${cfg.hostConfig}";
 
-    home.packages = with pkgs; [ polybarFull ];
+    home.packages = with pkgs; [
+      polybarFull
+      playerctl
+      psmisc
+      rofi
+    ];
   };
 }

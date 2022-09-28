@@ -56,7 +56,10 @@ in
 
   withGnomeAndHM = mkVM [
     {
-      imports = [ ../../nix/nixos/desktops/gnome.nix ];
+      imports = [
+        ../../nix/nixos/desktops/gnome.nix
+        ../../nix/nixos/gui-apps.nix
+      ];
     }
     # home-manager.nixosModules.home-manager
     { imports = [ <home-manager/nixos> ]; }
@@ -68,17 +71,20 @@ in
 
         imports = [
           ../../nix/home-manager/alacritty.nix
-          ../../nix/home-manager/common.nix
           ../../nix/home-manager/bash.nix
+          ../../nix/home-manager/common.nix
           ../../nix/home-manager/git.nix
-          { programs.git.gpgPath = "/usr/bin/gpg"; }
-          ../../nix/home-manager/neovim.nix
-          ../../nix/home-manager/tmux.nix
-          ../../nix/home-manager/zsh.nix
-          ../../nix/home-manager/i3.nix
-          ../../nix/home-manager/polybar.nix
           ../../nix/home-manager/gnome.nix
+          ../../nix/home-manager/i3.nix
+          ../../nix/home-manager/kitty.nix
+          ../../nix/home-manager/neovim.nix
+          ../../nix/home-manager/polybar.nix
+          ../../nix/home-manager/tmux.nix
+          ../../nix/home-manager/xdg.nix
+          ../../nix/home-manager/zsh.nix
           {
+            programs.git.gpgPath = "/usr/bin/gpg";
+            programs.firefox.enable = true;
             programs.neovim = {
               withLspSupport = false;
               package = pkgs.neovim-nightly;

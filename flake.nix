@@ -31,6 +31,9 @@
 
     # Firefox nightly
     nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
+
+    # nixops
+    nixops.url = "github:nixos/nixops";
   };
 
   outputs =
@@ -44,6 +47,7 @@
     , nixgl
     , nixpkgs
     , nixpkgs-unstable
+    , nixops
     , secrets
     , ...
     }:
@@ -59,6 +63,7 @@
           inherit unstable;
           #Packages to override from unstable
           inherit (unstable) go gopls gotools jsonnet i3-gaps nerdfonts nodePackages siji;
+          nixops = nixops.packages."${system}".nixops;
         })
       ];
 
@@ -111,55 +116,73 @@
             }
           ];
         };
+      };
 
-        virtualbox = nixpkgs.lib.nixosSystem {
-          inherit system;
+      nixopsConfigurations = {
+        default = {
+          inherit nixpkgs;
+          network = {
+            description = "Monterey VM";
+            storage.legacy = { };
+          };
 
-          modules = [
-            { nixpkgs.pkgs = pkgs; }
-            "${self}/hosts/virtualBox/base.nix"
-            "${self}/hosts/virtualBox/configuration.nix"
-            "${self}/nix/nixos/desktops/gnome.nix"
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.twhitney = {
-                imports = [
-                  ./nix/home-manager/alacritty.nix
-                  ./nix/home-manager/common.nix
-                  ./nix/home-manager/bash.nix
-                  ./nix/home-manager/git.nix
-                  { programs.git.gpgPath = "/usr/bin/gpg"; }
-                  ./nix/home-manager/neovim.nix
-                  ./nix/home-manager/tmux.nix
-                  ./nix/home-manager/zsh.nix
-                  ./nix/home-manager/i3.nix
-                  ./nix/home-manager/polybar.nix
-                  ./nix/home-manager/gnome.nix
-                  {
-                    programs.neovim = {
-                      withLspSupport = false;
-                      package = pkgs.neovim-nightly;
-                    };
-                    polybar = {
-                      hostConfig = ./hosts/virtualBox/host.ini;
-                      includeSecondary = false;
-                    };
-                    i3.hostConfig = ./hosts/virtualBox/host.conf;
-                  }
-                ];
+          monterey = { config, pkgs, ... }: {
+            deployment.targetEnv = "virtualbox";
+            deployment.virtualbox.memorySize = 4096;
+            nixpkgs.pkgs = import nixpkgs {
+              inherit system overlays;
+              config = { allowUnfree = true; };
+            };
 
-                programs.git.includes =
-                  [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+            imports = [
+              <home-manager/nixos>
+              ./hosts/virtualBox/configuration.nix
+              ./nix/nixos/desktops/gnome.nix
+              ./nix/nixos/gui-apps.nix
+            ];
 
-                programs.zsh.sessionVariables = {
-                  LD_LIBRARY_PATH =
-                    "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
-                };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.twhitney = {
+              home.stateVersion = "22.05";
+
+              imports = [
+                ../../nix/home-manager/alacritty.nix
+                ../../nix/home-manager/bash.nix
+                ../../nix/home-manager/common.nix
+                ../../nix/home-manager/git.nix
+                ../../nix/home-manager/gnome.nix
+                ../../nix/home-manager/i3.nix
+                ../../nix/home-manager/kitty.nix
+                ../../nix/home-manager/neovim.nix
+                ../../nix/home-manager/polybar.nix
+                ../../nix/home-manager/tmux.nix
+                ../../nix/home-manager/xdg.nix
+                ../../nix/home-manager/zsh.nix
+                {
+                  programs.git.gpgPath = "/usr/bin/gpg";
+                  programs.firefox.enable = true;
+                  programs.neovim = {
+                    withLspSupport = false;
+                    package = pkgs.neovim-nightly;
+                  };
+                  polybar = {
+                    hostConfig = ./host.ini;
+                    includeSecondary = false;
+                  };
+                  i3.hostConfig = ./host.conf;
+                }
+              ];
+
+              programs.git.includes =
+                [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+              programs.zsh.sessionVariables = {
+                LD_LIBRARY_PATH =
+                  "${pkgs.unstable.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
               };
-            }
-          ];
+            };
+          };
         };
       };
 
@@ -248,31 +271,6 @@
                 };
               });
 
-          "twhitney@virtualbox" = home-manager.lib.homeManagerConfiguration
-            (baseConfig // {
-              inherit pkgs;
-              system = "x86_64-linux";
-
-              configuration = sharedConfig // {
-                imports = [
-                  ./nix/home-manager/i3.nix
-                  ./nix/home-manager/polybar.nix
-                  ./nix/home-manager/gnome.nix
-                  {
-                    programs.neovim = {
-                      withLspSupport = false;
-                      package = pkgs.neovim-nightly;
-                    };
-                    polybar = {
-                      hostConfig = ./hosts/virtualBox/host.ini;
-                      includeSecondary = false;
-                    };
-                    i3.hostConfig = ./hosts/virtualBox/host.conf;
-                  }
-                ] ++ sharedImports;
-              };
-            });
-
           "twhitney@penguin" =
             let
               pkgs = import nixpkgs {
@@ -323,5 +321,19 @@
               };
             });
         };
-    };
+    } // (flake-utils.lib.eachDefaultSystem (system:
+    let
+      pkgs = import nixpkgs {
+        inherit system overlays;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [ "python2.7-pyjwt-1.7.1" ];
+        };
+      };
+    in
+    {
+      defaultPackage = pkgs.dotfiles;
+      devShell = import ./shell.nix { inherit pkgs; };
+      packages = { inherit (pkgs) dotfiles i3-gnome-flashback; };
+    }));
 }
