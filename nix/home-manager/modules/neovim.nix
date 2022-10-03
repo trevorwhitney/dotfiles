@@ -18,7 +18,8 @@ in
   config =
     let
       inherit (cfg) withLspSupport finalPackage;
-      _cc = "${pkgs.unstable.stdenv.cc}";
+      _cc = "${pkgs.stdenv.cc}";
+
     in
     rec {
       # always start vim in a tmux pane

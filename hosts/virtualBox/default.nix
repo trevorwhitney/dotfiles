@@ -51,13 +51,13 @@ in
   # build with: nix-build . -A withGnome
   withGnome = mkVM [
     # add some custom pkgs like vim and tmux, could be our internal packages
-    { imports = [ ../../nix/nixos/desktops/gnome.nix ]; }
+    { imports = [ ../../nix/nixos/desktops/gnome-i3.nix ]; }
   ];
 
   withGnomeAndHM = mkVM [
     {
       imports = [
-        ../../nix/nixos/desktops/gnome.nix
+        ../../nix/nixos/desktops/gnome-i3.nix
         ../../nix/nixos/gui-apps.nix
       ];
     }
@@ -94,6 +94,59 @@ in
               includeSecondary = false;
             };
             i3.hostConfig = ./host.conf;
+          }
+        ];
+
+        programs.git.includes =
+          [{ path = "${secrets.defaultPackage.${system}}/git"; }];
+
+        programs.zsh.sessionVariables = {
+          LD_LIBRARY_PATH =
+            "${pkgs.stdenv.cc.cc.lib}/lib:$LD_LIBRARY_PATH";
+        };
+      };
+    }
+  ];
+
+  media = mkVM [
+    {
+      imports = [
+        ../../nix/nixos/desktops/gnome-shell.nix
+        {
+          environment.systemPackages = with pkgs; [
+            firefox
+            google-chrome
+            kitty
+            vlc
+          ];
+        }
+      ];
+    }
+    # home-manager.nixosModules.home-manager
+    { imports = [ <home-manager/nixos> ]; }
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.twhitney = {
+        home.stateVersion = "22.05";
+
+        imports = [
+          ../../nix/home-manager/bash.nix
+          ../../nix/home-manager/common.nix
+          ../../nix/home-manager/git.nix
+          ../../nix/home-manager/gnome.nix
+          ../../nix/home-manager/kitty.nix
+          ../../nix/home-manager/neovim.nix
+          ../../nix/home-manager/tmux.nix
+          ../../nix/home-manager/xdg.nix
+          ../../nix/home-manager/zsh.nix
+          {
+            programs.git.gpgPath = "/usr/bin/gpg";
+            programs.firefox.enable = true;
+            programs.neovim = {
+              withLspSupport = false;
+              package = pkgs.neovim-nightly;
+            };
           }
         ];
 

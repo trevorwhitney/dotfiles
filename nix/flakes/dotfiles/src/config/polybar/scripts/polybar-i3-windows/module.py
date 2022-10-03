@@ -40,6 +40,7 @@ ICONS = [
     ('class=Org.gnome.Nautilus', ' '),
     ('class=File-roller', ' '),
     ('class=Com.github.donadigo.eddy', ' '),
+    ('class=VirtualBox Manager', ' '),
     ('*', ' '),
 ]
 
@@ -123,6 +124,8 @@ def make_title(app: i3ipc.Con):
 
 
 def get_prefix(app: i3ipc.Con):
+    if (not app.window_class) or (not app.name):
+        return ('%%{T%s}  %%{T-}' % (ICON_FONT))
     icon = icon_resolver.resolve({
         'class': app.window_class,
         'name': app.name,
