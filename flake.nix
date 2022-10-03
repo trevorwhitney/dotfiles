@@ -51,12 +51,12 @@
     }:
     let
       overlays = [
-        neovim.overlay
         dotfiles.overlay
-        secrets.overlay
         i3-gnome-flashback.overlay
+        neovim.overlay
         nixgl.overlay
         nixpkgs-mozilla.overlays.firefox
+        secrets.overlay
       ];
 
       pkgs = import nixpkgs {
@@ -67,9 +67,7 @@
       nix = import ./nix { inherit self pkgs flake-utils home-manager; };
     in
     {
-      nixosConfigurations = {
-        inherit (nix.hosts) stem;
-      };
+      inherit (nix) nixosConfigurations;
     } // (flake-utils.lib.eachDefaultSystem (system:
     let
       pkgs = import nixpkgs {
@@ -84,9 +82,7 @@
       devShell = import ./shell.nix { inherit pkgs; };
       packages = {
         inherit (pkgs) dotfiles i3-gnome-flashback;
-        homeConfigurations = {
-          inherit (nix.homes."${system}") "twhitney@cerebral";
-        };
+        homeConfigurations = nix.homeConfigurations."${system}";
       };
     }));
 }
