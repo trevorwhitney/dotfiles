@@ -32,6 +32,7 @@ in
   # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
 
   home.packages = with pkgs; [
+    gocomplete
     gotools
     jsonnet
     jsonnet-lint

@@ -26,6 +26,8 @@ in
       home.file.".local/bin/vim".text = ''
         #!${pkgs.bash}/bin/bash
 
+        mkdir -p "''${HOME}/.cache/nvim"
+
         current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 
         if [[ ! -z "''$@" ]]; then
@@ -40,9 +42,21 @@ in
 
         dir_name="''$(basename ''${current_dir})"
         if [[ -z "''${TMUX}" ]]; then
-          tmux new-session -A -s "vim ''${dir_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim ''$@
+          session_name="vim ''${dir_name}"
+          session_socket="''${HOME}/.cache/nvim/''${dir_name}.pipe"
+
+          if [[ $# -eq 0 ]]; then
+            tmux attach -t "''${session_name}"
+          else
+            if tmux has-session -t "''${session_name}"; then
+              ${finalPackage}/bin/nvim --server "''${session_socket}" --remote ''$@
+              tmux attach -t "''${session_name}"
+            else
+              tmux new-session -A -s "''${session_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$@
+            fi
+          fi
         else
-          ${finalPackage}/bin/nvim ''$@
+          ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$@
         fi
       '';
       home.file.".local/bin/vim".executable = true;
