@@ -25,15 +25,23 @@ in
       # always start vim in a tmux pane
       home.file.".local/bin/vim".text = ''
         #!${pkgs.bash}/bin/bash
-
         mkdir -p "''${HOME}/.cache/nvim"
 
         current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+        working_dir="''$(pwd)"
 
-        if [[ ! -z "''$@" ]]; then
-          dir="''$(dirname ''$@)"
-          if [[ -d "''$@" ]]; then
-            dir="''$@"
+        file="''${@}"
+        if [[ ''$# -eq 1 ]]; then
+          case ''$file in
+            /*) ;;
+            *) file="''${working_dir}/''${file}" ;;
+          esac
+        fi
+
+        if [[ ! -z "''$file" ]]; then
+          dir="''$(dirname ''$file)"
+          if [[ -d "''$file" ]]; then
+            dir="''$file"
           fi
           pushd ''$dir > /dev/null
           current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
@@ -45,18 +53,16 @@ in
           session_name="vim ''${dir_name}"
           session_socket="''${HOME}/.cache/nvim/''${dir_name}.pipe"
 
-          if [[ $# -eq 0 ]]; then
+          if tmux info &> /dev/null && tmux has-session -t "''${session_name}"; then
+            if [[ $# -ne 0 ]]; then
+              ${finalPackage}/bin/nvim --server "''${session_socket}" --remote ''$file
+            fi
             tmux attach -t "''${session_name}"
           else
-            if tmux has-session -t "''${session_name}"; then
-              ${finalPackage}/bin/nvim --server "''${session_socket}" --remote ''$@
-              tmux attach -t "''${session_name}"
-            else
-              tmux new-session -A -s "''${session_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$@
-            fi
+            tmux new-session -A -s "''${session_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$file
           fi
         else
-          ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$@
+          ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$file
         fi
       '';
       home.file.".local/bin/vim".executable = true;
@@ -100,10 +106,10 @@ in
 
         extraPackages =
           let
-            basePackages = with pkgs; [ 
-                rnix-lsp
-                statix
-                ];
+            basePackages = with pkgs; [
+              rnix-lsp
+              statix
+            ];
             lspPackages = with pkgs;
               if withLspSupport then [
                 stylua
@@ -138,7 +144,7 @@ in
                 nodePackages.vscode-langservers-extracted
                 nodePackages.write-good
                 nodePackages.yaml-language-server
-              ] else [];
+              ] else [ ];
           in
           with pkgs;
           [

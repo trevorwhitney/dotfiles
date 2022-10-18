@@ -32,6 +32,7 @@ ICONS = [
     ('class=firefox', ' '),
     ('class=kitty', ' '),
     ('class=Alacritty', ' '),
+    ('class=Gnome-terminal', ' '),
     ('class=zoom', ' '),
     ('class=Insomnia', ' '),
     ('class=1Password', ' '),
@@ -135,10 +136,11 @@ def get_prefix(app: i3ipc.Con):
 
 
 def format_title(app: i3ipc.Con):
-    klass = app.window_class
+    # klass = app.window_class
     name = app.name
 
-    title = FORMATERS[klass](name) if klass in FORMATERS else name
+    # title = FORMATERS[klass](name) if klass in FORMATERS else name
+    title = name
 
     if len(title) > MAX_LENGTH:
         title = title[:MAX_LENGTH]

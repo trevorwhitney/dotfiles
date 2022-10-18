@@ -12,6 +12,8 @@ let
     inherit username;
     homeDirectory = "/home/${username}";
   };
+
+  kittyPkg = nixGLWrap pkgs.kitty;
 in
 {
   "twhitney@cerebral" = home-manager.lib.homeManagerConfiguration
@@ -55,7 +57,7 @@ in
           package = nixGLWrap pkgs.alacritty;
         };
         programs.kitty = {
-          package = nixGLWrap pkgs.kitty;
+          package = kittyPkg; 
         };
         programs.neovim = {
           withLspSupport = true;
@@ -64,7 +66,10 @@ in
           hostConfig = ../../hosts/cerebral/host.ini;
           includeSecondary = true;
         };
-        i3.hostConfig = ../../hosts/cerebral/host.conf;
+        i3 = {
+          hostConfig = ../../hosts/cerebral/host.conf;
+          terminal.command = "${kittyPkg}/bin/kitty --single-instance";
+        };
       };
     });
 }

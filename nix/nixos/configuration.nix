@@ -12,7 +12,7 @@
   system.stateVersion = "22.05"; # Did you read the comment?
 
   # Prepare system for flakes
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

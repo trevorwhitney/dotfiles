@@ -22,13 +22,17 @@
   fonts.fontconfig.enable = true;
 
   home.packages = with pkgs; [
+    gnome.gnome-screenshot
+    xorg.xfd
+
     dejavu_fonts
     emote
     fontconfig
-    parcellite
     roboto
     siji
-    xorg.xfd
+
+    copyq
+
     (nerdfonts.override {
       fonts = [
         "CascadiaCode"
@@ -81,24 +85,13 @@
           name = "Emote";
         };
 
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/parcellite" =
-        {
-          binding = "<Primary><Alt>h";
-          command = "${pkgs.parcellite}/bin/parcellite";
-          name = "Emote";
-        };
-
       "org/gnome/settings-daemon/plugins/media-keys" = {
         "custom-keybinding" = [
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote"
-          "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/parcellite"
         ];
         # disable <Super>l as default lock/screensaver
         "screensaver" = [ ];
       };
     };
   };
-
-  xdg.configFile."autostart/parcellite-startup.desktop".source =
-    "${pkgs.parcellite}/etc/xdg/autostart/parcellite-startup.desktop";
 }

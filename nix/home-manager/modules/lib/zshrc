@@ -88,7 +88,6 @@ export NIX_STATE_DIR=/nix/var/nix
 export NIX_LOG_DIR=/nix/var/log/nix
 
 # completions
-complete -o nospace -C "$NIX_PROFILE/bin/tk" tk
 complete -o nospace -C "$NIX_PROFILE/bin/gocomplete" go
 complete -o nospace -C /usr/bin/nomad nomad
 complete -o nospace -C /usr/local/bin/k3dsonnet k3dsonnet

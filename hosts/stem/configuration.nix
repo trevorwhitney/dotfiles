@@ -16,7 +16,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Prepare system for flakes
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixVersions.stable;
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

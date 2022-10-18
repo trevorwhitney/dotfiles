@@ -79,7 +79,9 @@ stdenv.mkDerivation rec {
       rsync -av --no-group $src/ $out
 
 
-      substitute $src/config/polybar/config/user_modules.ini $out/config/polybar/config/user_modules.ini --replace playerctl ${playerctl}/bin/playerctl
+      substitute $src/config/polybar/config/user_modules.ini $out/config/polybar/config/user_modules.ini \
+        --replace /bin/playerctl ${playerctl}/bin/playerctl
+
       substitute $src/config/i3/config $out/config/i3/config --replace playerctl ${playerctl}/bin/playerctl \
                                                              --replace dropbox ${dropbox}/bin/dropbox \
                                                              --replace /bin/kitty ${kitty}/bin/kitty

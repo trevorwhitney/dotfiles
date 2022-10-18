@@ -27,7 +27,18 @@
 let
   # Enable experimental features without having to specify the argument
   nix = pkgs.writeShellScriptBin "nix" ''
-    exec ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes" "$@"
+    exec ${pkgs.nixVersions.stable}/bin/nix --experimental-features "nix-command flakes" "$@"
   '';
 in
-pkgs.mkShell { nativeBuildInputs = with pkgs; [ nix home-manager git nixops ]; }
+pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [ nix home-manager git zsh ];
+  buildInputs = with pkgs; [
+    deploy-rs.deploy-rs
+    libvirt
+    mkpasswd
+    virt-manager
+    qemu
+  ];
+
+  shellHook = "zsh";
+}

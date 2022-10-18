@@ -11,14 +11,6 @@
     escapeTime = 10;
     plugins = with pkgs; [
       tw-tmux-lib
-      tmuxPlugins.resurrect
-      {
-        plugin = tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-boot 'on'
-        '';
-      }
       tmuxPlugins.sessionist
     ];
   };

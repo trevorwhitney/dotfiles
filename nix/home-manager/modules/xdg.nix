@@ -25,7 +25,8 @@
           "text/html" = "firefox.desktop";
           "text/plain" = "kitty-open.desktop;nvim.desktop;gvim.desktop";
 
-          "video/x-matroska" = "vlc_vlc.desktop;";
+          "video/x-matroska" = "org.videolan.VLC.desktop;";
+          "video/mp4" = "org.videolan.VLC.desktop;";
 
           "x-scheme-handler/chrome" = "google-chrome.desktop";
           "x-scheme-handler/ftp" = "firefox.desktop;";
@@ -50,7 +51,8 @@
         "text/html" = "firefox.desktop";
         "text/plain" = "kitty-open.desktop";
 
-        "video/x-matroska" = "vlc_vlc.desktop";
+        "video/x-matroska" = "org.videolan.VLC.desktop;";
+        "video/mp4" = "org.videolan.VLC.desktop;";
 
         "x-scheme-handler/about" = "google-chrome.desktop";
         "x-scheme-handler/chrome" = "google-chrome.desktop";

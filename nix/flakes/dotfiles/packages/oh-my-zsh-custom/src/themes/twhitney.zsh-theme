@@ -43,8 +43,8 @@ prompt_segment() {
   local bg fg
   fg="%F{$1}"
   echo -n "%{$fg%}"
-  echo -n "$2 "
-  echo -n "%{%B%}$3%{%f%}%{%b%}"
+  echo -n "$2"
+  [[ $# -gt 2 ]] && echo -n " %{%B%}$3%{%f%}%{%b%}"
 
 }
 
@@ -56,6 +56,15 @@ prompt_context() {
   # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
     prompt_segment $violet 歷 "%(!.%{%F{yellow}%}.)%n@%m"
+    print_separator
+  fi
+}
+
+# Show Icon if in Nix Shell
+prompt_nix_shell() {
+  # Only show this if SSH'd into remote machine
+  if [[ -n "$IN_NIX_SHELL" ]]; then
+    prompt_segment $violet 
     print_separator
   fi
 }
@@ -148,6 +157,7 @@ prompt() {
 build_prompt() {
   RETVAL=$?
   prompt_retval
+  prompt_nix_shell
   prompt_context
   prompt_k8s
   prompt_dir

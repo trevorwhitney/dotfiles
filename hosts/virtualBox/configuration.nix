@@ -20,7 +20,7 @@ in
   # Prepare system for flakes
   nix =
     {
-      package = pkgs.nixFlakes;
+      package = pkgs.nixVersions.stable;
       settings.trusted-users = [ "twhitney" ];
       extraOptions = ''
         experimental-features = nix-command flakes
