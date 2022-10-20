@@ -7,4 +7,6 @@
   boot.loader.grub.fsIdentifier = "provided";
 
   powerManagement.enable = false;
+
+  services.openssh.enable = true;
 }

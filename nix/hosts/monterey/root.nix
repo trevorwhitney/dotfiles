@@ -29,9 +29,6 @@ in
     enableIPv6 = false;
   };
 
-  # NetworkManager-wait-online.service fails to restart on nixos-rebuild
-  systemd.services.NetworkManager-wait-online.enable = false;
-
   # Set your time zone.
   time.timeZone = "America/Denver";
 
@@ -49,7 +46,14 @@ in
         lib.mkOverride 40 [ "virtualbox" "vmware" "cirrus" "vesa" "modesetting" ];
     };
 
-    resolved.enable = true;
+    resolved = {
+      enable = true;
+      domains = [ "trevorwhitney.net" ];
+      fallbackDns = [
+        "1.1.1.1"
+        "1.0.0.1"
+      ];
+    };
     openssh.enable = true;
     tailscale = {
       enable = true;

@@ -1,32 +1,5 @@
 { pkgs, lib, config, ... }:
 let
-  netns-script = pkgs.writeScriptBin "netns-script" ''
-    #!${pkgs.bash}/bin/bash
-    case $script_type in
-        up)
-            ip netns add vpn
-            ip netns exec vpn ip link set dev enp0s3 up
-            ip link set dev "''$1" up netns vpn mtu "''$2"
-            ip netns exec vpn ip addr add dev "''$1" \
-                    "''$4/''${ifconfig_netmask:-30}" \
-                    ''${ifconfig_broadcast:+broadcast "''$ifconfig_broadcast"}
-            if [ -n "''$ifconfig_ipv6_local" ]; then
-                    ip netns exec vpn ip addr add dev "''$1" \
-                            "''$ifconfig_ipv6_local"/112
-            fi
-            ;;
-        route-up)
-            ip netns exec vpn ip route add default via "''$route_vpn_gateway"
-            if [ -n "''$ifconfig_ipv6_remote" ]; then
-                    ip netns exec vpn ip route add default via \
-                            "''$ifconfig_ipv6_remote"
-            fi
-            ;;
-        down)
-            ip netns delete vpn
-            ;;
-    esac
-  '';
   server = host: {
     config = ''
       client
@@ -41,10 +14,8 @@ let
       auth sha1
       tls-client
       remote-cert-tls server
-      ifconfig-noexec
-      route-noexec
 
-      auth-user-pass
+      auth-user-pass ${pkgs.secrets}/openvpn/credentials
       compress
       verb 1
       reneg-sec 0
@@ -104,24 +75,9 @@ let
 
       disable-occ
     '';
-    /* up = "echo nameserver $nameserver | ${pkgs.openresolv}/sbin/resolvconf -m 0 -a $dev"; */
-    /* down = "${pkgs.openresolv}/sbin/resolvconf -d $dev"; */
-    up = ''
-      ip netns add vpn
-      ip netns exec vpn ip link set dev lo up
-      ip link set dev "''$1" up netns vpn mtu "''$2"
-      ip netns exec vpn ip addr add dev "''$1" \
-              "''$4/''${ifconfig_netmask:-30}" \
-              ''${ifconfig_broadcast:+broadcast "''$ifconfig_broadcast"}
-      if [ -n "''$ifconfig_ipv6_local" ]; then
-              ip netns exec vpn ip addr add dev "''$1" \
-                      "''$ifconfig_ipv6_local"/112
-      fi
-    '';
-    down = "ip netns delete vpn";
 
-    autoStart = false;
-    updateResolvConf = true;
+    autoStart = true;
+    updateResolvConf = false;
   };
 in
 {
@@ -131,21 +87,97 @@ in
     /* spain = server "spain"; */
   };
 
-  /* systemd.services.openvpn-switzerland.serviceConfig = { */
-  /*   PrivateNetwork = true; */
-  /* }; */
+  # will get automatically mounted in openvpn namespace
+  environment.etc."netns/openvpn/resolv.conf".text = ''
+    nameserver 1.1.1.1
+    nameserver 1.0.0.1
+  '';
 
-  /* systemd.services.test-openvpn-switzerland = { */
-  /*   bindsTo = [ "openvpn-switzerland.service" ]; */
-  /*   after = [ "openvpn-switzerland.service" ]; */
-  /*   serviceConfig = { */
-  /*     Type = "oneshot"; */
-  /*     RemainAfterExit = false; */
-  /*     ExecStart = "${pkgs.curl}/bin/curl --silent -X GET -G https://api.ipify.org -d 'format=json' | ${pkgs.jq}/bin/jq ."; */
-  /*     PrivateNetwork = true; */
-  /*   }; */
-  /*   unitConfig = { */
-  /*     JoinsNamespaceOf = "openvpn-switzerland.service"; */
-  /*   }; */
-  /* }; */
+  systemd.services.openvpn-switzerland = {
+    bindsTo = [ "vpn-namespace.service" ];
+    after = [ "vpn-namespace.service" ];
+    unitConfig.JoinsNamespaceOf = "netns@openvpn.service";
+    serviceConfig.PrivateNetwork = true;
+  };
+
+  systemd.services."netns@" = {
+    description = "%I network namespace";
+    before = [ "network.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      PrivateNetwork = true;
+      ExecStart = with pkgs; "${writers.writeDash "netns-up" ''
+        ${iproute2}/bin/ip netns add $1
+        ${util-linux}/bin/umount /var/run/netns/$1
+        ${util-linux}/bin/mount --bind /proc/self/ns/net /var/run/netns/$1
+      ''} %I";
+      ExecStop = with pkgs; "${iproute2}/bin/ip netns del %I";
+    };
+  };
+
+  systemd.services.vpn-namespace =
+    {
+      description = "openvpn network namespace";
+      bindsTo = [ "netns@openvpn.service" ];
+      requires = [ "network-online.target" ];
+      after = [ "netns@openvpn.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        before = [ "network.target" ];
+        requires = [ "network-online.target" ];
+        ExecStart = with pkgs; writers.writeDash "create-netns" ''
+          ${iproute2}/bin/ip link add veth-vpn netns openvpn type veth peer name host-vpn netns 1
+          ${iproute2}/bin/ip -n openvpn addr add 127.0.0.1/8 dev lo
+          ${iproute2}/bin/ip -n openvpn link set dev lo up
+          ${iproute2}/bin/ip -n openvpn addr add 10.0.0.50/24 dev veth-vpn
+          ${iproute2}/bin/ip -n openvpn link set veth-vpn up
+          ${iproute2}/bin/ip -n openvpn route add default via 10.0.0.55 dev veth-vpn
+
+          ${iproute2}/bin/ip link set host-vpn up
+          ${iproute2}/bin/ip addr add 10.0.0.55/24 dev host-vpn
+          
+          # nzbget
+          ${iptables}/bin/iptables -t nat -A PREROUTING -p tcp --dport 6789 -j DNAT --to-destination 10.0.0.50:6789
+          # sonarr
+          ${iptables}/bin/iptables -t nat -A PREROUTING -p tcp --dport 8989 -j DNAT --to-destination 10.0.0.50:8989
+          # radarr
+          ${iptables}/bin/iptables -t nat -A PREROUTING -p tcp --dport 7878 -j DNAT --to-destination 10.0.0.50:7878
+          # prowlarr
+          ${iptables}/bin/iptables -t nat -A PREROUTING -p tcp --dport 9696 -j DNAT --to-destination 10.0.0.50:9696
+
+          # net namespace
+          ${iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE
+          # bridge interface
+          ${iptables}/bin/iptables -t nat -A POSTROUTING -s 10.11.0.0/24 -j MASQUERADE
+          # tailscale interface
+          ${iptables}/bin/iptables -t nat -A POSTROUTING -i tailscale0 -j MASQUERADE
+
+          ${procps}/bin/sysctl -w net.ipv4.ip_forward=1
+        '';
+        ExecStop = with pkgs; writers.writeDash "wg-down" ''
+          ${iproute2}/bin/ip -n openvpn link del veth-vpn
+          ${iproute2}/bin/ip -n openvpn route del default dev veth-vpn
+
+          ${iproute2}/bin/ip link delete host-vpn
+
+          # nzbget
+          ${iptables}/bin/iptables -t nat -D PREROUTING -p tcp --dport 6789 -j DNAT --to-destination 10.0.0.50:6789
+          # sonarr
+          ${iptables}/bin/iptables -t nat -D PREROUTING -p tcp --dport 8989 -j DNAT --to-destination 10.0.0.50:8989
+          # radarr
+          ${iptables}/bin/iptables -t nat -D PREROUTING -p tcp --dport 7878 -j DNAT --to-destination 10.0.0.50:7878
+          # prowlarr
+          ${iptables}/bin/iptables -t nat -D PREROUTING -p tcp --dport 9696 -j DNAT --to-destination 10.0.0.50:9696
+
+          # net namespace
+          ${iptables}/bin/iptables -t nat -D POSTROUTING -s 10.0.0.0/24 -j MASQUERADE
+          # bridge interface
+          ${iptables}/bin/iptables -t nat -D POSTROUTING -s 10.11.0.0/24 -j MASQUERADE
+          # tailscale interface
+          ${iptables}/bin/iptables -t nat -D POSTROUTING -i tailscale0 -j MASQUERADE
+        '';
+      };
+    };
 }

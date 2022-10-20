@@ -15,7 +15,7 @@
 
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=904bba480a24103cb49b89a3cb78bf2e01143b17";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=ea62a8a7fe82b35c6c268be424a85aa25811423a";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
@@ -91,9 +91,10 @@
       inherit (nix) nixosConfigurations;
       # deploy .#monterey
       deploy.nodes.monterey = {
-        hostname = "monterey";
+        hostname = "localhost";
         sshUser = "twhitney";
         user = "root";
+        sshOpts = [ "-p" "2222" ]; # uses NAT interface on VM
         profiles = {
           system = {
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."monterey";
@@ -118,6 +119,30 @@
       devShells = {
         default = import ./shell.nix { inherit pkgs; };
       };
+      apps = {
+        install-monterey-vm = {
+          type = "app";
+          program = with pkgs; "${
+                (writeShellScriptBin "install.sh" ''
+                  vboxmanage import ./result/monterey.ova
+                  vboxmanage modifyvm monterey --natpf1 "ssh,tcp,,2222,,22"
+                  vboxmanage modifyvm monterey --nic2 bridged --nictype2 82540EM --bridgeadapter2 enp9s0
+                  vboxmanage modifyvm monterey --usbxhci on
+                  vboxmanage startvm monterey --type separate
+                '')
+              }/bin/install.sh";
+        };
+        start-monterey-vm = {
+          type = "app";
+          program = with pkgs; "${
+                (writeShellScriptBin "install.sh" ''
+                  vboxmanage startvm monterey --type separate
+                '')
+              }/bin/install.sh";
+        };
+        # for automation, may want to build something around this
+        # vboxmanage guestproperty get monterey "/VirtualBox/GuestInfo/OS/LoggedInUsers"
+      };
       packages = {
         inherit (pkgs) i3-gnome-flashback;
         monterey-vm = nixos-generators.nixosGenerate {
@@ -131,6 +156,9 @@
               nixpkgs = {
                 inherit pkgs;
                 hostPlatform = "x86_64-linux";
+              };
+              services.xserver = {
+                desktopManager.xterm.enable = true;
               };
               virtualbox = {
                 baseImageSize = 50 * 1024;

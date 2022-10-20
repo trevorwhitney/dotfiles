@@ -1,9 +1,6 @@
 { pkgs, lib, config, ... }: {
   imports = [
-    /* ../../nixos/networking/wireguard.nix */
-    /* ../../nixos/networking/openvpn.nix */
-    /* ../../nixos/services/nzbget.nix */
-    #TODO: ../../nixos/services/privoxy.nix
+    ../../nixos/networking/openvpn.nix
   ];
 
   services = {
@@ -11,23 +8,40 @@
       enable = true;
       openFirewall = true;
     };
+
     sonarr = {
       enable = true;
       openFirewall = true;
+      group = "plex";
     };
     radarr = {
       enable = true;
       openFirewall = true;
+      group = "plex";
     };
-    prowlarr = {
+
+    nzbget = {
       enable = true;
-      openFirewall = true;
+      group = "plex";
     };
   };
 
+  systemd.services =
+    let
+      joinVpnNamespace = {
+        bindsTo = [ "vpn-namespace.service" ];
+        after = [ "vpn-namespace.service" ];
+        unitConfig.JoinsNamespaceOf = "netns@openvpn.service";
+        serviceConfig.PrivateNetwork = true;
+      };
+    in
+    {
+      sonarr = joinVpnNamespace;
+      radarr = joinVpnNamespace;
+      nzbget = joinVpnNamespace;
+    };
+
   environment.systemPackages = with pkgs; [
-    gnumake
-    kube3d
-    kind
+    bind
   ];
 }
