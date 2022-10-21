@@ -25,6 +25,9 @@
     gnome.gnome-screenshot
     xorg.xfd
 
+    xdg-desktop-portal
+    xdg-desktop-portal-gnome
+
     dejavu_fonts
     emote
     fontconfig

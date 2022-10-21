@@ -31,6 +31,9 @@ in
   # ln -sf /usr/share/google-cloud-sdk/completion.zsh.inc "$HOME/.oh-my-zsh/custom/gcloud-completion.zsh"
   # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
 
+  # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
+  manual.manpages.enable = false;
+
   home.packages = with pkgs; [
     gocomplete
     gotools

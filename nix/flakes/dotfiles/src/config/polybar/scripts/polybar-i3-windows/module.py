@@ -42,6 +42,7 @@ ICONS = [
     ('class=File-roller', ' '),
     ('class=Com.github.donadigo.eddy', ' '),
     ('class=VirtualBox Manager', ' '),
+    ('class=VirtualBox Machine', ' '),
     ('*', ' '),
 ]
 
