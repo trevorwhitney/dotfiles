@@ -30,8 +30,6 @@ in
         ] ++ imports;
 
         home.packages = with pkgs; [
-          flatpak
-
           # nixGL wrapped
           (nixGLWrap pkgs._1password-gui)
           (nixGLWrapWithName pkgs.google-chrome "google-chrome-stable")

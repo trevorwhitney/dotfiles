@@ -13,7 +13,7 @@ in
         font_family = "JetBrainsMono Nerd Font";
         font_size = 12;
         scrollback_pager = ''nvim -c "set nonumber nolist showtabline=0 foldcolumn=0" -c "autocmd TermOpen * normal G" -c "map q :qa!<CR>" -c "silent write! /tmp/kitty_scrollback_buffer | te head -c-1 /tmp/kitty_scrollback_buffer; rm /tmp/kitty_scrollback_buffer; cat"'';
-        copy_on_select = "clipboard";
+        copy_on_select = "no";
 
         ## Begin solarized light theme
         foreground = "#657b83";

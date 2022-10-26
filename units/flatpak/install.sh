@@ -2,8 +2,13 @@
 current_dir=$(cd "$(dirname $0)" && pwd)
 
 if [[ ! `command -v flatpak` ]]; then
-  echo "flatpak command not found"
-  exit 1
+  if [[ `command apt` ]]; then
+    sudo apt update -y
+    sudo apt install -y flatpak
+  else;
+    echo "flatpak command not found"
+    exit 1
+  fi
 fi
 
 flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
