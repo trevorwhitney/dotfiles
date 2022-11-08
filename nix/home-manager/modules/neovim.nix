@@ -53,13 +53,18 @@ in
           session_name="vim ''${dir_name}"
           session_socket="''${HOME}/.cache/nvim/''${dir_name}.pipe"
 
-          if tmux info &> /dev/null && tmux has-session -t "''${session_name}"; then
+          if tmux ls &> /dev/null && tmux has-session -t "''${session_name}"; then
             if [[ $# -ne 0 ]]; then
               ${finalPackage}/bin/nvim --server "''${session_socket}" --remote ''$file
             fi
             tmux attach -t "''${session_name}"
           else
-            tmux new-session -A -s "''${session_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$file
+            if [[ -e "''${session_socket}" ]]; then
+              ${finalPackage}/bin/nvim --server "''${session_socket}" --remote-send "<Esc>:qa!<cr>"
+              rm -f ''${session_socket}
+            fi
+
+            tmux new-session -s "''${session_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$file
           fi
         else
           ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$file
@@ -71,6 +76,12 @@ in
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
       programs.neovim = {
         enable = true;
+
+        # manually provide node to pin @ version that works with Copilot
+        withNodeJs = false;
+        package = pkgs.neovim-unwrapped.override {
+          nodejs = pkgs.nodejs-16_x;
+        };
         # use own custom script above for starting in tmux
         vimAlias = false;
         vimdiffAlias = true;
@@ -96,7 +107,6 @@ in
             "call setenv('PATH', '${_cc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
           ] ++ exCfg);
 
-        withNodeJs = true;
         withRuby = true;
         withPython3 = true;
         extraPython3Packages = ps: with ps; [ pynvim ];
@@ -109,6 +119,7 @@ in
             basePackages = with pkgs; [
               rnix-lsp
               statix
+              nodejs-16_x
             ];
             lspPackages = with pkgs;
               if withLspSupport then [
@@ -117,7 +128,6 @@ in
 
                 ccls # c++ language server
                 delve
-                go
                 gopls
                 jsonnet-language-server
                 nixpkgs-fmt

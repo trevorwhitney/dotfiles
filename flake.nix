@@ -45,6 +45,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
+
+
+    nur.url = "github:nix-community/NUR";
   };
 
   outputs =
@@ -59,6 +62,7 @@
     , nixos-generators
     , nixpkgs
     , nixpkgs-mozilla
+    , nur
     , secrets
     , ...
     }:
@@ -83,7 +87,7 @@
       };
 
       nix = import ./nix {
-        inherit self secrets pkgs lib flake-utils home-manager;
+        inherit self secrets pkgs lib flake-utils home-manager nur;
         modulesPath = "${nixpkgs}/nixos/modules";
       };
     in

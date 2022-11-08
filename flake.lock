@@ -36,12 +36,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-5tgb1Ko1b+rdF2ufuDKkkNybtZ5hXS9zxrn8HCw/oxk=",
-        "path": "/nix/store/l3391bvck0rhk3afpvj6jjcqaqwa5b1l-source/nix/flakes/dotfiles",
+        "narHash": "sha256-AS9+WIqgOEnqM2rdil9QNuHns+pg6mT5cqKuHdG/kAc=",
+        "path": "/nix/store/v60x3nid7jy4hj8z3b6p6dd13f1n22n1-source/nix/flakes/dotfiles",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/l3391bvck0rhk3afpvj6jjcqaqwa5b1l-source/nix/flakes/dotfiles",
+        "path": "/nix/store/v60x3nid7jy4hj8z3b6p6dd13f1n22n1-source/nix/flakes/dotfiles",
         "type": "path"
       }
     },
@@ -109,11 +109,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-LvYnl80RwIzjzvBUaqocVpb1pcC0lqaFdvDNZIMMiS0=",
-        "path": "/nix/store/l3391bvck0rhk3afpvj6jjcqaqwa5b1l-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/v60x3nid7jy4hj8z3b6p6dd13f1n22n1-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/l3391bvck0rhk3afpvj6jjcqaqwa5b1l-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/v60x3nid7jy4hj8z3b6p6dd13f1n22n1-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       }
     },
@@ -247,6 +247,21 @@
         "type": "github"
       }
     },
+    "nur": {
+      "locked": {
+        "lastModified": 1667496346,
+        "narHash": "sha256-n0bHzcQ/sx+E96FumgF2OeT6bbTendRDtmQHijTrQg0=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "04d9c7bd3c4a2ce32f44cc970cc3e03d5a4aa334",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
@@ -259,6 +274,7 @@
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "nixpkgs-mozilla": "nixpkgs-mozilla",
+        "nur": "nur",
         "secrets": "secrets"
       }
     },

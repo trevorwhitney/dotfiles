@@ -137,11 +137,15 @@ def get_prefix(app: i3ipc.Con):
 
 
 def format_title(app: i3ipc.Con):
-    # klass = app.window_class
+    klass = app.window_class
     name = app.name
 
-    # title = FORMATERS[klass](name) if klass in FORMATERS else name
+    if name is None:
+        return 'Unknown'
+
     title = name
+    if klass is not None:
+        title = FORMATERS[klass](name) if klass in FORMATERS else name
 
     if len(title) > MAX_LENGTH:
         title = title[:MAX_LENGTH]

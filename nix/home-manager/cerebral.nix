@@ -2,6 +2,7 @@
 , system
 , home-manager
 , username
+, nur
 , imports ? [ ]
 , config ? { }
 , ...
@@ -14,6 +15,8 @@ let
   };
 
   kittyPkg = nixGLWrap pkgs.kitty;
+
+  nurPkgs = import nur { inherit pkgs; };
 in
 {
   "twhitney@cerebral" = home-manager.lib.homeManagerConfiguration
@@ -50,16 +53,74 @@ in
                   enableTridactylNative = true;
                 };
               };
+          extensions = with nurPkgs.repos.rycee.firefox-addons; [
+            auto-tab-discard
+            cookie-autodelete
+            ghostery
+            gnome-shell-integration
+            https-everywhere
+            multi-account-containers
+            okta-browser-plugin
+            onepassword-password-manager
+            privacy-badger
+            privacy-possum
+            tree-style-tab
+            tridactyl
+            ublock-origin
+          ];
+          profiles.default = {
+            name = "default";
+            isDefault = true;
+            userChrome = ''
+              #sidebar-header {
+                display: none !important;
+              }
+
+              #navigator-toolbox:not(:hover):not(:focus-within) #toolbar-menubar > * {
+                background-color: rgb(232, 232, 231);
+              }
+
+              #main-window[sizemode="maximized"] #content-deck {
+                padding-top: 8px;
+              }
+
+              :root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #TabsToolbar {
+                visibility: collapse;
+              }
+
+              tabs {
+                counter-reset: tab-counter;
+              }
+
+              .tab-label::before {
+                counter-increment: tab-counter;
+                content: counter(tab-counter) " - ";
+              }
+
+              #TabsToolbar {
+                visibility: collapse;
+              }
+
+              statuspanel[type="overLink"],
+              #statuspanel[type="overLink"] {
+                right: 0;
+                display: inline;
+              }
+            '';
+          };
         };
         programs.alacritty = {
           package = nixGLWrap pkgs.alacritty;
         };
         programs.kitty = {
-          package = kittyPkg; 
+          package = kittyPkg;
         };
         programs.neovim = {
           withLspSupport = true;
         };
+        programs.git.includes =
+          [{ path = "${pkgs.secrets}/git"; }];
+
         polybar = {
           hostConfig = ../../hosts/cerebral/host.ini;
           includeSecondary = true;

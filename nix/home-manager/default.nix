@@ -1,4 +1,4 @@
-{ pkgs, system, home-manager, ... }:
+{ pkgs, system, home-manager, nur, ... }:
 let
   imports = [
     ./modules/common.nix
@@ -24,6 +24,7 @@ let
       home-manager
       imports
       pkgs
+      nur
       system;
     username = "twhitney";
   };

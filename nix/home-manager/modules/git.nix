@@ -57,7 +57,7 @@ in
       };
 
       extraConfig = {
-        core = { editor = "vim"; };
+        core = { editor = "nvim"; };
         apply = { whitespace = "nowarn"; };
         color = {
           branch = "auto";
@@ -87,6 +87,7 @@ in
         ".gradle"
         ".vagrant"
         ".envrc"
+        ".direnv"
         ".idea"
         ".vscode"
         ".vim"

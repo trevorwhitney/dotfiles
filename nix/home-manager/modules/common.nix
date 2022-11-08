@@ -36,7 +36,6 @@ in
 
   home.packages = with pkgs; [
     gocomplete
-    gotools
     jsonnet
     jsonnet-lint
     protoc-gen-gogofast
@@ -80,7 +79,6 @@ in
     mosh
     ncurses
     ngrok
-    nodejs
     rbenv
     ripgrep
     rustc
