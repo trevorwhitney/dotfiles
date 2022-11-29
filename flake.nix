@@ -109,6 +109,7 @@
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       homeConfigurations = {
         "twhitney@cerebral" = nix.homeConfigurations.x86_64-linux."twhitney@cerebral";
+        "twhitney@penguin" = nix.homeConfigurations.x86_64-linux."twhitney@penguin";
       };
     } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let

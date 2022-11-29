@@ -4,7 +4,7 @@
     "flatpak",
     "grafana",
     "monitoring",
-    "ssh-server-linux",
+    "ssh-server-linux"
   ],
   "name": "crostini",
   "nix": {
@@ -15,7 +15,6 @@
     }
   },
   "units": [
-    "alacritty",
     "apt",
     "crostini",
     "home-manager",
