@@ -13,6 +13,4 @@ for unit in "${HOME}"/.nix-profile/lib/systemd/system/*.{service,timer,socket}; 
 done
 
 sudo systemctl daemon-reload
-sudo systemctl enable docker.socket
-sudo systemctl enable docker.service
 sudo systemctl enable nix-daemon.service
