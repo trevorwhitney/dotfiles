@@ -20,7 +20,7 @@ in
       system = "x86_64-linux";
       configuration = config // {
         imports = [
-          ./nix/home-manager/tmux.nix
+          ./modules/tmux.nix
           {
             programs.neovim = {
               withLspSupport = false;

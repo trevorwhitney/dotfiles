@@ -50,5 +50,6 @@ pushd $current_dir > /dev/null
     ./install-unit $(cat "$host_path" | jq -r '.units | join(" ")')
     mkdir -p $HOME/.config/dotfiles/
   popd
-
 popd
+
+sudo chsh -s `which zsh`

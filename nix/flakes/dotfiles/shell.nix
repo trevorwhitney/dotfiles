@@ -23,6 +23,7 @@ mkShell {
       let
         extra-python-packages = python-packages:
           with python-packages; [
+            bcrypt
             click
             dbus-python
             i3ipc
@@ -30,7 +31,7 @@ mkShell {
             pygobject3
             speedtest-cli
           ];
-        python-with-packages = python38.withPackages extra-python-packages;
+        python-with-packages = python310.withPackages extra-python-packages;
       in
       python-with-packages
     )

@@ -8,7 +8,7 @@ in
     autocd = false;
     enableAutosuggestions = true;
     defaultKeymap = "viins";
-    enableCompletion = true;
+    enableCompletion = false;
 
     oh-my-zsh = {
       enable = true;

@@ -3,4 +3,4 @@
 set -e
 
 command -v tailscale > /dev/null
-command -v tailscaled > /dev/null
+sudo which tailscaled > /dev/null

@@ -41,7 +41,7 @@ if [[ ! $(command -v home-manager) ]]; then
 fi
 
 pushd "${dot_files_dir}" || exit 1
-  home-manager switch --flake .
+  home-manager switch --flake . --impure -b backup
 popd || exit 1
 
 "${current_dir}/link-systemd-units.sh"
