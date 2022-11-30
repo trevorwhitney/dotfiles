@@ -17,6 +17,3 @@ sudo apt-get update
 sudo apt update && sudo apt install -y firefox
 mkdir -p $HOME/.local/share/applications/
 sudo ln -sf "$current_dir/firefox.desktop" /usr/share/applications/firefox.desktop
-
-# konsole
-sudo apt install -y konsole

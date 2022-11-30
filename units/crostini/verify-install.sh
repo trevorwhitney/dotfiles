@@ -5,4 +5,3 @@ set -e
 test -e "/usr/share/applications/firefox.desktop"
 
 command -v firefox > /dev/null
-command -v konsole > /dev/null
