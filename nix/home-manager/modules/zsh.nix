@@ -31,5 +31,13 @@ in
       ''
       (lib.strings.fileContents ./lib/zshrc)
     ]);
+
+    shellAliases = {
+      hm-switch = ''
+        pushd $HOME/workspace/dotfiles > /dev/null && \
+          home-manager switch --flake . --impure -b backup && \
+          popd > /dev/null
+      '';
+    };
   };
 }

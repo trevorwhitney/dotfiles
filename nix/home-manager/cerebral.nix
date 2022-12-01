@@ -36,7 +36,7 @@ in
           # nixGL wrapped
           (nixGLWrap pkgs._1password-gui)
           (nixGLWrapWithName pkgs.google-chrome "google-chrome-stable")
-          (nixGLWrap pkgs.slack)
+          /* (nixGLWrap pkgs.slack) */
           (nixGLWrapWithName pkgs.spotify "spotify")
         ];
 
