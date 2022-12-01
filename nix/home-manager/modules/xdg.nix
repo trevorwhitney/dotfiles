@@ -28,13 +28,11 @@
           "video/x-matroska" = "org.videolan.VLC.desktop;";
           "video/mp4" = "org.videolan.VLC.desktop;";
 
-          "x-scheme-handler/chrome" = "google-chrome.desktop";
+          "x-scheme-handler/chrome" = "google-chrome.desktop;firefox.desktop";
           "x-scheme-handler/ftp" = "firefox.desktop;";
           "x-scheme-handler/http" = "firefox.desktop";
           "x-scheme-handler/https" = "firefox.desktop";
-        };
-        removed = {
-          "x-scheme-handler/chrome" = "firefox.desktop";
+          "application/vnd.debian.binary-package" = "com.github.donadigo.eddy.desktop;";
         };
       };
       defaultApplications = {
@@ -61,6 +59,7 @@
         "x-scheme-handler/https" = "firefox.desktop";
         "x-scheme-handler/unknown" = "google-chrome.desktop";
         "x-scheme-handler/webcal" = "google-chrome.desktop";
+        "application/vnd.debian.binary-package" = "com.github.donadigo.eddy.desktop";
       };
     };
   };

@@ -62,7 +62,11 @@ in
     gnused
     go
     golangci-lint
-    google-cloud-sdk
+    (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
+      beta
+      alpha
+      gke-gcloud-auth-plugin
+    ]))
     gradle
     helm-docs
     jsonnet-bundler
