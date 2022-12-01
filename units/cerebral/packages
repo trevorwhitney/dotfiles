@@ -1,4 +1,3 @@
-diodon
 gnome-shell-pomodoro
 gnome-sushi
 gnome-tweaks
@@ -7,6 +6,7 @@ haskell-stack
 lnav
 luakit
 nmap
+obs-studio
 pandoc
 pavucontrol
 protobuf-compiler
@@ -17,3 +17,4 @@ sysstat
 texlive-xetex
 vinagre
 vlc
+vv4l2loopback-dkms

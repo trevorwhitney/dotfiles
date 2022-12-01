@@ -1,6 +1,6 @@
 {
   "excluded": [
-    "apt-desktop",
+    "cerebral",
     "flatpak",
     "grafana",
     "monitoring",

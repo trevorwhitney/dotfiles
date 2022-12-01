@@ -12,7 +12,7 @@
   },
   "units": [
     "apt",
-    "apt-desktop",
+    "cerebral",
     "grafana",
     "home-manager",
     "flatpak",
