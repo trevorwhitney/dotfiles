@@ -120,6 +120,7 @@ in
               rnix-lsp
               statix
               nodejs-16_x
+              nodePackages.markdownlint-cli
             ];
             lspPackages = with pkgs;
               if withLspSupport then [
@@ -145,7 +146,6 @@ in
                 nodePackages.eslint
                 nodePackages.eslint_d
                 nodePackages.fixjson
-                nodePackages.markdownlint-cli
                 nodePackages.neovim
                 nodePackages.prettier
                 nodePackages.typescript

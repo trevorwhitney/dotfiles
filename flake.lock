@@ -37,11 +37,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-SGMatw+t/Syjn/R08NLF62in528lgleuyPcjR+cvPs8=",
-        "path": "/nix/store/ar57z9mhlmcca1k8rjsgaiw4v707x0g7-source/nix/flakes/dotfiles",
+        "path": "/nix/store/nk33371svhmb1pcgk9xmdixaqd7885w8-source/nix/flakes/dotfiles",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ar57z9mhlmcca1k8rjsgaiw4v707x0g7-source/nix/flakes/dotfiles",
+        "path": "/nix/store/nk33371svhmb1pcgk9xmdixaqd7885w8-source/nix/flakes/dotfiles",
         "type": "path"
       }
     },
@@ -109,11 +109,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-LvYnl80RwIzjzvBUaqocVpb1pcC0lqaFdvDNZIMMiS0=",
-        "path": "/nix/store/ar57z9mhlmcca1k8rjsgaiw4v707x0g7-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/nk33371svhmb1pcgk9xmdixaqd7885w8-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ar57z9mhlmcca1k8rjsgaiw4v707x0g7-source/nix/flakes/i3-gnome-flashback",
+        "path": "/nix/store/nk33371svhmb1pcgk9xmdixaqd7885w8-source/nix/flakes/i3-gnome-flashback",
         "type": "path"
       }
     },
