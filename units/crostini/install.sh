@@ -14,6 +14,6 @@ curl -fsSL https://pkgs.tailscale.com/stable/debian/sid.list | sudo tee /etc/apt
 sudo apt-get update
 
 # firefox
-sudo apt update && sudo apt install -y firefox
+sudo apt update && sudo apt install -y firefox gnome-keyring
 mkdir -p $HOME/.local/share/applications/
 sudo ln -sf "$current_dir/firefox.desktop" /usr/share/applications/firefox.desktop
