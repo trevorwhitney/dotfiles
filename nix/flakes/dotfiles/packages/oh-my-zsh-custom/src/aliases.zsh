@@ -18,7 +18,6 @@ alias gs='git status'
 alias gst='git status'
 
 alias gap="git add -p"
-alias gdf="git diff --color | diff-so-fancy"
 
 alias gr="cd \$(git root)"
 alias root="cd \$(git root || pwd)"

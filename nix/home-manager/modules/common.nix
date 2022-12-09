@@ -53,6 +53,7 @@ in
     cmake
     curl
     delta
+    diffutils
     docker
     docker-compose
     drone-cli

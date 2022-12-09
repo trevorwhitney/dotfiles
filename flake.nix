@@ -147,9 +147,38 @@
         };
         # for automation, may want to build something around this
         # vboxmanage guestproperty get monterey "/VirtualBox/GuestInfo/OS/LoggedInUsers"
+        attach-monterey-drives = {
+          type = "app";
+          program = with pkgs; "${
+                (writeShellScriptBin "attach.sh" ''
+                  vboxmanage controlvm monterey usbattach 5d1286d1-24cf-4d1d-904f-0636dc00761c
+                  vboxmanage controlvm monterey usbattach 479922a8-fbb9-4ea7-9c99-adfe8abf1993
+                '')
+              }/bin/attach.sh";
+        };
       };
       packages = {
         inherit (pkgs) i3-gnome-flashback;
+        #TODO: this is an experiment
+        monterey-libvirt = nixos-generators.nixosGenerate {
+          inherit system;
+          format = "qcow";
+          modules = [
+            ./nix/nixos/virtualbox.nix
+            ./nix/hosts/monterey/root.nix
+            ./nix/hosts/monterey/twhitney.nix
+            # TODO: monterey needs to sync /var/lib
+            {
+              nixpkgs = {
+                inherit pkgs;
+                hostPlatform = "x86_64-linux";
+              };
+              services.xserver = {
+                desktopManager.xterm.enable = true;
+              };
+            }
+          ];
+        };
         monterey-vm = nixos-generators.nixosGenerate {
           inherit system;
           format = "virtualbox";

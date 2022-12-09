@@ -35,7 +35,7 @@ in
         home.packages = with pkgs; [
           # nixGL wrapped
           (nixGLWrap pkgs._1password-gui)
-          (nixGLWrapWithName pkgs.google-chrome-dev "google-chrome-unstable")
+          (nixGLWrapWithName pkgs.google-chrome-beta "google-chrome-beta")
           (nixGLWrapWithName pkgs.spotify "spotify")
         ];
 

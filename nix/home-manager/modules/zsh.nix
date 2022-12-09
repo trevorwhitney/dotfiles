@@ -33,11 +33,7 @@ in
     ]);
 
     shellAliases = {
-      hm-switch = ''
-        pushd $HOME/workspace/dotfiles > /dev/null && \
-          home-manager switch --flake . --impure -b backup && \
-          popd > /dev/null
-      '';
+      hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles --impure -b backup";
     };
   };
 }
