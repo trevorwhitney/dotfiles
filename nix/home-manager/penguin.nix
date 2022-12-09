@@ -28,8 +28,16 @@ in
           }
         ] ++ imports;
 
-        programs.zsh.sessionVariables = {
-          GPG_TTY = "$(tty)";
+        programs.zsh = {
+          sessionVariables = {
+            GPG_TTY = "$(tty)";
+          };
+
+          shellAliases = {
+            mosh-cerebral = ''
+              mosh --server ~/.nix-profile/bin/mosh-server twhitney@cerebral.trevorwhitney.net
+            '';
+          };
         };
       };
     });
