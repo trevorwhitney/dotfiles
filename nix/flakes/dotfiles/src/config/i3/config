@@ -156,6 +156,8 @@ for_window [class="Spotify"] move to workspace $ws1
 for_window [class="1Password"] move to workspace $ws1
 # example floating window exception
 # for_window [class="Gnome-tweaks"] floating enable
+for_window [class="audacity"] floating enable
+for_window [class="Audacity"] floating enable
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
