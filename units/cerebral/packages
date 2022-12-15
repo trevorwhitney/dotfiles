@@ -16,6 +16,7 @@ pandoc
 pavucontrol
 protobuf-compiler
 pulseaudio
+qml-module-org-kde-kcm
 samba
 snapd
 sysstat
