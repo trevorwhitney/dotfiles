@@ -151,8 +151,8 @@
           type = "app";
           program = with pkgs; "${
                 (writeShellScriptBin "attach.sh" ''
-                  vboxmanage controlvm monterey usbattach 5d1286d1-24cf-4d1d-904f-0636dc00761c
-                  vboxmanage controlvm monterey usbattach 479922a8-fbb9-4ea7-9c99-adfe8abf1993
+                  vboxmanage controlvm monterey usbattach ae153293-e0d6-489f-9bd0-f1c1107087c8
+                  vboxmanage controlvm monterey usbattach a75489fc-576c-4ca8-bacd-27fb55c1675a
                 '')
               }/bin/attach.sh";
         };
