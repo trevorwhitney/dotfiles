@@ -1,6 +1,9 @@
 audacity
+cheese
 firefox
 ffmpeg
+gimp
+gnome-flashback
 gnome-keyring
 gnome-shell-pomodoro
 gnome-sushi
@@ -20,6 +23,7 @@ qml-module-org-kde-kcm
 samba
 snapd
 sysstat
+system76-driver
 texlive-xetex
 vinagre
 vlc
