@@ -34,6 +34,7 @@ in
 
     shellAliases = {
       hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles --impure -b backup";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles";
     };
   };
 }

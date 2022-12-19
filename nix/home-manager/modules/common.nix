@@ -48,6 +48,7 @@ in
     azure-cli
     bash
     bat
+    bind
     cargo
     chart-testing
     cmake
@@ -58,7 +59,6 @@ in
     docker-compose
     drone-cli
     fzf
-    gh
     glow
     gnused
     go

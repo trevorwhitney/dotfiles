@@ -34,7 +34,8 @@
     roboto
     siji
 
-    copyq
+    #TODO: move copyq to own module
+    /* copyq */
 
     (nerdfonts.override {
       fonts = [
@@ -77,9 +78,27 @@
         primary-color = "#073642";
         color-shading-type = "solid";
       };
+      "org/gnome/desktop/wm/keybindings" =
+        {
+          close = [ "<Super>q" ];
+        };
+      "org/gnome/shell" = {
+        favorite-apps = [
+          "org.gnome.calendar.desktop"
+          "org.gnome.Nautilus.desktop"
+          "firefox.desktop"
+          "kitty.desktop"
+          "slack.desktop"
+          "spotify.desktop"
+          "1password.desktop"
+        ];
+      };
+
       # at some point the default for this included <Control>period
       # which is too commony used by other apps
-      "desktop/ibus/panel/emoji" = { hotkey = [ "<Control>semicolon" ]; };
+      "desktop/ibus/panel/emoji" = {
+        hotkey = [ "<Control>semicolon" ];
+      };
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote" =
         {
@@ -88,12 +107,23 @@
           name = "Emote";
         };
 
+      #TODO: extract copyQ stuff to single location
+      /* "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/copyq" = */
+      /*   { */
+      /*     binding = "<Primary><Alt>h"; */
+      /*     command = "${pkgs.copyq}/bin/copyq"; */
+      /*     name = "CopyQ"; */
+      /*   }; */
+
       "org/gnome/settings-daemon/plugins/media-keys" = {
         "custom-keybinding" = [
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote"
+          /* "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/copyq" */
         ];
+
+        #TODO: this is needed in i3, extract to i3 location
         # disable <Super>l as default lock/screensaver
-        "screensaver" = [ ];
+        /* "screensaver" = [ ]; */
       };
     };
   };

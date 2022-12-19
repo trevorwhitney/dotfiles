@@ -1,11 +1,13 @@
 { config, pkgs, ... }: {
-
   services.xserver = {
-    desktopManager.xterm.enable = false;
+    enable = true;
+    layout = "us";
+    xkbVariant = "";
+
     displayManager = {
       gdm = {
         enable = true;
-        autoSuspend = false;
+        wayland = true;
       };
     };
   };
@@ -22,6 +24,7 @@
     polkit
     polkit_gnome
   ];
+
   environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])
     ++ (with pkgs.gnome; [
     atomix # puzzle game
@@ -41,4 +44,20 @@
     [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
 
   security.polkit.enable = true;
+
+  security.pam.services.gdm.enableGnomeKeyring = true;
+
+  services.gnome.gnome-keyring.enable = true;
+
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal
+        xdg-desktop-portal-wlr
+        #TODO: causes a collision
+        /* xdg-desktop-portal-gtk */
+      ];
+    };
+  };
 }

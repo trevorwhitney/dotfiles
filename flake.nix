@@ -32,6 +32,9 @@
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
     nixgl.inputs.flake-utils.follows = "flake-utils";
 
+    # Hardware specific configs
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     # Firefox nightly
     nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
 
@@ -60,6 +63,7 @@
     , neovim
     , nixgl
     , nixos-generators
+    , nixos-hardware
     , nixpkgs
     , nixpkgs-mozilla
     , nur
@@ -87,7 +91,7 @@
       };
 
       nix = import ./nix {
-        inherit self secrets pkgs lib flake-utils home-manager nur;
+        inherit self secrets pkgs lib flake-utils home-manager nur nixos-hardware;
         modulesPath = "${nixpkgs}/nixos/modules";
       };
     in

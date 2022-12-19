@@ -1,53 +1,21 @@
-{ self, secrets, pkgs, lib, modulesPath, home-manager, ... }: {
+{ self, secrets, pkgs, lib, modulesPath, home-manager, nur, nixos-hardware, ... }:
+let
+  nurPkgs = import nur {
+    inherit pkgs;
+    nurpkgs = pkgs;
+  };
+in
+{
   monterey = lib.nixosSystem {
     system = "x86_64-linux";
-    modules = [
-      {
-        nixpkgs =
-          {
-            inherit pkgs;
-            hostPlatform = "x86_64-linux";
-          };
-      }
-      "${modulesPath}/virtualisation/virtualbox-image.nix"
-      ../nixos/virtualbox.nix
-      ./monterey/root.nix
-      ./monterey/twhitney.nix
-      ./monterey/media.nix
-      ../nixos/desktops/gnome-shell.nix
-      home-manager.nixosModules.home-manager
-      {
-
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.twhitney = {
-          imports = [
-            ../home-manager/modules/kitty.nix
-            ../home-manager/modules/common.nix
-            ../home-manager/modules/bash.nix
-            ../home-manager/modules/git.nix
-            ../home-manager/modules/neovim.nix
-            ../home-manager/modules/tmux.nix
-            ../home-manager/modules/zsh.nix
-          ];
-
-          # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
-          manual.manpages.enable = false;
-
-          programs.firefox = {
-            enable = true;
-          };
-
-          programs.git = {
-            gpgPath = "/usr/bin/gpg";
-            includes =
-              [{ path = "${pkgs.secrets}/git"; }];
-          };
-          programs.neovim = {
-            withLspSupport = false;
-          };
-        };
-      }
-    ];
+    modules = import ./monterey {
+      inherit self secrets pkgs lib modulesPath home-manager nurPkgs nixos-hardware;
+    };
+  };
+  cerebral = lib.nixosSystem {
+    system = "x86_64-linux";
+    modules = import ./cerebral {
+      inherit self secrets pkgs lib modulesPath home-manager nurPkgs nixos-hardware;
+    };
   };
 }

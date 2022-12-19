@@ -50,7 +50,7 @@ in
 
         dir_name="''$(basename ''${current_dir})"
         if [[ -z "''${TMUX}" ]]; then
-          session_name="vim ''${dir_name}"
+          session_name="''${dir_name}"
           session_socket="''${HOME}/.cache/nvim/''${dir_name}.pipe"
 
           if tmux ls &> /dev/null && tmux has-session -t "''${session_name}"; then
@@ -121,6 +121,8 @@ in
               statix
               nodejs-16_x
               nodePackages.markdownlint-cli
+              gcc
+              gnumake
             ];
             lspPackages = with pkgs;
               if withLspSupport then [

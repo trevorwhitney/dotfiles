@@ -182,7 +182,7 @@ in
       bindsym $mod+n workspace next
       bindsym $mod+p workspace prev
 
-      for_window [all] title_window_icon yes
+      #for_window [all] title_window_icon yes
 
       for_window [class="Spotify"] move to workspace $ws1
       for_window [class="1Password"] move to workspace $ws1

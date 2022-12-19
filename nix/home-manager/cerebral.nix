@@ -30,6 +30,7 @@ in
           ./modules/spotify.nix
           ./modules/alacritty.nix
           ./modules/kitty.nix
+          ./modules/firefox.nix
         ] ++ imports;
 
         home.packages = with pkgs; [
@@ -40,7 +41,6 @@ in
         ];
 
         programs.firefox = {
-          enable = true;
           package =
             let
               # firefox requires --impure flag because of how it pulls binaries
@@ -67,46 +67,6 @@ in
             tridactyl
             ublock-origin
           ];
-          profiles.default = {
-            name = "default";
-            isDefault = true;
-            userChrome = ''
-              #sidebar-header {
-                display: none !important;
-              }
-
-              #navigator-toolbox:not(:hover):not(:focus-within) #toolbar-menubar > * {
-                background-color: rgb(232, 232, 231);
-              }
-
-              #main-window[sizemode="maximized"] #content-deck {
-                padding-top: 8px;
-              }
-
-              :root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #TabsToolbar {
-                visibility: collapse;
-              }
-
-              tabs {
-                counter-reset: tab-counter;
-              }
-
-              .tab-label::before {
-                counter-increment: tab-counter;
-                content: counter(tab-counter) " - ";
-              }
-
-              #TabsToolbar {
-                visibility: collapse;
-              }
-
-              statuspanel[type="overLink"],
-              #statuspanel[type="overLink"] {
-                right: 0;
-                display: inline;
-              }
-            '';
-          };
         };
         programs.alacritty = {
           package = nixGLWrap pkgs.alacritty;

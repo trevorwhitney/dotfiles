@@ -22,6 +22,9 @@
   networking.networkmanager.enable =
     true; # Easiest to use and most distros use this by default.
 
+  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+  networking.search = [ "trevorwhitney.net" ];
+
   # enable resolved for DNS resolution
   services.resolved.enable = true;
 
@@ -40,7 +43,7 @@
     shell = pkgs.zsh;
     uid = 1000;
   };
-  
+
   # Allow my user to do rebuilds
   nix.settings.trusted-users = [ "twhitney" ];
 
