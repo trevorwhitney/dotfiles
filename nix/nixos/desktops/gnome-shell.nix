@@ -24,7 +24,6 @@
     gnomeExtensions.dash-to-panel
     gnomeExtensions.clipboard-history
     gnomeExtensions.user-themes
-    gnomeExtensions.useless-gaps
   ];
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229

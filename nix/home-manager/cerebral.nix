@@ -1,3 +1,5 @@
+#DEPRECATED: keeping as an example of using nixGL, but this
+#is no longer used
 { pkgs
 , system
 , home-manager

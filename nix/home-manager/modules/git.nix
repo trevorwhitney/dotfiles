@@ -57,7 +57,10 @@ in
       };
 
       extraConfig = {
-        core = { editor = "nvim"; };
+        core = {
+          editor = "nvim";
+          excludesfile = "~/.config/git/ignore";
+        };
         apply = { whitespace = "nowarn"; };
         color = {
           branch = "auto";

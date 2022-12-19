@@ -6,17 +6,20 @@
         hostPlatform = "x86_64-linux";
       };
   }
+
   nixos-hardware.nixosModules.system76
   nixos-hardware.nixosModules.common-cpu-amd
   nixos-hardware.nixosModules.common-gpu-amd
+
   ./configuration.nix
   ./twhitney.nix
   ./graphics.nix
+
   ../../nixos/desktops/gnome-shell.nix
   ../../nixos/gui-apps.nix
+
   home-manager.nixosModules.home-manager
   {
-
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
     home-manager.users.twhitney = {
