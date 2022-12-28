@@ -9,4 +9,4 @@ source "$dot_files_dir/lib.sh"
 
 # Move to Debian SID
 sudo ln -sf "$current_dir/sources.list" /etc/apt/sources.list
-sudo apt update && sudo apt install -y gnome-keyring
+sudo apt update && sudo apt install -y gnome-keyring seahorse
