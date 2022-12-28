@@ -133,11 +133,11 @@
           type = "app";
           program = with pkgs; "${
                 (writeShellScriptBin "install.sh" ''
-                  vboxmanage import ./result/monterey.ova
-                  vboxmanage modifyvm monterey --natpf1 "ssh,tcp,,2222,,22"
-                  vboxmanage modifyvm monterey --nic2 bridged --nictype2 82540EM --bridgeadapter2 enp9s0
-                  vboxmanage modifyvm monterey --usbxhci on
-                  vboxmanage startvm monterey --type separate
+                  VBoxManage import ./result/monterey.ova
+                  VBoxManage modifyvm monterey --natpf1 "ssh,tcp,,2222,,22"
+                  VBoxManage modifyvm monterey --nic2 bridged --nictype2 82540EM --bridgeadapter2 enp9s0
+                  VBoxManage modifyvm monterey --usbxhci on
+                  VBoxManage startvm monterey --type separate
                 '')
               }/bin/install.sh";
         };
@@ -145,18 +145,18 @@
           type = "app";
           program = with pkgs; "${
                 (writeShellScriptBin "install.sh" ''
-                  vboxmanage startvm monterey --type separate
+                  VBoxManage startvm monterey --type separate
                 '')
               }/bin/install.sh";
         };
         # for automation, may want to build something around this
-        # vboxmanage guestproperty get monterey "/VirtualBox/GuestInfo/OS/LoggedInUsers"
+        # VBoxManage guestproperty get monterey "/VirtualBox/GuestInfo/OS/LoggedInUsers"
         attach-monterey-drives = {
           type = "app";
           program = with pkgs; "${
                 (writeShellScriptBin "attach.sh" ''
-                  vboxmanage controlvm monterey usbattach ae153293-e0d6-489f-9bd0-f1c1107087c8
-                  vboxmanage controlvm monterey usbattach a75489fc-576c-4ca8-bacd-27fb55c1675a
+                  VBoxManage controlvm monterey usbattach sysfs:/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb2/2-2//device:/dev/vboxusb/002/003
+                  VBoxManage controlvm monterey usbattach sysfs:/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb2/2-1//device:/dev/vboxusb/002/002
                 '')
               }/bin/attach.sh";
         };

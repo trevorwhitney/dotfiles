@@ -3,6 +3,7 @@
     enable = true;
     layout = "us";
     xkbVariant = "";
+    xkbOptions = "ctrl:nocaps,caps:ctrl_modifier";
 
     displayManager = {
       gdm = {
@@ -12,14 +13,16 @@
     };
   };
 
+  console.useXkbConfig = true;
+
   environment.systemPackages = with pkgs; [
     gnome.dconf-editor
     gnome.gnome-screenshot
-    gnome.pomodoro
-    gnome.gnome-tweaks
-    gnomeExtensions.appindicator
-
     gnome.gnome-session
+    gnome.gnome-tweaks
+    gnome.pomodoro
+
+    gnomeExtensions.appindicator
 
     polkit
     polkit_gnome

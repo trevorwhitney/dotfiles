@@ -2,7 +2,7 @@
   gtk = {
     enable = true;
     font = {
-      name = "Ubuntu";
+      name = "Ubuntu Nerd Font";
       size = 12;
     };
     theme = {
@@ -61,6 +61,7 @@
     settings = {
       "org/gnome/desktop/interface" = {
         monospace-font-name = "JetBrainsMono Nerd Font Mono 12";
+        document-font-name = "Ubuntu Nerd Font 12";
         clock-format = "24h";
         gtk-key-theme = "Emacs";
         text-scaling-factor = 1.25;
@@ -84,7 +85,7 @@
         };
       "org/gnome/shell" = {
         favorite-apps = [
-          "org.gnome.calendar.desktop"
+          "org.gnome.Calendar.desktop"
           "org.gnome.Nautilus.desktop"
           "firefox.desktop"
           "kitty.desktop"
