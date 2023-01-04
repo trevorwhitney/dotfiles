@@ -29,4 +29,4 @@ let
     username = "twhitney";
   };
 in
-(import ./cerebral.nix defaults) // (import ./penguin.nix defaults) // (import ./newImage.nix defaults)
+(import ./penguin.nix defaults) // (import ./newImage.nix defaults)

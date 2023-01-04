@@ -31,6 +31,10 @@ in
   networking.hostName = "cerebral"; # Define your hostname.
   networking.networkmanager.enable = true;
 
+  # Needed to prevent wait online from causing rebuild to fail
+  # See https://github.com/NixOS/nixpkgs/issues/180175
+  systemd.services.NetworkManager-wait-online.enable = false;
+
   # Set your time zone.
   time.timeZone = "America/Denver";
 

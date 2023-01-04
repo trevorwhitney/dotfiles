@@ -18,7 +18,7 @@ in
         ghostery
         gnome-shell-integration
         multi-account-containers
-        okta-browser-plugin
+        /* okta-browser-plugin */
         onepassword-password-manager
         privacy-badger
         privacy-possum
