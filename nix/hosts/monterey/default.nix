@@ -7,12 +7,12 @@
       };
   }
   "${modulesPath}/virtualisation/virtualbox-image.nix"
-  ../../nixos/virtualbox.nix
+  ../../modules/virtualbox.nix
   ./root.nix
   ./twhitney.nix
   ./media.nix
-  ../../nixos/desktops/gnome-shell.nix
-  ../../nixos/networking/rdp.nix
+  ../../modules/desktops/gnome-shell.nix
+  ../../modules/networking/rdp.nix
   home-manager.nixosModules.home-manager
   {
     home-manager.useGlobalPkgs = true;

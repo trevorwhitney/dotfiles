@@ -19,10 +19,6 @@
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
-    dotfiles.url = "./nix/flakes/dotfiles";
-    dotfiles.inputs.nixpkgs.follows = "nixpkgs";
-    dotfiles.inputs.flake-utils.follows = "flake-utils";
-
     i3-gnome-flashback.url = "./nix/flakes/i3-gnome-flashback";
     i3-gnome-flashback.inputs.nixpkgs.follows = "nixpkgs";
     i3-gnome-flashback.inputs.flake-utils.follows = "flake-utils";
@@ -56,7 +52,6 @@
   outputs =
     { self
     , deploy-rs
-    , dotfiles
     , flake-utils
     , home-manager
     , i3-gnome-flashback
@@ -74,7 +69,7 @@
       inherit (nixpkgs) lib;
       overlays = [
         deploy-rs.overlay
-        dotfiles.overlay
+        (import "${self}/nix/overlays/dotfiles.nix")
         i3-gnome-flashback.overlay
         neovim.overlay
         nixgl.overlay
@@ -168,7 +163,7 @@
           inherit system;
           format = "qcow";
           modules = [
-            ./nix/nixos/virtualbox.nix
+            ./nix/modules/virtualbox.nix
             ./nix/hosts/monterey/root.nix
             ./nix/hosts/monterey/twhitney.nix
             # TODO: monterey needs to sync /var/lib
@@ -187,7 +182,7 @@
           inherit system;
           format = "virtualbox";
           modules = [
-            ./nix/nixos/virtualbox.nix
+            ./nix/modules/virtualbox.nix
             ./nix/hosts/monterey/root.nix
             ./nix/hosts/monterey/twhitney.nix
             {

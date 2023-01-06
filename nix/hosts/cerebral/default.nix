@@ -15,8 +15,8 @@
   ./twhitney.nix
   ./graphics.nix
 
-  ../../nixos/desktops/gnome-shell.nix
-  ../../nixos/gui-apps.nix
+  ../../modules/desktops/gnome-shell.nix
+  ../../modules/gui-apps.nix
 
   home-manager.nixosModules.home-manager
   {

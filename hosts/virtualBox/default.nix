@@ -51,14 +51,14 @@ in
   # build with: nix-build . -A withGnome
   withGnome = mkVM [
     # add some custom pkgs like vim and tmux, could be our internal packages
-    { imports = [ ../../nix/nixos/desktops/gnome-i3.nix ]; }
+    { imports = [ ../../nix/modules/desktops/gnome-i3.nix ]; }
   ];
 
   withGnomeAndHM = mkVM [
     {
       imports = [
-        ../../nix/nixos/desktops/gnome-i3.nix
-        ../../nix/nixos/gui-apps.nix
+        ../../nix/modules/desktops/gnome-i3.nix
+        ../../nix/modules/gui-apps.nix
       ];
     }
     # home-manager.nixosModules.home-manager
@@ -111,7 +111,7 @@ in
   media = mkVM [
     {
       imports = [
-        ../../nix/nixos/desktops/gnome-shell.nix
+        ../../nix/modules/desktops/gnome-shell.nix
         {
           environment.systemPackages = with pkgs; [
             firefox

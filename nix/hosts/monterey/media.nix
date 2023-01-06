@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }: {
   imports = [
-    ../../nixos/networking/openvpn.nix
-    ../../nixos/services/monterey-backup.nix
+    ../../modules/networking/openvpn.nix
+    ../../modules/services/monterey-backup.nix
   ];
 
   services = {
