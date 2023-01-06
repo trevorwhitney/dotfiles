@@ -15,6 +15,7 @@
       openFirewall = true;
       group = "plex";
     };
+
     radarr = {
       enable = true;
       openFirewall = true;
