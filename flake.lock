@@ -76,26 +76,6 @@
         "type": "github"
       }
     },
-    "i3-gnome-flashback": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-LvYnl80RwIzjzvBUaqocVpb1pcC0lqaFdvDNZIMMiS0=",
-        "path": "/nix/store/xgm2y1iz9lla8gs0hrr2h9sfn46i9ygx-source/nix/flakes/i3-gnome-flashback",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/xgm2y1iz9lla8gs0hrr2h9sfn46i9ygx-source/nix/flakes/i3-gnome-flashback",
-        "type": "path"
-      }
-    },
     "neovim": {
       "inputs": {
         "flake-utils": [
@@ -246,7 +226,6 @@
         "deploy-rs": "deploy-rs",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "i3-gnome-flashback": "i3-gnome-flashback",
         "neovim": "neovim",
         "nixgl": "nixgl",
         "nixos-generators": "nixos-generators",

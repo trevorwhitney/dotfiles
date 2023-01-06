@@ -19,10 +19,6 @@
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
-    i3-gnome-flashback.url = "./nix/flakes/i3-gnome-flashback";
-    i3-gnome-flashback.inputs.nixpkgs.follows = "nixpkgs";
-    i3-gnome-flashback.inputs.flake-utils.follows = "flake-utils";
-
     # For running OpenGL apps outside of NixOS
     nixgl.url = "github:guibou/nixGL";
     nixgl.inputs.nixpkgs.follows = "nixpkgs";
@@ -34,18 +30,20 @@
     # Firefox nightly
     nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
 
+    # For creating nixos images for various platforms
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # For deploying remote systems
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
     };
 
-
+    # Nix User Repository
     nur.url = "github:nix-community/NUR";
   };
 
@@ -54,7 +52,6 @@
     , deploy-rs
     , flake-utils
     , home-manager
-    , i3-gnome-flashback
     , neovim
     , nixgl
     , nixos-generators
@@ -68,9 +65,10 @@
     let
       inherit (nixpkgs) lib;
       overlays = [
-        deploy-rs.overlay
         (import "${self}/nix/overlays/dotfiles.nix")
-        i3-gnome-flashback.overlay
+        (import "${self}/nix/overlays/i3-gnome-flashback.nix")
+
+        deploy-rs.overlay
         neovim.overlay
         nixgl.overlay
         nixpkgs-mozilla.overlays.firefox
