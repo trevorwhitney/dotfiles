@@ -6,13 +6,19 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            (import ../../overlays/kubectl.nix { inherit system; })
+          ];
+        };
       in
       {
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = [ pkgs.bashInteractive ];
           buildInputs = with pkgs; [
             shellcheck
+            kubectl-1-22-15
           ];
 
           shellHook = ''

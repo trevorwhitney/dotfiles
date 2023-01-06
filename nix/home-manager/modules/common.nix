@@ -75,7 +75,6 @@ in
     k9s
     kotlin
     kube3d
-    kubectl
     kubernetes-helm
     lm_sensors
     lua51Packages.luarocks
