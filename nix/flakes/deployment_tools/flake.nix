@@ -10,6 +10,25 @@
           inherit system;
           overlays = [
             (import ../../overlays/kubectl.nix { inherit system; })
+            # rt
+            (final: prev: {
+              scripts = prev.stdenv.mkDerivation {
+                name = "scripts";
+                pname = "scripts";
+
+                src = /home/twhitney/workspace/deployment_tools;
+
+                configurePhase = "patchShebangs scripts";
+
+                installPhase = ''
+                  mkdir -p $out/bin
+                  install -m755 scripts/cortex/rt.sh $out/bin/rt
+                  install -m755 scripts/flux/ignore.sh $out/bin/flux-ignore
+                  install -m755 scripts/vault/vault-token $out/bin/vault-token
+                  install -m755 scripts/tanka/tk $out/bin/tk
+                '';
+              };
+            })
           ];
         };
       in
@@ -19,6 +38,8 @@
           buildInputs = with pkgs; [
             shellcheck
             kubectl-1-22-15
+
+            scripts
           ];
 
           shellHook = ''
