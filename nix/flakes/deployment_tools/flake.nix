@@ -6,7 +6,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
-    #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=f30db379c7b2621ade6ff8a3114f924d65514751";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
