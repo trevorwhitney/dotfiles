@@ -17,11 +17,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1671417167,
-        "narHash": "sha256-JkHam6WQOwZN1t2C2sbp1TqMv3TVRjzrdoejqfefwrM=",
+        "lastModified": 1673301451,
+        "narHash": "sha256-0IvOqAXZ+dHjOV7dQl4iEcCUmzqg8VvGg+UZ68ONDIg=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bb31220cca6d044baa6dc2715b07497a2a7c4bc7",
+        "rev": "35f1f865c03671a4f75a6996000f03ac3dc3e472",
         "type": "github"
       },
       "original": {
@@ -34,7 +34,33 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1673373803,
+        "narHash": "sha256-ZDdjJvA+2cIUhDU29pbS7zhQrEufgptW4y4/BRf8eYE=",
+        "ref": "main",
+        "rev": "f30db379c7b2621ade6ff8a3114f924d65514751",
+        "revCount": 12,
+        "type": "git",
+        "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
+      },
+      "original": {
+        "ref": "main",
+        "rev": "f30db379c7b2621ade6ff8a3114f924d65514751",
+        "type": "git",
+        "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }
     }
   },
