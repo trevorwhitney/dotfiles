@@ -7,17 +7,9 @@
     google-chrome-beta
     insomnia
     kdenlive
+    slack
     spotify
     vlc
-
-    #TODO: fix slack on wayland
-    # fix for wayland, should be merged upstream soon
-    # https://github.com/NixOS/nixpkgs/pull/206808
-    (slack.overrideAttrs (old: {
-      rpath = old.rpath + lib.makeLibraryPath [
-        wayland
-      ];
-    }))
 
     # fix needed for screensharing
     # make sure to set enableWaylandShare = true
@@ -30,7 +22,5 @@
   ];
 
   # needed for slack on wayland
-  # TODO: not currently working
-  # Try again after using package from https://github.com/NixOS/nixpkgs/pull/206808
-  /* environment.sessionVariables.NIXOS_OZONE_WL = "1"; */
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

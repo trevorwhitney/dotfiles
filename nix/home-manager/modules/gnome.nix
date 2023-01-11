@@ -100,23 +100,6 @@
       "desktop/ibus/panel/emoji" = {
         hotkey = [ "<Control>semicolon" ];
       };
-
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote" =
-        {
-          binding = "<Control><Alt>e";
-          command = "${pkgs.emote}/bin/emote";
-          name = "Emote";
-        };
-
-      "org/gnome/settings-daemon/plugins/media-keys" = {
-        "custom-keybindings" = [
-          "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote"
-        ];
-
-        #TODO: this is needed in i3, extract to i3 location
-        # disable <Super>l as default lock/screensaver
-        /* "screensaver" = [ ]; */
-      };
     };
   };
 }

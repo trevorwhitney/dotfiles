@@ -80,6 +80,10 @@
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
+          #TODO: what needs python 2.7?
+          permittedInsecurePackages = [
+            "python-2.7.18.6"
+          ];
         };
       };
 
