@@ -103,23 +103,14 @@
 
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote" =
         {
-          binding = "<Primary><Alt>e";
+          binding = "<Control><Alt>e";
           command = "${pkgs.emote}/bin/emote";
           name = "Emote";
         };
 
-      #TODO: extract copyQ stuff to single location
-      /* "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/copyq" = */
-      /*   { */
-      /*     binding = "<Primary><Alt>h"; */
-      /*     command = "${pkgs.copyq}/bin/copyq"; */
-      /*     name = "CopyQ"; */
-      /*   }; */
-
       "org/gnome/settings-daemon/plugins/media-keys" = {
-        "custom-keybinding" = [
+        "custom-keybindings" = [
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emote"
-          /* "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/copyq" */
         ];
 
         #TODO: this is needed in i3, extract to i3 location

@@ -77,8 +77,11 @@
           buildInputs = old.buildInputs ++ (with pkgs;
             [
               kubectl-1-22-15
-              (builtins.trace pkgs.loki pkgs.loki)
             ]);
+
+          shellHook = with pkgs; ''
+            alias k="${kubectl-1-22-15}/bin/kubectl"
+          '';
         });
       });
 }

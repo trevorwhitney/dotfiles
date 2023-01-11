@@ -284,7 +284,7 @@ in
       client.background       $base02
 
       # Polybar
-      # Polybar launch script (located ~/.config/polybar/launch.sh) 
+      # Polybar launch script (located ~/.config/polybar/launch.sh)
       exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
       # NetworkManager is the most popular way to manage wireless networks on Linux,
@@ -327,6 +327,10 @@ in
         "org/gnome/gnome-flashback/desktop/icons" = {
           show-home = false;
           show-trash = false;
+        };
+        "org/gnome/settings-daemon/plugins/media-keys" = {
+          # disable <Super>l as default lock/screensaver
+          "screensaver" = [ ];
         };
       };
     };
