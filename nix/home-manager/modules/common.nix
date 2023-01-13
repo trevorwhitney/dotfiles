@@ -46,7 +46,7 @@ in
     _1password
     awscli2
     azure-cli
-    bash
+    bashInteractive
     bat
     bind
     cargo
@@ -70,6 +70,7 @@ in
     ]))
     gradle
     helm-docs
+    home-manager
     jsonnet-bundler
     jq
     k9s

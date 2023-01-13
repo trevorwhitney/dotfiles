@@ -7,7 +7,7 @@
 , ...
 }:
 let
-  inherit (import ./common.nix { inherit pkgs; }) nixGLWrapWithName nixGLWrap;
+  inherit (import ../modules/nixgl-wrap.nix { inherit pkgs; }) nixGLWrapWithName nixGLWrap;
   baseConfig = {
     inherit username;
     homeDirectory = "/home/${username}";

@@ -20,18 +20,16 @@
           overlays = [
             secrets.overlay
             (import ../../overlays/kubectl.nix { inherit system; })
-            (import ../../overlays/deployment-tools.nix)
           ];
         };
       in
       {
+        defaultPackage = pkgs.kubectl-1-22-15;
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = [ pkgs.bashInteractive ];
           buildInputs = with pkgs; [
             shellcheck
             kubectl-1-22-15
-
-            deployment-tools
           ];
 
           shellHook = ''

@@ -4,11 +4,14 @@ let
 in
 {
   options = {
-    programs.firefox.nurPkgs = lib.mkOption
-      {
-        type = lib.types.attrs;
-      };
+    programs.firefox = {
+      nurPkgs = lib.mkOption
+        {
+          type = lib.types.attrs;
+        };
+    };
   };
+
   config = {
     programs.firefox = {
       enable = true;
