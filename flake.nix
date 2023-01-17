@@ -81,6 +81,7 @@
         config = {
           allowUnfree = true;
           #TODO: what needs python 2.7?
+          #Is it Davinci-resolve?
           permittedInsecurePackages = [
             "python-2.7.18.6"
           ];
