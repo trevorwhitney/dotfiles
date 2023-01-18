@@ -7,7 +7,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=f30db379c7b2621ade6ff8a3114f924d65514751";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=353ab08da814bc1402912ea9c41a22b1c3c06105";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
   };

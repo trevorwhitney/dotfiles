@@ -2,7 +2,9 @@
   description = "Stem NixOS System Config";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    #TODO: building azure-cli broken after this SHA due to inability to find
+    #azure-data-tables==12.4.0
+    nixpkgs.url = "github:nixpkgs/nixos-unstable?rev=6c8644fc37b6e141cbfa6c7dc8d98846c4ff0c2e";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -15,7 +17,7 @@
 
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=ea62a8a7fe82b35c6c268be424a85aa25811423a";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=353ab08da814bc1402912ea9c41a22b1c3c06105";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
 
