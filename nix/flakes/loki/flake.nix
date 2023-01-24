@@ -6,9 +6,14 @@
     flake-utils.url = "github:numtide/flake-utils";
     loki.url = "github:grafana/loki";
     loki.inputs.flake-utils.follows = "flake-utils";
+
+    secrets.url =
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=353ab08da814bc1402912ea9c41a22b1c3c06105";
+    secrets.inputs.nixpkgs.follows = "nixpkgs";
+    secrets.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, loki }:
+  outputs = { self, nixpkgs, flake-utils, loki, secrets }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -16,6 +21,7 @@
           overlays = [
             loki.overlays.default
             loki.overlays.golangci-lint
+            secrets.overlay
             (import ../../overlays/kubectl.nix { inherit system; })
           ] ++ (import ./overlays);
           config = { allowUnfree = true; };
@@ -73,14 +79,15 @@
               };
           };
 
-        devShell = loki.devShell.${system}.overrideAttrs (old: {
+        devShells.default = loki.devShell.${system}.overrideAttrs (old: {
           buildInputs = old.buildInputs ++ (with pkgs;
             [
               kubectl-1-22-15
             ]);
 
-          shellHook = with pkgs; ''
-            alias k="${kubectl-1-22-15}/bin/kubectl"
+          shellHook = ''
+            source ${pkgs.secrets}/grafana/deployment-tools.sh
+            alias k="${pkgs.kubectl-1-22-15}/bin/kubectl"
           '';
         });
       });

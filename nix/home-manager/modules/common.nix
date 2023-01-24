@@ -61,6 +61,7 @@ in
     fzf
     glow
     gnused
+    gnumake
     go
     golangci-lint
     (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [

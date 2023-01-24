@@ -85,6 +85,8 @@ export NIX_STORE_DIR=/nix/store
 export NIX_STATE_DIR=/nix/var/nix
 export NIX_LOG_DIR=/nix/var/log/nix
 
+export EDITOR="vim"
+
 # completions
 complete -o nospace -C "$NIX_PROFILE/bin/gocomplete" go
 complete -o nospace -C /usr/bin/nomad nomad

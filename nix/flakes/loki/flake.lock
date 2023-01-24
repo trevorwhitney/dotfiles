@@ -23,11 +23,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1672939965,
-        "narHash": "sha256-ec2hxG2GEEO41wLTIRjBcJN3IXqYNLfZcbbxKy03ueI=",
+        "lastModified": 1673998481,
+        "narHash": "sha256-PS7JnzOohRUjDTm9sR6ESBzz9P1AXcISc0lWaJ31u5g=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "2b66c6b12601ea58cef02e24f3aef3568b87d814",
+        "rev": "eb39e2645f18b49026981e4ec0a3351cad77625d",
         "type": "github"
       },
       "original": {
@@ -54,11 +54,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1672791794,
-        "narHash": "sha256-mqGPpGmwap0Wfsf3o2b6qHJW1w2kk/I6cGCGIU+3t6o=",
+        "lastModified": 1673796341,
+        "narHash": "sha256-1kZi9OkukpNmOaPY7S5/+SlCDOuYnP3HkXHvNDyLQcc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9813adc7f7c0edd738c6bdd8431439688bb0cb3d",
+        "rev": "6dccdc458512abce8d19f74195bb20fdb067df50",
         "type": "github"
       },
       "original": {
@@ -72,7 +72,33 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "loki": "loki",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "secrets": "secrets"
+      }
+    },
+    "secrets": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1674015737,
+        "narHash": "sha256-ChDujeg5xZHryEO2zRvSoefrhsv2WMykX8Qzu4ViLU4=",
+        "ref": "main",
+        "rev": "353ab08da814bc1402912ea9c41a22b1c3c06105",
+        "revCount": 13,
+        "type": "git",
+        "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
+      },
+      "original": {
+        "ref": "main",
+        "rev": "353ab08da814bc1402912ea9c41a22b1c3c06105",
+        "type": "git",
+        "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }
     }
   },
