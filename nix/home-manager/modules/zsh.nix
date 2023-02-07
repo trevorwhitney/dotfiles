@@ -35,6 +35,13 @@ in
     shellAliases = {
       hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles --impure -b backup";
       rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles";
+
+      #Grafana
+      logcli = "nix run github:grafana/loki#logcli -- ";
+      loki = "nix run github:grafana/loki#loki -- ";
+      gcom = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#gcom -- ";
+      flux-ignore = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#flux-ignore -- ";
+      rt = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#rt -- ";
     };
   };
 }

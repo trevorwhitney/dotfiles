@@ -8,7 +8,8 @@ let
 in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -79,10 +80,10 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     curl
-     git
-     vim
-     wget
+    curl
+    git
+    vim
+    wget
   ];
 
   environment.binbash = "${pkgs.bashInteractive}/bin/bash";
@@ -117,6 +118,15 @@ in
     # for tailscale
     checkReversePath = "loose";
     trustedInterfaces = [ tailscaleInf ];
+
+    #TODO: can I limit this to specific interfaces?
+    allowedTCPPorts = [
+      80
+      443
+      8080
+      3100
+      8631
+    ];
   };
 
   # enable docker
