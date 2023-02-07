@@ -7,6 +7,12 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        nodejs = pkgs.nodejs-16_x;
+
+        env = pkgs.writers.writeBash "env.sh" ''
+          export NODE_PATH="${nodejs}/lib/node_modules:$NODE_PATH"
+          export NPM_CONFIG_PREFIX="${nodejs}"
+        '';
       in
       {
         devShells.default = pkgs.mkShell {
@@ -14,12 +20,17 @@
             bashInteractive
             gnumake
             go
-            nodejs-16_x
-            (yarn.override {
-              nodejs = null;
-            })
             mage
+
+            nodejs
+            (yarn.override {
+              inherit nodejs;
+            })
           ];
+
+          shellHook = ''
+            source "${env}"
+          '';
         };
       });
 }

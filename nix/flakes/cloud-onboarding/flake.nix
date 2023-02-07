@@ -20,26 +20,12 @@
             bashInteractive
             gnumake
             go
+            mage
 
             nodejs
             (yarn.override {
               inherit nodejs;
             })
-            mage
-
-            nodePackages.bash-language-server
-            nodePackages.dockerfile-language-server-nodejs
-            nodePackages.eslint
-            nodePackages.eslint_d
-            nodePackages.fixjson
-            nodePackages.neovim
-            nodePackages.prettier
-            nodePackages.typescript
-            nodePackages.typescript-language-server
-            nodePackages.vim-language-server
-            nodePackages.vscode-langservers-extracted
-            nodePackages.write-good
-            nodePackages.yaml-language-server
           ];
 
           shellHook = ''
