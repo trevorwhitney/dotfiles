@@ -19,6 +19,7 @@ in
     let
       inherit (cfg) withLspSupport finalPackage;
       _cc = "${pkgs.stdenv.cc}";
+      nodeJsPkg = pkgs.nodejs-16_x;
 
     in
     rec {
@@ -80,7 +81,7 @@ in
         # manually provide node to pin @ version that works with Copilot
         withNodeJs = false;
         package = pkgs.neovim-unwrapped.override {
-          nodejs = pkgs.nodejs-16_x;
+          nodejs = nodeJsPkg;
         };
         # use own custom script above for starting in tmux
         vimAlias = false;
@@ -119,7 +120,7 @@ in
             basePackages = with pkgs; [
               rnix-lsp
               statix
-              nodejs-16_x
+              nodeJsPkg
               nodePackages.markdownlint-cli
               gcc
               gnumake

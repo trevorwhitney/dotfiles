@@ -2,9 +2,7 @@
   description = "Stem NixOS System Config";
 
   inputs = {
-    #TODO: building azure-cli broken after this SHA due to inability to find
-    #azure-data-tables==12.4.0
-    nixpkgs.url = "github:nixpkgs/nixos-unstable?rev=6c8644fc37b6e141cbfa6c7dc8d98846c4ff0c2e";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 

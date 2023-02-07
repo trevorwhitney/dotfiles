@@ -32,6 +32,8 @@
           "x-scheme-handler/ftp" = "firefox.desktop;";
           "x-scheme-handler/http" = "firefox.desktop";
           "x-scheme-handler/https" = "firefox.desktop";
+          "x-scheme-handler/mailto" = "google-chrome-beta.desktop";
+
           "application/vnd.debian.binary-package" = "com.github.donadigo.eddy.desktop;";
         };
       };

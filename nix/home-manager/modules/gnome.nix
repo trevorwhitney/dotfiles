@@ -44,7 +44,8 @@
         "FantasqueSansMono"
         "FiraCode"
         "Hack"
-        "Iosevka"
+        /* Iosevka is failing to download */
+        /* "Iosevka" */
         "JetBrainsMono"
         "Noto"
         "Terminus"

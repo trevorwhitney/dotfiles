@@ -7,6 +7,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        nodejs = pkgs.nodejs-16_x;
       in
       {
         devShells.default = pkgs.mkShell {
@@ -14,11 +15,26 @@
             bashInteractive
             gnumake
             go
-            nodejs-16_x
+
+            nodejs
             (yarn.override {
-              nodejs = null;
+              inherit nodejs;
             })
             mage
+
+            nodePackages.bash-language-server
+            nodePackages.dockerfile-language-server-nodejs
+            nodePackages.eslint
+            nodePackages.eslint_d
+            nodePackages.fixjson
+            nodePackages.neovim
+            nodePackages.prettier
+            nodePackages.typescript
+            nodePackages.typescript-language-server
+            nodePackages.vim-language-server
+            nodePackages.vscode-langservers-extracted
+            nodePackages.write-good
+            nodePackages.yaml-language-server
           ];
         };
       });
