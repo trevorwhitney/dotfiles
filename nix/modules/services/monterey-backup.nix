@@ -19,7 +19,7 @@ in
   systemd.services."backup" = {
     description = "Back up files";
     serviceConfig = {
-      ExecStart = with pkgs; writers.writeDash "backup" ''
+      ExecStart = with pkgs; writers.writeBash "backup" ''
         ${rsync}/bin/rsync -a --delete \
           /var/lib/nzbget \
           /var/lib/plex \

@@ -107,7 +107,7 @@ in
       Type = "oneshot";
       RemainAfterExit = true;
       PrivateNetwork = true;
-      ExecStart = with pkgs; "${writers.writeDash "netns-up" ''
+      ExecStart = with pkgs; "${writers.writeBash "netns-up" ''
         ${iproute2}/bin/ip netns add $1
         ${util-linux}/bin/umount /var/run/netns/$1
         ${util-linux}/bin/mount --bind /proc/self/ns/net /var/run/netns/$1
@@ -127,7 +127,7 @@ in
         RemainAfterExit = true;
         before = [ "network.target" ];
         requires = [ "network-online.target" ];
-        ExecStart = with pkgs; writers.writeDash "create-netns" ''
+        ExecStart = with pkgs; writers.writeBash "create-netns" ''
           ${iproute2}/bin/ip link add veth-vpn netns openvpn type veth peer name host-vpn netns 1
           ${iproute2}/bin/ip -n openvpn addr add 127.0.0.1/8 dev lo
           ${iproute2}/bin/ip -n openvpn link set dev lo up
@@ -156,7 +156,7 @@ in
 
           ${procps}/bin/sysctl -w net.ipv4.ip_forward=1
         '';
-        ExecStop = with pkgs; writers.writeDash "wg-down" ''
+        ExecStop = with pkgs; writers.writeBash "wg-down" ''
           ${iproute2}/bin/ip -n openvpn link del veth-vpn
           ${iproute2}/bin/ip -n openvpn route del default dev veth-vpn
 
