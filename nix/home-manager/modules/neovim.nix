@@ -157,6 +157,8 @@ in
                 nodePackages.vscode-langservers-extracted
                 nodePackages.write-good
                 nodePackages.yaml-language-server
+
+                lua51Packages.luacheck
               ] else [ ];
           in
           with pkgs;
