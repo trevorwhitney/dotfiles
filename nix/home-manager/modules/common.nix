@@ -72,6 +72,7 @@ in
     gradle
     helm-docs
     home-manager
+    jetbrains.idea-community
     jsonnet-bundler
     jq
     k9s

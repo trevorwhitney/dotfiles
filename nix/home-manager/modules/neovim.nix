@@ -23,56 +23,6 @@ in
 
     in
     rec {
-      # always start vim in a tmux pane
-      home.file.".local/bin/vim".text = ''
-        #!${pkgs.bash}/bin/bash
-        mkdir -p "''${HOME}/.cache/nvim"
-
-        current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-        working_dir="''$(pwd)"
-
-        file="''${@}"
-        if [[ ''$# -eq 1 ]]; then
-          case ''$file in
-            /*) ;;
-            *) file="''${working_dir}/''${file}" ;;
-          esac
-        fi
-
-        if [[ ! -z "''$file" ]]; then
-          dir="''$(dirname ''$file)"
-          if [[ -d "''$file" ]]; then
-            dir="''$file"
-          fi
-          pushd ''$dir > /dev/null
-          current_dir="''$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
-          popd > /dev/null
-        fi
-
-        dir_name="''$(basename ''${current_dir})"
-        if [[ -z "''${TMUX}" ]]; then
-          session_name="''${dir_name}"
-          session_socket="''${HOME}/.cache/nvim/''${dir_name}.pipe"
-
-          if tmux ls &> /dev/null && tmux has-session -t "''${session_name}"; then
-            if [[ $# -ne 0 ]]; then
-              ${finalPackage}/bin/nvim --server "''${session_socket}" --remote ''$file
-            fi
-            tmux attach -t "''${session_name}"
-          else
-            if [[ -e "''${session_socket}" ]]; then
-              ${finalPackage}/bin/nvim --server "''${session_socket}" --remote-send "<Esc>:qa!<cr>"
-              rm -f ''${session_socket}
-            fi
-
-            tmux new-session -s "''${session_name}" -n "''${dir_name}" ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$file
-          fi
-        else
-          ${finalPackage}/bin/nvim --listen "''${session_socket}" ''$file
-        fi
-      '';
-      home.file.".local/bin/vim".executable = true;
-
       xdg.dataFile."jdtls/config_linux/config.ini" =
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
       programs.neovim = {
@@ -84,7 +34,7 @@ in
           nodejs = nodeJsPkg;
         };
         # use own custom script above for starting in tmux
-        vimAlias = false;
+        vimAlias = true;
         vimdiffAlias = true;
 
         extraConfig =

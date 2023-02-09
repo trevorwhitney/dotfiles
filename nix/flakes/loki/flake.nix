@@ -84,6 +84,7 @@
             [
               kubectl-1-22-15
               envsubst
+              mixtool
             ]);
 
           shellHook = ''
