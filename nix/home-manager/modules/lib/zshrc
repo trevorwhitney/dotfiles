@@ -64,9 +64,9 @@ else
   export BAT_THEME="Solarized (light)"
   export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (light)"
   # Solarized
-  # export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#fdf6e3"
+  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#fdf6e3"
   # Seoulbones
-  export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#e2e2e2"
+  # export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#e2e2e2"
 fi
 
 autoload -Uz compinit

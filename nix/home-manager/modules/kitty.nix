@@ -28,7 +28,7 @@ in
         "kitty_mod+k" = "clear_terminal to_cursor active";
       };
 
-      theme = "seoulbones_light";
+      theme = "Solarized Light";
     };
   };
 }
