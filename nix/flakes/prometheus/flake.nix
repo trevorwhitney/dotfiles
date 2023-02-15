@@ -16,7 +16,6 @@
             go
             golangci-lint
             nodejs-16_x
-            yamllint
           ];
         };
       });
