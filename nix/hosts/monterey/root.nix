@@ -95,6 +95,8 @@ in
         '';
     };
 
+  boot.supportedFilesystems = ["ntfs"];
+
   fileSystems."/mnt/seagate" = {
     device = "/dev/mapper/${seagate_crypt}";
     fsType = "ext4";

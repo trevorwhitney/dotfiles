@@ -17,6 +17,7 @@ in
   home.file.".prettierrc".source = "${dotfiles}/prettierrc.json";
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
   home.file.".todo/config".source = "${dotfiles}/todo.cfg";
+  home.file.".ideavimrc".source = "${dotfiles}/ideavimrc";
 
   home.file.".mozilla/native-messaging-hosts/tridactyl.json".source =
     "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";

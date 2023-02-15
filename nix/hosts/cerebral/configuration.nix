@@ -18,6 +18,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.supportedFilesystems = ["ntfs"];
 
   # Prepare system for flakes
   nix =
