@@ -14,6 +14,7 @@
             bashInteractive
             gnumake
             go
+            gotools
             golangci-lint
             nodejs-16_x
           ];
