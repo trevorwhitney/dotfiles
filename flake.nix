@@ -93,15 +93,13 @@
         "twhitney@penguin" = nix.homeConfigurations.x86_64-linux."twhitney@penguin";
       };
 
-      templates= {
+      templates= rec {
         dev = {
          path = "${self}/nix/templates/dev";
          description = "My Basic Development Environment";
         };
+        default = dev;
       };
-
-      templates.default = templates.dev;
-
     } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let
       pkgs = import nixpkgs {
