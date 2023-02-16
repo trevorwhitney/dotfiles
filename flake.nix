@@ -99,6 +99,9 @@
          description = "My Basic Development Environment";
         };
       };
+
+      templates.default = templates.dev;
+
     } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let
       pkgs = import nixpkgs {
