@@ -92,6 +92,13 @@
         "twhitney@cerebral" = nix.homeConfigurations.x86_64-linux."twhitney@cerebral";
         "twhitney@penguin" = nix.homeConfigurations.x86_64-linux."twhitney@penguin";
       };
+
+      templates= {
+        dev = {
+         path = "${self}/nix/templates/dev";
+         description = "My Basic Development Environment";
+        };
+      };
     } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let
       pkgs = import nixpkgs {

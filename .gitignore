@@ -4,3 +4,4 @@ units/monitoring/prometheus.yml
 units/jdtls/prometheus.yml
 result
 .direnv
+!nix/templates/dev/.envrc
