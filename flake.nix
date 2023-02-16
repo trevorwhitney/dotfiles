@@ -1,5 +1,5 @@
 {
-  description = "Stem NixOS System Config";
+  description = "NixOS and Home Manager System Configs";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
