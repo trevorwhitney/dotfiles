@@ -37,20 +37,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # For deploying remote systems
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-    };
-
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
   };
 
   outputs =
     { self
-    , deploy-rs
     , flake-utils
     , home-manager
     , neovim
@@ -69,7 +61,6 @@
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
 
-        deploy-rs.overlay
         neovim.overlay
         nixgl.overlay
         nixpkgs-mozilla.overlays.firefox
@@ -96,20 +87,7 @@
     in
     {
       inherit (nix) nixosConfigurations;
-      # deploy .#monterey
-      deploy.nodes.monterey = {
-        hostname = "localhost";
-        sshUser = "twhitney";
-        user = "root";
-        sshOpts = [ "-p" "2222" ]; # uses NAT interface on VM
-        profiles = {
-          system = {
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."monterey";
-          };
-        };
-      };
 
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       homeConfigurations = {
         "twhitney@cerebral" = nix.homeConfigurations.x86_64-linux."twhitney@cerebral";
         "twhitney@penguin" = nix.homeConfigurations.x86_64-linux."twhitney@penguin";
@@ -127,90 +105,8 @@
       devShells = {
         default = import ./shell.nix { inherit pkgs; };
       };
-      apps = {
-        install-monterey-vm = {
-          type = "app";
-          program = with pkgs; "${
-                (writeShellScriptBin "install.sh" ''
-                  VBoxManage import ./result/monterey.ova
-                  VBoxManage modifyvm monterey --natpf1 "ssh,tcp,,2222,,22"
-                  VBoxManage modifyvm monterey --nic2 bridged --nictype2 82540EM --bridgeadapter2 enp9s0
-                  VBoxManage modifyvm monterey --usbxhci on
-                  VBoxManage startvm monterey --type separate
-                '')
-              }/bin/install.sh";
-        };
-        start-monterey-vm = {
-          type = "app";
-          program = with pkgs; "${
-                (writeShellScriptBin "install.sh" ''
-                  VBoxManage startvm monterey --type separate
-                '')
-              }/bin/install.sh";
-        };
-        # for automation, may want to build something around this
-        # VBoxManage guestproperty get monterey "/VirtualBox/GuestInfo/OS/LoggedInUsers"
-        attach-monterey-drives = {
-          type = "app";
-          program = with pkgs; "${
-                (writeShellScriptBin "attach.sh" ''
-                  VBoxManage controlvm monterey usbattach sysfs:/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb2/2-2//device:/dev/vboxusb/002/003
-                  VBoxManage controlvm monterey usbattach sysfs:/sys/devices/pci0000:00/0000:00:01.3/0000:02:00.0/usb2/2-1//device:/dev/vboxusb/002/002
-                '')
-              }/bin/attach.sh";
-        };
-      };
       packages = {
         inherit (pkgs) i3-gnome-flashback;
-        #TODO: this is an experiment
-        monterey-libvirt = nixos-generators.nixosGenerate {
-          inherit system;
-          format = "qcow";
-          modules = [
-            ./nix/modules/virtualbox.nix
-            ./nix/hosts/monterey/root.nix
-            ./nix/hosts/monterey/twhitney.nix
-            # TODO: monterey needs to sync /var/lib
-            {
-              nixpkgs = {
-                inherit pkgs;
-                hostPlatform = "x86_64-linux";
-              };
-              services.xserver = {
-                desktopManager.xterm.enable = true;
-              };
-            }
-          ];
-        };
-        monterey-vm = nixos-generators.nixosGenerate {
-          inherit system;
-          format = "virtualbox";
-          modules = [
-            ./nix/modules/virtualbox.nix
-            ./nix/hosts/monterey/root.nix
-            ./nix/hosts/monterey/twhitney.nix
-            {
-              nixpkgs = {
-                inherit pkgs;
-                hostPlatform = "x86_64-linux";
-              };
-              services.xserver = {
-                desktopManager.xterm.enable = true;
-              };
-              virtualbox = {
-                baseImageSize = 50 * 1024;
-                memorySize = 2048;
-                vmDerivationName = "monterey";
-                vmName = "monterey";
-                vmFileName = "monterey.ova";
-                params = {
-                  audio = "alsa";
-                  usb = "on";
-                };
-              };
-            }
-          ];
-        };
       };
     }));
 }

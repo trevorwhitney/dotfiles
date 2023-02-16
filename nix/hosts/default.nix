@@ -6,12 +6,6 @@ let
   };
 in
 {
-  monterey = lib.nixosSystem {
-    system = "x86_64-linux";
-    modules = import ./monterey {
-      inherit self secrets pkgs lib modulesPath home-manager nurPkgs nixos-hardware;
-    };
-  };
   cerebral = lib.nixosSystem {
     system = "x86_64-linux";
     modules = import ./cerebral {
