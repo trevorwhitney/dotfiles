@@ -4,10 +4,6 @@
   services.xserver = {
     displayManager = {
       defaultSession = "gnome";
-      autoLogin = {
-        user = "twhitney";
-        enable = true;
-      };
     };
 
     desktopManager = {

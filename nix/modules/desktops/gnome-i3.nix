@@ -3,10 +3,6 @@
   services.xserver = {
     displayManager = {
       /* defaultSession = "gnome-flashback-i3"; */
-      autoLogin = {
-        user = "twhitney";
-        enable = true;
-      };
     };
 
     desktopManager.gnome = {
