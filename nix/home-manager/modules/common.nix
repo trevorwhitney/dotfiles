@@ -64,7 +64,6 @@ in
     gnused
     gnumake
     go
-    golangci-lint
     (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
       beta
       alpha
