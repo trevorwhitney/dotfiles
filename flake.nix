@@ -89,14 +89,13 @@
       inherit (nix) nixosConfigurations;
 
       homeConfigurations = {
-        "twhitney@cerebral" = nix.homeConfigurations.x86_64-linux."twhitney@cerebral";
-        "twhitney@penguin" = nix.homeConfigurations.x86_64-linux."twhitney@penguin";
+        inherit (nix.homeConfigurations.x86_64-linux) "twhitney@cerebral" "twhitney@penguin" "twhitney@kolide";
       };
 
-      templates= rec {
+      templates = rec {
         dev = {
-         path = "${self}/nix/templates/dev";
-         description = "My Basic Development Environment";
+          path = "${self}/nix/templates/dev";
+          description = "My Basic Development Environment";
         };
         default = dev;
       };
