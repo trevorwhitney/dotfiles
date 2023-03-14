@@ -85,6 +85,7 @@ in
     git
     vim
     wget
+    home-manager
   ];
 
   environment.binbash = "${pkgs.bashInteractive}/bin/bash";
