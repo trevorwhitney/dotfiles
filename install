@@ -19,9 +19,14 @@ fi
 source "$current_dir/lib.sh"
 
 set -e # Exit if any command fails
+sudo apt update
 
 if [[ ! $(command -v zsh) ]]; then
-  sudo apt update && sudo apt install -y zsh
+  sudo apt install -y zsh
+fi
+
+if [[ ! $(command -v curl) ]]; then
+  sudo apt install -y curl
 fi
 
 # jq is a required dependency
