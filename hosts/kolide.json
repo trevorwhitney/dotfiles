@@ -1,0 +1,23 @@
+{
+  "excluded": [
+    "apt",
+    "cerebral",
+    "crostini",
+    "flatpak",
+    "grafana",
+    "monitoring",
+    "ssh-server-linux",
+    "tailscale"
+  ],
+  "name": "kolide",
+  "nix": {
+    "user": "twhitney",
+    "group": "nix-users",
+    "sandbox": {
+      "enabled": false
+    }
+  },
+  "units": [
+    "home-manager"
+  ]
+}
