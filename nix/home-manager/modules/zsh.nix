@@ -40,7 +40,7 @@ in
       logcli = "nix run github:grafana/loki#logcli -- ";
       loki = "nix run github:grafana/loki#loki -- ";
       gcom = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#gcom -- ";
-      flux-ignore = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#flux-ignore -- ";
+      flux-ignore = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#flux-ignore -- -actor=trevor.whitney@grafana.com ";
       rt = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#rt -- ";
     };
   };
