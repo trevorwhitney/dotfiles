@@ -2,9 +2,11 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    # TODO: fonts are broken after this sha
-    nixpkgs.url = "github:NixOS/nixpkgs/f5dad40450d272a1ea2413f4a67ac08760649e89";
-    /* nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; */
+    nixpkgs.url = "github:NixOS/nixpkgs/release-22.11";
+
+    # Want certain packages from the bleeding-edge, but not the whole system.
+    # These get pulled out via an overlay.
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -53,13 +55,30 @@
     , nixos-hardware
     , nixpkgs
     , nixpkgs-mozilla
+    , nixpkgs-unstable
     , nur
     , secrets
     , ...
     }:
     let
       inherit (nixpkgs) lib;
+
       overlays = [
+        # Selectively pick packages from nixpkgs-unstable
+        (import "${self}/nix/overlays/nixpkgs-unstable.nix" {
+          pkgs = import nixpkgs-unstable {
+            system = "x86_64-linux";
+            config = {
+              allowUnfree = true;
+              #TODO: what needs python 2.7?
+              #Is it Davinci-resolve?
+              permittedInsecurePackages = [
+                "python-2.7.18.6"
+              ];
+            };
+          };
+        })
+
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
 
@@ -70,6 +89,7 @@
         neovim.overlay
         nixgl.overlay
         nixpkgs-mozilla.overlays.firefox
+        nixpkgs-mozilla.overlays.rust
         secrets.overlay
       ];
 
