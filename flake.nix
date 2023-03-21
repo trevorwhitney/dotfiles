@@ -32,9 +32,6 @@
     # Hardware specific configs
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # Firefox nightly
-    nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
-
     # For creating nixos images for various platforms
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -54,7 +51,6 @@
     , nixos-generators
     , nixos-hardware
     , nixpkgs
-    , nixpkgs-mozilla
     , nixpkgs-unstable
     , nur
     , secrets
@@ -88,8 +84,6 @@
 
         neovim.overlay
         nixgl.overlay
-        nixpkgs-mozilla.overlays.firefox
-        nixpkgs-mozilla.overlays.rust
         secrets.overlay
       ];
 
