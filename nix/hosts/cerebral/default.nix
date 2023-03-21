@@ -25,7 +25,11 @@
     home-manager.useUserPackages = true;
     home-manager.users.twhitney = {
       programs.firefox.nurPkgs = nurPkgs;
+      # Do not need to change this when updating home-manager versions.
+      # Only change when release notes indicate it's required, as it
+      # usually requires some manual intervention.
       home.stateVersion = "22.11";
+
       imports = [ ../../home-manager/hosts/cerebral.nix ];
     };
   }
