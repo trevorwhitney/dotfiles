@@ -10,7 +10,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/release-22.05";
+    home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     neovim.url = "github:neovim/neovim?dir=contrib";
