@@ -18,7 +18,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.kernelPackages = pkgs.linuxPackages_5_15;
-  boot.supportedFilesystems = ["ntfs"];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # Prepare system for flakes
   nix =
@@ -83,6 +83,7 @@ in
   environment.systemPackages = with pkgs; [
     curl
     git
+    google-drive-ocamlfuse
     vim
     wget
     home-manager
@@ -128,6 +129,12 @@ in
       8080
       3100
       8631
+
+      3389 # RDP
+    ];
+
+    allowedUDPPorts = [
+      3389 # RDP
     ];
   };
 
