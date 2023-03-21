@@ -82,6 +82,7 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     curl
+    dropbox
     git
     google-drive-ocamlfuse
     vim

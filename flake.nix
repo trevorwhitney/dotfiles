@@ -2,7 +2,9 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    # TODO: fonts are broken after this sha
+    nixpkgs.url = "github:NixOS/nixpkgs/f5dad40450d272a1ea2413f4a67ac08760649e89";
+    /* nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable"; */
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -60,6 +62,10 @@
       overlays = [
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
+
+        #TODO: required until possible to upgrade home-manager (> 22.05)
+        # after going to nixos-unstable
+        (import "${self}/nix/overlays/kitty-themes.nix")
 
         neovim.overlay
         nixgl.overlay

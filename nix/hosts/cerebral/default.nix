@@ -25,6 +25,7 @@
     home-manager.useUserPackages = true;
     home-manager.users.twhitney = {
       programs.firefox.nurPkgs = nurPkgs;
+      home.stateVersion = "22.05";
       imports = [ ../../home-manager/hosts/cerebral.nix ];
     };
   }
