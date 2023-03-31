@@ -15,7 +15,8 @@
   ./twhitney.nix
   ./graphics.nix
 
-  ../../modules/desktops/gnome-shell.nix
+  /* ../../modules/desktops/gnome-shell.nix */
+  ../../modules/desktops/kde.nix
   ../../modules/gui-apps.nix
   ../../modules/binbash.nix
 
@@ -23,6 +24,7 @@
   {
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
+    home-manager.backupFileExtension = "bak";
     home-manager.users.twhitney = {
       programs.firefox.nurPkgs = nurPkgs;
       # Do not need to change this when updating home-manager versions.

@@ -28,7 +28,8 @@
             gnumake
 
             # Golang
-            go_1_20
+            delve
+            go
             gotools
             golangci-lint
             faillint

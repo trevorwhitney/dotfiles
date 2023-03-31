@@ -4,7 +4,8 @@
     ../../home-manager/modules/common.nix
     ../../home-manager/modules/firefox.nix
     ../../home-manager/modules/git.nix
-    ../../home-manager/modules/gnome.nix
+    /* ../../home-manager/modules/gnome.nix */
+    ../../home-manager/modules/kde.nix
     ../../home-manager/modules/kitty.nix
     ../../home-manager/modules/neovim.nix
     ../../home-manager/modules/spotify.nix
