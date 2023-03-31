@@ -14,6 +14,7 @@
 
   environment.systemPackages = with pkgs.plasma5Packages; [
     kalendar
+    kgpg
     ksshaskpass
   ];
 }
