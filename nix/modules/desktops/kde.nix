@@ -2,6 +2,10 @@
   imports = [ ./kde-base.nix ];
 
   services.xserver = {
+    displayManager = {
+      defaultSession = "plasmawayland";
+    };
+
     desktopManager = {
       plasma5 = {
         enable = true;
