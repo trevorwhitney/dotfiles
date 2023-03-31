@@ -14,7 +14,7 @@
 
   environment.systemPackages = with pkgs.plasma5Packages; [
     kalendar
-    kgpg
+    kgpg #TODO: created config in ~/.gnupg/gpg.conf, move to home-manager
     ksshaskpass
   ];
 }
