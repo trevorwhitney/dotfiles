@@ -37,12 +37,15 @@ in
     "${dotfiles}/config/k9s/solarized_light.yml";
 
   # Automatically add SSH keys to ssh-agent
-  xdg.configFile."autostart/ssh-add".text = ''
-    [Desktop Entry]
-    Exec=ssh-add -q .ssh/id_ed25519
-    Name=ssh-add
-    Type=Application
-  '';
+  xdg.configFile."autostart/ssh-add" = {
+    executable = true;
+    text = ''
+      [Desktop Entry]
+      Exec=ssh-add -q .ssh/id_ed25519
+      Name=ssh-add
+      Type=Application
+    '';
+  };
 
   home.file.".tridactylrc".source = "${dotfiles}/config/tridactyl/tridactylrc";
 

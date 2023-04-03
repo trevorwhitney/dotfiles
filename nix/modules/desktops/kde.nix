@@ -19,15 +19,26 @@
     };
   };
 
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-kde
+      ];
+    };
+  };
+
   console.useXkbConfig = true;
 
   environment.systemPackages = with pkgs; [
+    polkit
+  ] ++ (with pkgs.plasma5Packages; [
     kalendar
     kgpg
     ksshaskpass
-    libsForQt5.polkit-kde-agent
-    polkit
-  ];
+    plasma-browser-integration
+    polkit-kde-agent
+  ]);
 
   environment.pathsToLink =
     [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
@@ -35,7 +46,7 @@
   security.polkit.enable = true;
 
   security.pam.services.kwallet = {
-    name = "KDE Wallet";
+    name = "kdewallet";
     enableKwallet = true;
   };
 

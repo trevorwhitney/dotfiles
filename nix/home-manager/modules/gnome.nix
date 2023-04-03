@@ -1,4 +1,14 @@
 { config, pkgs, lib, ... }: {
+
+  programs.firefox = {
+    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+      cfg = {
+        enableTridactylNative = true;
+        enableGnomeExtensions = true;
+      };
+    };
+  };
+
   gtk = {
     enable = true;
     font = {
