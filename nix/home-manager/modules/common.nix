@@ -18,6 +18,16 @@ in
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
   home.file.".todo/config".source = "${dotfiles}/todo.cfg";
   home.file.".ideavimrc".source = "${dotfiles}/ideavimrc";
+  home.file.".gnupg/gpg-agent.conf".text = ''
+    default-cache-ttl 86400
+    max-cache-ttl 86400
+  '';
+  home.file.".gnupg/gpg.conf".text = ''
+    default-key  78F930867F302694
+
+    keyserver  hkp://pool.sks-keyservers.net
+    use-agent
+  '';
 
   home.file.".mozilla/native-messaging-hosts/tridactyl.json".source =
     "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
@@ -25,6 +35,14 @@ in
   xdg.configFile."yamllint/config".source = "${dotfiles}/yamllint.yaml";
   xdg.configFile."k9s/skin.yml".source =
     "${dotfiles}/config/k9s/solarized_light.yml";
+
+  # Automatically add SSH keys to ssh-agent
+  xdg.configFile."autostart/ssh-add".text = ''
+    [Desktop Entry]
+    Exec=ssh-add -q .ssh/id_ed25519
+    Name=ssh-add
+    Type=Application
+  '';
 
   home.file.".tridactylrc".source = "${dotfiles}/config/tridactyl/tridactylrc";
 

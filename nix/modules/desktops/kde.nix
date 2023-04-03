@@ -1,8 +1,14 @@
 { config, pkgs, ... }: {
-  imports = [ ./kde-base.nix ];
-
   services.xserver = {
+    enable = true;
+    layout = "us";
+    xkbVariant = "";
+    xkbOptions = "ctrl:nocaps,caps:ctrl_modifier";
+
     displayManager = {
+      sddm = {
+        enable = true;
+      };
       defaultSession = "plasmawayland";
     };
 
@@ -13,12 +19,28 @@
     };
   };
 
+  console.useXkbConfig = true;
+
+  environment.systemPackages = with pkgs; [
+    kalendar
+    kgpg
+    ksshaskpass
+    libsForQt5.polkit-kde-agent
+    polkit
+  ];
+
+  environment.pathsToLink =
+    [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+
+  security.polkit.enable = true;
+
+  security.pam.services.kwallet = {
+    name = "KDE Wallet";
+    enableKwallet = true;
+  };
+
   programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
 
-  environment.systemPackages = with pkgs.plasma5Packages; [
-    kalendar
-    kgpg #TODO: created config in ~/.gnupg/gpg.conf, move to home-manager
-    ksshaskpass
-  ];
+  environment.sessionVariables.SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
 }
