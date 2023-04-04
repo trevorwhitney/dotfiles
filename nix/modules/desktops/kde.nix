@@ -35,6 +35,7 @@
   ] ++ (with pkgs.plasma5Packages; [
     kalendar
     kgpg
+    kscreenlocker
     ksshaskpass
     plasma-browser-integration
     polkit-kde-agent
@@ -54,4 +55,7 @@
   programs.kdeconnect.enable = true;
 
   environment.sessionVariables.SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+
+  # TODO: Is this still needed for slack on wayland?
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
