@@ -22,6 +22,8 @@
     roboto
     siji
 
+    qalculate-qt
+
     (nerdfonts.override {
       fonts = [
         "CascadiaCode"

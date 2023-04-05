@@ -32,12 +32,6 @@
     # Hardware specific configs
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
-    # For creating nixos images for various platforms
-    nixos-generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
   };
@@ -48,7 +42,6 @@
     , home-manager
     , neovim
     , nixgl
-    , nixos-generators
     , nixos-hardware
     , nixpkgs
     , nixpkgs-unstable
