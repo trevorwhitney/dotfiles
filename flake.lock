@@ -208,17 +208,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1675194220,
-        "narHash": "sha256-wqGUyS5usg3+a9ehpDxbE7seyJRwWTlisXfOOh0G8YI=",
+        "lastModified": 1680717734,
+        "narHash": "sha256-ACYApCVgpXFJpd86/oBCD8J7U2TxCB31RHcAhZw4Khs=",
         "ref": "main",
-        "rev": "817364ca6919c2dd1462f1a316998c735d30d625",
-        "revCount": 14,
+        "rev": "cee6a24dd3d9374a5fa6317c6867e7930a94e63c",
+        "revCount": 16,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       },
       "original": {
         "ref": "main",
-        "rev": "817364ca6919c2dd1462f1a316998c735d30d625",
+        "rev": "cee6a24dd3d9374a5fa6317c6867e7930a94e63c",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }

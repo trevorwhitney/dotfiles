@@ -1,9 +1,12 @@
 {
   description = "A general purpose development environment";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
-  inputs.loki.url = "github:grafana/loki";
-  inputs.loki.inputs.flake-utils.follows = "flake-utils";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    loki.url = "github:grafana/loki";
+    loki.inputs.flake-utils.follows = "flake-utils";
+  };
 
   outputs = { self, nixpkgs, flake-utils, loki }:
     flake-utils.lib.eachDefaultSystem (system:
@@ -11,8 +14,7 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-            loki.overlays.default
-            loki.overlays.golangci-lint
+            (import ../../overlays/faillint.nix)
           ];
           config = { allowUnfree = true; };
         };
