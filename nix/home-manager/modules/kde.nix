@@ -7,7 +7,6 @@
           enablePlasmaBrowserIntegration = true;
         };
       };
-
     };
 
   fonts.fontconfig.enable = true;

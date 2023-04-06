@@ -5,15 +5,15 @@ in
 
 final: prev: rec {
   inherit (pkgs)
-    firefox-beta-bin-unwrapped
+    # Run the latest firefrox
     firefox-bin-unwrapped
     firefox-unwrapped
-    kscreenlocker
+
+    # Run the latest KDE
     libsForQt5
-    lua-language-server
-    plasma-desktop
     plasma5Packages
-    sddm;
+
+    lua-language-server;
 
   # Virtualbox needs the libsForQt5 overridden above, but the version in unstable (7)
   # doesn't work with my images, so force a downgrade to 6.1.40.
