@@ -37,6 +37,21 @@ in
       rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles";
       rollback = "sudo nixos-rebuild switch --rollback";
 
+      # needed because of KDE unlock weirdness
+      unlock =
+        let
+          activateAndUnlock = pkgs.writeShellScriptBin "activate-and-unlock" ''
+            function unlock() {
+              local session=$1
+              ${pkgs.systemd}/bin/loginctl unlock-session $session
+              ${pkgs.systemd}/bin/loginctl activate $session
+            }
+
+            unlock $@
+          '';
+        in
+        "${activateAndUnlock}/bin/activate-and-unlock";
+
       #Grafana
       logcli = "nix run github:grafana/loki#logcli -- ";
       loki = "nix run github:grafana/loki#loki -- ";
