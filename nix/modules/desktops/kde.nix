@@ -33,11 +33,9 @@
   environment.systemPackages = with pkgs; [
     polkit
   ] ++ (with pkgs.plasma5Packages; [
-    kalendar
     kscreenlocker
     ksshaskpass
     kwalletcli
-    plasma-browser-integration
     polkit-kde-agent
   ]);
 

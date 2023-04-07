@@ -14,16 +14,19 @@
   home.packages = with pkgs; [
     xorg.xfd
     xdg-desktop-portal
+    xdg-desktop-portal-kde
 
-    dejavu_fonts
     emote
+    kalendar
+    peek
+    plasma-browser-integration
+    qalculate-qt
+
+    # Fonts
+    dejavu_fonts
     fontconfig
     roboto
     siji
-
-    qalculate-qt
-    peek
-
     (nerdfonts.override {
       fonts = [
         "CascadiaCode"

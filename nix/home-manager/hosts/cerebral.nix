@@ -18,20 +18,11 @@
   manual.manpages.enable = false;
 
   programs.firefox = {
-    #TODO: currently not working to wrap nightly pacakge
-    # missing browser.gtk3 propery and icon not working
-    /* package = pkgs.wrapFirefox pkgs.lates.firefox-nightly-bin.unwrapped { */
-    /*   cfg = { */
-    /*     enableTridactylNative = true; */
-    /*     enableGnomeExtensions = true; */
-    /*   }; */
-
-    /*   icon = "firefox-nightly"; */
-    /* }; */
     profiles.default.settings = {
       "media.ffmpeg.vaapi.enabled" = true;
       "media.ffvpx.enabled" = false;
       "gfx.webrender.all" = true;
+      "layout.css.overflow-overlay.enabled" = true;
     };
   };
 
