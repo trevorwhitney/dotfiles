@@ -31,7 +31,7 @@ final: prev: rec {
           in assert (builtins.stringLength value) == 64; value;
       };
 
-  # TODO: move this to it's own overlay once whole system is on 22.05 to prevent upgrading to VirtualBox 7
+  # TODO: move this to it's own overlay once whole system is on 23.05 to prevent upgrading to VirtualBox 7
   virtualbox = pkgs.virtualbox.overrideAttrs (old: rec {
     version = virtualBoxVersion;
     src = prev.fetchurl {
