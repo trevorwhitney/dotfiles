@@ -9,15 +9,15 @@ final: prev: rec {
     firefox-bin-unwrapped
     firefox-unwrapped
 
-    # Run the latest KDE
+    # Run the latest KDE (TODO: remove after 23.05 is released as switch to using stable)
     libsForQt5
     plasma5Packages
 
+    # TODO: sumneko was renamed to just lua-language server. Remove after 23.05 and switch to using stable.
     lua-language-server;
 
   # Virtualbox needs the libsForQt5 overridden above, but the version in unstable (7)
   # doesn't work with my images, so force a downgrade to 6.1.40.
-
   virtualboxExtpack =
     prev.fetchurl
       rec {
@@ -31,6 +31,7 @@ final: prev: rec {
           in assert (builtins.stringLength value) == 64; value;
       };
 
+  # TODO: move this to it's own overlay once whole system is on 22.05 to prevent upgrading to VirtualBox 7
   virtualbox = pkgs.virtualbox.overrideAttrs (old: rec {
     version = virtualBoxVersion;
     src = prev.fetchurl {
