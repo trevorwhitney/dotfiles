@@ -22,6 +22,7 @@
     siji
 
     qalculate-qt
+    peek
 
     (nerdfonts.override {
       fonts = [
@@ -65,6 +66,14 @@
     '';
   };
 
+
+  # Use kwallet for gpg-agent pinentry
+  home.file.".gnupg/gpg-agent.conf".text = ''
+    default-cache-ttl 60480000
+    max-cache-ttl 60480000
+
+    pinentry-program ${pkgs.kwalletcli}/bin/pinentry-kwallet
+  '';
 
   xdg = {
     mimeApps = {

@@ -66,6 +66,12 @@
     })
   ];
 
+  # gpg-agent config without custom pinentry needed on KDE
+  home.file.".gnupg/gpg-agent.conf".text = ''
+    default-cache-ttl 60480000
+    max-cache-ttl 60480000
+  '';
+
   dconf = {
     # `gsettings list-recursively` to find settings
     enable = true;

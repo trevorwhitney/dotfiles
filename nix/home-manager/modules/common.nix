@@ -18,10 +18,6 @@ in
   home.file.".markdownlint.json".source = "${dotfiles}/markdownlint.json";
   home.file.".todo/config".source = "${dotfiles}/todo.cfg";
   home.file.".ideavimrc".source = "${dotfiles}/ideavimrc";
-  home.file.".gnupg/gpg-agent.conf".text = ''
-    default-cache-ttl 86400
-    max-cache-ttl 86400
-  '';
   home.file.".gnupg/gpg.conf".text = ''
     default-key  78F930867F302694
 

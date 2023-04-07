@@ -34,9 +34,9 @@
     polkit
   ] ++ (with pkgs.plasma5Packages; [
     kalendar
-    kgpg
     kscreenlocker
     ksshaskpass
+    kwalletcli
     plasma-browser-integration
     polkit-kde-agent
   ]);

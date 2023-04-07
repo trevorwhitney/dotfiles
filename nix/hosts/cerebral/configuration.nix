@@ -85,9 +85,9 @@ in
     dropbox
     git
     google-drive-ocamlfuse
+    home-manager
     vim
     wget
-    home-manager
   ];
 
   environment.binbash = "${pkgs.bashInteractive}/bin/bash";
