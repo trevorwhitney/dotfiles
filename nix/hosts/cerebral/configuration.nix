@@ -81,6 +81,11 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # nix-alien allows running of programs with hardcoded link loaders
+    # requires nix-ld, which is enabled below
+    # see: https://github.com/thiagokokada/nix-alien
+    nix-alien
+
     curl
     dropbox
     git
@@ -102,6 +107,13 @@ in
     };
 
     dconf.enable = true;
+
+    # Needed to run deal with hardcoded link loaders
+    # in some downloaded binaries
+    # See:
+    nix-ld = {
+      enable = true;
+    };
   };
 
   # Enable the OpenSSH daemon.

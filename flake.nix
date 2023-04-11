@@ -34,6 +34,11 @@
 
     # Nix User Repository
     nur.url = "github:nix-community/NUR";
+
+    # nix-alien allows running of programs with hardcoded link loaders
+    # requires programs.nix-ld to be enabled
+    # see: https://github.com/thiagokokada/nix-alien
+    nix-alien.url = "github:thiagokokada/nix-alien";
   };
 
   outputs =
@@ -41,6 +46,7 @@
     , flake-utils
     , home-manager
     , neovim
+    , nix-alien
     , nixgl
     , nixos-hardware
     , nixpkgs
@@ -74,6 +80,11 @@
         #TODO: required until possible to upgrade home-manager (> 22.05)
         # after going to nixos-unstable
         (import "${self}/nix/overlays/kitty-themes.nix")
+
+        (import "${self}/nix/overlays/nix-alien.nix" {
+          inherit nix-alien;
+          system = "x86_64-linux";
+        })
 
         neovim.overlay
         nixgl.overlay
