@@ -36,14 +36,6 @@ Because I keep forgetting them
   `select-layout even-horizontal`
   Usually assigned to: Ctrl+b, Alt+1
 
-## Nix
-
-When creating a local package, the following command is useful:
-
-```bash
-nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
-```
-
 ## Forwarding GPG and SSH Agent
 
 This is useful for machines you remote into but don't want to store secrets on.
