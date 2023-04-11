@@ -8,6 +8,8 @@
     # These get pulled out via an overlay.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
+    nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager.url = "github:nix-community/home-manager/release-22.11";
@@ -50,6 +52,7 @@
     , nixgl
     , nixos-hardware
     , nixpkgs
+    , nixpkgs-mozilla
     , nixpkgs-unstable
     , nur
     , secrets
@@ -89,6 +92,7 @@
         neovim.overlay
         nixgl.overlay
         secrets.overlay
+        nixpkgs-mozilla.overlay
       ];
 
       pkgs = import nixpkgs {

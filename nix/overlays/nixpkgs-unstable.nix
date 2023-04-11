@@ -6,8 +6,8 @@ in
 final: prev: rec {
   inherit (pkgs)
     # Run the latest firefrox
-    firefox-bin-unwrapped
-    firefox-unwrapped
+    /* firefox-bin-unwrapped */
+    /* firefox-unwrapped */
 
     # Run the latest KDE (TODO: remove after 23.05 is released as switch to using stable)
     libsForQt5
