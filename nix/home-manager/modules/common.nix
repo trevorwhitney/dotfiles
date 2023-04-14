@@ -114,7 +114,11 @@ in
     tz
     vault
     virtualenv
+
+    # TODO: can we have both, should there be guard for X11 vs wayland?
     xsel
+    wl-clipboard
+
     yamale
     yarn
   ];

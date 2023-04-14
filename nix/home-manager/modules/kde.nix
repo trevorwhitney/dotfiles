@@ -7,7 +7,7 @@
           enablePlasmaBrowserIntegration = true;
         };
 
-        icon = "firefox";
+        icon = "firefox-nightly";
         wmClass = "firefox";
       };
     };

@@ -20,7 +20,7 @@
           inherit system;
           overlays = [
             loki.overlays.default
-            loki.overlays.golangci-lint
+            /* loki.overlays.golangci-lint */
             secrets.overlay
             (import ../../overlays/kubectl.nix { inherit system; })
           ] ++ (import ./overlays);
@@ -28,27 +28,40 @@
         };
       in
       {
-        devShells.default = loki.devShell.${system}.overrideAttrs (old: {
-          buildInputs = old.buildInputs ++ (with pkgs;
-            [
-              kubectl-1-22-15
-              envsubst
-              mixtool
-              gotools
+        devShells.default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            chart-releaser
+            chart-testing
+            delve
+            envsubst
+            faillint
+            gcc
+            go
+            golangci-lint
+            gotools
+            gotools
+            helm-docs
+            kubectl-1-22-15
+            mixtool
+            nettools
+            nixpkgs-fmt
+            statix
+            systemd
+            yamllint
 
-              # Typescript for GitHub Actions
-              nodejs
-              (yarn.override {
-                inherit nodejs;
-              })
-              nodePackages.typescript
-              nodePackages.typescript-language-server
-            ]);
+            # Typescript for GitHub Actions
+            nodejs
+            (yarn.override {
+              inherit nodejs;
+            })
+            nodePackages.typescript
+            nodePackages.typescript-language-server
+          ];
 
           shellHook = ''
             source ${pkgs.secrets}/grafana/deployment-tools.sh
             alias k="${pkgs.kubectl-1-22-15}/bin/kubectl"
           '';
-        });
+        };
       });
 }
