@@ -42,4 +42,7 @@
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
+
+  # System76 hardware mods
+  hardware.system76.enableAll = true;
 }

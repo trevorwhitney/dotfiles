@@ -11,9 +11,10 @@
   nixos-hardware.nixosModules.common-cpu-amd
   nixos-hardware.nixosModules.common-gpu-amd
 
+  ./auto-upgrade.nix
   ./configuration.nix
-  ./twhitney.nix
   ./graphics.nix
+  ./twhitney.nix
   ./virtual-box.nix
 
   /* ../../modules/desktops/gnome-shell.nix */
