@@ -41,7 +41,7 @@ in
               url = "https://logs-prod-us-central1.grafana.net/loki/api/v1/push";
               basic_auth = {
                 username = "62022";
-                password_file = with pkgs; "${secrets}/promtail/grafana_cloud.key";
+                password_file = with pkgs; "${secrets}/grafana/grafana_cloud_publisher.key";
               };
             }
           ];
@@ -72,6 +72,40 @@ in
             ];
           }
         ];
+      };
+    };
+
+    prometheus = {
+      enable = true;
+      remoteWrite = [
+        {
+          url = "https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push";
+          basic_auth = {
+            username = "126099";
+            password_file = with pkgs; "${secrets}/grafana/grafana_cloud_publisher.key";
+          };
+        }
+      ];
+      globalConfig = {
+        external_labels = {
+          host = "cerebral";
+        };
+      };
+      scrapeConfigs = [
+        {
+          job_name = "node-exporter";
+          scrape_interval = "15s";
+          static_configs = [
+            {
+              targets = [ "localhost:9100" ];
+            }
+          ];
+        }
+      ];
+      exporters = {
+        node = {
+          enable = true;
+        };
       };
     };
   };
