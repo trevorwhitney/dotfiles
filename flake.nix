@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/release-22.11";
 
     # Want certain packages from the bleeding-edge, but not the whole system.
-    # These get pulled out via an overlay.
+    # These get pulled in via an overlay.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
