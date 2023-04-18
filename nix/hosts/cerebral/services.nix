@@ -101,10 +101,29 @@ in
             }
           ];
         }
+        {
+          job_name = "process-exporter";
+          scrape_interval = "15s";
+          static_configs = [
+            {
+              targets = [ "localhost:9256" ];
+            }
+          ];
+        }
       ];
       exporters = {
         node = {
           enable = true;
+        };
+        process = {
+          enable = true;
+          settings.process_names = [
+            # Remove nix store path from process name
+            {
+              name = "{{.Matches.Wrapped}} {{ .Matches.Args }}";
+              cmdline = [ "^/nix/store[^ ]*/(?P<Wrapped>[^ /]*) (?P<Args>.*)" ];
+            }
+          ];
         };
       };
     };
