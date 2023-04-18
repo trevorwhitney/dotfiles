@@ -13,6 +13,7 @@
 
   ./auto-upgrade.nix
   ./configuration.nix
+  ./services.nix
   ./graphics.nix
   ./twhitney.nix
   ./virtual-box.nix
