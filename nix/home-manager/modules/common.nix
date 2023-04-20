@@ -76,6 +76,7 @@ in
     docker
     docker-compose
     drone-cli
+    file
     fzf
     glow
     gnused
@@ -99,6 +100,7 @@ in
     lua51Packages.luarocks
     luajit
     lynis
+    mktemp
     mosh
     ncurses
     ngrok
