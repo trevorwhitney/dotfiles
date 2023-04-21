@@ -68,11 +68,6 @@
             system = "x86_64-linux";
             config = {
               allowUnfree = true;
-              #TODO: what needs python 2.7?
-              #Is it Davinci-resolve?
-              permittedInsecurePackages = [
-                "python-2.7.18.6"
-              ];
             };
           };
         })
@@ -80,9 +75,11 @@
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
 
-        #TODO: required until possible to upgrade home-manager (> 22.05)
-        # after going to nixos-unstable
+        # Fixes error of missing themes.json with newer versions
         (import "${self}/nix/overlays/kitty-themes.nix")
+
+        # Keep virtualbox on 6.*
+        (import "${self}/nix/overlays/virtualbox.nix")
 
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien;
@@ -100,8 +97,8 @@
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
-          #TODO: what needs python 2.7?
-          #Is it Davinci-resolve?
+          # TODO: Davinici-resolve needs this insecure version of python 2.7.
+          # Periodically check if this can be removed
           permittedInsecurePackages = [
             "python-2.7.18.6"
           ];
