@@ -108,7 +108,9 @@
           "x-scheme-handler/geo" = "openstreetmap-geo-handler.desktop;";
           "x-scheme-handler/http" = "firefox.desktop;";
           "x-scheme-handler/https" = "firefox.desktop;";
+          "x-scheme-handler/insomnia" = "insomnia.desktop;";
           "x-scheme-handler/mailto" = "google-chrome-beta.desktop;";
+          "x-scheme-handler/slack" = "slack.desktop";
           "x-scheme-handler/tel" = "org.kde.kdeconnect.handler.desktop;";
         };
       };
@@ -130,6 +132,8 @@
         "x-scheme-handler/geo" = "openstreetmap-geo-handler.desktop;";
         "x-scheme-handler/http" = "firefox.desktop;";
         "x-scheme-handler/https" = "firefox.desktop;";
+        "x-scheme-handler/insomnia" = "insomnia.desktop;";
+        "x-scheme-handler/slack" = "slack.desktop";
         "x-scheme-handler/tel" = "org.kde.kdeconnect.handler.desktop;";
         "x-scheme-handler/unknown" = "google-chrome.desktop;";
         "x-scheme-handler/webcal" = "google-chrome.desktop;";
