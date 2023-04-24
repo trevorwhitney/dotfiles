@@ -4,6 +4,8 @@
   virtualisation.virtualbox.host.enableExtensionPack = true;
 
   /*
+    TODO: not sure if this does anything, I think all I needed was the systemd unit below
+
     The following allow virtualbox to automatically start certain VMs on boot.
 
     Manually create the file /etc/vbox/autostart.cfg
@@ -37,12 +39,11 @@
     '';
   };
 
-  systemd.services."vbox@" = {
+  systemd.services."vbox@monterey" = {
     description = "Virtual Box Guest %I";
     after = [ "network.target" "vboxdrv.service" ];
     before = [ "runlevel2.target" "shutdown.target" ];
-    # List of VMs to start
-    wantedBy = [ "vbox@monterey.service" ];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       User = "twhitney";
       Group = "vboxusers";
