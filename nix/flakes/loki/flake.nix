@@ -40,6 +40,7 @@
             golangci-lint
             gotools
             gotools
+            gox
             helm-docs
             kubectl-1-22-15
             mixtool
