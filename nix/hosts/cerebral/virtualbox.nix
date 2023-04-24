@@ -8,18 +8,18 @@
 
     Manually create the file /etc/vbox/autostart.cfg
 
-      # deny by default
-      default_policy = deny
+    # deny by default
+    default_policy = deny
 
-      # allow autostart per user
-      twhitney = {
-        allow = true
-      }
+    # allow autostart per user
+    twhitney = {
+    allow = true
+    }
 
     Give /etc/vbox/autostart.cfg the correct permissions
 
-      chgrp vboxusers /etc/vbox
-      chmod 1775 /etc/vbox
+    chgrp vboxusers /etc/vbox
+    chmod 1775 /etc/vbox
 
     Choose VMs to automatically start and stop
 
@@ -35,5 +35,26 @@
       VBOXAUTOSTART_DB=/etc/vbox
       VBOXAUTOSTART_CONFIG=/etc/vbox/autostart.cfg
     '';
+  };
+
+  systemd.services."vbox@" = {
+    description = "Virtual Box Guest %I";
+    after = [ "network.target" "vboxdrv.service" ];
+    before = [ "runlevel2.target" "shutdown.target" ];
+    # List of VMs to start
+    wantedBy = [ "vbox@monterey.service" ];
+    serviceConfig = {
+      User = "twhitney";
+      Group = "vboxusers";
+      Type = "forking";
+      Restart = "no";
+      TimeoutSec = "5min";
+      IgnoreSIGPIPE = "no";
+      KillMode = "process";
+      GuessMainPID = "no";
+      RemainAfterExit = "yes";
+      ExecStart = "/run/current-system/sw/bin/VBoxManage startvm %I --type headless";
+      ExecStop = "/run/current-system/sw/bin/VBoxManage controlvm %I acpipowerbutton";
+    };
   };
 }

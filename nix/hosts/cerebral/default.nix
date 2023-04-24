@@ -16,7 +16,7 @@
   ./services.nix
   ./graphics.nix
   ./twhitney.nix
-  ./virtual-box.nix
+  ./virtualbox.nix
 
   /* ../../modules/desktops/gnome-shell.nix */
   ../../modules/desktops/kde.nix
