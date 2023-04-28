@@ -12,45 +12,6 @@
       };
     };
 
-  fonts.fontconfig.enable = true;
-
-  home.packages = with pkgs; [
-    xorg.xfd
-    xdg-desktop-portal
-    xdg-desktop-portal-kde
-
-    emote
-    kalendar
-    peek
-    plasma-browser-integration
-    qalculate-qt
-
-    # Fonts
-    dejavu_fonts
-    fontconfig
-    roboto
-    siji
-    (nerdfonts.override {
-      fonts = [
-        "CascadiaCode"
-        "DroidSansMono"
-        "FantasqueSansMono"
-        "FiraCode"
-        "Hack"
-        /* Iosevka is failing to download */
-        /* "Iosevka" */
-        "JetBrainsMono"
-        "Noto"
-        "Terminus"
-        "Ubuntu"
-        "UbuntuMono"
-        "VictorMono"
-      ];
-    })
-  ] ++ (with pkgs.plasma5Packages; [
-    ark
-  ]);
-
   xdg.configFile."plasma-workspace/env/ssh-agent-startup.sh" = {
     executable = true;
     text = ''

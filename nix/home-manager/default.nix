@@ -1,8 +1,9 @@
 { pkgs, system, home-manager, nur, ... }:
 let
   imports = [
-    ./modules/common.nix
     ./modules/bash.nix
+    ./modules/common.nix
+    ./modules/fonts.nix
     ./modules/git.nix
     ./modules/neovim.nix
     ./modules/tmux.nix

@@ -18,7 +18,6 @@ in
     };
 
     sessionVariables = {
-      EDITOR = "vim";
       HYPHEN_INSENSITIVE = "true";
       KEYTIMEOUT = "17";
       NIX_LOG_DIR = "/nix/var/log/nix";

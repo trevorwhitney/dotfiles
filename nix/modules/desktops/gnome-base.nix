@@ -26,6 +26,14 @@
 
     polkit
     polkit_gnome
+
+    gnome.gnome-screenshot
+    xorg.xfd
+
+    xdg-desktop-portal
+    xdg-desktop-portal-gnome
+
+    emote
   ];
 
   environment.gnome.excludePackages = (with pkgs; [ gnome-photos gnome-tour ])

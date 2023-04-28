@@ -103,7 +103,7 @@ in
   };
 
   environment.variables = {
-    EDITOR = "vim";
+    EDITOR = "nvim";
   };
 
   # Enable firewall

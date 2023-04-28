@@ -31,8 +31,42 @@
   console.useXkbConfig = true;
 
   environment.systemPackages = with pkgs; [
+    emote
+    peek
+    plasma-browser-integration
     polkit
+    qalculate-qt
+    xdg-desktop-portal
+    xdg-desktop-portal-kde
+    xorg.xfd
+
+    # Fonts
+    dejavu_fonts
+    fontconfig
+    roboto
+    siji
+    (nerdfonts.override {
+      fonts = [
+        "CascadiaCode"
+        "DroidSansMono"
+        "FantasqueSansMono"
+        "FiraCode"
+        "Hack"
+        /* Iosevka is failing to download */
+        /* "Iosevka" */
+        "JetBrainsMono"
+        "Noto"
+        "Terminus"
+        "Ubuntu"
+        "UbuntuMono"
+        "VictorMono"
+      ];
+    })
   ] ++ (with pkgs.plasma5Packages; [
+    ark
+    kalendar
+    kontact
+    korganizer
     kscreenlocker
     ksshaskpass
     kwalletcli
@@ -53,7 +87,4 @@
   programs.kdeconnect.enable = true;
 
   environment.sessionVariables.SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
-
-  # TODO: Is this still needed for slack on wayland?
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

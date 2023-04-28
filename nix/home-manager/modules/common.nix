@@ -7,10 +7,6 @@ in
 
   targets.genericLinux.enable = true;
 
-  home.sessionVariables = {
-    EDITOR = "vim";
-  };
-
   home.file.".ctags".source = "${dotfiles}/ctags";
   home.file.".dircolors".source = "${dotfiles}/dircolors";
   home.file.".git-authors".source = "${dotfiles}/git-authors";

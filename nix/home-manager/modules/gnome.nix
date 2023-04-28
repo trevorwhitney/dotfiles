@@ -29,43 +29,6 @@
     };
   };
 
-  fonts.fontconfig.enable = true;
-
-  home.packages = with pkgs; [
-    gnome.gnome-screenshot
-    xorg.xfd
-
-    xdg-desktop-portal
-    xdg-desktop-portal-gnome
-
-    dejavu_fonts
-    emote
-    fontconfig
-    roboto
-    siji
-
-    #TODO: move copyq to own module
-    /* copyq */
-
-    (nerdfonts.override {
-      fonts = [
-        "CascadiaCode"
-        "DroidSansMono"
-        "FantasqueSansMono"
-        "FiraCode"
-        "Hack"
-        /* Iosevka is failing to download */
-        /* "Iosevka" */
-        "JetBrainsMono"
-        "Noto"
-        "Terminus"
-        "Ubuntu"
-        "UbuntuMono"
-        "VictorMono"
-      ];
-    })
-  ];
-
   # gpg-agent config without custom pinentry needed on KDE
   home.file.".gnupg/gpg-agent.conf".text = ''
     default-cache-ttl 60480000
