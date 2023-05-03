@@ -77,6 +77,7 @@ in
     git
     google-drive-ocamlfuse
     home-manager
+    usbutils
     vim
     wget
   ];

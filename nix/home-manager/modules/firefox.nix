@@ -43,6 +43,10 @@ in
       profiles.default = {
         name = "default";
         isDefault = true;
+        settings = {
+          "webgl.force-enabled" = true;
+        };
+
         userChrome = ''
           #sidebar-header {
             display: none !important;

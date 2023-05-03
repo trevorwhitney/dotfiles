@@ -17,6 +17,7 @@
   ./graphics.nix
   ./twhitney.nix
   ./virtualbox.nix
+  ./webcam.nix
 
   /* ../../modules/desktops/gnome-shell.nix */
   ../../modules/desktops/kde.nix
