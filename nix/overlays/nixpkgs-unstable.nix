@@ -15,6 +15,7 @@ final: prev: rec {
     google-chrome-beta
     slack
     spotify
+    thunderbird
 
     # Wayland screensharing fixed in latest Zoom
     zoom-us;

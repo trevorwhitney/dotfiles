@@ -20,6 +20,7 @@ autocmd DocStart drive.google.com mode ignore
 autocmd DocStart docs.google.com mode ignore
 autocmd DocStart meet.google.com mode ignore
 autocmd DocStart miro.com mode ignore
+autocmd DocStart app.sketchup.com mode ignore
 
 guiset_quiet gui none
 guiset_quiet hoverlink right

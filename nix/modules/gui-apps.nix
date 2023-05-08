@@ -12,6 +12,7 @@
     qcad
     slack
     spotify
+    thunderbird
     vlc
 
     # fix ODAFileConverter for wayland

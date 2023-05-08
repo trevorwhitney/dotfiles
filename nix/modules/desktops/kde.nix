@@ -64,9 +64,6 @@
     })
   ] ++ (with pkgs.plasma5Packages; [
     ark
-    kalendar
-    kontact
-    korganizer
     kscreenlocker
     ksshaskpass
     kwalletcli
