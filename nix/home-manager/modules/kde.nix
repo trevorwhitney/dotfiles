@@ -1,13 +1,13 @@
 { config, pkgs, lib, ... }: {
   programs.firefox =
     {
-      package = pkgs.wrapFirefox pkgs.latest.firefox-nightly-bin.unwrapped {
+      package = pkgs.wrapFirefox pkgs.firefox-beta-bin.unwrapped {
         cfg = {
           enableTridactylNative = true;
           enablePlasmaBrowserIntegration = true;
         };
 
-        icon = "firefox-nightly";
+        icon = "firefox";
         wmClass = "firefox";
       };
     };

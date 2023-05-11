@@ -8,8 +8,6 @@
     # These get pulled in via an overlay.
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nixpkgs-mozilla.url = "github:mozilla/nixpkgs-mozilla";
-
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager.url = "github:nix-community/home-manager/release-22.11";
@@ -41,18 +39,21 @@
     # requires programs.nix-ld to be enabled
     # see: https://github.com/thiagokokada/nix-alien
     nix-alien.url = "github:thiagokokada/nix-alien";
+
+    # run the latest jsonnet-language-server
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix";
   };
 
   outputs =
     { self
     , flake-utils
     , home-manager
+    , jsonnet-language-server
     , neovim
     , nix-alien
     , nixgl
     , nixos-hardware
     , nixpkgs
-    , nixpkgs-mozilla
     , nixpkgs-unstable
     , nur
     , secrets
@@ -89,7 +90,7 @@
         neovim.overlay
         nixgl.overlay
         secrets.overlay
-        nixpkgs-mozilla.overlay
+        jsonnet-language-server.overlay
       ];
 
       pkgs = import nixpkgs {

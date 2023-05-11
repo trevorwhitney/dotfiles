@@ -24,8 +24,6 @@ in
 
   faillint = callBuildGoModulePkg ../packages/faillint;
   gocomplete = callBuildGoModulePkg ../packages/gocomplete;
-  jsonnet-language-server =
-    callBuildGoModulePkg ../packages/jsonnet-language-server;
   jsonnet-lint =
     callBuildGoModulePkg ../packages/jsonnet-lint;
   mixtool = callBuildGoModulePkg ../packages/mixtool;

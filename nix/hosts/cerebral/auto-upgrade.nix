@@ -15,7 +15,6 @@
       "--update-input" "nixpkgs-mozilla"
       "--update-input" "nixpkgs-unstable"
       "--update-input" "nur"
-      "--impure"
     ];
   };
 }

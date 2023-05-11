@@ -126,8 +126,8 @@ in
     ]);
 
     shellAliases = {
-      hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles --impure -b backup";
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure";
+      hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles -b backup";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles";
       rollback = "sudo nixos-rebuild switch --rollback";
 
       # needed because of KDE unlock weirdness

@@ -18,5 +18,10 @@ final: prev: rec {
     thunderbird
 
     # Wayland screensharing fixed in latest Zoom
-    zoom-us;
+    zoom-us
+
+    # Firefox
+    wrapFirefox
+    firefox-beta
+    firefox-beta-bin;
 }

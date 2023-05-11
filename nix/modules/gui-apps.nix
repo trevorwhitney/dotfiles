@@ -6,6 +6,7 @@
     freecad
     gimp
     google-chrome-beta
+    inkscape
     insomnia
     kdenlive
     librecad
