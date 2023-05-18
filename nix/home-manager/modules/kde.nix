@@ -80,13 +80,13 @@
       defaultApplications = {
         "application/x-extension-htm" = "firefox.desktop;";
         "application/x-extension-html" = "firefox.desktop;";
-        "application/x-extension-ics" = "userapp-Thunderbird-JUZD41.desktop";
+        "application/x-extension-ics" = "thunderbird.desktop";
         "application/x-extension-shtml" = "firefox.desktop;";
         "application/x-extension-xht" = "firefox.desktop";
         "application/x-extension-xhtml" = "firefox.desktop;";
         "application/xhtml+xml" = "firefox.desktop;";
         "inode/directory" = "org.kde.dolphin.desktop;";
-        "text/calendar" = "userapp-Thunderbird-JUZD41.desktop";
+        "text/calendar" = "thunderbird.desktop";
         "text/html" = "firefox.desktop;";
         "text/plain" = "kitty-open.desktop;";
         "video/mp4" = "vlc.desktop;";
@@ -101,7 +101,7 @@
         "x-scheme-handler/slack" = "slack.desktop";
         "x-scheme-handler/tel" = "org.kde.kdeconnect.handler.desktop;";
         "x-scheme-handler/unknown" = "google-chrome.desktop;";
-        "x-scheme-handler/webcal" = "google-chrome.desktop;";
+        "x-scheme-handler/webcal" = "thunderbird.desktop;";
         "x-scheme-handler/webcals" = "thunderbird.desktop";
       };
     };
