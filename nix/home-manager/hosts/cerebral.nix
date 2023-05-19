@@ -1,17 +1,18 @@
 { config, pkgs, lib, ... }: {
   imports = [
-    ../../home-manager/modules/bash.nix
-    ../../home-manager/modules/common.nix
-    ../../home-manager/modules/firefox.nix
-    ../../home-manager/modules/git.nix
-    /* ../../home-manager/modules/gnome.nix */
-    ../../home-manager/modules/kde.nix
-    ../../home-manager/modules/kitty.nix
-    ../../home-manager/modules/neovim.nix
-    ../../home-manager/modules/spotify.nix
-    ../../home-manager/modules/tmux.nix
-    ../../home-manager/modules/xdg.nix
-    ../../home-manager/modules/zsh.nix
+    ../modules/bash.nix
+    ../modules/common.nix
+    ../modules/firefox.nix
+    ../modules/git.nix
+    ../modules/k9s.nix
+    ../modules/kde.nix
+    ../modules/kitty.nix
+    ../modules/kubernetes.nix
+    ../modules/neovim.nix
+    ../modules/spotify.nix
+    ../modules/tmux.nix
+    ../modules/xdg.nix
+    ../modules/zsh.nix
   ];
 
   # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
@@ -49,5 +50,10 @@
     plugins = with pkgs.obs-studio-plugins; [
       obs-pipewire-audio-capture
     ];
+  };
+
+  programs.kubectl = {
+    enable = true;
+    package = pkgs.kubectl-1-22-15;
   };
 }

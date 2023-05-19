@@ -71,7 +71,7 @@
           "x-scheme-handler/https" = "firefox.desktop;";
           "x-scheme-handler/insomnia" = "insomnia.desktop;";
           "x-scheme-handler/mailto" = "google-chrome-beta.desktop;";
-          "x-scheme-handler/slack" = "slack.desktop";
+          "x-scheme-handler/slack" = "Slack.desktop";
           "x-scheme-handler/tel" = "org.kde.kdeconnect.handler.desktop;";
           "x-scheme-handler/webcal" = "thunderbird.desktop";
           "x-scheme-handler/webcals" = "thunderbird.desktop";

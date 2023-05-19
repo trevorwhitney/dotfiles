@@ -13,6 +13,7 @@
 
   ./auto-upgrade.nix
   ./configuration.nix
+  ./gc.nix
   ./services.nix
   ./graphics.nix
   ./twhitney.nix

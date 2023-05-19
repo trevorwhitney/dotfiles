@@ -77,6 +77,7 @@
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
 
         # Fixes error of missing themes.json with newer versions
+        # I think this can be removed after updating to nix and home-manager 23.05
         (import "${self}/nix/overlays/kitty-themes.nix")
 
         # Keep virtualbox on 6.*
@@ -84,6 +85,10 @@
 
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien;
+          system = "x86_64-linux";
+        })
+
+        (import "${self}/nix/overlays/kubectl.nix" {
           system = "x86_64-linux";
         })
 

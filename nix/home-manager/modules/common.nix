@@ -25,8 +25,6 @@ in
     "${pkgs.tridactyl-native}/lib/mozilla/native-messaging-hosts/tridactyl.json";
 
   xdg.configFile."yamllint/config".source = "${dotfiles}/yamllint.yaml";
-  xdg.configFile."k9s/skin.yml".source =
-    "${dotfiles}/config/k9s/solarized_light.yml";
 
   # Automatically add SSH keys to ssh-agent
   xdg.configFile."autostart/ssh-add" = {
@@ -88,7 +86,6 @@ in
     jetbrains.idea-community
     jsonnet-bundler
     jq
-    k9s
     kotlin
     kube3d
     kubernetes-helm
