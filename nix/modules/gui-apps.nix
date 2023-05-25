@@ -15,13 +15,12 @@
     spotify
     thunderbird
     vlc
+    zoom-us
 
     # fix ODAFileConverter for wayland
     (pkgs.writeShellScriptBin "ODAFileConverter" ''
       #!${pkgs.stdenv.shell}
       QT_QPA_PLATFORM=wayland "${pkgs.odafileconverter}/bin/ODAFileConverter" "$@"
     '')
-
-    zoom-us
   ];
 }

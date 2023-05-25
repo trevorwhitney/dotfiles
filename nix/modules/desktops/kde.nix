@@ -52,8 +52,7 @@
         "FantasqueSansMono"
         "FiraCode"
         "Hack"
-        /* Iosevka is failing to download */
-        /* "Iosevka" */
+        "Iosevka"
         "JetBrainsMono"
         "Noto"
         "Terminus"
@@ -84,4 +83,5 @@
   programs.kdeconnect.enable = true;
 
   environment.sessionVariables.SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
