@@ -13,10 +13,6 @@
     home-manager.url = "github:nix-community/home-manager/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    neovim.url = "github:neovim/neovim?dir=contrib";
-    neovim.inputs.nixpkgs.follows = "nixpkgs";
-    neovim.inputs.flake-utils.follows = "flake-utils";
-
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=f99498345442b64f4292f0caa1c6413ea0de006c";
@@ -49,7 +45,6 @@
     , flake-utils
     , home-manager
     , jsonnet-language-server
-    , neovim
     , nix-alien
     , nixgl
     , nixos-hardware
@@ -92,7 +87,6 @@
           system = "x86_64-linux";
         })
 
-        neovim.overlay
         nixgl.overlay
         secrets.overlay
         jsonnet-language-server.overlay

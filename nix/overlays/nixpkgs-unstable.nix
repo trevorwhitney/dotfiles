@@ -11,6 +11,8 @@ final: prev: rec {
 
     # GUI apps that I'd like to be on the latest version of
     _1password-gui
+    neovim
+    neovim-unwrapped
     gimp
     google-chrome-beta
     slack
