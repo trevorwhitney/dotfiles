@@ -16,7 +16,7 @@
             go
             gotools
             golangci-lint
-            nodejs-16_x
+            nodejs_18
           ];
         };
       });

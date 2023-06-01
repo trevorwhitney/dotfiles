@@ -20,8 +20,8 @@
   ./virtualbox.nix
   ./webcam.nix
 
-  /* ../../modules/desktops/gnome-shell.nix */
   ../../modules/desktops/kde.nix
+  ../../modules/fonts.nix
   ../../modules/gui-apps.nix
   ../../modules/binbash.nix
 

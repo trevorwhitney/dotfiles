@@ -19,7 +19,7 @@ in
     let
       inherit (cfg) withLspSupport finalPackage;
       _cc = "${pkgs.stdenv.cc}";
-      nodeJsPkg = pkgs.nodejs-16_x;
+      nodeJsPkg = pkgs.nodejs_18;
 
     in
     rec {

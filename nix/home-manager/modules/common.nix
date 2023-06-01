@@ -96,7 +96,9 @@ in
     mktemp
     mosh
     ncurses
-    ngrok
+    # ngrok broke with upgrade to 23.05
+    # mismtached sha
+    #ngrok
     rbenv
     ripgrep
     rustc

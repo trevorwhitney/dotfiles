@@ -18,7 +18,7 @@
             (import ../../overlays/faillint.nix)
           ];
         };
-        nodejs = pkgs.nodejs-16_x;
+        nodejs = pkgs.nodejs_18;
       in
       {
         devShells.default = pkgs.mkShell {

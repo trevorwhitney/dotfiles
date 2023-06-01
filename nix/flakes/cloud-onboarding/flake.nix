@@ -7,7 +7,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        nodejs = pkgs.nodejs-16_x;
+        nodejs = pkgs.nodejs_18;
 
         env = pkgs.writers.writeBash "env.sh" ''
           export NODE_PATH="${nodejs}/lib/node_modules:$NODE_PATH"

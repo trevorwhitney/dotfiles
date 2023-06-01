@@ -88,9 +88,6 @@ in
 
   environment.binbash = "${pkgs.bashInteractive}/bin/bash";
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
   programs = {
     gnupg.agent = {
       enable = true;
@@ -104,6 +101,12 @@ in
     # See:
     nix-ld = {
       enable = true;
+    };
+
+    zsh = {
+      enable = true;
+      ohMyZsh.enable = true;
+      enableCompletion = false;
     };
   };
 

@@ -7,7 +7,7 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        nodejs = pkgs.nodejs-16_x;
+        nodejs = pkgs.nodejs_18;
       in
       {
         devShells.default = pkgs.mkShell {

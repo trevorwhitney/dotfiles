@@ -15,34 +15,23 @@ in
   config = {
     programs.firefox = {
       enable = true;
-      # TODO: To use nightly, you should be able to override the package by wrapping
-      # it like below, but this is currently not working with the nightly overlay due
-      # to a missing browser.gtk3 propery and the icon not working.
-      /* package = pkgs.wrapFirefox pkgs.lates.firefox-nightly-bin.unwrapped { */
-      /*   cfg = { */
-      /*     enableTridactylNative = true; */
-      /*     enableGnomeExtensions = true; */
-      /*   }; */
-
-      /*   icon = "firefox-nightly"; */
-      /* }; */
-      extensions = with nurPkgs.repos.rycee.firefox-addons; [
-        auto-tab-discard
-        cookie-autodelete
-        ghostery
-        gnome-shell-integration
-        multi-account-containers
-        /* okta-browser-plugin */
-        onepassword-password-manager
-        privacy-badger
-        privacy-possum
-        tree-style-tab
-        tridactyl
-        ublock-origin
-      ];
       profiles.default = {
         name = "default";
         isDefault = true;
+        extensions = with nurPkgs.repos.rycee.firefox-addons; [
+          auto-tab-discard
+          cookie-autodelete
+          ghostery
+          gnome-shell-integration
+          multi-account-containers
+          /* okta-browser-plugin */
+          onepassword-password-manager
+          privacy-badger
+          privacy-possum
+          tree-style-tab
+          tridactyl
+          ublock-origin
+        ];
         settings = {
           "webgl.force-enabled" = true;
         };

@@ -2,7 +2,7 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-22.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
@@ -10,7 +10,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     #TODO: replace with https://github.com/ryantm/agenix
@@ -70,10 +70,6 @@
 
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
-
-        # Fixes error of missing themes.json with newer versions
-        # I think this can be removed after updating to nix and home-manager 23.05
-        (import "${self}/nix/overlays/kitty-themes.nix")
 
         # Keep virtualbox on 6.*
         (import "${self}/nix/overlays/virtualbox.nix")

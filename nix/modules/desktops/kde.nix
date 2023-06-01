@@ -8,6 +8,7 @@
     displayManager = {
       sddm = {
         enable = true;
+        enableHidpi = true;
       };
       defaultSession = "plasmawayland";
     };
@@ -15,6 +16,7 @@
     desktopManager = {
       plasma5 = {
         enable = true;
+        useQtScaling = true;
       };
     };
   };
@@ -39,28 +41,6 @@
     xdg-desktop-portal
     xdg-desktop-portal-kde
     xorg.xfd
-
-    # Fonts
-    dejavu_fonts
-    fontconfig
-    roboto
-    siji
-    (nerdfonts.override {
-      fonts = [
-        "CascadiaCode"
-        "DroidSansMono"
-        "FantasqueSansMono"
-        "FiraCode"
-        "Hack"
-        "Iosevka"
-        "JetBrainsMono"
-        "Noto"
-        "Terminus"
-        "Ubuntu"
-        "UbuntuMono"
-        "VictorMono"
-      ];
-    })
   ] ++ (with pkgs.plasma5Packages; [
     ark
     kscreenlocker
