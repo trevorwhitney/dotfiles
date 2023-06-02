@@ -93,11 +93,6 @@
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
-          # TODO: Davinici-resolve needs this insecure version of python 2.7.
-          # Periodically check if this can be removed
-          permittedInsecurePackages = [
-            "python-2.7.18.6"
-          ];
         };
       };
 

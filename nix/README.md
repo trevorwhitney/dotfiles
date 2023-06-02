@@ -25,3 +25,11 @@ When creating a local package, the following command is useful:
 ```bash
 nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
 ```
+
+### dependencies
+
+To figure out why some dependency exists:
+
+```bash
+NIXPKGS_ALLOW_INSECURE=1 nix why-depends --impure --inputs-from ./flake.nix .\#nixosConfigurations.cerebral.config.system.build.toplevel nixpkgs#python2
+```

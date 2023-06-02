@@ -2,7 +2,6 @@
   environment.systemPackages = with pkgs; [
     _1password-gui
     audacity
-    davinci-resolve
     freecad
     gimp
     google-chrome-beta
