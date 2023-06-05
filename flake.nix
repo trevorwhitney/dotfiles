@@ -71,8 +71,11 @@
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
 
-        # Keep virtualbox on 6.*
-        (import "${self}/nix/overlays/virtualbox.nix")
+        # Keep virtualbox on 6.x
+        # since not all my images work on 7.x
+        (import "${self}/nix/overlays/virtualbox.nix" {
+          system = "x86_64-linux";
+        })
 
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien;

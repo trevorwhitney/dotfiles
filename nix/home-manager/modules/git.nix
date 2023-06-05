@@ -54,6 +54,7 @@ in
         sur = "submodule update --recursive";
         cane = "commit --amend --no-edit";
         root = "rev-parse --show-toplevel";
+        wip = "commit --all -m wip";
       };
 
       extraConfig = {
