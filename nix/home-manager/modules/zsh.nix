@@ -146,8 +146,9 @@ in
         "${activateAndUnlock}/bin/activate-and-unlock";
 
       #Grafana
-      logcli = "nix run github:grafana/loki#logcli -- ";
-      loki = "nix run github:grafana/loki#loki -- ";
+      logcli = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#logcli -- ";
+      loki = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#loki -- ";
+      promtail = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#promtail -- ";
       gcom = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#gcom -- ";
       flux-ignore = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#flux-ignore -- -actor=trevor.whitney@grafana.com ";
       rt = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#rt -- ";

@@ -63,5 +63,24 @@
             alias k="${pkgs.kubectl-1-22-15}/bin/kubectl"
           '';
         };
+
+        apps = {
+          loki = {
+            type = "app";
+            program = "${pkgs.loki.overrideAttrs(old: rec { doCheck = false; })}/bin/loki";
+          };
+          promtail = {
+            type = "app";
+            program = "${pkgs.promtail.overrideAttrs(old: rec { doCheck = false; })}/bin/promtail";
+          };
+          logcli = {
+            type = "app";
+            program = "${pkgs.logcli.overrideAttrs(old: rec { doCheck = false; })}/bin/logcli";
+          };
+          loki-canary = {
+            type = "app";
+            program = "${pkgs.loki-canary.overrideAttrs(old: rec { doCheck = false; })}/bin/loki-canary";
+          };
+        };
       });
 }
