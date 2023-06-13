@@ -8,7 +8,7 @@
     loki.inputs.flake-utils.follows = "flake-utils";
 
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=817364ca6919c2dd1462f1a316998c735d30d625";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=6ec3e905533937564c02bba29917e91ca6c31c7b";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
   };
@@ -45,6 +45,7 @@
             mixtool
             nettools
             nixpkgs-fmt
+            revive
             statix
             systemd
             yamllint

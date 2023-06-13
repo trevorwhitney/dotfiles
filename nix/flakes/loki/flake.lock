@@ -26,11 +26,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1685978805,
-        "narHash": "sha256-XMYfVOZUVFfcGXtcAt3XIrcvvxRTCE9d2dR7nmTrOxo=",
+        "lastModified": 1686055569,
+        "narHash": "sha256-pw2+j7jAY6pCrvu8shz2mD2bpWlM0kZvTDbLFDtF7CQ=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "90ed037a78c3b2f10cf03a8f6d6085c8997bec0a",
+        "rev": "2c7309e0f78bbf8b3c08863351394d4d12035f24",
         "type": "github"
       },
       "original": {
@@ -89,17 +89,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1675194220,
-        "narHash": "sha256-wqGUyS5usg3+a9ehpDxbE7seyJRwWTlisXfOOh0G8YI=",
+        "lastModified": 1686063949,
+        "narHash": "sha256-pAF+aemquJA/zZ8w9ox5Gbng/uAK/khPM28yMxLxI70=",
         "ref": "main",
-        "rev": "817364ca6919c2dd1462f1a316998c735d30d625",
-        "revCount": 14,
+        "rev": "6ec3e905533937564c02bba29917e91ca6c31c7b",
+        "revCount": 19,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       },
       "original": {
         "ref": "main",
-        "rev": "817364ca6919c2dd1462f1a316998c735d30d625",
+        "rev": "6ec3e905533937564c02bba29917e91ca6c31c7b",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }
