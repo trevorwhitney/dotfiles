@@ -24,9 +24,6 @@
   xdg = {
     portal = {
       enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-kde
-      ];
     };
   };
 
@@ -38,8 +35,6 @@
     plasma-browser-integration
     polkit
     qalculate-qt
-    xdg-desktop-portal
-    xdg-desktop-portal-kde
     xorg.xfd
   ] ++ (with pkgs.plasma5Packages; [
     ark
