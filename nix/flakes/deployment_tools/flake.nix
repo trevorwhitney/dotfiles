@@ -25,17 +25,14 @@
 
       in
       {
-        defaultPackage = pkgs.kubectl-1-22-15;
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = [ pkgs.bashInteractive ];
           buildInputs = with pkgs; [
             shellcheck
-            kubectl-1-22-15
           ];
 
           shellHook = ''
             source ${pkgs.secrets}/grafana/deployment-tools.sh
-            alias k="${pkgs.kubectl-1-22-15}/bin/kubectl"
           '';
         };
 

@@ -41,7 +41,6 @@
             gotools
             gox
             helm-docs
-            kubectl-1-22-15
             mixtool
             nettools
             nixpkgs-fmt
@@ -61,7 +60,6 @@
 
           shellHook = ''
             source ${pkgs.secrets}/grafana/deployment-tools.sh
-            alias k="${pkgs.kubectl-1-22-15}/bin/kubectl"
           '';
         };
 
