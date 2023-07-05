@@ -15,7 +15,7 @@
 
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=6ec3e905533937564c02bba29917e91ca6c31c7b";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=591a23a09549308469b1cfc59a1f5c10065dde11";
 
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +37,7 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&rev=69230fe700d4bad6debcc2c11ed91cf1b035a892";
   };
 
   outputs =

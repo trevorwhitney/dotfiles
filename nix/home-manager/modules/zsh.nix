@@ -152,6 +152,7 @@ in
       loki = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#loki -- ";
       promtail = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#promtail -- ";
       gcom = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#gcom -- ";
+      gcom-dev = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#gcom-dev -- ";
       flux-ignore = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#flux-ignore -- -actor=trevor.whitney@grafana.com ";
       rt = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#rt -- ";
     };
