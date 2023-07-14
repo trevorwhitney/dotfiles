@@ -118,6 +118,7 @@ in
 
     yamale
     yarn
+    yq
   ];
 
   programs.java = {

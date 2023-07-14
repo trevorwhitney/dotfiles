@@ -131,6 +131,23 @@ in
       rollback = "sudo nixos-rebuild switch --rollback";
       k = "${pkgs.kubectl-1-25-5}/bin/kubectl ";
 
+      # git
+      gco = "git checkout \$(git branch | fzf)";
+      g = "git";
+      gpr = "git pull --rebase";
+      gpp = "git pull --rebase && git push";
+      gs = "git status";
+      gst = "git status";
+      gap = "git add -p";
+      root = "cd \$(git root || pwd)";
+
+      # vim
+      v = "vim ";
+      temp = "vim \$(mktemp)";
+
+      # useful when piping output to vim
+      vyaml = "nvim -c 'set filetype=yaml' -";
+      vjson = "nvim -c 'set filetype=json' -";
 
       # needed because of KDE unlock weirdness
       unlock =

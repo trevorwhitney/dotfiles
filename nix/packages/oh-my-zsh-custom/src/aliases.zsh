@@ -11,21 +11,6 @@ export GIT_DUET_ROTATE_AUTHOR=1
 alias duet='git duet --global'
 alias solo='git solo --global'
 
-alias g='git'
-alias gpr='git pull --rebase'
-alias gpp='git pull --rebase && git push'
-alias gs='git status'
-alias gst='git status'
-
-alias gap="git add -p"
-
-alias gr="cd \$(git root)"
-alias root="cd \$(git root || pwd)"
-
-#Gradle
-alias g="gradle"
-alias gw="./gradlew"
-
 #Kubectl
 if [[ `command -v kubectl` ]]; then
   alias k="kubectl "
@@ -70,13 +55,6 @@ if [[ `command -v alacritty` ]]; then
   alias term-alt="alacritty --config-file=/home/twhitney/.config/alacritty/alacritty-alt.yml & "
 fi
 
-alias git-root="git rev-parse --show-toplevel"
-alias gco="git checkout \$(git branch | fzf)"
-
-alias v="vim "
-# useful when piping output to vim
-alias vyaml="nvim -c 'set filetype=yaml' -"
-alias vjson="nvim -c 'set filetype=json' -"
 
 # one-password
 function get_op_credential() {

@@ -56,6 +56,15 @@
 
   programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
+  # TODO: this was added with the hope of preventing the need for supplying
+  # the ssh key passphrase with git operations. Does it work?
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+  };
+
+  #programs.gnupg.agent.pinentryFlavor = "qt";
 
   environment.sessionVariables.SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
