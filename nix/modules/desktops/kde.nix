@@ -49,8 +49,7 @@
 
   security.polkit.enable = true;
 
-  security.pam.services.kwallet = {
-    name = "kdewallet";
+  security.pam.services.kde = {
     enableKwallet = true;
   };
 
@@ -67,5 +66,6 @@
   #programs.gnupg.agent.pinentryFlavor = "qt";
 
   environment.sessionVariables.SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
