@@ -60,12 +60,12 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
-    askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+    askPassword = "${pkgs.kwalletcli}/bin/kwalletaskpass";
   };
 
   #programs.gnupg.agent.pinentryFlavor = "qt";
 
-  environment.sessionVariables.SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
+  #environment.sessionVariables.SSH_ASKPASS = "${pkgs.kwalletcli}/bin/kwalletaskpass";
+  # environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

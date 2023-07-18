@@ -16,7 +16,7 @@
     executable = true;
     text = ''
       #!${pkgs.bash}/bin/bash
-      export SSH_ASKPASS="${pkgs.ksshaskpass}/bin/ksshaskpass"
+      export SSH_ASKPASS="${pkgs.kwalletcli}/bin/kwalletaskpass"
 
       if ! pgrep -u $USER ssh-agent > /dev/null; then
           ssh-agent > ~/.ssh-agent-info
