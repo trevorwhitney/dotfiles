@@ -27,15 +27,15 @@ in
   xdg.configFile."yamllint/config".source = "${dotfiles}/yamllint.yaml";
 
   # Automatically add SSH keys to ssh-agent
-  xdg.configFile."autostart/ssh-add" = {
-    executable = true;
-    text = ''
-      [Desktop Entry]
-      Exec=ssh-add -q .ssh/id_ed25519
-      Name=ssh-add
-      Type=Application
-    '';
-  };
+  # xdg.configFile."autostart/ssh-add" = {
+  #  executable = true;
+  #  text = ''
+  #    [Desktop Entry]
+  #    Exec=ssh-add -q .ssh/id_ed25519
+  #    Name=ssh-add
+  #    Type=Application
+  # '';
+  #};
 
   home.file.".tridactylrc".source = "${dotfiles}/config/tridactyl/tridactylrc";
 

@@ -12,28 +12,27 @@
       };
     };
 
-  xdg.configFile."plasma-workspace/env/ssh-agent-startup.sh" = {
-    executable = true;
-    text = ''
-      #!${pkgs.bash}/bin/bash
-      export SSH_ASKPASS="${pkgs.kwalletcli}/bin/kwalletaskpass"
+  #xdg.configFile."plasma-workspace/env/ssh-agent-startup.sh" = {
+  #  executable = true;
+  #  text = ''
+  #    #!${pkgs.bash}/bin/bash
 
-      if ! pgrep -u $USER ssh-agent > /dev/null; then
-          ssh-agent > ~/.ssh-agent-info
-      fi
-      if [[ "$SSH_AGENT_PID" == "" ]]; then
-          eval $(<~/.ssh-agent-info)
-      fi
-    '';
-  };
+  #    if ! pgrep -u $USER ssh-agent > /dev/null; then
+  #        ssh-agent > ~/.ssh-agent-info
+  #    fi
+  #    if [[ "$SSH_AGENT_PID" == "" ]]; then
+  #        eval $(<~/.ssh-agent-info)
+  #    fi
+  #  '';
+  #};
 
-  xdg.configFile."plasma-workspace/env/ssh-agent-shutdown.sh" = {
-    executable = true;
-    text = ''
-      #!${pkgs.bash}/bin/bash
-      [ -z "$SSH_AGENT_PID" ] || eval "$(ssh-agent -k)"
-    '';
-  };
+  #xdg.configFile."plasma-workspace/env/ssh-agent-shutdown.sh" = {
+  #  executable = true;
+  #  text = ''
+  #    #!${pkgs.bash}/bin/bash
+  #    [ -z "$SSH_AGENT_PID" ] || eval "$(ssh-agent -k)"
+  #  '';
+  #};
 
 
   # Use kwallet for gpg-agent pinentry
