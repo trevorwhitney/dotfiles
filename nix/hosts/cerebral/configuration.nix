@@ -140,7 +140,7 @@ in
 
         3389 # RDP
 
-        32400
+        32400 # plex
       ];
 
       allowedUDPPorts = [

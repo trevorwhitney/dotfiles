@@ -15,7 +15,7 @@
 
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85198bd9335dc4f4593c40f3635ecedf85e53592";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=0818d07ec453deca8b37d958c175391aa19b5a0f";
 
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";

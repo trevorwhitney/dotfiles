@@ -127,5 +127,33 @@ in
         };
       };
     };
+
+    nginx = {
+      enable = true;
+      virtualHosts."plex.trevorwhitney.net" = {
+        useACMEHost = "plex.trevorwhitney.net";
+        forceSSL = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:32400/web/";
+          };
+          "/web" = {
+            proxyPass = "http://127.0.0.1:32400/web";
+          };
+        };
+      };
+    };
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "trevorjwhitney@gmail.com";
+    certs."plex.trevorwhitney.net" = {
+      group = "nginx";
+      dnsProvider = "dnsimple";
+      credentialsFile = "${pkgs.writeText "lets-encrypyt-creds" ''
+    DNSIMPLE_OAUTH_TOKEN_FILE=${pkgs.secrets}/dnsimple/oauth_token
+    ''}";
+    };
   };
 }

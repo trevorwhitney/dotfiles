@@ -257,11 +257,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1690477646,
-        "narHash": "sha256-pYllwB9v0IAlukaaTcc0YnLuMdEto680J7o0+i5+jRo=",
+        "lastModified": 1690487289,
+        "narHash": "sha256-Jjf7vzrIqQmRbNY4nagn+tr9IJrKVZZ07ZD5FqgtHe0=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "0f85a8d74414f8634d2b5382e837fc964ecf9264",
+        "rev": "0067f8335088a91c31c5bd0eb4d52511ff5865b8",
         "type": "github"
       },
       "original": {
@@ -294,17 +294,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1690481553,
-        "narHash": "sha256-tkeqNSm4NMI4P7rzloNj2qplhayCcqd/rUcOxsjN3h0=",
+        "lastModified": 1690488036,
+        "narHash": "sha256-r/G2iteA6DS3ou1KhSmV18nifx5omyA+cC8OJ7m2JMc=",
         "ref": "main",
-        "rev": "85198bd9335dc4f4593c40f3635ecedf85e53592",
-        "revCount": 21,
+        "rev": "0818d07ec453deca8b37d958c175391aa19b5a0f",
+        "revCount": 22,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       },
       "original": {
         "ref": "main",
-        "rev": "85198bd9335dc4f4593c40f3635ecedf85e53592",
+        "rev": "0818d07ec453deca8b37d958c175391aa19b5a0f",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }
