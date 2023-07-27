@@ -25,6 +25,8 @@
   ../../modules/gui-apps.nix
   ../../modules/binbash.nix
 
+  ../../services/dynamic-dns-reporter.nix
+
   home-manager.nixosModules.home-manager
   {
     home-manager.useGlobalPkgs = true;

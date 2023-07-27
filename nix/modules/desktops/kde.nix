@@ -24,6 +24,10 @@
   xdg = {
     portal = {
       enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal
+        xdg-desktop-portal-kde
+      ];
     };
   };
 
@@ -61,6 +65,6 @@
     enableAskPassword = true;
   };
 
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "force";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

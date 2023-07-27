@@ -90,8 +90,8 @@ in
 
   programs = {
     gnupg.agent = {
-     # enable = true;
-     enable = false;
+      # enable = true;
+      enable = false;
       # TODO: this was removed in favor of auto-starting an ssh agent
       # with the hope of not needing to provide ssh key passphrase
       # for git operations. Does this break GPG git signing?
@@ -123,26 +123,30 @@ in
   };
 
   # Enable firewall
-  networking.firewall = {
-    enable = true;
-    # for tailscale
-    checkReversePath = "loose";
-    trustedInterfaces = [ tailscaleInf ];
+  networking = {
+    firewall = {
+      enable = true;
+      # for tailscale
+      checkReversePath = "loose";
+      trustedInterfaces = [ tailscaleInf ];
 
-    #TODO: can I limit this to specific interfaces?
-    allowedTCPPorts = [
-      80
-      443
-      8080
-      3100
-      8631
+      #TODO: can I limit this to specific interfaces?
+      allowedTCPPorts = [
+        80
+        443
+        8080
+        3100
+        8631
 
-      3389 # RDP
-    ];
+        3389 # RDP
 
-    allowedUDPPorts = [
-      3389 # RDP
-    ];
+        32400
+      ];
+
+      allowedUDPPorts = [
+        3389 # RDP
+      ];
+    };
   };
 
   # enable docker
