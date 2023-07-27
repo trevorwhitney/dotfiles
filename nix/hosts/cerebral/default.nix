@@ -26,6 +26,7 @@
   ../../modules/binbash.nix
 
   ../../services/dynamic-dns-reporter.nix
+  ../../services/kolide.nix
 
   home-manager.nixosModules.home-manager
   {

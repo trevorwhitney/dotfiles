@@ -1,0 +1,8 @@
+with_initial_runner
+autoupdate
+hostname k2device.kolide.com
+root_directory /var/kolide-k2/k2device.kolide.com
+osqueryd_path /usr/local/kolide-k2/bin/osqueryd
+enroll_secret_path /etc/kolide-k2/secret
+update_channel stable
+transport jsonrpc

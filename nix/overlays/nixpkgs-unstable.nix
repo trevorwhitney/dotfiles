@@ -25,5 +25,8 @@ final: prev: rec {
     # Firefox
     wrapFirefox
     firefox-beta
-    firefox-beta-bin;
+    firefox-beta-bin
+
+    # Needed for kolide
+    osquery;
 }

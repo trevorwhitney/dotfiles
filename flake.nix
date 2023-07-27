@@ -15,7 +15,7 @@
 
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=0818d07ec453deca8b37d958c175391aa19b5a0f";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=2540bea46efc244b34fdd1ee284a2914f02e057a";
 
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
@@ -71,6 +71,7 @@
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
         (import "${self}/nix/overlays/dynamic-dns-reporter.nix")
+        (import "${self}/nix/overlays/kolide.nix")
 
         # Keep virtualbox on 6.x
         # since not all my images work on 7.x
