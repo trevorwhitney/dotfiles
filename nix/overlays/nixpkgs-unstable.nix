@@ -14,16 +14,16 @@ final: prev: rec {
     neovim
     neovim-unwrapped
     gimp
-    google-chrome-beta
-    slack
     spotify
     thunderbird
 
     # Wayland screensharing fixed in latest Zoom
-    zoom-us
+    zoom-us;
 
-    # Firefox
-    wrapFirefox
-    firefox-beta
-    firefox-beta-bin;
+    # Things that enable screensharing need to come from stable
+    # wrapFirefox
+    # firefox-beta
+    # firefox-beta-bin;
+    # google-chrome-beta
+    # slack
 }

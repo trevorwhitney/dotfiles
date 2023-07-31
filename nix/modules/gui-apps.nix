@@ -4,7 +4,7 @@
     audacity
     freecad
     gimp
-    google-chrome-beta
+    google-chrome
     inkscape
     insomnia
     kdenlive

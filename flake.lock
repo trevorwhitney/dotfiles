@@ -177,11 +177,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1690200740,
-        "narHash": "sha256-aRkEXGmCbAGcvDcdh/HB3YN+EvoPoxmJMOaqRZmf6vM=",
+        "lastModified": 1690704397,
+        "narHash": "sha256-sgIWjcz0e+x87xlKg324VtHgH55J5rIuFF0ZWRDvQoE=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "ba9650b14e83b365fb9e731f7d7c803f22d2aecf",
+        "rev": "96e5a0a0e8568c998135ea05575a9ed2c87f5492",
         "type": "github"
       },
       "original": {
@@ -209,11 +209,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1690441914,
-        "narHash": "sha256-Ac+kJQ5z9MDAMyzSc0i0zJDx2i3qi9NjlW5Lz285G/I=",
+        "lastModified": 1690720142,
+        "narHash": "sha256-GywuiZjBKfFkntQwpNQfL+Ksa2iGjPprBGL0/psgRZM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "db8672b8d0a2593c2405aed0c1dfa64b2a2f428f",
+        "rev": "3acb5c4264c490e7714d503c7166a3fde0c51324",
         "type": "github"
       },
       "original": {
@@ -241,11 +241,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1690470004,
-        "narHash": "sha256-l57RmPhPz9r1LGDg/0v8bYgJO8R+GGTQZtkIxE7negU=",
+        "lastModified": 1690780834,
+        "narHash": "sha256-xt/0Tv1d2DdKrCqzWU4RikIn+pUoZDU2MKtsWf8Bb60=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9462344318b376e157c94fa60c20a25b913b2381",
+        "rev": "b4ddd645e94706759d443755dbec35901553f35d",
         "type": "github"
       },
       "original": {
@@ -257,11 +257,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1690487289,
-        "narHash": "sha256-Jjf7vzrIqQmRbNY4nagn+tr9IJrKVZZ07ZD5FqgtHe0=",
+        "lastModified": 1690796824,
+        "narHash": "sha256-kDoB/h3eiJOJwlmqcoMUPRHcIxog3du6lnT7bgfvgHc=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "0067f8335088a91c31c5bd0eb4d52511ff5865b8",
+        "rev": "403907ff6b47ac7501ddf69841407d2954afa7b4",
         "type": "github"
       },
       "original": {
@@ -294,17 +294,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1690488036,
-        "narHash": "sha256-r/G2iteA6DS3ou1KhSmV18nifx5omyA+cC8OJ7m2JMc=",
+        "lastModified": 1690559511,
+        "narHash": "sha256-C27DtzZLjTdNZya+g0cDr2tyzB9bQI8V9T2jjs7S7EY=",
         "ref": "main",
-        "rev": "0818d07ec453deca8b37d958c175391aa19b5a0f",
-        "revCount": 22,
+        "rev": "2540bea46efc244b34fdd1ee284a2914f02e057a",
+        "revCount": 23,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       },
       "original": {
         "ref": "main",
-        "rev": "0818d07ec453deca8b37d958c175391aa19b5a0f",
+        "rev": "2540bea46efc244b34fdd1ee284a2914f02e057a",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }
