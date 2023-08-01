@@ -23,6 +23,7 @@
             /* loki.overlays.golangci-lint */
             secrets.overlay
             (import ../../overlays/kubectl.nix { inherit system; })
+            (import ../../overlays/faillint.nix)
           ] ++ (import ./overlays);
           config = { allowUnfree = true; };
         };

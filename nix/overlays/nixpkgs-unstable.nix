@@ -10,6 +10,9 @@ final: prev: rec {
     neovim
     neovim-unwrapped
 
+    # nixd not in stable yet
+    nixd
+
     # GUI apps that I'd like to be on the latest version of
     _1password-gui
     gimp
