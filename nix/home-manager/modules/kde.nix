@@ -12,27 +12,35 @@
       };
     };
 
-  #xdg.configFile."plasma-workspace/env/ssh-agent-startup.sh" = {
-  #  executable = true;
-  #  text = ''
-  #    #!${pkgs.bash}/bin/bash
+  xdg.configFile."plasma-workspace/env/ssh-agent-startup.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
 
-  #    if ! pgrep -u $USER ssh-agent > /dev/null; then
-  #        ssh-agent > ~/.ssh-agent-info
-  #    fi
-  #    if [[ "$SSH_AGENT_PID" == "" ]]; then
-  #        eval $(<~/.ssh-agent-info)
-  #    fi
-  #  '';
-  #};
+      if ! pgrep -u $USER ssh-agent > /dev/null; then
+          ssh-agent > ~/.ssh-agent-info
+      fi
+      if [[ "$SSH_AGENT_PID" == "" ]]; then
+          source ~/.ssh-agent-info
+      fi
 
-  #xdg.configFile."plasma-workspace/env/ssh-agent-shutdown.sh" = {
-  #  executable = true;
-  #  text = ''
-  #    #!${pkgs.bash}/bin/bash
-  #    [ -z "$SSH_AGENT_PID" ] || eval "$(ssh-agent -k)"
-  #  '';
-  #};
+      for KEY in $(ls $HOME/.ssh/id_ed25519* | grep -v \.pub); do
+        ssh-add -q ''${KEY} </dev/null
+      done
+    '';
+  };
+
+  xdg.configFile."plasma-workspace/env/ssh-agent-shutdown.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      if pgrep -u $USER ssh-agent > /dev/null; then
+          source ~/.ssh-agent-info
+      fi
+
+      [ -z "$SSH_AGENT_PID" ] || eval "$(ssh-agent -k)"
+    '';
+  };
 
 
   # Use kwallet for gpg-agent pinentry
