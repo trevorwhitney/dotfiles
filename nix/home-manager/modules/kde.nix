@@ -30,7 +30,7 @@
     '';
   };
 
-  xdg.configFile."plasma-workspace/env/ssh-agent-shutdown.sh" = {
+  xdg.configFile."plasma-workspace/shutdown/ssh-agent-shutdown.sh" = {
     executable = true;
     text = ''
       #!/usr/bin/env bash

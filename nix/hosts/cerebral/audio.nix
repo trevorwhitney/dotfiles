@@ -14,7 +14,7 @@ let
                 "type" = "ladspa";
                 "name" = "rnnoise";
                 "plugin" = "${pkgs.rnnoise-plugin}/lib/ladspa/librnnoise_ladspa.so";
-                "label" = "noise_suppressor_mono";
+                "label" = "noise_suppressor_stereo";
                 "control" = {
                   "VAD Threshold (%)" = 50.0;
                 };
@@ -22,14 +22,13 @@ let
             ];
           };
 
-          "audio.position" = [ "MONO" ];
           "capture.props" = {
             "node.name" = "effect_input.rnnoise";
             "node.passive" = true;
 
             # found using pw-dump
-            "node.target" = "alsa_input.usb-FongLun_AmazonBasics_Desktop_Mini_Mic_201802-00.mono-fallback";
-            "audio.position" = [ "MONO" ];
+            "node.target" = "alsa_input.usb-FongLun_AmazonBasics_Desktop_Mini_Mic_201802-00.pro-input-0";
+            "audio.position" = [ "AUX0" ];
           };
 
           "playback.props" = {
@@ -44,7 +43,7 @@ let
 in
 {
   # Enable sound with pipewire.
-  # sound.enable = false;
+  sound.enable = true;
   # hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
 
