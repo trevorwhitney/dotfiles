@@ -22,7 +22,8 @@ in
           auto-tab-discard
           cookie-autodelete
           ghostery
-          gnome-shell-integration
+          # TODO: move to gnome.nix
+          # gnome-shell-integration
           multi-account-containers
           /* okta-browser-plugin */
           onepassword-password-manager

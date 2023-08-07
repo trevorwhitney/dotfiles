@@ -18,9 +18,6 @@
   # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
   manual.manpages.enable = false;
 
-  # Use easy effects with pipewire
-  services.easyeffects.enable = true;
-
   programs.firefox = {
     profiles.default.settings = {
       "media.ffmpeg.vaapi.enabled" = true;
