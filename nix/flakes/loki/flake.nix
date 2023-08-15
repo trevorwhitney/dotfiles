@@ -48,6 +48,7 @@
             revive
             statix
             systemd
+            trivy
             yamllint
 
             # Typescript for GitHub Actions

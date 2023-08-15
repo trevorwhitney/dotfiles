@@ -70,6 +70,7 @@ in
     docker
     docker-compose
     drone-cli
+    fd
     file
     fzf
     glow

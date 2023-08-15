@@ -33,6 +33,19 @@ in
         [ -f "${fzf}/share/fzf/completion.zsh" ] && source "${fzf}/share/fzf/completion.zsh"
         [ -f "${fzf}/share/fzf/key-bindings.zsh" ] && source "${fzf}/share/fzf/key-bindings.zsh"
 
+        # Use fd (https://github.com/sharkdp/fd) instead of the default find
+        # command for listing path candidates.
+        # - The first argument to the function ($1) is the base path to start traversal
+        # - See the source code (completion.{bash,zsh}) for the details.
+        _fzf_compgen_path() {
+          fd --follow --no-ignore --exclude ".git" --exclude ".direnv" . "$1"
+        }
+
+        # Use fd to generate the list for directory completion
+        _fzf_compgen_dir() {
+          fd --type d --follow --no-ignore --exclude ".git" --exclude ".direnv" . "$1"
+        }
+
         autoload -z edit-command-line
         zle -N edit-command-line
         bindkey "^X^E" edit-command-line
