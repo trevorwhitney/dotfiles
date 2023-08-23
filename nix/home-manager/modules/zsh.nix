@@ -38,12 +38,12 @@ in
         # - The first argument to the function ($1) is the base path to start traversal
         # - See the source code (completion.{bash,zsh}) for the details.
         _fzf_compgen_path() {
-          fd --follow --no-ignore --exclude ".git" --exclude ".direnv" . "$1"
+          fd --follow --no-ignore --hidden --exclude ".git" --exclude ".direnv" . "$1"
         }
 
         # Use fd to generate the list for directory completion
         _fzf_compgen_dir() {
-          fd --type d --follow --no-ignore --exclude ".git" --exclude ".direnv" . "$1"
+          fd --type d --follow --no-ignore --hidden --exclude ".git" --exclude ".direnv" . "$1"
         }
 
         autoload -z edit-command-line
@@ -142,7 +142,7 @@ in
       hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles -b backup";
       rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles";
       rollback = "sudo nixos-rebuild switch --rollback";
-      k = "${pkgs.kubectl-1-25-5}/bin/kubectl ";
+      k = "${pkgs.kubectl-1-25}/bin/kubectl ";
 
       # git
       gco = "git checkout \$(git branch | fzf)";

@@ -19,7 +19,7 @@
             gnumake
             go
             mage
-            swc
+            # swc
 
             nodejs
             (yarn.override {

@@ -96,6 +96,7 @@ in
     lynis
     mktemp
     mosh
+    ngrok
     ncurses
     # ngrok broke with upgrade to 23.05
     # mismtached sha

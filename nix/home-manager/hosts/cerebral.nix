@@ -54,6 +54,6 @@
 
   programs.kubectl = {
     enable = true;
-    package = pkgs.kubectl-1-25-5;
+    package = pkgs.kubectl-1-25;
   };
 }
