@@ -37,10 +37,6 @@
     withLspSupport = true;
   };
 
-  programs.alacritty = {
-    enable = true;
-  };
-
   programs.gh = {
     enable = true;
   };

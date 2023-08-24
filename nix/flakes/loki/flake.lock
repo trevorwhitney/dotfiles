@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1689068808,
-        "narHash": "sha256-6ixXo3wt24N/melDWjq70UuHQLxGV8jZvooRanIHXw0=",
+        "lastModified": 1692799911,
+        "narHash": "sha256-3eihraek4qL744EvQXsK1Ha6C3CR7nnT8X2qWap4RNk=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "919d646de7be200f3bf08cb76ae1f09402b6f9b4",
+        "rev": "f9e7cf818399d17d347f847525c5a5a8032e4e44",
         "type": "github"
       },
       "original": {
@@ -26,11 +26,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1690817019,
-        "narHash": "sha256-7/5Qv79gvmDSP8Gn9deJH6KEDvCg9pJJZ9tnZaaKfLE=",
+        "lastModified": 1692889210,
+        "narHash": "sha256-+6neRJrPNJ9YtTdjoUjfIaF9VKTEnPnIZDd3cUSDYYQ=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "174ef4472c358038e290f4f55a91447876aa869e",
+        "rev": "4bd5e617c3af2b60310e35795b5ac9f88b6a3a8e",
         "type": "github"
       },
       "original": {
@@ -57,11 +57,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1690640159,
-        "narHash": "sha256-5DZUYnkeMOsVb/eqPYb9zns5YsnQXRJRC8Xx/nPMcno=",
+        "lastModified": 1692734709,
+        "narHash": "sha256-SCFnyHCyYjwEmgUsHDDuU0TsbVMKeU1vwkR+r7uS2Rg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e6ab46982debeab9831236869539a507f670a129",
+        "rev": "b85ed9dcbf187b909ef7964774f8847d554fab3b",
         "type": "github"
       },
       "original": {
@@ -89,17 +89,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1686063949,
-        "narHash": "sha256-pAF+aemquJA/zZ8w9ox5Gbng/uAK/khPM28yMxLxI70=",
+        "lastModified": 1692827009,
+        "narHash": "sha256-k262Y2B89aH06LXSp0LmDLlFpTrlVFLSH2dHhMNnO+w=",
         "ref": "main",
-        "rev": "6ec3e905533937564c02bba29917e91ca6c31c7b",
-        "revCount": 19,
+        "rev": "817ab0e943955c17b9396c7958e28474ee8f876c",
+        "revCount": 25,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       },
       "original": {
         "ref": "main",
-        "rev": "6ec3e905533937564c02bba29917e91ca6c31c7b",
+        "rev": "817ab0e943955c17b9396c7958e28474ee8f876c",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }

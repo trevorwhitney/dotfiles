@@ -15,7 +15,7 @@
 
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=011e342a1a6c5510a24e88fb737cd3f553db3eb4";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=817ab0e943955c17b9396c7958e28474ee8f876c";
 
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +37,16 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&rev=69230fe700d4bad6debcc2c11ed91cf1b035a892";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&rev=d10de8eb11a3de574726f9363d1a28f0df7eb147";
+
+    # newer rust needed for nil language server
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    # nil language server for nix support
+    nil-ls.url = "github:oxalica/nil?rev=18de045d7788df2343aec58df7b85c10d1f5d5dd"; #works
+    nil-ls.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    nil-ls.inputs.rust-overlay.follows = "rust-overlay";
   };
 
   outputs =
@@ -50,7 +59,9 @@
     , nixos-hardware
     , nixpkgs
     , nixpkgs-unstable
+    , nil-ls
     , nur
+    , rust-overlay
     , secrets
     , ...
     }:
@@ -91,6 +102,8 @@
         nixgl.overlay
         secrets.overlay
         jsonnet-language-server.overlay
+        rust-overlay.overlays.default
+        nil-ls.overlays.nil
       ];
 
       pkgs = import nixpkgs {

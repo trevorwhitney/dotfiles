@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1687709756,
-        "narHash": "sha256-Y5wKlQSkgEK2weWdOu4J3riRd+kV/VCgHsqLNTTWQ/0=",
+        "lastModified": 1692799911,
+        "narHash": "sha256-3eihraek4qL744EvQXsK1Ha6C3CR7nnT8X2qWap4RNk=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "dbabf0ca0c0c4bce6ea5eaf65af5cb694d2082c7",
+        "rev": "f9e7cf818399d17d347f847525c5a5a8032e4e44",
         "type": "github"
       },
       "original": {
@@ -20,11 +20,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1688556768,
-        "narHash": "sha256-mhd6g0iJGjEfOr3+6mZZOclUveeNr64OwxdbNtLc8mY=",
+        "lastModified": 1692742407,
+        "narHash": "sha256-faLzZ2u3Wki8h9ykEfzQr19B464eyADP3Ux7A/vjKIY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "27bd67e55fe09f9d68c77ff151c3e44c4f81f7de",
+        "rev": "a2eca347ae1e542af3f818274c38305c1e00604c",
         "type": "github"
       },
       "original": {
@@ -51,17 +51,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1688575472,
-        "narHash": "sha256-RuCNUzx8iZpCj892tcaNSObBMMH8OT4f8nrMKnhHFeA=",
+        "lastModified": 1692827009,
+        "narHash": "sha256-k262Y2B89aH06LXSp0LmDLlFpTrlVFLSH2dHhMNnO+w=",
         "ref": "main",
-        "rev": "591a23a09549308469b1cfc59a1f5c10065dde11",
-        "revCount": 20,
+        "rev": "817ab0e943955c17b9396c7958e28474ee8f876c",
+        "revCount": 25,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       },
       "original": {
         "ref": "main",
-        "rev": "591a23a09549308469b1cfc59a1f5c10065dde11",
+        "rev": "817ab0e943955c17b9396c7958e28474ee8f876c",
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/home-manager-secrets.git"
       }

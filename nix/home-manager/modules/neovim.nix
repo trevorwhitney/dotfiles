@@ -72,10 +72,12 @@ in
             basePackages = with pkgs; [
               gcc
               gnumake
-              nixd
               nodeJsPkg
               nodePackages.markdownlint-cli
-              rnix-lsp
+              # 3 options for nix LSP, nil currently working best
+              # rnix-lsp
+              # nixd
+              nil
               statix
             ];
             lspPackages = with pkgs;

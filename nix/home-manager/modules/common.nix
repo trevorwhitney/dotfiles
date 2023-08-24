@@ -61,7 +61,6 @@ in
     bashInteractive
     bat
     bind
-    cargo
     chart-testing
     cmake
     curl
@@ -98,12 +97,9 @@ in
     mosh
     ngrok
     ncurses
-    # ngrok broke with upgrade to 23.05
-    # mismtached sha
-    #ngrok
     rbenv
     ripgrep
-    rustc
+    # rust-bin.stable.latest.default # to bring in rustc, but not sure if it's needed in common
     sysstat
     tanka
     terraform
