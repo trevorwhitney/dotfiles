@@ -17,7 +17,18 @@ in
     };
 
     # Needed for tailscale
-    resolved.enable = true;
+    resolved = {
+      enable = true;
+      # NextDNS
+      extraConfig = ''
+      [Resolve]
+      DNS=45.90.28.0#d2ec9a.dns.nextdns.io
+      DNS=2a07:a8c0::#d2ec9a.dns.nextdns.io
+      DNS=45.90.30.0#d2ec9a.dns.nextdns.io
+      DNS=2a07:a8c1::#d2ec9a.dns.nextdns.io
+      DNSOverTLS=yes
+      '';
+    };
 
     # Ship journald logs to loki
     promtail = {

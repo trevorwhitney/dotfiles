@@ -8,7 +8,7 @@
     loki.inputs.flake-utils.follows = "flake-utils";
 
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=817ab0e943955c17b9396c7958e28474ee8f876c";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=b67cb614ab1dcefc005c8afa859a282a90d1add3";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
   };

@@ -178,13 +178,14 @@ in
         "${activateAndUnlock}/bin/activate-and-unlock";
 
       #Grafana
-      logcli = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#logcli -- ";
-      loki = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#loki -- ";
-      promtail = "nix run $HOME/workspace/dotfiles/nix/flakes/loki#promtail -- ";
-      gcom = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#gcom -- ";
-      gcom-dev = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#gcom-dev -- ";
-      flux-ignore = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#flux-ignore -- -actor=trevor.whitney@grafana.com ";
-      rt = "nix run $HOME/workspace/dotfiles/nix/flakes/deployment_tools#rt -- ";
+      logcli = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#logcli -- ";
+      loki = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#loki -- ";
+      promtail = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#promtail -- ";
+      gcom = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#gcom -- ";
+      gcom-dev = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#gcom-dev -- ";
+      gcom-ops = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#gcom-ops -- ";
+      flux-ignore = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#flux-ignore -- -actor=trevor.whitney@grafana.com ";
+      rt = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#rt -- ";
     };
   };
 }

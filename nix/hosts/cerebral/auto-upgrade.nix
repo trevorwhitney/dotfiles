@@ -16,5 +16,10 @@
       "--update-input" "nixpkgs-unstable"
       "--update-input" "nur"
     ];
+    allowReboot = true;
+    rebootWindow = {
+      upper = "05:00";
+      lower = "01:00";
+    };
   };
 }

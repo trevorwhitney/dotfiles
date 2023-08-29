@@ -96,7 +96,7 @@
         "application/xhtml+xml" = "firefox.desktop;";
         "inode/directory" = "org.kde.dolphin.desktop;";
         "text/calendar" = "thunderbird.desktop";
-        "text/html" = "firefox.desktop;";
+        "text/html" = "google-chrome.desktop;";
         "text/plain" = "kitty-open.desktop;";
         "video/mp4" = "vlc.desktop;";
         "video/x-matroska" = "vlc.desktop;";
@@ -104,8 +104,8 @@
         "x-scheme-handler/chrome" = "google-chrome.desktop;";
         "x-scheme-handler/ftp" = "firefox.desktop;";
         "x-scheme-handler/geo" = "openstreetmap-geo-handler.desktop;";
-        "x-scheme-handler/http" = "firefox.desktop;";
-        "x-scheme-handler/https" = "firefox.desktop;";
+        "x-scheme-handler/http" = "google-chrome.desktop;";
+        "x-scheme-handler/https" = "google-chrome.desktop;";
         "x-scheme-handler/insomnia" = "insomnia.desktop;";
         "x-scheme-handler/slack" = "slack.desktop";
         "x-scheme-handler/tel" = "org.kde.kdeconnect.handler.desktop;";

@@ -7,7 +7,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=817ab0e943955c17b9396c7958e28474ee8f876c";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=b67cb614ab1dcefc005c8afa859a282a90d1add3";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
   };
@@ -56,6 +56,17 @@
                   ${deploymentTools}/scripts/gcom/gcom "$@"
                 '')
               }/bin/gcom.sh";
+            };
+
+            gcom-ops = {
+              type = "app";
+              program = with pkgs; "${
+                (writeShellScriptBin "gcom-ops.sh" ''
+                  source ${pkgs.secrets}/grafana/deployment-tools.sh
+                  mkdir -p ''${XDG_CACHE_HOME}/gcom
+                  GCOM_TOKEN="''${GCOM_OPS_TOKEN}" ${deploymentTools}/scripts/gcom/gcom-ops "$@"
+                '')
+              }/bin/gcom-ops.sh";
             };
 
             gcom-dev = {

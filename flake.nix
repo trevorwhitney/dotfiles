@@ -15,7 +15,7 @@
 
     #TODO: replace with https://github.com/ryantm/agenix
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=817ab0e943955c17b9396c7958e28474ee8f876c";
+      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=b67cb614ab1dcefc005c8afa859a282a90d1add3";
 
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
@@ -37,7 +37,7 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&rev=d10de8eb11a3de574726f9363d1a28f0df7eb147";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&rev=970897807f4df928c8f55eeb0f21684952732ea3";
 
     # newer rust needed for nil language server
     rust-overlay.url = "github:oxalica/rust-overlay";

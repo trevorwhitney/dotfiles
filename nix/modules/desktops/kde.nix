@@ -6,9 +6,16 @@
     xkbOptions = "ctrl:nocaps,caps:ctrl_modifier";
 
     displayManager = {
+      autoLogin = {
+        enable = true;
+        user = "twhitney";
+      };
       sddm = {
         enable = true;
         enableHidpi = true;
+        autoLogin = {
+          minimumUid = 1000;
+        };
       };
       defaultSession = "plasmawayland";
     };
@@ -20,6 +27,10 @@
       };
     };
   };
+
+  # workaround to fix auto-login issue
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   xdg = {
     portal = {
