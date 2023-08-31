@@ -155,6 +155,7 @@ in
       root = "cd \$(git root || pwd)";
 
       ":q" = "exit";
+      ":Q" = "exit";
       ":qa" = "exit";
 
       # vim
