@@ -3,8 +3,8 @@
   systemd.timers."dynamic-dns-reporter" = {
     description = "Timer for dynamic dns reporter";
     timerConfig = {
-      OnCalendar = "daily";
-      AccuracySec = "1h";
+      OnBootSec = "1m";
+      OnUnitActiveSec = "5m";
       Persistent = "true";
     };
     wantedBy = [ "timers.target" ];

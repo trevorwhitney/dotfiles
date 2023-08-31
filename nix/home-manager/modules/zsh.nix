@@ -154,6 +154,9 @@ in
       gap = "git add -p";
       root = "cd \$(git root || pwd)";
 
+      ":q" = "exit";
+      ":qa" = "exit";
+
       # vim
       v = "vim ";
       temp = "vim \$(mktemp)";

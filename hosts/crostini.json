@@ -1,10 +1,6 @@
 {
   "excluded": [
-    "cerebral",
-    "flatpak",
-    "grafana",
-    "monitoring",
-    "ssh-server-linux"
+    "kolide"
   ],
   "name": "crostini",
   "nix": {

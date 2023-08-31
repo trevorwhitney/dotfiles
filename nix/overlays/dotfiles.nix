@@ -36,10 +36,6 @@ in
   jdtls = prev.callPackage ../packages/jdtls {
     inherit (prev) stdenv fetchzip lib pkgs;
   };
-  polybar-themes =
-    prev.callPackage ../packages/polybar-themes {
-      inherit (prev) fetchFromGitHub lib runCommand;
-    };
   mosh = prev.callPackage ../packages/mosh {
     inherit (prev) pkgs;
   };

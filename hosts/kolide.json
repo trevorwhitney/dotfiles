@@ -1,12 +1,7 @@
 {
   "excluded": [
     "apt",
-    "cerebral",
     "crostini",
-    "flatpak",
-    "grafana",
-    "monitoring",
-    "ssh-server-linux",
     "tailscale"
   ],
   "name": "kolide",

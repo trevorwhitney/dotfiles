@@ -1,6 +1,9 @@
 {
   "excluded": [
-    "crostini"
+    "apt",
+    "crostini",
+    "kolide",
+    "tailscale"
   ],
   "name": "cerebral",
   "nix": {
@@ -11,13 +14,6 @@
     }
   },
   "units": [
-    "apt",
-    "cerebral",
-    "grafana",
-    "home-manager",
-    "flatpak",
-    "monitoring",
-    "ssh-server-linux",
-    "tailscale"
+    "home-manager"
   ]
 }

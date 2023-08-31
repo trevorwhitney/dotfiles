@@ -97,6 +97,7 @@ in
     mosh
     ngrok
     ncurses
+    nmap
     rbenv
     ripgrep
     # rust-bin.stable.latest.default # to bring in rustc, but not sure if it's needed in common
