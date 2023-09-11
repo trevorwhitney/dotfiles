@@ -44,6 +44,7 @@
             golangci-lint
             faillint
             systemd
+            trivy
             yamllint
             yamllint
           ];
