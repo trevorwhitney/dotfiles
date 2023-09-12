@@ -43,8 +43,10 @@
   # Enable bluetooth
   hardware.bluetooth = {
     enable = true;
+    powerOnBoot = true;
     settings = {
       General = {
+        # needed for airpods
         ControllerMode = "bredr";
       };
     };
