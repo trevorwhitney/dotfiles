@@ -11,6 +11,7 @@
   nixos-hardware.nixosModules.common-cpu-amd
   nixos-hardware.nixosModules.common-gpu-amd
 
+  ./1password.nix
   ./audio.nix
   ./auto-upgrade.nix
   ./configuration.nix

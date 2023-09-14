@@ -9,6 +9,7 @@
     ../modules/kitty.nix
     ../modules/kubernetes.nix
     ../modules/neovim.nix
+    ../modules/ssh.nix
     ../modules/spotify.nix
     ../modules/tmux.nix
     ../modules/xdg.nix

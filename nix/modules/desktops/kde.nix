@@ -71,11 +71,12 @@
   programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
 
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-  };
+  # experiment, trying to use 1password ssh agent, brought in my home-manager module
+  # programs.ssh = {
+  #   startAgent = true;
+  #   enableAskPassword = true;
+  # };
+  # environment.sessionVariables.SSH_ASKPASS_REQUIRE = "force";
 
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "force";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
