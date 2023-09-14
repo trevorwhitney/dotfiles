@@ -20,11 +20,12 @@ in
       userEmail = "trevorjwhitney@gmail.com";
       delta = { enable = true; };
 
-      signing = {
-        inherit (cfg) gpgPath;
-        key = "D6E15E6AAB792668BB207FD478F930867F302694";
-        signByDefault = true;
-      };
+      # signing = {
+      #   # inherit (cfg) gpgPath;
+      #   key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
+      #   signByDefault = true;
+      #   format = "ssh";
+      # };
 
       lfs = {
         enable = true;
@@ -80,9 +81,16 @@ in
           templatedir = "${git-template}";
           defaultBranch = "main";
         };
+
         credential.helper = "${
           pkgs.git.override { withLibsecret = true; }
         }/bin/git-credential-libsecret";
+
+        # use 1password ssh key for signing commits
+        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
+        gpg.format = "ssh";
+        gpg.ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+        commit.gpgsign = true;
       };
 
       ignores = [
