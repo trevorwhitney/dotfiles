@@ -71,6 +71,7 @@
   programs.dconf.enable = true;
   programs.kdeconnect.enable = true;
 
+  # TODO: delete this once we've proven we no longer need GPG signing of commits
   # experiment, trying to use 1password ssh agent, brought in my home-manager module
   # programs.ssh = {
   #   startAgent = true;

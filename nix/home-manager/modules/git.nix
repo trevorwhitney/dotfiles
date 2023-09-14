@@ -20,11 +20,14 @@ in
       userEmail = "trevorjwhitney@gmail.com";
       delta = { enable = true; };
 
+
+      # TODO: delete this once we've proven we no longer need GPG signing of commits
+      # This was removed when I switched to using 1password for ssh keys
+      # going to keep it around for a bit until I'm confident I don't need it anymore
       # signing = {
-      #   # inherit (cfg) gpgPath;
-      #   key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
+      #   inherit (cfg) gpgPath;
+      #   key = "D6E15E6AAB792668BB207FD478F930867F302694";
       #   signByDefault = true;
-      #   format = "ssh";
       # };
 
       lfs = {
@@ -85,12 +88,6 @@ in
         credential.helper = "${
           pkgs.git.override { withLibsecret = true; }
         }/bin/git-credential-libsecret";
-
-        # use 1password ssh key for signing commits
-        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
-        gpg.format = "ssh";
-        gpg.ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
-        commit.gpgsign = true;
       };
 
       ignores = [

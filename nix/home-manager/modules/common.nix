@@ -26,22 +26,7 @@ in
 
   xdg.configFile."yamllint/config".source = "${dotfiles}/yamllint.yaml";
 
-  # Automatically add SSH keys to ssh-agent
-  # xdg.configFile."autostart/ssh-add" = {
-  #  executable = true;
-  #  text = ''
-  #    [Desktop Entry]
-  #    Exec=ssh-add -q .ssh/id_ed25519
-  #    Name=ssh-add
-  #    Type=Application
-  # '';
-  #};
-
   home.file.".tridactylrc".source = "${dotfiles}/config/tridactyl/tridactylrc";
-
-  # TODO: copy google cloud sdk completion
-  # ln -sf /usr/share/google-cloud-sdk/completion.zsh.inc "$HOME/.oh-my-zsh/custom/gcloud-completion.zsh"
-  # ~/.nix-profile/google-cloud-sdk/completion.zsh.inc
 
   # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
   manual.manpages.enable = false;

@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }: {
   imports = [
+    ../modules/1password.nix
     ../modules/bash.nix
     ../modules/common.nix
     ../modules/firefox.nix
@@ -9,7 +10,6 @@
     ../modules/kitty.nix
     ../modules/kubernetes.nix
     ../modules/neovim.nix
-    ../modules/ssh.nix
     ../modules/spotify.nix
     ../modules/tmux.nix
     ../modules/xdg.nix
