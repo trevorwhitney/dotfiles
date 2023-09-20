@@ -20,16 +20,6 @@ in
       userEmail = "trevorjwhitney@gmail.com";
       delta = { enable = true; };
 
-
-      # TODO: delete this once we've proven we no longer need GPG signing of commits
-      # This was removed when I switched to using 1password for ssh keys
-      # going to keep it around for a bit until I'm confident I don't need it anymore
-      # signing = {
-      #   inherit (cfg) gpgPath;
-      #   key = "D6E15E6AAB792668BB207FD478F930867F302694";
-      #   signByDefault = true;
-      # };
-
       lfs = {
         enable = true;
         skipSmudge = true;

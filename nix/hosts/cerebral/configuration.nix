@@ -87,10 +87,6 @@ in
     gnupg.agent = {
       # enable = true;
       enable = false;
-      # TODO: this was removed in favor of auto-starting an ssh agent
-      # with the hope of not needing to provide ssh key passphrase
-      # for git operations. Does this break GPG git signing?
-      # enableSSHSupport = true;
     };
 
     dconf.enable = true;
