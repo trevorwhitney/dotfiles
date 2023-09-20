@@ -40,6 +40,7 @@ in
             };
           };
 
+          # TODO: switch to 1password for all this stuff
           systemd.user = with pkgs; {
             sessionVariables = {
               SSH_AUTH_SOCK = ''''${XDG_RUNTIME_DIR}/ssh-agent.socket'';

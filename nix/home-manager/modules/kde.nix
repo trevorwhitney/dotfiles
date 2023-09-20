@@ -12,37 +12,6 @@
       };
     };
 
-  xdg.configFile."plasma-workspace/env/ssh-agent-startup.sh" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-
-      if ! pgrep -u $USER ssh-agent > /dev/null; then
-          ssh-agent > ~/.ssh-agent-info
-      fi
-      if [[ "$SSH_AGENT_PID" == "" ]]; then
-          source ~/.ssh-agent-info
-      fi
-
-      for KEY in $(ls $HOME/.ssh/id_ed25519* | grep -v \.pub); do
-        ssh-add -q ''${KEY} </dev/null
-      done
-    '';
-  };
-
-  xdg.configFile."plasma-workspace/shutdown/ssh-agent-shutdown.sh" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-      if pgrep -u $USER ssh-agent > /dev/null; then
-          source ~/.ssh-agent-info
-      fi
-
-      [ -z "$SSH_AGENT_PID" ] || eval "$(ssh-agent -k)"
-    '';
-  };
-
-
   # Use kwallet for gpg-agent pinentry
   home.file.".gnupg/gpg-agent.conf".text = ''
     default-cache-ttl 60480000

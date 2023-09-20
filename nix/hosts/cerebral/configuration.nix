@@ -107,10 +107,6 @@ in
       ohMyZsh.enable = true;
       enableCompletion = false;
     };
-
-    ssh = {
-      startAgent = true;
-    };
   };
 
   environment.variables = {
