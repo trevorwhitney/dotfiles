@@ -17,5 +17,8 @@ final: prev: rec {
     _1password-gui
     gimp
     spotify
-    thunderbird;
+    thunderbird
+
+    #tmux
+    tmux;
 }

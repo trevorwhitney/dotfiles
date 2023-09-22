@@ -27,15 +27,14 @@ in
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
       programs.neovim = {
         enable = true;
-        # TODO: when on 23-05
-        /* defaultEditor = true; */
+        defaultEditor = true;
 
         # manually provide node to pin @ version that works with Copilot
         withNodeJs = false;
         package = pkgs.neovim-unwrapped.override {
           nodejs = nodeJsPkg;
         };
-        # use own custom script above for starting in tmux
+
         vimAlias = true;
         vimdiffAlias = true;
 
