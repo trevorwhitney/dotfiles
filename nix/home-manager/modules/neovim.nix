@@ -77,6 +77,7 @@ in
               # rnix-lsp
               # nixd
               nil
+              nixpkgs-fmt
               statix
             ];
             lspPackages = with pkgs;
@@ -89,7 +90,6 @@ in
                 gopls
                 jsonnet-language-server
                 lua-language-server
-                nixpkgs-fmt
                 pyright
                 shellcheck
                 shfmt

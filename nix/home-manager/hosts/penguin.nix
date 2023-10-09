@@ -40,6 +40,10 @@ in
               '';
             };
           };
+          programs._1password = {
+            userSystemdUnit.enable = true;
+            autostartDesktopFile.enable = false;
+          };
         }
       ] ++ imports;
     };
