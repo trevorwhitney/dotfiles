@@ -74,6 +74,7 @@ in
     kube3d
     kubernetes-helm
     lm_sensors
+    lsof
     lua51Packages.luarocks
     luajit
     lynis

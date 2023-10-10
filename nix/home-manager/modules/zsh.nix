@@ -182,7 +182,7 @@ in
         "${activateAndUnlock}/bin/activate-and-unlock";
 
       #Grafana
-      logcli = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#logcli -- ";
+      logcli = "nix run --no-write-lock-file github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#logcli -- ";
       loki = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#loki -- ";
       promtail = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#promtail -- ";
       gcom = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#gcom -- ";
