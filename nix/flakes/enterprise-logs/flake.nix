@@ -29,7 +29,7 @@
 
             # Golang
             delve
-            go
+            go_1_21
             gotools
             mage
 

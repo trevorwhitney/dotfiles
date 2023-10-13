@@ -59,7 +59,8 @@ in
     programs.git.extraConfig = {
       user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
       gpg.format = "ssh";
-      gpg.ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+      # this doesn't work when forwarding agent of ssh
+      # gpg.ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
       commit.gpgsign = true;
     };
 
@@ -69,7 +70,10 @@ in
       # use the 1password ssh agent
       extraConfig = ''
         IdentityAgent ~/.1password/agent.sock
+        ForwardAgent yes
       '';
     };
+
+    programs.zsh.use1Password = true;
   };
 }
