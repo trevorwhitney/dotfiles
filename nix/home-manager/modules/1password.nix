@@ -68,10 +68,11 @@ in
     programs.ssh = {
       enable = true;
       forwardAgent = true;
+      # this is breaking when agent is forwarded
       # use the 1password ssh agent
-      extraConfig = ''
-        IdentityAgent ~/.1password/agent.sock
-      '';
+      # extraConfig = ''
+      #   IdentityAgent ~/.1password/agent.sock
+      # '';
     };
 
     programs.zsh.use1Password = true;
