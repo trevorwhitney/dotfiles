@@ -67,10 +67,10 @@ in
     # use 1password ssh agent
     programs.ssh = {
       enable = true;
+      forwardAgent = true;
       # use the 1password ssh agent
       extraConfig = ''
         IdentityAgent ~/.1password/agent.sock
-        ForwardAgent yes
       '';
     };
 
