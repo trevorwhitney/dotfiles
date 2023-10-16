@@ -151,8 +151,7 @@ in
         ''
         (lib.optionalString cfg.use1Password
           ''
-            unset SSH_AUTH_SOCK
-            if [ -z "$SSH_TTY" ] && [ -z "$SSH_CONNECTION"]; then
+            if [ -z "$SSH_TTY" ]; then
               export SSH_AUTH_SOCK=~/.1password/agent.sock
             fi
           '')
