@@ -11,6 +11,7 @@ nix_config="$(cat "$HOME/.config/dotfiles/host.json")"
 nix_user="$(echo "${nix_config}" | jq -r '.nix.user')"
 nix_group="$(echo "${nix_config}" | jq -r '.nix.group')"
 nix_sandbox="$(echo "${nix_config}" | jq -r '.nix.sandbox.enabled')"
+nix_builders="$(echo "${nix_config}" | jq -r '.nix.builders | join(" ; ")')"
 
 if [[ ! $(grep "^${nix_group}" /etc/group) ]]; then sudo groupadd "${nix_group}"; fi
 sudo usermod -aG "${nix_group}" "${nix_user}"
@@ -24,6 +25,10 @@ if [[ "${nix_sandbox}" != "true" ]]; then
 	echo 'sandbox = false' >>"${HOME}/.config/nix/nix.conf"
 fi
 echo 'experimental-features = nix-command flakes' >>"${HOME}/.config/nix/nix.conf"
+
+if [[ ! -z "${nix_builders}" ]]; then
+  echo "builders = ${nix_builders}" >>"${HOME}/.config/nix/nix.conf"
+fi
 
 nix_profile="${HOME}/.nix-profile/etc/profile.d/nix.sh"
 if [[ -e "${nix_profile}" ]]; then

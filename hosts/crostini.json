@@ -8,7 +8,10 @@
     "group": "nix-users",
     "sandbox": {
       "enabled": false
-    }
+    },
+    "builders": [
+      "ssh://cerebral.trevorwhitney.net"
+    ]
   },
   "units": [
     "apt",
