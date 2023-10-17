@@ -8,7 +8,13 @@ in
     printing.enable = true;
 
     # Enable the OpenSSH daemon.
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "no";
+        PasswordAuthentication = false;
+      };
+    };
 
     # Enable Tailscale
     tailscale = {
