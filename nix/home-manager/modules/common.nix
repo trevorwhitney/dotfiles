@@ -66,7 +66,6 @@ in
       gke-gcloud-auth-plugin
     ]))
     gradle
-    guardian-agent
     helm-docs
     jetbrains.idea-community
     jsonnet-bundler
