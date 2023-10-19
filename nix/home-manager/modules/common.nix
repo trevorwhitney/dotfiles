@@ -114,4 +114,6 @@ in
     enable = true;
     nix-direnv = { enable = true; };
   };
+
+  services.dropbox.enable = true;
 }

@@ -72,7 +72,6 @@ in
     nix-alien
 
     curl
-    dropbox
     git
     google-drive-ocamlfuse
     home-manager

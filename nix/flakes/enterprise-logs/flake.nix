@@ -43,6 +43,7 @@
             gcc
             golangci-lint
             faillint
+            snyk
             systemd
             trivy
             yamllint

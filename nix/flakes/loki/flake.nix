@@ -48,6 +48,7 @@
               nettools
               nixpkgs-fmt
               revive
+              snyk
               statix
               systemd
               trivy
