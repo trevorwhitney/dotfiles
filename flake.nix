@@ -47,10 +47,13 @@
     nil-ls.url = "github:oxalica/nil?rev=18de045d7788df2343aec58df7b85c10d1f5d5dd"; #works
     nil-ls.inputs.nixpkgs.follows = "nixpkgs-unstable";
     nil-ls.inputs.rust-overlay.follows = "rust-overlay";
+
+    devenv.url = "github:cachix/devenv";
   };
 
   outputs =
     { self
+    , devenv
     , flake-utils
     , home-manager
     , jsonnet-language-server
@@ -82,6 +85,7 @@
         (import "${self}/nix/overlays/dotfiles.nix")
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
         (import "${self}/nix/overlays/dynamic-dns-reporter.nix")
+        (import "${self}/nix/overlays/kubectl.nix")
 
         # Keep virtualbox on 6.x
         # since not all my images work on 7.x
@@ -94,9 +98,6 @@
           system = "x86_64-linux";
         })
 
-        (import "${self}/nix/overlays/kubectl.nix" {
-          system = "x86_64-linux";
-        })
 
 
         nixgl.overlay
@@ -104,6 +105,14 @@
         jsonnet-language-server.overlay
         rust-overlay.overlays.default
         nil-ls.overlays.nil
+
+        (final: prev:
+          let
+            devenvPkgs = devenv.packages."x86_64-linux";
+          in
+          {
+            inherit (devenvPkgs) devenv;
+          })
       ];
 
       pkgs = import nixpkgs {
@@ -132,6 +141,14 @@
           description = "My Basic Development Environment";
         };
         default = dev;
+      };
+
+      overlays = {
+        dotfiles = import "${self}/nix/overlays/dotfiles.nix";
+        kubectl = import "${self}/nix/overlays/kubectl.nix";
+        faillint = import "${self}/nix/overlays/faillint.nix";
+        chart-testing = import "${self}/nix/overlays/chart-testing.nix";
+        mixtool = import "${self}/nix/overlays/mixtool.nix";
       };
     } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let

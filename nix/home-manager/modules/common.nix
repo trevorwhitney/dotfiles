@@ -49,6 +49,7 @@ in
     cmake
     curl
     delta
+    devenv
     diffutils
     docker
     docker-compose

@@ -14,7 +14,7 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, loki, secrets }:
-    flake-utils.lib.eachDefaultSystem
+    (flake-utils.lib.eachDefaultSystem
       (system:
         let
           pkgs = import nixpkgs {
@@ -23,9 +23,9 @@
               loki.overlays.default
               /* loki.overlays.golangci-lint */
               secrets.overlay
-              (import ../../overlays/kubectl.nix { inherit system; })
+              (import ../../overlays/kubectl.nix)
               (import ../../overlays/faillint.nix)
-              (import ../../overlays/chart-testing.nix { inherit system; })
+              (import ../../overlays/chart-testing.nix)
             ] ++ (import ./overlays);
             config = { allowUnfree = true; };
           };
@@ -86,5 +86,11 @@
               program = "${pkgs.loki-canary.overrideAttrs(old: rec { doCheck = false; })}/bin/loki-canary";
             };
           };
-        });
+
+        })) // {
+
+      overlays = {
+        loki = loki.overlays.default;
+      };
+    };
 }
