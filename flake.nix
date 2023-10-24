@@ -39,32 +39,26 @@
     # run the latest jsonnet-language-server
     jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&rev=970897807f4df928c8f55eeb0f21684952732ea3";
 
-    # newer rust needed for nil language server
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    rust-overlay.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
-    # nil language server for nix support
-    nil-ls.url = "github:oxalica/nil?rev=18de045d7788df2343aec58df7b85c10d1f5d5dd"; #works
-    nil-ls.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    nil-ls.inputs.rust-overlay.follows = "rust-overlay";
-
     devenv.url = "github:cachix/devenv";
+
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    deploy-rs.url = "github:serokell/deploy-rs";
   };
 
   outputs =
     { self
+    , deploy-rs
     , devenv
     , flake-utils
     , home-manager
     , jsonnet-language-server
     , nix-alien
     , nixgl
+    , nixos-generators
     , nixos-hardware
     , nixpkgs
     , nixpkgs-unstable
-    , nil-ls
     , nur
-    , rust-overlay
     , secrets
     , ...
     }:
@@ -87,24 +81,15 @@
         (import "${self}/nix/overlays/dynamic-dns-reporter.nix")
         (import "${self}/nix/overlays/kubectl.nix")
 
-        # Keep virtualbox on 6.x
-        # since not all my images work on 7.x
-        (import "${self}/nix/overlays/virtualbox.nix" {
-          system = "x86_64-linux";
-        })
-
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien;
           system = "x86_64-linux";
         })
 
-
-
         nixgl.overlay
         secrets.overlay
         jsonnet-language-server.overlay
-        rust-overlay.overlays.default
-        nil-ls.overlays.nil
+        deploy-rs.overlay
 
         (final: prev:
           let
@@ -143,6 +128,7 @@
         default = dev;
       };
 
+      # TODO: compose these into the default
       overlays = {
         dotfiles = import "${self}/nix/overlays/dotfiles.nix";
         kubectl = import "${self}/nix/overlays/kubectl.nix";
@@ -150,6 +136,22 @@
         chart-testing = import "${self}/nix/overlays/chart-testing.nix";
         mixtool = import "${self}/nix/overlays/mixtool.nix";
       };
+
+      # TODO: this is not working because the vagrant box doesn't have the proper config
+      # to allow me to sign packages I'm copying over
+      deploy.nodes.dev-box = {
+        hostname = "localhost";
+        sshUser = "vagrant";
+        user = "root";
+        sshOpts = [ "-p" "2200" ]; # uses NAT interface on VM
+        profiles = {
+          system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."dev-box";
+          };
+        };
+      };
+
+      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
     let
       pkgs = import nixpkgs {
@@ -158,13 +160,44 @@
           allowUnfree = true;
         };
       };
+
     in
     {
       devShells = {
         default = import ./shell.nix { inherit pkgs; };
       };
-      packages = {
-        inherit (pkgs) i3-gnome-flashback;
-      };
+      packages =
+        let
+          overlays = [
+            (import "${self}/nix/overlays/dotfiles.nix")
+            (import "${self}/nix/overlays/kubectl.nix")
+            (import "${self}/nix/overlays/containers.nix" {
+              inherit self nixos-generators;
+            })
+
+            secrets.overlay
+            jsonnet-language-server.overlay
+            deploy-rs.overlay
+
+            (final: prev:
+              let
+                devenvPkgs = devenv.packages."x86_64-linux";
+              in
+              {
+                inherit (devenvPkgs) devenv;
+              })
+          ];
+
+          pkgs = import nixpkgs-unstable {
+            inherit overlays;
+            system = "x86_64-linux";
+            config = {
+              allowUnfree = true;
+            };
+          };
+        in
+        {
+          inherit (pkgs) nvim-container dev-container dev-box;
+        };
     }));
 }

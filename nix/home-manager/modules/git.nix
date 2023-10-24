@@ -4,15 +4,7 @@ let
   cfg = config.programs.git;
 in
 {
-  options = {
-    programs.git = {
-      gpgPath = lib.mkOption {
-        type = lib.types.str;
-        default = "/usr/bin/gpg";
-        description = "path the the gpg executable";
-      };
-    };
-  };
+  options = { };
   config = {
     programs.git = {
       enable = true;

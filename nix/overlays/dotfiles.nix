@@ -36,9 +36,6 @@ in
   jdtls = prev.callPackage ../packages/jdtls {
     inherit (prev) stdenv fetchzip lib pkgs;
   };
-  mosh = prev.callPackage ../packages/mosh {
-    inherit (prev) pkgs;
-  };
   stylua = prev.callPackage ../packages/stylua {
     inherit (prev) lib rustPlatform fetchFromGitHub;
   };

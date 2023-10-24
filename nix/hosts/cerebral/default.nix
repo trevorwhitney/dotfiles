@@ -1,8 +1,16 @@
-{ self, secrets, pkgs, lib, modulesPath, home-manager, nurPkgs, nixos-hardware, ... }: [
+{ self, secrets, pkgs, lib, modulesPath, home-manager, nurPkgs, nixos-hardware, ... }:
+let
+  # Keep virtualbox on 6.x
+  # since not all my images work on 7.x
+  cerebralPkgs = pkgs.extend (import "${self}/nix/overlays/virtualbox.nix" {
+    system = "x86_64-linux";
+  });
+in
+[
   {
     nixpkgs =
       {
-        inherit pkgs;
+        pkgs = cerebralPkgs;
         hostPlatform = "x86_64-linux";
       };
   }
@@ -11,11 +19,12 @@
   nixos-hardware.nixosModules.common-cpu-amd
   nixos-hardware.nixosModules.common-gpu-amd
 
-  ./1password.nix
+  "${self}/nix/modules/1password.nix"
+  "${self}/nix/modules/gc.nix"
+
   ./audio.nix
   ./auto-upgrade.nix
   ./configuration.nix
-  ./gc.nix
   ./services.nix
   ./graphics.nix
   ./twhitney.nix

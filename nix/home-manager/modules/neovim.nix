@@ -64,7 +64,9 @@ in
         extraPython3Packages = ps: with ps; [ pynvim ];
 
         # Will use packer to grab everything else
-        plugins = with pkgs.vimPlugins; [ packer-nvim ];
+        plugins = with pkgs.vimPlugins; [
+          packer-nvim
+        ];
 
         extraPackages =
           let

@@ -49,7 +49,6 @@ in
     cmake
     curl
     delta
-    devenv
     diffutils
     docker
     docker-compose
@@ -94,6 +93,7 @@ in
     todo-txt-cli
     tridactyl-native
     tz
+    vagrant
     vault
     virtualenv
 

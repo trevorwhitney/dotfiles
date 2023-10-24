@@ -5,6 +5,7 @@
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+    dotfiles.url = "path:../../../";
 
     secrets.url =
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
@@ -12,14 +13,14 @@
     secrets.inputs.flake-utils.follows = "flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, secrets }:
+  outputs = { self, dotfiles, nixpkgs, flake-utils, secrets }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
             secrets.overlay
-            (import ../../overlays/kubectl.nix { inherit system; })
+            (import "${dotfiles}/nix/overlays/kubectl.nix")
           ];
         };
 
