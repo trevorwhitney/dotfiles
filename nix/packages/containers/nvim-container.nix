@@ -3,7 +3,12 @@
 # 1. nix build .#nvim-container
 # 2. docker load < result
 # 3. docker volume create nvim
-# 4. docker run -v $(pwd):/src -v nvim:/etc/xdg -it twhitney/nvim:70h4bfwbi3v2wq31ykz0mkjqliwfbqwd nvim flake.nix
+# gopls needs a /tmp directory
+# 4. docker run -v $(pwd):/src -v nvim:/etc/xdg -v /tmp:/tmp -it twhitney/nvim:70h4bfwbi3v2wq31ykz0mkjqliwfbqwd nvim flake.nix
+# TODO:
+#   - add git config, mark /src as safe
+#   - nix needs experimental-features nix-command and flakes enabled
+#   - figure out why nil complains "Your LSP client doesn't support confirmation"
 pkgs.dockerTools.buildImage {
   name = "twhitney/nvim";
   copyToRoot = pkgs.buildEnv
@@ -18,7 +23,7 @@ pkgs.dockerTools.buildImage {
         zsh
 
         # for neovim
-        gcc
+        # gcc
         gnumake
         nodejs_18
         nodePackages.markdownlint-cli
