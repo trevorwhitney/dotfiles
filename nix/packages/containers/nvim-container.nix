@@ -2,121 +2,172 @@
 
 # 1. nix build .#nvim-container
 # 2. docker load < result
-# 3. docker volume create nvim
+# 3. docker volume create nvim-data
+# 4. docker volume create nvim-tmp
 # gopls needs a /tmp directory
-# 4. docker run -v $(pwd):/src -v nvim:/etc/xdg -v /tmp:/tmp -it twhitney/nvim:70h4bfwbi3v2wq31ykz0mkjqliwfbqwd nvim flake.nix
+# 4. docker run -v $(pwd):/src -v nvim-data:/etc/xdg -v nvim-tmp:/tmp -it twhitney/nvim:70h4bfwbi3v2wq31ykz0mkjqliwfbqwd nvim flake.nix
 # TODO:
-#   - add git config, mark /src as safe
-#   - nix needs experimental-features nix-command and flakes enabled
-#   - figure out why nil complains "Your LSP client doesn't support confirmation"
+#   - forward ssh agent into docker container, something like? -v $(readlink -f $SSH_AUTH_SOCK):/var/run/sshd/agent.sock
+#   - figure out clipboard sharing
+let
+  nvim = with pkgs; (wrapNeovimUnstable neovim-unwrapped (neovimUtils.makeNeovimConfig {
+    vimAlias = true;
+    withRuby = true;
+    withPython3 = true;
+    withNodeJs = false;
+
+    extraPython3Packages = ps: with ps; [ pynvim ];
+    plugins = with pkgs.vimPlugins; [
+      packer-nvim
+      (pkgs.vimUtils.buildVimPlugin rec {
+        pname = "tw-vim-lib";
+        version = "b36bcf422e3945105ab37af315ac2311848efeba";
+        src = fetchFromGitHub {
+          owner = "trevorwhitney";
+          repo = "tw-vim-lib";
+          rev = version;
+          sha256 = "8xK+3DzfFCDQzk+ZmqL9EN7Mvkn2MTy6VsRsW4cLBJM=";
+        };
+        meta.homepage = "https://github.com/trevorwhitney/tw-vim-lib";
+      })
+    ];
+    customRC = builtins.concatStringsSep "\n" [
+      # nvim-treesitter requires gcc and tree-sitter to be in the path as seen by neovim
+      "call setenv('PATH', '${stdenv.cc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
+      "let s:lsp_support = 1"
+      "let s:lua_ls_path = '${lua-language-server}'"
+      "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
+      "let g:jdtls_home = '${jdtls}'"
+      (lib.strings.fileContents "${self}/nix/home-manager/modules/lib/init.vim")
+    ];
+  }));
+
+  nixConf = pkgs.writeText "nix.conf" ''
+    allowed-users = *
+    auto-optimise-store = false
+    cores = 0
+    max-jobs = auto
+    require-sigs = true
+    sandbox = true
+    sandbox-fallback = false
+    substituters = https://cache.nixos.org/
+    system-features = nixos-test benchmark big-parallel kvm
+    trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+    experimental-features = nix-command flakes
+  '';
+
+  gitconfig = pkgs.lib.generators.toGitINI {
+    core = {
+      editor = "nvim";
+      excludesfile = "~/.config/git/ignore";
+    };
+    apply = { whitespace = "nowarn"; };
+    color = {
+      branch = "auto";
+      diff = "auto";
+      interactive = "auto";
+      status = "auto";
+      ui = "auto";
+    };
+    branch = { autosetupmerge = true; };
+    rebase = { autosquash = true; };
+    push = { default = "simple"; };
+    merge = { tool = "vimdiff"; };
+    diff = { tool = "vimdiff"; };
+    mergetool = { keepBackup = false; };
+    init = {
+      templatedir = "${pkgs.git-template}";
+      defaultBranch = "main";
+    };
+
+    credential.helper = "${
+          pkgs.git.override { withLibsecret = true; }
+        }/bin/git-credential-libsecret";
+
+    safe.directory = "/src";
+  };
+
+  xdg-home = pkgs.stdenv.mkDerivation rec {
+    name = "xdg-home";
+    src = ./.;
+
+    etcGitconfig = pkgs.writeText "gitconfig" gitconfig;
+
+    installPhase = ''
+      mkdir -p /var/run/sshd
+      mkdir -p $out/etc/nix $out/etc/xdg/config $out/etc/xdg/share $out/etc/xdg/state
+      cp "${etcGitconfig}" $out/etc/gitconfig
+      cp "${nixConf}" $out/etc/nix/nix.conf
+    '';
+  };
+
+  paths = [
+    nvim
+    xdg-home
+  ] ++ (with pkgs; [
+    # required by tree-sitter
+    stdenv.cc
+    tree-sitter
+    # end required by tree-sitter
+
+    bash
+    ccls # c++ language server
+    coreutils
+    delve
+    gawk
+    git
+    gnumake
+    gnutar
+    go_1_21
+    golangci-lint
+    gopls
+    gotools
+    jdtls
+    jsonnet-language-server
+    lua-language-server
+    nil
+    nixpkgs-fmt
+    nodePackages.markdownlint-cli
+    nodejs_18
+    openssh
+    pkgs.nix
+    pyright
+    shellcheck
+    shfmt
+    statix
+    stylua
+    terraform
+    terraform-ls
+    tmux
+    vale
+    vim-vint
+    yamllint
+    zsh
+
+    nodePackages.bash-language-server
+    nodePackages.dockerfile-language-server-nodejs
+    nodePackages.eslint
+    nodePackages.eslint_d
+    nodePackages.fixjson
+    nodePackages.neovim
+    nodePackages.prettier
+    nodePackages.typescript
+    nodePackages.typescript-language-server
+    nodePackages.vim-language-server
+    nodePackages.vscode-langservers-extracted
+    nodePackages.write-good
+    nodePackages.yaml-language-server
+
+    lua51Packages.luacheck
+  ]);
+in
 pkgs.dockerTools.buildImage {
   name = "twhitney/nvim";
   copyToRoot = pkgs.buildEnv
     {
+      inherit paths;
       name = "base";
-      paths = with pkgs; [
-        # for system
-        bash
-        coreutils
-        git
-        pkgs.nix
-        zsh
-
-        # for neovim
-        # gcc
-        gnumake
-        nodejs_18
-        nodePackages.markdownlint-cli
-        nil
-        nixpkgs-fmt
-        statix
-        stylua
-        jdtls
-
-        gawk
-        ccls # c++ language server
-        delve
-        gopls
-        go_1_21
-        gotools
-        golangci-lint
-        jsonnet-language-server
-        lua-language-server
-        pyright
-        shellcheck
-        shfmt
-        terraform-ls
-        terraform
-        vale
-        vim-vint
-        yamllint
-
-        nodePackages.bash-language-server
-        nodePackages.dockerfile-language-server-nodejs
-        nodePackages.eslint
-        nodePackages.eslint_d
-        nodePackages.fixjson
-        nodePackages.neovim
-        nodePackages.prettier
-        nodePackages.typescript
-        nodePackages.typescript-language-server
-        nodePackages.vim-language-server
-        nodePackages.vscode-langservers-extracted
-        nodePackages.write-good
-        nodePackages.yaml-language-server
-
-        lua51Packages.luacheck
-
-        # required by tree-sitter
-        stdenv.cc
-        tree-sitter
-        # end required by tree-sitter
-
-        gnutar
-
-        (wrapNeovimUnstable neovim-unwrapped (neovimUtils.makeNeovimConfig {
-          vimAlias = true;
-          withRuby = true;
-          withPython3 = true;
-          withNodeJs = false;
-
-          extraPython3Packages = ps: with ps; [ pynvim ];
-          plugins = with pkgs.vimPlugins; [
-            packer-nvim
-            (pkgs.vimUtils.buildVimPlugin rec {
-              pname = "tw-vim-lib";
-              version = "ab4892d0f33e68c4970befb7a35a2c69a0a7bcff";
-              src = fetchFromGitHub {
-                owner = "trevorwhitney";
-                repo = "tw-vim-lib";
-                rev = version;
-                sha256 = "8xK+3DzfFCDQzk+ZmqL9EN7Mvkn2MTy6VsRsW4cLBJM=";
-              };
-              meta.homepage = "https://github.com/trevorwhitney/tw-vim-lib";
-            })
-          ];
-          customRC = builtins.concatStringsSep "\n" (with pkgs;
-            [
-              # nvim-treesitter requires gcc and tree-sitter to be in the path as seen by neovim
-              "call setenv('PATH', '${stdenv.cc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
-              "let s:lsp_support = 1"
-              "let s:lua_ls_path = '${lua-language-server}'"
-              "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
-              "let g:jdtls_home = '${jdtls}'"
-              (lib.strings.fileContents "${self}/nix/home-manager/modules/lib/init.vim")
-            ]);
-        }))
-
-        (pkgs.stdenv.mkDerivation {
-          name = "xdg-home";
-          src = ./.;
-          installPhase = ''
-            mkdir -p $out/etc/xdg/config $out/etc/xdg/share $out/etc/xdg/state
-          '';
-        })
-      ];
-
-      pathsToLink = [ "/bin" "/etc" "/share" ];
+      pathsToLink = [ "/bin" "/etc" "/share" "/var" ];
     };
   config = {
     Env = [
@@ -126,6 +177,7 @@ pkgs.dockerTools.buildImage {
       "XDG_STATE_HOME=/etc/xdg/state"
       "COLORTERM=truecolor"
       "TERM=screen-256color"
+      "SSH_AUTH_SOCK=/var/run/sshd/agent.sock"
     ];
     WorkingDir = "/src";
   };

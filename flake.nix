@@ -12,18 +12,21 @@
 
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    secrets = {
+      #TODO: replace with https://github.com/ryantm/agenix
+      url =
+        "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
 
-    #TODO: replace with https://github.com/ryantm/agenix
-    secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
-    secrets.inputs.nixpkgs.follows = "nixpkgs";
-    secrets.inputs.flake-utils.follows = "flake-utils";
-
-    # For running OpenGL apps outside of NixOS
-    nixgl.url = "github:guibou/nixGL";
-    nixgl.inputs.nixpkgs.follows = "nixpkgs";
-    nixgl.inputs.flake-utils.follows = "flake-utils";
+    nixgl = {
+      # For running OpenGL apps outside of NixOS
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     # Hardware specific configs
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
