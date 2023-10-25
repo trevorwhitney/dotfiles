@@ -12,9 +12,11 @@ final: prev: {
       pkgs = prev;
     };
 
-  dev-box = import ../packages/images/dev-box.nix {
-    inherit self nixos-generators;
-    inherit (prev) system;
-    pkgs = prev;
-  };
+  # requires secrets which I don't want in any container
+  # commenting out until I decide if I still want this
+  # dev-box = import ../packages/images/dev-box.nix {
+  #   inherit self nixos-generators;
+  #   inherit (prev) system;
+  #   pkgs = prev;
+  # };
 }

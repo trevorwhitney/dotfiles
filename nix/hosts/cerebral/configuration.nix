@@ -36,6 +36,9 @@ in
   # Enable networking
   networking.hostName = "cerebral"; # Define your hostname.
   networking.networkmanager.enable = true;
+  networking.extraHosts = ''
+    127.0.0.1 apiserver.o11y-apps-platform.svc.cluster.local
+  '';
 
   # Needed to prevent wait online from causing rebuild to fail
   # See https://github.com/NixOS/nixpkgs/issues/180175

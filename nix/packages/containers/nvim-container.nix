@@ -2,12 +2,15 @@
 
 # 1. nix build .#nvim-container
 # 2. docker load < result
+# 3. docker tag sha latest
 # 3. docker volume create nvim-data
 # 4. docker volume create nvim-tmp
+# 4. docker volume create nvim-nix
 # gopls needs a /tmp directory
-# 4. docker run -v $(pwd):/src -v nvim-data:/etc/xdg -v nvim-tmp:/tmp -it twhitney/nvim:70h4bfwbi3v2wq31ykz0mkjqliwfbqwd nvim flake.nix
+# 4. nvim-container flake.nix
 # TODO:
 #   - forward ssh agent into docker container, something like? -v $(readlink -f $SSH_AUTH_SOCK):/var/run/sshd/agent.sock
+#       - tried this, currently not working
 #   - figure out clipboard sharing
 let
   nvim = with pkgs; (wrapNeovimUnstable neovim-unwrapped (neovimUtils.makeNeovimConfig {
@@ -94,7 +97,7 @@ let
     etcGitconfig = pkgs.writeText "gitconfig" gitconfig;
 
     installPhase = ''
-      mkdir -p /var/run/sshd
+      mkdir -p $out/var/run/sshd
       mkdir -p $out/etc/nix $out/etc/xdg/config $out/etc/xdg/share $out/etc/xdg/state
       cp "${etcGitconfig}" $out/etc/gitconfig
       cp "${nixConf}" $out/etc/nix/nix.conf
@@ -169,6 +172,16 @@ pkgs.dockerTools.buildImage {
       name = "base";
       pathsToLink = [ "/bin" "/etc" "/share" "/var" ];
     };
+
+  runAsRoot = ''
+    #!${pkgs.runtimeShell}
+    ${pkgs.dockerTools.shadowSetup}
+    groupadd -r nvim
+    useradd -rm -g nvim nvim
+    chown -R nvim:nvim /bin /etc /share /var
+    chmod -R 775 /etc
+  '';
+
   config = {
     Env = [
       "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
@@ -177,8 +190,10 @@ pkgs.dockerTools.buildImage {
       "XDG_STATE_HOME=/etc/xdg/state"
       "COLORTERM=truecolor"
       "TERM=screen-256color"
+      # TODO: this isn't working. ssh not using agent in container?
       "SSH_AUTH_SOCK=/var/run/sshd/agent.sock"
     ];
     WorkingDir = "/src";
+    User = "nvim:nvim";
   };
 }

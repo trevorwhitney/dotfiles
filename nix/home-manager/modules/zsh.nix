@@ -180,6 +180,14 @@ in
         # vim
         v = "vim ";
         temp = "vim \$(mktemp)";
+        nvim-container = ''
+          docker run \
+            -v $(pwd):/src \
+            -v nvim-data:/etc/xdg \
+            -v nvim-tmp:/tmp \
+            -v nvim-nix:/nix/store \
+            -v $(readlink -f $SSH_AUTH_SOCK):/var/run/sshd/agent.sock \
+            -it twhitney/nvim:latest nvim '';
 
         # useful when piping output to vim
         vyaml = "nvim -c 'set filetype=yaml' -";

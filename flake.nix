@@ -178,17 +178,7 @@
               inherit self nixos-generators;
             })
 
-            secrets.overlay
             jsonnet-language-server.overlay
-            deploy-rs.overlay
-
-            (final: prev:
-              let
-                devenvPkgs = devenv.packages."x86_64-linux";
-              in
-              {
-                inherit (devenvPkgs) devenv;
-              })
           ];
 
           pkgs = import nixpkgs-unstable {
