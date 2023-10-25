@@ -50,7 +50,7 @@ in
         Type = "simple";
         ExecStart = "${pkgs._1password-gui}/bin/1password --silent %U";
         Restart = "always";
-        RestartSec = 60;
+        RestartSec = 5;
       };
 
       Install = { WantedBy = [ "default.target" ]; };
