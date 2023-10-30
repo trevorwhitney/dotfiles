@@ -17,115 +17,14 @@ in
 
   config =
     let
-      inherit (cfg) withLspSupport finalPackage;
-      _cc = "${pkgs.stdenv.cc}";
-      nodeJsPkg = pkgs.nodejs_18;
-
+      inherit (cfg) withLspSupport;
     in
-    rec {
+    {
       xdg.dataFile."jdtls/config_linux/config.ini" =
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
-      programs.neovim = {
-        enable = true;
-        defaultEditor = true;
-
-        # manually provide node to pin @ version that works with Copilot
-        withNodeJs = false;
-        package = pkgs.neovim-unwrapped.override {
-          nodejs = nodeJsPkg;
-        };
-
-        vimAlias = true;
-        vimdiffAlias = true;
-
-        extraConfig =
-          let
-            exCfg = with pkgs;
-              if withLspSupport then [
-                # set path the lua language server so we can pass it to respective lsp config
-                "let s:lsp_support = 1"
-                "let s:lua_ls_path = '${lua-language-server}'"
-                "let s:rocks_tree_root = '${lua51Packages.luarocks}'"
-                "let g:jdtls_home = '${jdtls}'"
-                (lib.strings.fileContents ./lib/init.vim)
-              ] else [
-                "let s:lsp_support = 1"
-                (lib.strings.fileContents ./lib/init.vim)
-              ];
-          in
-          builtins.concatStringsSep "\n" (with pkgs;
-          [
-            # nvim-treesitter requires gcc and tree-sitter to be in the path as seen by neovim
-            "call setenv('PATH', '${_cc}/bin:${tree-sitter}/bin:' . getenv('PATH'))"
-          ] ++ exCfg);
-
-        withRuby = true;
-        withPython3 = true;
-        extraPython3Packages = ps: with ps; [ pynvim ];
-
-        # Will use packer to grab everything else
-        plugins = with pkgs.vimPlugins; [
-          packer-nvim
-        ];
-
-        extraPackages =
-          let
-            basePackages = with pkgs; [
-              gcc
-              gnumake
-              nodeJsPkg
-              nodePackages.markdownlint-cli
-              # 3 options for nix LSP, nil currently working best
-              # rnix-lsp
-              # nixd
-              nil
-              nixpkgs-fmt
-              statix
-            ];
-            lspPackages = with pkgs;
-              if withLspSupport then [
-                stylua
-                jdtls
-
-                ccls # c++ language server
-                delve
-                gopls
-                jsonnet-language-server
-                lua-language-server
-                pyright
-                shellcheck
-                shfmt
-                terraform-ls
-                vale
-                vim-vint
-                yamllint
-
-                nodePackages.bash-language-server
-                nodePackages.dockerfile-language-server-nodejs
-                nodePackages.eslint
-                nodePackages.eslint_d
-                nodePackages.fixjson
-                nodePackages.neovim
-                nodePackages.prettier
-                nodePackages.typescript
-                nodePackages.typescript-language-server
-                nodePackages.vim-language-server
-                nodePackages.vscode-langservers-extracted
-                nodePackages.write-good
-                nodePackages.yaml-language-server
-
-                lua51Packages.luacheck
-              ] else [ ];
-          in
-          with pkgs;
-          [
-            # required by tree-sitter
-            _cc
-            tree-sitter
-            # end required by tree-sitter
-
-            gnutar
-          ] ++ basePackages ++ lspPackages;
-      };
+      # all configuration done in custom neovim package
+      home.packages = with pkgs; [
+        neovim
+      ];
     };
 }

@@ -39,7 +39,7 @@
               envsubst
               faillint
               gcc
-              go
+              go_1_21
               golangci-lint
               gotools
               gox
@@ -71,24 +71,22 @@
           apps = {
             loki = {
               type = "app";
-              program = "${pkgs.loki.overrideAttrs(old: rec { doCheck = false; })}/bin/loki";
+              program = "${pkgs.loki.overrideAttrs(old: { doCheck = false; })}/bin/loki";
             };
             promtail = {
               type = "app";
-              program = "${pkgs.promtail.overrideAttrs(old: rec { doCheck = false; })}/bin/promtail";
+              program = "${pkgs.promtail.overrideAttrs(old: { doCheck = false; })}/bin/promtail";
             };
             logcli = {
               type = "app";
-              program = "${pkgs.logcli.overrideAttrs(old: rec { doCheck = false; })}/bin/logcli";
+              program = "${pkgs.logcli.overrideAttrs(old: { doCheck = false; })}/bin/logcli";
             };
             loki-canary = {
               type = "app";
-              program = "${pkgs.loki-canary.overrideAttrs(old: rec { doCheck = false; })}/bin/loki-canary";
+              program = "${pkgs.loki-canary.overrideAttrs(old: { doCheck = false; })}/bin/loki-canary";
             };
           };
-
         })) // {
-
       overlays = {
         loki = loki.overlays.default;
       };
