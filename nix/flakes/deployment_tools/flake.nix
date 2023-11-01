@@ -20,7 +20,8 @@
           inherit system;
           overlays = [
             secrets.overlay
-            (import "${dotfiles}/nix/overlays/kubectl.nix")
+            (import ../../overlays/kubectl.nix)
+            (import ../../overlays/neovim.nix)
           ];
         };
 
@@ -32,11 +33,17 @@
             shellcheck
           ];
 
+          packages = with pkgs; [
+            (neovim.override {
+              withLspSupport = true;
+              goPkg = go_1_21;
+            })
+          ];
+
           shellHook = ''
             source ${pkgs.secrets}/grafana/deployment-tools.sh
           '';
         };
-
 
         apps =
           let

@@ -6,7 +6,13 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            (import ../../overlays/neovim.nix)
+          ];
+          config = { allowUnfree = true; };
+        };
         env = pkgs.writers.writeBash "env.sh" ''
           export NODE_PATH="${pkgs.nodejs}/lib/node_modules:$NODE_PATH"
           export NPM_CONFIG_PREFIX="${pkgs.nodejs}"
@@ -20,7 +26,7 @@
           packages = with pkgs; [
             bashInteractive
             gnumake
-            go
+            go_1_21
             mage
             # swc
 
@@ -45,6 +51,13 @@
             (pkgs.writeShellScriptBin "eslint" ''
               ${yarn}/bin/yarn exec eslint "$@"
             '')
+
+
+            (neovim.override {
+              withLspSupport = true;
+              goPkg = go_1_21;
+              useEslintDaemon = false;
+            })
           ];
 
           shellHook = ''

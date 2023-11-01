@@ -4,20 +4,22 @@
 , vimUtils
 , neovimUtils
 , withLspSupport ? true
+, nodeJsPkg ? pkgs.nodejs
+, goPkg ? pkgs.go
+, useEslintDaemon ? true
 , extraPackages ? [ ]
 , ...
 }:
 let
-  nodeJsPkg = pkgs.nodejs_18;
-
   basePackages = with pkgs; [
+    nodeJsPkg
+    goPkg
+
     gcc
     gnumake
-    nodeJsPkg
+    gnutar
+
     nodePackages.markdownlint-cli
-    # 3 options for nix LSP, nil currently working best
-    # rnix-lsp
-    # nixd
     nil
     nixpkgs-fmt
     statix
@@ -58,14 +60,12 @@ let
       lua51Packages.luacheck
     ] else [ ];
 
-  packages = with pkgs; [
-    # required by tree-sitter
+  treesitterPackages = with pkgs; [
     stdenv.cc
     tree-sitter
-    # end required by tree-sitter
+  ];
 
-    gnutar
-  ] ++ basePackages ++ lspPackages ++ extraPackages;
+  packages = basePackages ++ treesitterPackages ++ lspPackages ++ extraPackages;
 
   extraMakeWrapperArgs = lib.optionalString (packages != [ ])
     ''--suffix PATH : "${lib.makeBinPath packages}"'';
@@ -84,12 +84,12 @@ let
         packer-nvim
         (vimUtils.buildVimPlugin rec {
           pname = "tw-vim-lib";
-          version = "d61e2aec8d4a12c671063dd38a4b1b95a13eb714";
+          version = "e882184993bd1d457ce2a27fe45e192878067e6c";
           src = fetchFromGitHub {
             owner = "trevorwhitney";
             repo = "tw-vim-lib";
             rev = version;
-            sha256 = "wyJNzWSu7NQjZ/xS9H4agFm5XIMCD3pu9oJPu6TEJb4=";
+            sha256 = "ced5VJnJVI15npFzLjkMgNc7QEw4laGBUYeNhciiRWE=";
           };
           # uncomment for testing local changes, make sure to rebuild with --impure
           # src = /home/twhitney/workspace/tw-vim-lib;
@@ -105,6 +105,7 @@ let
         "lua_ls_path = '${lua-language-server}',"
         "rocks_tree_root = '${lua51Packages.luarocks}',"
         "jdtls_home = '${jdtls}',"
+        "use_eslint_daemon = ${lib.boolToString useEslintDaemon},"
       ] else [
         "lsp_support = false,"
       ]) ++ [

@@ -16,6 +16,7 @@
               };
             })
             (import ../../overlays/faillint.nix)
+            (import ../../overlays/neovim.nix)
           ];
         };
         nodejs = pkgs.nodejs_18;
@@ -29,7 +30,7 @@
 
             # Golang
             delve
-            go
+            go_1_21
             gotools
             golangci-lint
             faillint
@@ -39,6 +40,11 @@
             nodejs
             (yarn.override {
               inherit nodejs;
+            })
+
+            (neovim.override {
+              withLspSupport = true;
+              goPkg = go_1_21;
             })
           ];
         };

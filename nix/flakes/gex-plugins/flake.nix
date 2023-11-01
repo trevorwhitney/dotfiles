@@ -6,7 +6,13 @@
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            (import ../../overlays/neovim.nix)
+          ];
+          config = { allowUnfree = true; };
+        };
         nodejs = pkgs.nodejs_18;
 
         env = pkgs.writers.writeBash "env.sh" ''
@@ -19,12 +25,17 @@
           packages = with pkgs; [
             bashInteractive
             gnumake
-            go
+            go_1_21
             mage
 
             nodejs
             (yarn.override {
               inherit nodejs;
+            })
+
+            (neovim.override {
+              withLspSupport = true;
+              goPkg = go_1_21;
             })
           ];
 

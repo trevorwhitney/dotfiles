@@ -13,10 +13,16 @@
           packages = with pkgs; [
             bashInteractive
             gnumake
-            go
+            go_1_21
             gotools
             golangci-lint
             nodejs_18
+
+            (neovim.override {
+              withLspSupport = true;
+              nodeJsPkg = nodejs_18;
+              goPkg = go_1_21;
+            })
           ];
         };
       });

@@ -15,6 +15,7 @@
           inherit system;
           overlays = [
             (import ../../overlays/faillint.nix)
+            (import ../../overlays/neovim.nix)
           ];
           config = { allowUnfree = true; };
         };
@@ -47,7 +48,11 @@
             systemd
             trivy
             yamllint
-            yamllint
+
+            (neovim.override {
+              withLspSupport = true;
+              goPkg = go_1_21;
+            })
           ];
         };
       });

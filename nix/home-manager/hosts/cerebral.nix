@@ -34,7 +34,9 @@
   };
 
   programs.neovim = {
-    withLspSupport = true;
+    # default installation disables LSP
+    # enable via .envrc in folders with code
+    withLspSupport = false;
   };
 
   programs.gh = {

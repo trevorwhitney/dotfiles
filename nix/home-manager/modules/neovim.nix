@@ -5,6 +5,7 @@ let
 in
 {
   options = {
+    # TODO: add options for go and node packages
     programs.neovim = {
       withLspSupport = lib.mkOption {
         type = lib.types.bool;
@@ -22,9 +23,12 @@ in
     {
       xdg.dataFile."jdtls/config_linux/config.ini" =
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
+
       # all configuration done in custom neovim package
       home.packages = with pkgs; [
-        neovim
+        (neovim.override {
+          inherit withLspSupport;
+        })
       ];
     };
 }

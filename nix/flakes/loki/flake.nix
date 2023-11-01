@@ -26,6 +26,7 @@
               (import ../../overlays/kubectl.nix)
               (import ../../overlays/faillint.nix)
               (import ../../overlays/chart-testing.nix)
+              (import ../../overlays/neovim.nix)
             ] ++ (import ./overlays);
             config = { allowUnfree = true; };
           };
@@ -61,6 +62,11 @@
               })
               nodePackages.typescript
               nodePackages.typescript-language-server
+
+              (neovim.override {
+                withLspSupport = true;
+                goPkg = go_1_21;
+              })
             ];
 
             shellHook = ''

@@ -33,9 +33,6 @@ in
     callBuildGoModulePkg ../packages/protoc-gen-gogoslick;
   xk6 = callBuildGoModulePkg ../packages/xk6;
 
-  jdtls = prev.callPackage ../packages/jdtls {
-    inherit (prev) stdenv fetchzip lib pkgs;
-  };
   stylua = prev.callPackage ../packages/stylua {
     inherit (prev) lib rustPlatform fetchFromGitHub;
   };
