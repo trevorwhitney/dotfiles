@@ -13,7 +13,6 @@ let
 
   config = {
     programs.git = {
-      gpgPath = "/usr/bin/gpg";
       includes =
         [{ path = "${pkgs.secrets}/git"; }];
     };

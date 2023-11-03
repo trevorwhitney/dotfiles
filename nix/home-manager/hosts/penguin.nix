@@ -1,5 +1,4 @@
 { pkgs
-, system
 , home-manager
 , username
 , imports ? [ ]
@@ -7,7 +6,6 @@
 , ...
 }:
 let
-  inherit (import ../modules/nixgl-wrap.nix { inherit pkgs; }) nixGLWrapWithName nixGLWrap;
   baseConfig = {
     home = {
       inherit username;
