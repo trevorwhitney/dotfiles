@@ -11,9 +11,11 @@
       "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
+
+    dotfiles.url = "path:/home/twhitney/workspace/dotfiles";
   };
 
-  outputs = { self, nixpkgs, flake-utils, loki, secrets }:
+  outputs = { self, nixpkgs, flake-utils, loki, secrets, dotfiles }:
     (flake-utils.lib.eachDefaultSystem
       (system:
         let
@@ -23,10 +25,10 @@
               loki.overlays.default
               /* loki.overlays.golangci-lint */
               secrets.overlay
-              (import ../../overlays/kubectl.nix)
-              (import ../../overlays/faillint.nix)
-              (import ../../overlays/chart-testing.nix)
-              (import ../../overlays/neovim.nix)
+              (import "${dotfiles}/nix/overlays/kubectl.nix")
+              (import "${dotfiles}/nix/overlays/faillint.nix")
+              (import "${dotfiles}/nix/overlays/chart-testing.nix")
+              (import "${dotfiles}/nix/overlays/neovim.nix")
             ] ++ (import ./overlays);
             config = { allowUnfree = true; };
           };

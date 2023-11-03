@@ -67,7 +67,6 @@ in
     ]))
     gradle
     helm-docs
-    jetbrains.idea-community
     jsonnet-bundler
     jq
     kotlin
@@ -80,12 +79,11 @@ in
     lynis
     mktemp
     mosh
-    ngrok
     ncurses
+    ngrok
     nmap
     rbenv
     ripgrep
-    # rust-bin.stable.latest.default # to bring in rustc, but not sure if it's needed in common
     sysstat
     tanka
     terraform
@@ -96,14 +94,11 @@ in
     vagrant
     vault
     virtualenv
-
-    # TODO: can we have both, should there be guard for X11 vs wayland?
-    xsel
-    wl-clipboard
-
     yamale
     yarn
     yq
+
+    # rust-bin.stable.latest.default # to bring in rustc, but not sure if it's needed in common
   ];
 
   programs.java = {

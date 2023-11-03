@@ -8,7 +8,8 @@
     dotfiles.url = "path:../../../";
 
     secrets.url =
-      "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
+      # "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
+      "path:/home/twhitney/workspace/home-manager-secrets";
     secrets.inputs.nixpkgs.follows = "nixpkgs";
     secrets.inputs.flake-utils.follows = "flake-utils";
   };
@@ -34,6 +35,9 @@
           ];
 
           packages = with pkgs; [
+            argo
+            shellcheck
+
             (neovim.override {
               withLspSupport = true;
               goPkg = go_1_21;

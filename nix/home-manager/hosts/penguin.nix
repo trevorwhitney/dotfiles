@@ -24,6 +24,9 @@ in
         ../modules/tmux.nix
         ../modules/1password.nix
         {
+          home.packages = with pkgs; [
+            xsel
+          ];
           programs.neovim = {
             withLspSupport = false;
           };

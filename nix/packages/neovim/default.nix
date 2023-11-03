@@ -102,7 +102,7 @@ let
         "require('tw.config').setup({"
       ] ++ (if withLspSupport then [
         "lsp_support = true,"
-        "lua_ls_path = '${lua-language-server}',"
+        "lua_ls_root = '${lua-language-server}',"
         "rocks_tree_root = '${lua51Packages.luarocks}',"
         "jdtls_home = '${jdtls}',"
         "use_eslint_daemon = ${lib.boolToString useEslintDaemon},"
