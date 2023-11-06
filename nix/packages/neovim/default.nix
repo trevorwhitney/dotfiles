@@ -84,15 +84,16 @@ let
         packer-nvim
         (vimUtils.buildVimPlugin rec {
           pname = "tw-vim-lib";
-          version = "e882184993bd1d457ce2a27fe45e192878067e6c";
-          src = fetchFromGitHub {
-            owner = "trevorwhitney";
-            repo = "tw-vim-lib";
-            rev = version;
-            sha256 = "ced5VJnJVI15npFzLjkMgNc7QEw4laGBUYeNhciiRWE=";
-          };
+          version = "28cfb4b14f4b4aa928b00c5d5efd9236cf9080c5";
+          # src = fetchFromGitHub {
+          #   owner = "trevorwhitney";
+          #   repo = "tw-vim-lib";
+          #   rev = version;
+          #   # sha256 = lib.fakeSha256;
+          #   sha256 = "cMNP6M6WHW1VoKBDws8+G+aGXlHRfuYb4b6KIwCkmCc=";
+          # };
           # uncomment for testing local changes, make sure to rebuild with --impure
-          # src = /home/twhitney/workspace/tw-vim-lib;
+          src = /home/twhitney/workspace/tw-vim-lib;
           meta.homepage = "https://github.com/trevorwhitney/tw-vim-lib";
         })
       ];

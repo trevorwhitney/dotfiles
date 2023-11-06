@@ -23,5 +23,8 @@ final: prev: rec {
     thunderbird
 
     #tmux
-    tmux;
+    tmux
+
+    # latest go version
+    go_1_21;
 }

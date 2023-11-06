@@ -159,7 +159,7 @@ in
 
       shellAliases = {
         hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles -b backup";
-        rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles";
+        rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure";
         rollback = "sudo nixos-rebuild switch --rollback";
         k = "${pkgs.kubectl-1-25}/bin/kubectl ";
 

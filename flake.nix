@@ -84,6 +84,7 @@
         (import "${self}/nix/overlays/dynamic-dns-reporter.nix")
         (import "${self}/nix/overlays/kubectl.nix")
         (import "${self}/nix/overlays/neovim.nix")
+        (import "${self}/nix/overlays/pex.nix")
 
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien;
