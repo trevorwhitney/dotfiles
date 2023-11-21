@@ -40,12 +40,14 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&rev=970897807f4df928c8f55eeb0f21684952732ea3";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=v0.13.1";
 
     devenv.url = "github:cachix/devenv";
 
     nixos-generators.url = "github:nix-community/nixos-generators";
     deploy-rs.url = "github:serokell/deploy-rs";
+
+    neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
   };
 
   outputs =
@@ -55,6 +57,7 @@
     , flake-utils
     , home-manager
     , jsonnet-language-server
+    , neovim
     , nix-alien
     , nixgl
     , nixos-generators
@@ -83,8 +86,8 @@
         (import "${self}/nix/overlays/i3-gnome-flashback.nix")
         (import "${self}/nix/overlays/dynamic-dns-reporter.nix")
         (import "${self}/nix/overlays/kubectl.nix")
-        (import "${self}/nix/overlays/neovim.nix")
         (import "${self}/nix/overlays/pex.nix")
+        (import "${self}/nix/overlays/inshellisense.nix")
 
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien;
@@ -95,6 +98,9 @@
         secrets.overlay
         jsonnet-language-server.overlay
         deploy-rs.overlay
+
+        # (import "${self}/nix/overlays/neovim.nix")
+        neovim.overlay
 
         (final: prev:
           let

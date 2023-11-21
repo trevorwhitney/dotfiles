@@ -6,54 +6,64 @@
     flake-utils.url = "github:numtide/flake-utils";
     loki.url = "github:grafana/loki";
     loki.inputs.flake-utils.follows = "flake-utils";
+
+
+    neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
   };
 
-  outputs = { self, nixpkgs, flake-utils, loki }:
+  outputs =
+    { self
+    , flake-utils
+    , loki
+    , neovim
+    , nixpkgs
+    }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            (import ../../overlays/faillint.nix)
-            (import ../../overlays/neovim.nix)
-          ];
-          config = { allowUnfree = true; };
-        };
-        nodejs = pkgs.nodejs_18;
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            # General
-            bashInteractive
-            gnumake
+    let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          neovim.overlay
 
-            # Golang
-            delve
-            go_1_21
-            gotools
-            mage
+          (import ../../overlays/faillint.nix)
+        ];
+        config = { allowUnfree = true; };
+      };
+      nodejs = pkgs.nodejs_18;
+    in
+    {
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [
+          # General
+          bashInteractive
+          gnumake
 
-            # NodeJS
-            nodejs
-            (yarn.override {
-              inherit nodejs;
-            })
+          # Golang
+          delve
+          go_1_21
+          gotools
+          mage
 
-            # Loki specific
-            gcc
-            golangci-lint
-            faillint
-            snyk
-            systemd
-            trivy
-            yamllint
+          # NodeJS
+          nodejs
+          (yarn.override {
+            inherit nodejs;
+          })
 
-            (neovim.override {
-              withLspSupport = true;
-              goPkg = go_1_21;
-            })
-          ];
-        };
-      });
+          # Loki specific
+          gcc
+          golangci-lint
+          faillint
+          snyk
+          systemd
+          trivy
+          yamllint
+
+          (neovim.override {
+            withLspSupport = true;
+            goPkg = go_1_21;
+          })
+        ];
+      };
+    });
 }

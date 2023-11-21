@@ -209,14 +209,14 @@ in
           "${activateAndUnlock}/bin/activate-and-unlock";
 
         #Grafana
-        logcli = "nix run --no-write-lock-file path:/home/twhitney/workspace/dotfiles/nix/flakes/loki#logcli -- ";
-        loki = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#loki -- ";
-        promtail = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/loki#promtail -- ";
-        gcom = "nix run path:/home/twhitney/workspace/dotfiles/nix/flakes/deployment_tools#gcom -- ";
-        gcom-dev = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#gcom-dev -- ";
-        gcom-ops = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#gcom-ops -- ";
-        flux-ignore = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#flux-ignore -- -actor=trevor.whitney@grafana.com ";
-        rt = "nix run github:trevorwhitney/dotfiles\\?dir=nix/flakes/deployment_tools#rt -- ";
+        logcli = "nix run --no-write-lock-file --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/loki#logcli -- ";
+        loki = "nix run --no-write-lock-file --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/loki#loki -- ";
+        promtail = "nix run --no-write-lock-file --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/loki#promtail -- ";
+        gcom = "nix run --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/deployment_tools#gcom -- ";
+        gcom-dev = "nix run --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/deployment_tools#gcom-dev -- ";
+        gcom-ops = "nix run --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/deployment_tools#gcom-dev -- ";
+        flux-ignore = "nix run --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/deployment_tools#flux-ignore -- -actor=trevor.whitney@grafana.com ";
+        rt = "nix run --impure path:/home/twhitney/workspace/dotfiles/nix/flakes/deployment_tools#rt -- ";
       };
     };
   };

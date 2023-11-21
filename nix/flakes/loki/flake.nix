@@ -28,6 +28,8 @@
               (import "${dotfiles}/nix/overlays/kubectl.nix")
               (import "${dotfiles}/nix/overlays/faillint.nix")
               (import "${dotfiles}/nix/overlays/chart-testing.nix")
+              # TODO: replace with flake
+              # and consolidate to standard dev env
               (import "${dotfiles}/nix/overlays/neovim.nix")
             ] ++ (import ./overlays);
             config = { allowUnfree = true; };

@@ -15,6 +15,7 @@
       "--update-input" "nixpkgs-mozilla"
       "--update-input" "nixpkgs-unstable"
       "--update-input" "nur"
+      "--impure" # needed for reference to local vim-lib
     ];
     allowReboot = true;
     rebootWindow = {
