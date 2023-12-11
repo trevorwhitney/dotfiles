@@ -49,16 +49,19 @@
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
             # chart-releaser
+            bashInteractive
             chart-testing-3_8_0
             delve
             envsubst
             faillint
             gcc
+            gnumake
             go_1_21
             golangci-lint
             gotools
             gox
             helm-docs
+            mage
             mixtool
             nettools
             nixpkgs-fmt

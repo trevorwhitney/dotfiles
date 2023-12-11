@@ -79,8 +79,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1702317050,
-        "narHash": "sha256-qcaMRkK01JLblell05W+3n4iEbyBwXcA65YwVqtIpu4=",
+        "lastModified": 1702317477,
+        "narHash": "sha256-K0fd0lcKMCpjVRIwusyeqmyMQdLES9MU92xSkb7fE4Y=",
         "path": "/home/twhitney/workspace/tw-vim-lib",
         "type": "path"
       },
