@@ -1,21 +1,30 @@
 {
   description = "A basic flake with a shell";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=v0.13.1";
+  };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, neovim, jsonnet-language-server }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-            (import ../../overlays/neovim.nix)
+            neovim.overlay
+            jsonnet-language-server.overlay
           ];
           config = { allowUnfree = true; };
         };
+
+        nodejs = pkgs.nodejs_18;
+        goPkg = pkgs.go_1_21;
+
         env = pkgs.writers.writeBash "env.sh" ''
-          export NODE_PATH="${pkgs.nodejs}/lib/node_modules:$NODE_PATH"
-          export NPM_CONFIG_PREFIX="${pkgs.nodejs}"
+          export NODE_PATH="${nodejs}/lib/node_modules:$NODE_PATH"
+          export NPM_CONFIG_PREFIX="${nodejs}"
         '';
         yarn = pkgs.yarn.override {
           inherit (pkgs) nodejs;
@@ -26,12 +35,22 @@
           packages = with pkgs; [
             bashInteractive
             gnumake
-            go_1_21
-            mage
-            # swc
+            zip
 
+
+            # Golang
+            delve
+            goPkg
+            gotools
+            golangci-lint
+            mage
+
+            
+            # NodeJS
             nodejs
-            yarn
+            (yarn.override {
+              inherit nodejs;
+            })
 
             # python with extra packages needed for scripts
             (
@@ -53,9 +72,11 @@
             '')
 
 
-            (neovim.override {
+            (pkgs.neovim.override {
+              inherit goPkg;
+              nodeJsPkg = nodejs;
+
               withLspSupport = true;
-              goPkg = go_1_21;
               useEslintDaemon = false;
             })
           ];

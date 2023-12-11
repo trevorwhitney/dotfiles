@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1701680307,
-        "narHash": "sha256-kAuep2h5ajznlPMD9rnQyffWG8EM/C73lejGofXvdM8=",
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "4022d587cbbfd70fe950c1e2083a02621806a725",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
         "type": "github"
       },
       "original": {
@@ -38,11 +38,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1701680307,
-        "narHash": "sha256-kAuep2h5ajznlPMD9rnQyffWG8EM/C73lejGofXvdM8=",
+        "lastModified": 1694529238,
+        "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "4022d587cbbfd70fe950c1e2083a02621806a725",
+        "rev": "ff7b65b44d01cf9ba6a71320833626af21126384",
         "type": "github"
       },
       "original": {
@@ -79,8 +79,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1702317050,
-        "narHash": "sha256-qcaMRkK01JLblell05W+3n4iEbyBwXcA65YwVqtIpu4=",
+        "lastModified": 1701188391,
+        "narHash": "sha256-E5sPFHkvDZ20TsoCv+3dhOxlMBEIASbep91bQ46HUbA=",
         "path": "/home/twhitney/workspace/tw-vim-lib",
         "type": "path"
       },
@@ -107,32 +107,32 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1702313274,
-        "narHash": "sha256-C5SJTaqRqHVvBf5+bLS2oAY321UlCaj8d8RT9Mq+rEc=",
+        "lastModified": 1700501263,
+        "narHash": "sha256-M0U063Ba2DKL4lMYI7XW13Rsk5tfUXnIYiAVa39AV/0=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4b4a8e497989e28121a759fbbd3dd3b16be03a25",
+        "rev": "f741f8a839912e272d7e87ccf4b9dbc6012cdaf9",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "release-23.11",
+        "ref": "release-23.05",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1702151865,
-        "narHash": "sha256-9VAt19t6yQa7pHZLDbil/QctAgVsA66DLnzdRGqDisg=",
-        "owner": "nixos",
+        "lastModified": 1698553279,
+        "narHash": "sha256-T/9P8yBSLcqo/v+FTOBK+0rjzjPMctVymZydbvR/Fak=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "666fc80e7b2afb570462423cb0e1cf1a3a34fedd",
+        "rev": "90e85bc7c1a6fc0760a94ace129d3a1c61c3d035",
         "type": "github"
       },
       "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }

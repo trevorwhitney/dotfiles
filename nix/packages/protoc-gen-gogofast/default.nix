@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "0dfv1bhx5zhb5bsj5sj757nkacf2swp1ajpcyj9d0b37n602m18a";
   };
 
-  vendorSha256 = "1abi2ss9bag9fn7sa0c5yp7s7wgdwphncq520a3m6mixb99gdqlw";
+  vendorHash = "sha256-nOL2Ulo9VlOHAqJgZuHl7fGjz/WFAaWPdemplbQWcak=";
 
   subPackages = [ "protoc-gen-gogofast" ];
 

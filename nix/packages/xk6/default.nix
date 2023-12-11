@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "06bjrm5hg2nx7cjg5w201z8bqcl3i28355ssy36mx897mgrm0d59";
   };
 
-  vendorSha256 = null;
+  vendorHash = null;
 
   meta = with lib; {
     description = "Custom k6 Builder";

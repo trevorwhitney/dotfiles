@@ -3,8 +3,10 @@
   programs.firefox = {
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       cfg = {
-        enableTridactylNative = true;
-        enableGnomeExtensions = true;
+        nativeMessagingHosts.packages = [
+          pkgs.tridactyl-native
+          pkgs.plasma-browser-integration
+        ];
       };
     };
   };

@@ -48,7 +48,7 @@
       {
         devShells.default = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
-            chart-releaser
+            # chart-releaser
             chart-testing-3_8_0
             delve
             envsubst

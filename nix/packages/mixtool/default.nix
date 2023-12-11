@@ -15,7 +15,7 @@ buildGoModule rec {
     -X main.version=${version}
   '';
 
-  vendorSha256 = "H4gxVTFFH20pkwO1DYt/yIJad0HxPaUeCrr4j0s5I5I=";
+  vendorHash = "sha256-H4gxVTFFH20pkwO1DYt/yIJad0HxPaUeCrr4j0s5I5I=";
 
   doCheck = false;
 

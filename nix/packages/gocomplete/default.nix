@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "gocomplete";
-  version = "1.2.3";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "posener";
@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "0nri6hkfb0z3dkxf2fsfidr4bxbn91rjsqhg5s0c2jplf0aclppz";
   };
 
-  vendorSha256 = "04n7654vb8qmdqxn571ad7w384zxhbbb0bprpcz5g94dbx72h57f";
+  vendorHash = "sha256-7hQoTl+NpFc+u/kusNaC/RM0+GkqnGI7bhWjtUkxxxI=";
 
   subPackages = [ "gocomplete" ];
 

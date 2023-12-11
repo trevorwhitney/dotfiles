@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "mQe312xvyINZNcnmSeTLRTahTWqIHoXvQmbRvU/tg54=";
   };
 
-  vendorSha256 = "J1wDmI4TZDyhCOsxH4WMfST13mZkiurdUdy317P4PLY=";
+  vendorHash = "sha256-J1wDmI4TZDyhCOsxH4WMfST13mZkiurdUdy317P4PLY=";
 
   meta = with lib; {
     description = "A small utility to report your dynamic IP address to dnsimple";

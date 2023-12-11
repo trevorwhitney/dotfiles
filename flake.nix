@@ -2,7 +2,7 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
@@ -10,7 +10,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     secrets = {
       #TODO: replace with https://github.com/ryantm/agenix

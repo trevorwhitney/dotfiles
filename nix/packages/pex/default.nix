@@ -13,7 +13,7 @@ buildGoModule.override {
     sha256 = "3JYBXvmegq5YpPMZi9y6rruldus18Lmmjayx6nyouqQ=";
   };
 
-  vendorSha256 = "IXthluHhbubXR1W3zXTipE3M4+4cUyhr/MhS664nVJo=";
+  vendorHash = "sha256-IXthluHhbubXR1W3zXTipE3M4+4cUyhr/MhS664nVJo=";
 
   meta = with lib; {
     homepage = "https://github.com/josharian/pex";

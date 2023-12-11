@@ -11,7 +11,7 @@ buildGoModule rec {
     sha256 = "1rprs8l15nbrx4dw4pdg81c5l22zhj80pl4zwqgsm4113wyyvc98";
   };
 
-  vendorSha256 = "0nsm4gsbbn8myz4yfi6m7qc3iizhdambsr18iks0clkdn3mi2jn1";
+  vendorHash = "sha256-wUoR67BtUgb0jChkvapq8Mc4GD7VROfJ9xXZtfQjVVs=";
 
   subPackages = [ "cmd/jsonnet-lint" ];
 

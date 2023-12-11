@@ -52,7 +52,7 @@
           argo
           shellcheck
 
-          (neovim.override {
+          (pkgs.neovim.override {
             withLspSupport = true;
             goPkg = go_1_21;
           })
