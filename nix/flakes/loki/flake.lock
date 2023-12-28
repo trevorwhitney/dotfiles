@@ -59,8 +59,8 @@
         "secrets": "secrets"
       },
       "locked": {
-        "lastModified": 1702324601,
-        "narHash": "sha256-23qNVI9TLHGHIEbB7INvJU+MU0PlNhn2Ki4VI5ldn24=",
+        "lastModified": 1702336278,
+        "narHash": "sha256-TVPsYJNDC/rnraq6FHzTkZLVnFMM/Fb3APrKL673DRo=",
         "path": "/home/twhitney/workspace/dotfiles",
         "type": "path"
       },

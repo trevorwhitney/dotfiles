@@ -8,10 +8,10 @@ buildGoModule rec {
     owner = "posener";
     repo = "complete";
     rev = "v${version}";
-    sha256 = "0nri6hkfb0z3dkxf2fsfidr4bxbn91rjsqhg5s0c2jplf0aclppz";
+    sha256 = "HlKkAknO1C3TfRtRkwdvoQTmA7uUzg4vHP0yO0ZNMjI=";
   };
 
-  vendorHash = "sha256-7hQoTl+NpFc+u/kusNaC/RM0+GkqnGI7bhWjtUkxxxI=";
+  vendorHash = "sha256-2WF5Q0cOPkmdFfwE5/WAXtCuttLtsDteIbC2COf5phE=";
 
   subPackages = [ "gocomplete" ];
 

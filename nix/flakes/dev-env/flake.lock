@@ -79,8 +79,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1702317477,
-        "narHash": "sha256-K0fd0lcKMCpjVRIwusyeqmyMQdLES9MU92xSkb7fE4Y=",
+        "lastModified": 1702661902,
+        "narHash": "sha256-6StWHU0BukUG73+98OBFNKsQowz1yWgGf5CPnC53f7U=",
         "path": "/home/twhitney/workspace/tw-vim-lib",
         "type": "path"
       },
@@ -123,11 +123,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1702151865,
-        "narHash": "sha256-9VAt19t6yQa7pHZLDbil/QctAgVsA66DLnzdRGqDisg=",
+        "lastModified": 1703438236,
+        "narHash": "sha256-aqVBq1u09yFhL7bj1/xyUeJjzr92fXVvQSSEx6AdB1M=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "666fc80e7b2afb570462423cb0e1cf1a3a34fedd",
+        "rev": "5f64a12a728902226210bf01d25ec6cbb9d9265b",
         "type": "github"
       },
       "original": {

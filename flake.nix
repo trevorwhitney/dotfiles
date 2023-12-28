@@ -98,8 +98,6 @@
         secrets.overlay
         jsonnet-language-server.overlay
         deploy-rs.overlay
-
-        # (import "${self}/nix/overlays/neovim.nix")
         neovim.overlay
 
         (final: prev:

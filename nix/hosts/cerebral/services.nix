@@ -163,6 +163,13 @@ in
         };
       };
     };
+
+    # cockpit is a web UI for systemd
+    cockpit = {
+      enable = true;
+      openFirewall = true;
+      port = 9099;
+    };
   };
 
   security.acme = {

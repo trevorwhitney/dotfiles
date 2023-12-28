@@ -15,7 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     gnomeExtensions.appindicator
-    gnomeExtensions.system-monitor
+    gnomeExtensions.system-monitor-2
     gnomeExtensions.unite
     gnomeExtensions.dash-to-panel
     gnomeExtensions.clipboard-history

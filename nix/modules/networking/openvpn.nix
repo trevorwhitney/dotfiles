@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ pkgs, ... }:
 let
   server = host: {
     config = ''
@@ -16,6 +16,7 @@ let
       remote-cert-tls server
 
       auth-user-pass ${pkgs.secrets}/openvpn/credentials
+      auth-nocache
       compress
       verb 1
       reneg-sec 0
@@ -122,11 +123,10 @@ in
       bindsTo = [ "netns@openvpn.service" ];
       requires = [ "network-online.target" ];
       after = [ "netns@openvpn.service" ];
+      before = [ "network.target" ];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        before = [ "network.target" ];
-        requires = [ "network-online.target" ];
         ExecStart = with pkgs; writers.writeBash "create-netns" ''
           ${iproute2}/bin/ip link add veth-vpn netns openvpn type veth peer name host-vpn netns 1
           ${iproute2}/bin/ip -n openvpn addr add 127.0.0.1/8 dev lo
@@ -152,7 +152,7 @@ in
           # bridge interface
           ${iptables}/bin/iptables -t nat -A POSTROUTING -s 10.11.0.0/24 -j MASQUERADE
           # tailscale interface
-          ${iptables}/bin/iptables -t nat -A POSTROUTING -i tailscale0 -j MASQUERADE
+          ${iptables}/bin/iptables -t nat -A POSTROUTING -o tailscale0 -j MASQUERADE
 
           ${procps}/bin/sysctl -w net.ipv4.ip_forward=1
         '';
@@ -176,7 +176,7 @@ in
           # bridge interface
           ${iptables}/bin/iptables -t nat -D POSTROUTING -s 10.11.0.0/24 -j MASQUERADE
           # tailscale interface
-          ${iptables}/bin/iptables -t nat -D POSTROUTING -i tailscale0 -j MASQUERADE
+          ${iptables}/bin/iptables -t nat -D POSTROUTING -o tailscale0 -j MASQUERADE
         '';
       };
     };
