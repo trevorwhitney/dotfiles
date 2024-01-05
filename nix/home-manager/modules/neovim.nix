@@ -30,5 +30,7 @@ in
           inherit withLspSupport;
         })
       ];
+
+      programs.neovim.vimdiffAlias = true;
     };
 }

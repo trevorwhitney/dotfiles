@@ -65,7 +65,7 @@ in
 
           bindkey -M viins 'jj' vi-cmd-mode
 
-          # readline compatability
+          # readline compatibility
           bindkey -M viins '^P'  up-history
           bindkey -M viins '^N'  down-history
           bindkey -M viins '^?'  backward-delete-char
@@ -188,6 +188,7 @@ in
             -v nvim-nix:/nix/store \
             -v $(readlink -f $SSH_AUTH_SOCK):/var/run/sshd/agent.sock \
             -it twhitney/nvim:latest nvim '';
+        vimdiff = "vim -d ";
 
         # useful when piping output to vim
         vyaml = "nvim -c 'set filetype=yaml' -";

@@ -1,4 +1,4 @@
-{ system }: final: prev:
+final: prev:
 let
   virtualBoxVersion = "6.1.48";
 
@@ -9,7 +9,7 @@ let
       sha256 = "0p7m72ipxyya5nn2p8q6h8njk0qk0jhmf6sbfdiv4sh05mbndj4q";
     })
     {
-      inherit system;
+      inherit (prev) system;
     };
 in
 {

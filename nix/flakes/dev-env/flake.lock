@@ -79,8 +79,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1702661902,
-        "narHash": "sha256-6StWHU0BukUG73+98OBFNKsQowz1yWgGf5CPnC53f7U=",
+        "lastModified": 1704227618,
+        "narHash": "sha256-Zr5aEG/df1+s/U9KIhX1xL1dchf/FmP7Lo2h0t/tjE4=",
         "path": "/home/twhitney/workspace/tw-vim-lib",
         "type": "path"
       },
@@ -107,11 +107,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1702313274,
-        "narHash": "sha256-C5SJTaqRqHVvBf5+bLS2oAY321UlCaj8d8RT9Mq+rEc=",
+        "lastModified": 1704226257,
+        "narHash": "sha256-ROd5j1lJlQX/4DQgwvQY0Qmcx1rT2njsj4m3wniTyNk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4b4a8e497989e28121a759fbbd3dd3b16be03a25",
+        "rev": "24141f297ffdcb4d43d000645046d083d4ab9253",
         "type": "github"
       },
       "original": {
@@ -123,11 +123,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1703438236,
-        "narHash": "sha256-aqVBq1u09yFhL7bj1/xyUeJjzr92fXVvQSSEx6AdB1M=",
+        "lastModified": 1703961334,
+        "narHash": "sha256-M1mV/Cq+pgjk0rt6VxoyyD+O8cOUiai8t9Q6Yyq4noY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5f64a12a728902226210bf01d25ec6cbb9d9265b",
+        "rev": "b0d36bd0a420ecee3bc916c91886caca87c894e9",
         "type": "github"
       },
       "original": {

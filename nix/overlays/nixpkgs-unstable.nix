@@ -10,7 +10,6 @@ final: prev: rec {
     # mosh
 
     # neovim
-    neovim
     neovim-unwrapped
 
     # not in stable yet

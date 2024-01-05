@@ -71,54 +71,59 @@
     let
       inherit (nixpkgs) lib;
 
-      overlays = [
-        # Selectively pick packages from nixpkgs-unstable
+      overlay = import ./nix/overlays;
+
+      overlays = system: [
         (import "${self}/nix/overlays/nixpkgs-unstable.nix" {
           pkgs = import nixpkgs-unstable {
-            system = "x86_64-linux";
+            inherit system;
             config = {
               allowUnfree = true;
             };
           };
         })
 
-        (import "${self}/nix/overlays/dotfiles.nix")
-        (import "${self}/nix/overlays/i3-gnome-flashback.nix")
-        (import "${self}/nix/overlays/dynamic-dns-reporter.nix")
-        (import "${self}/nix/overlays/kubectl.nix")
-        (import "${self}/nix/overlays/pex.nix")
-        (import "${self}/nix/overlays/inshellisense.nix")
-
         (import "${self}/nix/overlays/nix-alien.nix" {
-          inherit nix-alien;
-          system = "x86_64-linux";
+          inherit nix-alien system;
         })
-
-        nixgl.overlay
-        secrets.overlay
-        jsonnet-language-server.overlay
-        deploy-rs.overlay
-        neovim.overlay
 
         (final: prev:
           let
-            devenvPkgs = devenv.packages."x86_64-linux";
+            devenvPkgs = devenv.packages.${system};
           in
           {
             inherit (devenvPkgs) devenv;
           })
+
+
+        deploy-rs.overlay
+        jsonnet-language-server.overlay
+        neovim.overlay
+        nixgl.overlay
+        overlay
+        secrets.overlay
       ];
 
-      pkgs = import nixpkgs {
-        inherit overlays;
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-        };
-      };
+      packages = lib.genAttrs [ "x86_64-linux" ] (system:
+        import nixpkgs {
+          inherit system;
+          overlays = overlays system;
+          config = {
+            allowUnfree = true;
+          };
+        }
+      );
 
       nix = import ./nix {
-        inherit self secrets pkgs lib flake-utils home-manager nur nixos-hardware;
+        inherit
+          flake-utils
+          home-manager
+          lib
+          nur nixos-hardware
+          packages
+          secrets
+          self;
+
         modulesPath = "${nixpkgs}/nixos/modules";
       };
     in
@@ -137,12 +142,14 @@
         default = dev;
       };
 
-      # TODO: compose these into the default
+      inherit overlay;
+      # TODO: there is duplication here from ./nix/overlays/default.nix
       overlays = {
-        dotfiles = import "${self}/nix/overlays/dotfiles.nix";
-        kubectl = import "${self}/nix/overlays/kubectl.nix";
-        faillint = import "${self}/nix/overlays/faillint.nix";
+        golang-perf = import "${self}/nix/overlays/golang-perf.nix";
         chart-testing = import "${self}/nix/overlays/chart-testing.nix";
+        dotfiles = import "${self}/nix/overlays/dotfiles.nix";
+        faillint = import "${self}/nix/overlays/faillint.nix";
+        kubectl = import "${self}/nix/overlays/kubectl.nix";
         mixtool = import "${self}/nix/overlays/mixtool.nix";
       };
 
@@ -162,18 +169,9 @@
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
-    let
-      pkgs = import nixpkgs {
-        inherit system overlays;
-        config = {
-          allowUnfree = true;
-        };
-      };
-
-    in
     {
       devShells = {
-        default = import ./shell.nix { inherit pkgs; };
+        default = import ./shell.nix { pkgs = packages.x86_64-linux; };
       };
       packages =
         let

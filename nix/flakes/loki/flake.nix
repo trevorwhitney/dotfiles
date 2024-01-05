@@ -40,6 +40,7 @@
 
             (import "${dotfiles}/nix/overlays/kubectl.nix")
             (import "${dotfiles}/nix/overlays/faillint.nix")
+            (import "${dotfiles}/nix/overlays/golang-perf.nix")
             (import "${dotfiles}/nix/overlays/chart-testing.nix")
           ] ++ (import ./overlays);
           config = { allowUnfree = true; };
@@ -50,6 +51,7 @@
           nativeBuildInputs = with pkgs; [
             # chart-releaser
             bashInteractive
+            golang-perf
             chart-testing-3_8_0
             delve
             envsubst

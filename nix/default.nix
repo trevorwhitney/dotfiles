@@ -1,7 +1,27 @@
-{ self, secrets, pkgs, lib, modulesPath, flake-utils, home-manager, nur, nixos-hardware, ... }:
+{ flake-utils
+, home-manager
+, lib
+, modulesPath
+, nixos-hardware
+, nur
+, packages
+, secrets
+, self
+, ...
+}:
 {
-  nixosConfigurations = import ./hosts { inherit self secrets pkgs lib modulesPath home-manager nur nixos-hardware; };
-  common = import ./nixos { inherit pkgs lib; };
-} // flake-utils.lib.eachDefaultSystem (system: {
-  homeConfigurations = import ./home-manager { inherit pkgs home-manager system nur; };
+  nixosConfigurations = import ./hosts {
+    inherit self secrets lib modulesPath home-manager nur nixos-hardware;
+    pkgs = packages.x86_64-linux;
+  };
+  common = import ./nixos {
+    inherit lib;
+    pkgs = packages.x86_64-linux;
+  };
+} // flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: {
+  homeConfigurations = import ./home-manager {
+    inherit home-manager system nur;
+
+    pkgs = packages.${system};
+  };
 })

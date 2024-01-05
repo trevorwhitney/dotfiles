@@ -1,5 +1,5 @@
 {
-  description = "Standard development envrionment";
+  description = "Standard development environment";
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
@@ -29,7 +29,7 @@
           config = { allowUnfree = true; };
         };
 
-        nodejs = pkgs.nodejs_18;
+        nodejs = pkgs.nodejs_20;
         goPkg = pkgs.go_1_21;
 
         env = pkgs.writers.writeBash "env.sh" ''

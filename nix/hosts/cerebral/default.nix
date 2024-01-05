@@ -2,9 +2,7 @@
 let
   # Keep virtualbox on 6.x
   # since not all my images work on 7.x
-  cerebralPkgs = pkgs.extend (import "${self}/nix/overlays/virtualbox.nix" {
-    system = "x86_64-linux";
-  });
+  cerebralPkgs = pkgs.extend (import "${self}/nix/overlays/virtualbox.nix");
 in
 [
   {
