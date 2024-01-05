@@ -7,6 +7,7 @@
 , packages
 , secrets
 , self
+, systems
 , ...
 }:
 {
@@ -18,7 +19,7 @@
     inherit lib;
     pkgs = packages.x86_64-linux;
   };
-} // flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: {
+} // flake-utils.lib.eachSystem systems (system: {
   homeConfigurations = import ./home-manager {
     inherit home-manager system nur;
 

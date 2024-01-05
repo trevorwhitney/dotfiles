@@ -104,7 +104,9 @@
         secrets.overlay
       ];
 
-      packages = lib.genAttrs [ "x86_64-linux" ] (system:
+      systems = [ "x86_64-linux" ];
+
+      packages = lib.genAttrs systems (system:
         import nixpkgs {
           inherit system;
           overlays = overlays system;
@@ -122,7 +124,8 @@
           nur nixos-hardware
           packages
           secrets
-          self;
+          self
+          systems;
 
         modulesPath = "${nixpkgs}/nixos/modules";
       };
@@ -168,10 +171,10 @@
       };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-    } // (flake-utils.lib.eachSystem [ "x86_64-linux" ] (system:
+    } // (flake-utils.lib.eachSystem systems (system:
     {
       devShells = {
-        default = import ./shell.nix { pkgs = packages.x86_64-linux; };
+        default = import ./shell.nix { pkgs = packages.${system}; };
       };
       packages =
         let
