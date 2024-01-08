@@ -57,6 +57,7 @@
             envsubst
             faillint
             gcc
+            graphviz
             gnumake
             go_1_21
             golangci-lint
@@ -67,6 +68,7 @@
             mixtool
             nettools
             nixpkgs-fmt
+            pprof
             revive
             snyk
             statix

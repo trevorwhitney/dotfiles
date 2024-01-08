@@ -2,7 +2,7 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
