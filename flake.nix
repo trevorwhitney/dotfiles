@@ -6,7 +6,7 @@
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -48,6 +48,7 @@
     deploy-rs.url = "github:serokell/deploy-rs";
 
     neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
+    neovim.inputs.nixpkgs.follows = "nixos-unstable";
   };
 
   outputs =
@@ -63,7 +64,7 @@
     , nixos-generators
     , nixos-hardware
     , nixpkgs
-    , nixpkgs-unstable
+    , nixos-unstable
     , nur
     , secrets
     , ...
@@ -75,7 +76,7 @@
 
       overlays = system: [
         (import "${self}/nix/overlays/nixpkgs-unstable.nix" {
-          pkgs = import nixpkgs-unstable {
+          pkgs = import nixos-unstable {
             inherit system;
             config = {
               allowUnfree = true;
@@ -188,7 +189,7 @@
             jsonnet-language-server.overlay
           ];
 
-          pkgs = import nixpkgs-unstable {
+          pkgs = import nixos-unstable {
             inherit overlays;
             system = "x86_64-linux";
             config = {
