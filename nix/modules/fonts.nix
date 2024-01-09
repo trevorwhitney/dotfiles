@@ -2,7 +2,6 @@
   fonts = {
     fontconfig.enable = true;
 
-    enableDefaultPackages = false;
     packages = with pkgs; [
       dejavu_fonts
       fontconfig
