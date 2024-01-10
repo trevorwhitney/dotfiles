@@ -4,7 +4,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=v0.13.1";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-flake";
   };
 
   outputs = { self, nixpkgs, flake-utils, neovim, jsonnet-language-server }:

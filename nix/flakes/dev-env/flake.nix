@@ -3,7 +3,7 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=v0.13.1";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-flake";
     neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };

@@ -6,15 +6,16 @@
     dotfiles.url = "path:../../../";
 
     neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
-
-    secrets.url =
-      # "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
-      "path:/home/twhitney/workspace/home-manager-secrets";
-    secrets.inputs.nixpkgs.follows = "nixpkgs";
-    secrets.inputs.flake-utils.follows = "flake-utils";
+    secrets = {
+      url =
+        # "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
+        "path:/home/twhitney/workspace/home-manager-secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=v0.13.1";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-flake";
   };
 
 

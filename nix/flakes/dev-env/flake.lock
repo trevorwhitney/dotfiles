@@ -58,17 +58,17 @@
       },
       "locked": {
         "dir": "nix",
-        "lastModified": 1693505723,
-        "narHash": "sha256-4tJrEipVbiYQY0L9sDH0f/qT8WY7c3md/Bar/dST+VI=",
+        "lastModified": 1704908352,
+        "narHash": "sha256-oyGlXfWbnRjK2g5DZ+XiGmm0RmXta4QL9oHiOl4LzV4=",
         "owner": "grafana",
         "repo": "jsonnet-language-server",
-        "rev": "aebe16108ead9c44bc88fc09db3199d4ffc51534",
+        "rev": "dfa262ee026ac8d601d43501045995ff871cbbef",
         "type": "github"
       },
       "original": {
         "dir": "nix",
         "owner": "grafana",
-        "ref": "v0.13.1",
+        "ref": "update-flake",
         "repo": "jsonnet-language-server",
         "type": "github"
       }
@@ -79,8 +79,8 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1704843715,
-        "narHash": "sha256-N0X2EFCPx0l5Hx62AdmO89VT8iEghgQSxrWMOnQVElU=",
+        "lastModified": 1704900887,
+        "narHash": "sha256-FYBji+SUOhfN1Qgz70zspEYR9FNjxO33+JsB85VAjj4=",
         "path": "/home/twhitney/workspace/tw-vim-lib",
         "type": "path"
       },
@@ -123,11 +123,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1704538339,
-        "narHash": "sha256-1734d3mQuux9ySvwf6axRWZRBhtcZA9Q8eftD6EZg6U=",
+        "lastModified": 1704722960,
+        "narHash": "sha256-mKGJ3sPsT6//s+Knglai5YflJUF2DGj7Ai6Ynopz0kI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "46ae0210ce163b3cba6c7da08840c1d63de9c701",
+        "rev": "317484b1ead87b9c1b8ac5261a8d2dd748a0492d",
         "type": "github"
       },
       "original": {
