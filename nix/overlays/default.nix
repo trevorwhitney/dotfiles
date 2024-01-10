@@ -11,5 +11,6 @@ let
   ];
 in
 with super.lib; (foldl' (flip extends) (_: super)
-  (map import overlays))
+  (map import overlays)
   self
+)

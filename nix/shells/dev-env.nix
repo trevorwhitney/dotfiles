@@ -1,17 +1,17 @@
 { pkgs, ... }:
 let
-  _pkgs = pkgs.extend (import ../overlays/faillint.nix);
+  packages = pkgs.extend (import ../overlays/faillint.nix);
 
-  nodejs = _pkgs.nodejs_20;
-  goPkg = _pkgs.go_1_21;
+  nodejs = packages.nodejs_20;
+  goPkg = packages.go_1_21;
 
-  env = _pkgs.writers.writeBash "env.sh" ''
+  env = packages.writers.writeBash "env.sh" ''
     export NODE_PATH="${nodejs}/lib/node_modules:$NODE_PATH"
     export NPM_CONFIG_PREFIX="${nodejs}"
   '';
 in
-_pkgs.mkShell {
-  packages = with _pkgs; [
+packages.mkShell {
+  packages = with packages; [
     # General
     bashInteractive
     gnumake

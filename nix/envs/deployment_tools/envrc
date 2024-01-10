@@ -1,4 +1,4 @@
 if ! has nix_direnv_version || ! nix_direnv_version 2.2.0; then
     source_url "https://raw.githubusercontent.com/nix-community/nix-direnv/2.2.0/direnvrc" "sha256-5EwyKnkJNQeXrRkYbwwRBcXbibosCJqyIUuz9Xq+LRc="
 fi
-use flake ~/workspace/dotfiles/nix/flakes/deployment_tools --impure --update-input nixpkgs --update-input dotfiles --update-input neovim
+use flake ~/workspace/dotfiles#deployment-tools --impure --update-input nixpkgs --update-input dotfiles --update-input neovim

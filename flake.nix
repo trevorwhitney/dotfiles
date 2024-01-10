@@ -49,6 +49,8 @@
 
     neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
     neovim.inputs.nixpkgs.follows = "nixos-unstable";
+
+    loki.url = "github:grafana/loki";
   };
 
   outputs =
@@ -58,6 +60,7 @@
     , flake-utils
     , home-manager
     , jsonnet-language-server
+    , loki
     , neovim
     , nix-alien
     , nixgl
@@ -174,7 +177,16 @@
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // (flake-utils.lib.eachSystem systems (system:
     {
-      devShells = import ./nix/shells { pkgs = packages.${system}; };
+      devShells = import ./nix/shells {
+        inherit loki secrets;
+        pkgs = packages.${system};
+      };
+
+      apps = import ./nix/apps {
+        inherit loki secrets;
+        pkgs = packages.${system};
+      };
+
       packages =
         let
           overlays = [
@@ -196,7 +208,7 @@
           };
         in
         {
-          inherit (pkgs) nvim-container dev-container dev-box;
+          inherit (pkgs) nvim-container dev-container;
         };
     }));
 }
