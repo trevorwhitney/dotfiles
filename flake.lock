@@ -264,8 +264,8 @@
         ]
       },
       "locked": {
-        "lastModified": 1704843715,
-        "narHash": "sha256-N0X2EFCPx0l5Hx62AdmO89VT8iEghgQSxrWMOnQVElU=",
+        "lastModified": 1704900887,
+        "narHash": "sha256-FYBji+SUOhfN1Qgz70zspEYR9FNjxO33+JsB85VAjj4=",
         "path": "/home/twhitney/workspace/tw-vim-lib",
         "type": "path"
       },

@@ -174,9 +174,7 @@
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     } // (flake-utils.lib.eachSystem systems (system:
     {
-      devShells = {
-        default = import ./shell.nix { pkgs = packages.${system}; };
-      };
+      devShells = import ./nix/shells { pkgs = packages.${system}; };
       packages =
         let
           overlays = [
