@@ -1,5 +1,16 @@
 { pkgs, secrets, ... }: {
-  default = import ./shell.nix { inherit pkgs; };
+  default = import ./dev-env.nix {
+    inherit pkgs;
+    extraPackages = with pkgs; [
+      deploy-rs.deploy-rs
+      home-manager
+      libvirt
+      mkpasswd
+      nix
+      qemu
+      virt-manager
+    ];
+  };
 
   deployment-tools = import ./deployment-tools.nix { inherit pkgs secrets; };
 

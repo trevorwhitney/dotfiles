@@ -17,6 +17,7 @@ packages.mkShell {
   packages = with packages; [
     # General
     bashInteractive
+    git
     gnumake
     zip
 
