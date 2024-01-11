@@ -1,13 +1,16 @@
-{ pkgs, ... }:
+{ pkgs
+, useEslintDaemon ? true
+, extraPackages ? [ ]
+, nodeJsPkg ? pkgs.nodejs_20
+, goPkg ? pkgs.go_1_21
+, ...
+}:
 let
   packages = pkgs.extend (import ../overlays/faillint.nix);
 
-  nodejs = packages.nodejs_20;
-  goPkg = packages.go_1_21;
-
   env = packages.writers.writeBash "env.sh" ''
-    export NODE_PATH="${nodejs}/lib/node_modules:$NODE_PATH"
-    export NPM_CONFIG_PREFIX="${nodejs}"
+    export NODE_PATH="${nodeJsPkg}/lib/node_modules:$NODE_PATH"
+    export NPM_CONFIG_PREFIX="${nodeJsPkg}"
   '';
 in
 packages.mkShell {
@@ -18,26 +21,28 @@ packages.mkShell {
     zip
 
     # Golang
+    goPkg
     delve
-    go_1_21
-    gotools
-    golangci-lint
     faillint
+    golangci-lint
+    gotools
     mage
 
     # NodeJS
-    nodejs
+    nodeJsPkg
     (yarn.override {
-      inherit nodejs;
+      nodejs = nodeJsPkg;
     })
 
     (pkgs.neovim.override {
-      inherit goPkg;
-      nodeJsPkg = nodejs;
+      inherit
+        goPkg
+        nodeJsPkg
+        useEslintDaemon;
       withLspSupport = true;
     })
 
-    # python with extra packages needed for scripts
+    # python with extra packages
     (
       let
         extra-python-packages = python-packages:
@@ -49,7 +54,7 @@ packages.mkShell {
       in
       python-with-packages
     )
-  ];
+  ] ++ extraPackages;
 
   shellHook = ''
     source "${env}"
