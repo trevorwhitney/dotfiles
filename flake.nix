@@ -141,14 +141,6 @@
         inherit (nix.homeConfigurations.x86_64-linux) "twhitney@cerebral" "twhitney@penguin" "twhitney@kolide";
       };
 
-      templates = rec {
-        dev = {
-          path = "${self}/nix/templates/dev";
-          description = "My Basic Development Environment";
-        };
-        default = dev;
-      };
-
       inherit overlay;
       # TODO: there is duplication here from ./nix/overlays/default.nix
       overlays = {
