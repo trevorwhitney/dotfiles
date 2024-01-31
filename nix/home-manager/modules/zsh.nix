@@ -123,8 +123,13 @@ in
           else
             export BAT_THEME="Solarized (light)"
             export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (light)"
-            # Solarized
-            export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#fdf6e3"
+            if [[ $TMUX_THEME == "flexoki" ]]; then
+              # Flexoki
+              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#575653,bg=#fffcf0"
+            else
+              # Solarized
+              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36"
+            fi
             # Seoulbones
             # export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#e2e2e2"
           fi

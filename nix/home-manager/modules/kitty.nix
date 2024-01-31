@@ -1,11 +1,5 @@
 { config, pkgs, lib, ... }:
-let
-  inherit (pkgs) dotfiles;
-  cfg = config.programs.kitty;
-in
 {
-  options = { };
-
   config = {
     programs.kitty = {
       enable = true;
@@ -27,8 +21,6 @@ in
       keybindings = {
         "kitty_mod+k" = "clear_terminal to_cursor active";
       };
-
-      theme = "Solarized Light";
     };
   };
 }

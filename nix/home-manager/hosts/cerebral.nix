@@ -23,40 +23,49 @@
     jetbrains.idea-community
     wl-clipboard
   ];
-
-  programs.firefox = {
-    profiles.default.settings = {
-      "media.ffmpeg.vaapi.enabled" = true;
-      "media.ffvpx.enabled" = false;
-      "gfx.webrender.all" = true;
-      "layout.css.overflow-overlay.enabled" = true;
+  programs = {
+    firefox = {
+      profiles.default.settings = {
+        "media.ffmpeg.vaapi.enabled" = true;
+        "media.ffvpx.enabled" = false;
+        "gfx.webrender.all" = true;
+        "layout.css.overflow-overlay.enabled" = true;
+      };
     };
-  };
 
-  programs.git = {
-    includes =
-      [{ path = "${pkgs.secrets}/git"; }];
-  };
+    git = {
+      includes =
+        [{ path = "${pkgs.secrets}/git"; }];
+    };
 
-  programs.neovim = {
-    # default installation disables LSP
-    # enable via .envrc in folders with code
-    withLspSupport = false;
-  };
+    neovim = {
+      # default installation disables LSP
+      # enable via .envrc in folders with code
+      withLspSupport = false;
+    };
 
-  programs.gh = {
-    enable = true;
-  };
+    gh = {
+      enable = true;
+    };
 
-  programs.obs-studio = {
-    enable = true;
-    plugins = with pkgs.obs-studio-plugins; [
-      obs-pipewire-audio-capture
-    ];
-  };
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        obs-pipewire-audio-capture
+      ];
+    };
 
-  programs.kubectl = {
-    enable = true;
-    package = pkgs.kubectl-1-25;
+    kubectl = {
+      enable = true;
+      package = pkgs.kubectl-1-25;
+    };
+
+    tmux = {
+      theme = "flexoki";
+    };
+
+    kitty = {
+      theme = "Flexoki (Light)";
+    };
   };
 }
