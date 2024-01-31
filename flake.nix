@@ -40,7 +40,7 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-flake";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix";
 
     devenv.url = "github:cachix/devenv";
 
