@@ -138,7 +138,7 @@
       inherit (nix) nixosConfigurations;
 
       homeConfigurations = {
-        inherit (nix.homeConfigurations.x86_64-linux) "twhitney@cerebral" "twhitney@penguin" "twhitney@kolide";
+        inherit (nix.homeConfigurations.x86_64-linux) "twhitney@penguin" "twhitney@kolide";
       };
 
       inherit overlay;
