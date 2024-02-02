@@ -1,34 +1,94 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 #
 ### Colors
-black="#002b36"
-blue="#268bd2"
-white="#eee8d5"
-cyan="#2aa198"
-gray="#586e75"
-green="#859900"
-magenta="#d33682"
-red="#dc322f"
-violet="#6c71c4"
-yellow="#b58900"
+case ${THEME:-flexoki} in
+  solarized)
+    ## Solarized colors
+    black="#100F0F"
+    white="#eee8d5"
+    gray="#586e75"
 
-base03="#002b36"
-base02="#073642"
-base01="#586e75"
-base00="#657b83"
-base0="#839496"
-base1="#93a1a1"
-base2="#eee8d5"
-base3="#fdf6e3"
+    blue="#268bd2"
+    cyan="#2aa198"
+    green="#859900"
+    magenta="#d33682"
+    red="#dc322f"
+    violet="#6c71c4"
+    yellow="#b58900"
+
+    blue2="#268bd2"
+    cyan2="#2aa198"
+    gray2="#586e75"
+    green2="#859900"
+    magenta2="#d33682"
+    red2="#dc322f"
+    violet2="#6c71c4"
+    yellow2="#b58900"
+
+    yellow2="#657b83"
+    base0="#839496"
+    base1="#93a1a1"
+    paper="#fdf6e3"
+    ;;
+  *)
+    ## Flexoki colors
+    black="#002b36"
+    white="#F2F0E5"
+    gray="#586e75"
+
+    case ${BACKGROUND:-light} in
+      dark)
+        ## Flexoki dark
+        blue="#4385BE"
+        cyan="#3AA99F"
+        green="#879A39"
+        magenta="#CE5D97"
+        red="#D14D41"
+        violet="#8B7EC8"
+        yellow="#D0A215"
+
+        blue2="#205EA6"
+        cyan2="#24837B"
+        green2="#66800B"
+        magenta2="#A02F6F"
+        red2="#AF3029"
+        violet2="#5E409D"
+        yellow2="#AD8301"
+        ;;
+      *)
+        ## Flexoki light
+        blue="#205EA6"
+        cyan="#24837B"
+        green="#66800B"
+        magenta="#A02F6F"
+        red="#AF3029"
+        violet="#5E409D"
+        yellow="#AD8301"
+
+        blue2="#4385BE"
+        cyan2="#3AA99F"
+        green2="#879A39"
+        magenta2="#CE5D97"
+        red2="#D14D41"
+        violet2="#8B7EC8"
+        yellow2="#D0A215"
+        ;;
+    esac
+
+    base0="#6F6E69"
+    base1="#878580"
+    paper="#fdf6e3"
+    ;;
+esac
 
 case ${BACKGROUND:-light} in
   dark)
-    CURRENT_FG="$base3"
-    prompt_fg="$base00"
+    CURRENT_FG="$paper"
+    prompt_fg="$yellow2"
     mode_bg="$gray"
     ;;
   *)
-    CURRENT_FG="$base03"
+    CURRENT_FG="$black"
     prompt_fg="$base0"
     mode_bg="$white"
     ;;
