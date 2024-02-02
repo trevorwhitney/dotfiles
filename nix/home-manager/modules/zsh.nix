@@ -118,20 +118,25 @@ in
           if [[ "$BACKGROUND" == "dark" ]]; then
             export BAT_THEME="Solarized (dark)"
             export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (dark)"
-            # Solarized
-            export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36"
-          else
-            export BAT_THEME="Solarized (light)"
-            export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (light)"
-            if [[ $TMUX_THEME == "flexoki" ]]; then
-              # Flexoki
-              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#575653,bg=#fffcf0"
+            if [[ $TMUX_THEME == "everforest" ]]; then
+              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#d3c6aa,bg=#333c43"
             else
               # Solarized
               export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36"
             fi
-            # Seoulbones
-            # export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#e2e2e2"
+          else
+            export BAT_THEME="Solarized (light)"
+            export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (light)"
+            if [[ $TMUX_THEME == "everforest" ]]; then
+              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#5c6a72,bg=#f3ead3"
+            elif [[ $TMUX_THEME == "flexoki" ]]; then
+              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#575653,bg=#fffcf0"
+            elif [[ $TMUX_THEME == "seoulbones" ]]; then
+              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#e2e2e2"
+            else
+              # Solarized
+              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36"
+            fi
           fi
 
           autoload -Uz compinit

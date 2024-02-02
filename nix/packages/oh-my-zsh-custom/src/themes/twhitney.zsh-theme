@@ -1,11 +1,45 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 #
 ### Colors
-case ${THEME:-flexoki} in
+case ${THEME:-everforest} in
+  everforest)
+    case ${BACKGROUND:-light} in
+      dark)
+        ## everforest dark
+        paper="#d3c6aa"
+        black="#333c43"
+        grey="#859289"
+
+        blue="#7fbbb3"
+        cyan="#83c092"
+        green="#a7c080"
+        magenta="#d699b6"
+        red="#e67e80"
+        violet="#d699b6"
+        yellow="#dbbc7f"
+        ;;
+      *)
+        ## everforest light
+        paper="#f3ead3"
+        black="#5c6a72"
+        grey="#939f91"
+
+        blue="#3a94c5"
+        cyan="#35a77c"
+        green="#8da101"
+        magenta="#df69ba"
+        red="#f8552"
+        violet="#df69ba"
+        # yellow="#dfa000"
+        yellow="#D89B00"
+        ;;
+    esac
+    ;;
+
   solarized)
     ## Solarized colors
+    paper="#fdf6e3"
     black="#100F0F"
-    white="#eee8d5"
     gray="#586e75"
 
     blue="#268bd2"
@@ -15,25 +49,12 @@ case ${THEME:-flexoki} in
     red="#dc322f"
     violet="#6c71c4"
     yellow="#b58900"
-
-    blue2="#268bd2"
-    cyan2="#2aa198"
-    gray2="#586e75"
-    green2="#859900"
-    magenta2="#d33682"
-    red2="#dc322f"
-    violet2="#6c71c4"
-    yellow2="#b58900"
-
-    yellow2="#657b83"
-    base0="#839496"
-    base1="#93a1a1"
-    paper="#fdf6e3"
     ;;
-  *)
+
+  flexoki)
     ## Flexoki colors
+    paper="#fdf6e3"
     black="#002b36"
-    white="#F2F0E5"
     gray="#586e75"
 
     case ${BACKGROUND:-light} in
@@ -46,14 +67,6 @@ case ${THEME:-flexoki} in
         red="#D14D41"
         violet="#8B7EC8"
         yellow="#D0A215"
-
-        blue2="#205EA6"
-        cyan2="#24837B"
-        green2="#66800B"
-        magenta2="#A02F6F"
-        red2="#AF3029"
-        violet2="#5E409D"
-        yellow2="#AD8301"
         ;;
       *)
         ## Flexoki light
@@ -64,33 +77,21 @@ case ${THEME:-flexoki} in
         red="#AF3029"
         violet="#5E409D"
         yellow="#AD8301"
-
-        blue2="#4385BE"
-        cyan2="#3AA99F"
-        green2="#879A39"
-        magenta2="#CE5D97"
-        red2="#D14D41"
-        violet2="#8B7EC8"
-        yellow2="#D0A215"
         ;;
     esac
-
-    base0="#6F6E69"
-    base1="#878580"
-    paper="#fdf6e3"
     ;;
 esac
 
 case ${BACKGROUND:-light} in
   dark)
     CURRENT_FG="$paper"
-    prompt_fg="$yellow2"
+    prompt_fg="$yellow"
     mode_bg="$gray"
     ;;
   *)
     CURRENT_FG="$black"
-    prompt_fg="$base0"
-    mode_bg="$white"
+    prompt_fg="$grey"
+    mode_bg="$paper"
     ;;
 esac
 
@@ -201,7 +202,7 @@ prompt_k8s() {
 }
 
 print_separator() {
-  echo -n " %{%F{$base1}%}|%{%f%} "
+  echo -n " %{%F{$grey}%}|%{%f%} "
 }
 
 prompt() {

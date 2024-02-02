@@ -61,11 +61,11 @@
     };
 
     tmux = {
-      theme = "flexoki";
+      theme = "everforest";
     };
 
     kitty = {
-      theme = "Flexoki (Light)";
+      theme = "Everforest Light Soft";
     };
   };
 }
