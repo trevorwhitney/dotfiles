@@ -3,6 +3,7 @@ let
   imports = [
     ../modules/bash.nix
     ../modules/common.nix
+    ../modules/fonts.nix
     ../modules/git.nix
     ../modules/k9s.nix
     ../modules/kubernetes.nix

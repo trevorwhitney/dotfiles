@@ -32,6 +32,11 @@ in
         in
         "${activateAndUnlock}/bin/activate-and-unlock";
     };
+
+    tmux.extraConfig = ''
+      # -- run new sessions with systemd to benefit from systemd oomd --
+      set -g default-command 'systemd-run --user --scope zsh'
+    '';
   };
 
   home = {
