@@ -2,7 +2,7 @@
   imports = [
     ../modules/1password.nix
     ../modules/bash.nix
-    ../modules/common.nix
+    ../modules/linux.nix
     ../modules/firefox.nix
     ../modules/git.nix
     ../modules/k9s.nix

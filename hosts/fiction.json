@@ -1,0 +1,19 @@
+{
+  "excluded": [
+    "apt",
+    "crostini",
+    "kolide",
+    "tailscale"
+  ],
+  "name": "fiction",
+  "nix": {
+    "user": "twhitney",
+    "group": "nix-users",
+    "sandbox": {
+      "enabled": true
+    }
+  },
+  "units": [
+    "home-manager"
+  ]
+}

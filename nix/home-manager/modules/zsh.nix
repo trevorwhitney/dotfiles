@@ -153,10 +153,6 @@ in
 
           PATH="$HOME/.local/bin:$PATH"
 
-          # completions
-          complete -o nospace -C "${pkgs.gocomplete}/bin/gocomplete" go
-          complete -o nospace -C "${pkgs.nomad}/bin/nomad" nomad
-
           autoload -U +X bashcompinit && bashcompinit
         ''
         (lib.optionalString cfg.use1Password
@@ -190,34 +186,12 @@ in
         # vim
         v = "vim ";
         temp = "vim \$(mktemp)";
-        nvim-container = ''
-          docker run \
-            -v $(pwd):/src \
-            -v nvim-data:/etc/xdg \
-            -v nvim-tmp:/tmp \
-            -v nvim-nix:/nix/store \
-            -v $(readlink -f $SSH_AUTH_SOCK):/var/run/sshd/agent.sock \
-            -it twhitney/nvim:latest nvim '';
+        vtemp = "vim \$(mktemp)";
         vimdiff = "vim -d ";
 
         # useful when piping output to vim
         vyaml = "nvim -c 'set filetype=yaml' -";
         vjson = "nvim -c 'set filetype=json' -";
-
-        # needed because of KDE unlock weirdness
-        unlock =
-          let
-            activateAndUnlock = pkgs.writeShellScriptBin "activate-and-unlock" ''
-              function unlock() {
-                local session=$1
-                ${pkgs.systemd}/bin/loginctl unlock-session $session
-                ${pkgs.systemd}/bin/loginctl activate $session
-              }
-
-              unlock $@
-            '';
-          in
-          "${activateAndUnlock}/bin/activate-and-unlock";
 
         #Grafana
         logcli = "nix run --no-write-lock-file --impure path:/home/twhitney/workspace/dotfiles#logcli -- ";

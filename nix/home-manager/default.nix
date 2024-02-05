@@ -1,16 +1,5 @@
-{ pkgs, system, home-manager, nur, ... }:
+{ pkgs, system, home-manager, ... }:
 let
-  imports = [
-    ./modules/bash.nix
-    ./modules/common.nix
-    ./modules/fonts.nix
-    ./modules/git.nix
-    ./modules/neovim.nix
-    ./modules/tmux.nix
-    ./modules/xdg.nix
-    ./modules/zsh.nix
-  ];
-
   config = {
     programs.git = {
       includes =
@@ -22,11 +11,9 @@ let
     inherit
       config
       home-manager
-      imports
       pkgs
-      nur
       system;
     username = "twhitney";
   };
 in
-(import ./hosts/penguin.nix defaults) // (import ./hosts/kolide.nix defaults)
+(import ./hosts/penguin.nix defaults ) // (import ./hosts/fiction.nix defaults)

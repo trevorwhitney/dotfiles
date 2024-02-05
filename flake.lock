@@ -303,14 +303,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1706910936,
-        "narHash": "sha256-5TqoG0khqfer3NVk51oxeA1N2/ciNYHA2K+YM3CYaBY=",
-        "path": "/home/twhitney/workspace/tw-vim-lib",
-        "type": "path"
+        "lastModified": 1706818925,
+        "narHash": "sha256-LHa57Zf+3mM9YiV8NgX9j908sXHZ7G/53MpKnMl/AaY=",
+        "owner": "trevorwhitney",
+        "repo": "tw-vim-lib",
+        "rev": "84e4c159cd47df6ef51751e888fe2d5bcc3285f9",
+        "type": "github"
       },
       "original": {
-        "path": "/home/twhitney/workspace/tw-vim-lib",
-        "type": "path"
+        "owner": "trevorwhitney",
+        "repo": "tw-vim-lib",
+        "type": "github"
       }
     },
     "nix": {
@@ -615,11 +618,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1706718339,
-        "narHash": "sha256-S+S97c/HzkO2A/YsU7ZmNF9w2s7Xk6P8dzmfDdckzLs=",
+        "lastModified": 1706826059,
+        "narHash": "sha256-N69Oab+cbt3flLvYv8fYnEHlBsWwdKciNZHUbynVEOA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "53fbe41cf76b6a685004194e38e889bc8857e8c2",
+        "rev": "25e3d4c0d3591c99929b1ec07883177f6ea70c9d",
         "type": "github"
       },
       "original": {

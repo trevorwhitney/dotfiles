@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }: {
   imports = [
     ../modules/bash.nix
-    ../modules/common.nix
+    ../modules/linux.nix
     ../modules/git.nix
     ../modules/neovim.nix
     ../modules/tmux.nix

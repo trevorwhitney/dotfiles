@@ -47,7 +47,9 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
     deploy-rs.url = "github:serokell/deploy-rs";
 
-    neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
+    # neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
+    # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
+    neovim.url = "github:trevorwhitney/tw-vim-lib";
     neovim.inputs.nixpkgs.follows = "nixos-unstable";
 
     loki.url = "github:grafana/loki";
@@ -108,7 +110,7 @@
         secrets.overlay
       ];
 
-      systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
 
       packages = lib.genAttrs systems (system:
         import nixpkgs {
@@ -139,6 +141,7 @@
 
       homeConfigurations = {
         inherit (nix.homeConfigurations.x86_64-linux) "twhitney@penguin" "twhitney@kolide";
+        inherit (nix.homeConfigurations.aarch64-darwin) "twhitney@fiction";
       };
 
       inherit overlay;
@@ -150,20 +153,6 @@
         faillint = import "${self}/nix/overlays/faillint.nix";
         kubectl = import "${self}/nix/overlays/kubectl.nix";
         mixtool = import "${self}/nix/overlays/mixtool.nix";
-      };
-
-      # TODO: this is not working because the vagrant box doesn't have the proper config
-      # to allow me to sign packages I'm copying over
-      deploy.nodes.dev-box = {
-        hostname = "localhost";
-        sshUser = "vagrant";
-        user = "root";
-        sshOpts = [ "-p" "2200" ]; # uses NAT interface on VM
-        profiles = {
-          system = {
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."dev-box";
-          };
-        };
       };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
@@ -192,8 +181,7 @@
           ];
 
           pkgs = import nixos-unstable {
-            inherit overlays;
-            system = "x86_64-linux";
+            inherit overlays system;
             config = {
               allowUnfree = true;
             };
