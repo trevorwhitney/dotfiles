@@ -4,12 +4,10 @@ let
 in
 packages.mkShell {
   nativeBuildInputs = [ packages.bashInteractive ];
-  buildInputs = with packages; [
-    shellcheck
-  ];
 
   packages = with packages; [
     argo
+    jsonnet
     shellcheck
 
     (pkgs.neovim.override {
