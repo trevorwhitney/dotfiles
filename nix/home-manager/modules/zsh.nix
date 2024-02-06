@@ -104,41 +104,6 @@ in
               | sed -e 's/DISPLAY=//g'
           }
 
-          # Needed for some copy/paste oddity with X11 forwarding
-          # TODO: this doesn't work if there are multiple X servers, ie
-          # sometimes you get 0 and 1, how do you pick between them?
-          # if [[ `command -v tmux` ]] && [[ `tmux ls 2> /dev/null` ]]; then
-          #   export TMUX_DISPLAY="$(tmux show-env | sed -n 's/^DISPLAY=//p')"
-          #   # tmux clobbers our default DISPLAY env var, which reaks havoc
-          #   # on copy/paste behavior in vim and terminal, so reset it when
-          #   # tmux is active
-          #   export DISPLAY="$(get_default_display)"
-          # fi
-
-          if [[ "$BACKGROUND" == "dark" ]]; then
-            export BAT_THEME="Solarized (dark)"
-            export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (dark)"
-            if [[ $TMUX_THEME == "everforest" ]]; then
-              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#d3c6aa,bg=#333c43"
-            else
-              # Solarized
-              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36"
-            fi
-          else
-            export BAT_THEME="Solarized (light)"
-            export FZF_PREVIEW_PREVIEW_BAT_THEME="Solarized (light)"
-            if [[ $TMUX_THEME == "everforest" ]]; then
-              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#5c6a72,bg=#f3ead3"
-            elif [[ $TMUX_THEME == "flexoki" ]]; then
-              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#575653,bg=#fffcf0"
-            elif [[ $TMUX_THEME == "seoulbones" ]]; then
-              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#93a1a1,bg=#e2e2e2"
-            else
-              # Solarized
-              export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#586e75,bg=#002b36"
-            fi
-          fi
-
           autoload -Uz compinit
           compinit -i
 
@@ -164,10 +129,11 @@ in
       ]);
 
       shellAliases = {
-        hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles -b backup";
-        rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure";
+        hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles -b backup ";
+        rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure ";
         rollback = "sudo nixos-rebuild switch --rollback";
         k = "${pkgs.kubectl-1-25}/bin/kubectl ";
+        change-background = "${pkgs.dotfiles}/bin/change-background.sh ";
 
         # git
         gco = "git checkout \$(git branch | fzf)";
