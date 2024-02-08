@@ -14,7 +14,6 @@ packages.mkShell {
     shellcheck
   ];
   packages = with packages; [
-    # chart-releaser
     golang-perf
     chart-testing-3_8_0
     delve
@@ -36,7 +35,6 @@ packages.mkShell {
     revive
     snyk
     statix
-    systemd
     trivy
     yamllint
 

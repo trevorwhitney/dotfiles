@@ -5,7 +5,6 @@
       deploy-rs.deploy-rs
       home-manager
       libvirt
-      mkpasswd
       nix
       qemu
       virt-manager

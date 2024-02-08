@@ -2,8 +2,8 @@
 let
   imports = [
     ../modules/bash.nix
-    ../modules/common.nix
-    ../modules/fonts.nix
+    ../modules/change-background.nix
+    ../modules/darwin.nix
     ../modules/git.nix
     ../modules/k9s.nix
     ../modules/kubernetes.nix
@@ -60,15 +60,6 @@ in
           };
         };
       }
-    ] ++ [
-      ../modules/bash.nix
-      ../modules/darwin.nix
-      ../modules/git.nix
-      ../modules/k9s.nix
-      ../modules/kubernetes.nix
-      ../modules/neovim.nix
-      ../modules/tmux.nix
-      ../modules/zsh.nix
-    ];
+    ] ++ imports;
   };
 }

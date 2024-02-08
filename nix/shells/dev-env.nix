@@ -19,6 +19,7 @@ packages.mkShell {
     bashInteractive
     git
     gnumake
+    jsonnet
     zip
 
     # Golang

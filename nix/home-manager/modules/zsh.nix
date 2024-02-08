@@ -133,7 +133,6 @@ in
         rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure ";
         rollback = "sudo nixos-rebuild switch --rollback";
         k = "${pkgs.kubectl-1-25}/bin/kubectl ";
-        change-background = "${pkgs.dotfiles}/bin/change-background.sh ";
 
         # git
         gco = "git checkout \$(git branch | fzf)";
