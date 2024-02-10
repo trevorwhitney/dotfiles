@@ -9,6 +9,7 @@ packages.mkShell {
     argo
     jsonnet
     shellcheck
+    kns-ktx
 
     (pkgs.neovim.override {
       withLspSupport = true;

@@ -27,6 +27,8 @@ packages.mkShell {
     gotools
     gox
     helm-docs
+    jsonnet
+    jsonnet-bundler
     mage
     mixtool
     nettools

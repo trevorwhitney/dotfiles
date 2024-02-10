@@ -1,43 +1,48 @@
 { config, pkgs, lib, ... }:
 let inherit (pkgs) dotfiles;
   change-background = with pkgs; writeShellScriptBin "change-background" ''
-      function change_background() {
-        local mode="light"
+    function change_background() {
+      local mode="light"
 
-        if [[ ''${DARKMODE:-0} -eq 1 ]]; then
-          mode="dark"
-        fi
+      if [[ ''${DARKMODE:-0} -eq 1 ]]; then
+        mode="dark"
+      fi
 
-        echo "changing background to ''${mode}"
+      echo "changing background to ''${mode}"
 
-        for pid in ''$(pgrep vim); do kill -SIGUSR1 "''${pid}"; done
+      for pid in ''$(pgrep vim); do kill -SIGUSR1 "''${pid}"; done
 
-        ${tmux}/bin/tmux set-environment -g BACKGROUND "''${mode}"
-        ${tmux}/bin/tmux source-file ~/.config/tmux/tmux.conf
+      ${tmux}/bin/tmux set-environment -g BACKGROUND "''${mode}"
+      ${tmux}/bin/tmux source-file ~/.config/tmux/tmux.conf
 
-        # change kitty
-        case "''${mode}" in
-        dark)
-          ${kitty}/bin/kitten themes --reload-in=all "Everforest Dark Soft"
-          ${tmux}/bin/tmux set-environment -g BAT_THEME "Solarized (dark)"
-          ${tmux}/bin/tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (dark)"
+      # change kitty
+      case "''${mode}" in
+      dark)
+        ${kitty}/bin/kitten themes --reload-in=all "Everforest Dark Soft"
+        ${tmux}/bin/tmux set-environment -g BAT_THEME "Solarized (dark)"
+        ${tmux}/bin/tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (dark)"
 
-          ${tmux}/bin/tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#d3c6aa,bg=#333c43"
-          ;;
-        *)
-          ${kitty}/bin/kitten themes --reload-in=all "Everforest Light Soft"
-          ${tmux}/bin/tmux set-environment -g BAT_THEME "Solarized (light)"
-          ${tmux}/bin/tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (light)"
+        ${tmux}/bin/tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#d3c6aa,bg=#333c43"
+        ;;
+      *)
+        ${kitty}/bin/kitten themes --reload-in=all "Everforest Light Soft"
+        ${tmux}/bin/tmux set-environment -g BAT_THEME "Solarized (light)"
+        ${tmux}/bin/tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (light)"
 
-          ${tmux}/bin/tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#5c6a72,bg=#f3ead3"
-          ;;
-        esac
-      }
+        ${tmux}/bin/tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#5c6a72,bg=#f3ead3"
+        ;;
+      esac
+    }
 
-      change_background
+    change_background
   '';
 in
 {
+  nix = {
+    package = pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
+
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;

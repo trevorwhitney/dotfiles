@@ -40,6 +40,12 @@ in
         ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];
       };
 
+      history = {
+        path = "$HOME/.zsh_history";
+        save = 10000000;
+        size = 10000000;
+      };
+
       initExtra = builtins.concatStringsSep "\n" (with pkgs; [
         ''
           # Fuzzy completion for history
@@ -85,7 +91,6 @@ in
           zle -N zle-line-init
           zle -N zle-keymap-select
 
-
           if [[ -e "$HOME/.cargo/env" ]]; then
             source "$HOME/.cargo/env"
           fi
@@ -94,27 +99,11 @@ in
             eval "$(luarocks path --bin)"
           fi
 
-          # Return the lowest numbered display in use by current user
-          # which is usually what we want
-          function get_default_display() {
-            ps -u $(id -u) -o pid= \
-              | xargs -I PID -r cat /proc/PID/environ 2> /dev/null \
-              | tr '\0' '\n' \
-              | grep -m1 -P '^DISPLAY=' \
-              | sed -e 's/DISPLAY=//g'
-          }
-
           autoload -Uz compinit
           compinit -i
 
           source <(${pkgs.kubectl}/bin/kubectl completion zsh)
           complete -F __start_kubectl k
-
-          # this path isn't there on nixos systems
-          if [[ -e "$HOME/.nix-profile" ]]; then
-            export NIX_PROFILE="$HOME/.nix-profile"
-            . $NIX_PROFILE/etc/profile.d/hm-session-vars.sh
-          fi
 
           PATH="$HOME/.local/bin:$PATH"
 
@@ -129,7 +118,7 @@ in
       ]);
 
       shellAliases = {
-        hm-switch = "home-manager switch --flake $HOME/workspace/dotfiles -b backup ";
+        hm-switch = "${pkgs.home-manager}/bin/home-manager switch --flake $HOME/workspace/dotfiles -b backup ";
         rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure ";
         rollback = "sudo nixos-rebuild switch --rollback";
         k = "${pkgs.kubectl-1-25}/bin/kubectl ";
