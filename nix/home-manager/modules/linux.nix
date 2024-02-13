@@ -31,6 +31,8 @@ in
           '';
         in
         "${activateAndUnlock}/bin/activate-and-unlock";
+
+      open = "${pkgs.xdg-utils}/bin/xdg-open";
     };
 
     tmux.extraConfig = ''
