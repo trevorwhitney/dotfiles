@@ -19,6 +19,7 @@
       ExecStart = with pkgs; writers.writeBash "dynamic-dns-reporter" ''
         source ${secrets}/dnsimple/credentials.sh
         ${dynamic-dns-reporter}/bin/dynamic-dns-reporter $DNSIMPLE_ACCOUNT_ID $DNSIMPLE_API_KEY plex
+        ${dynamic-dns-reporter}/bin/dynamic-dns-reporter $DNSIMPLE_ACCOUNT_ID $DNSIMPLE_API_KEY proxmox
       '';
       Type = "oneshot";
       Restart = "on-failure";
