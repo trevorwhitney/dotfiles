@@ -108,6 +108,12 @@ in
           PATH="$HOME/.local/bin:$PATH"
 
           autoload -U +X bashcompinit && bashcompinit
+
+          if [ -n "$TMUX" ]; then
+            export "$(tmux show-environment -g | grep "^BAT_THEME")"
+            export "$(tmux show-environment -g | grep "^FZF_PREVIEW_PREVIEW_BAT_THEME")"
+            export "$(tmux show-environment -g | grep "^ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE")"
+          fi
         ''
         (lib.optionalString cfg.use1Password
           ''
