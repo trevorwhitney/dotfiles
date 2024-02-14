@@ -5,3 +5,4 @@ units/jdtls/prometheus.yml
 result
 .direnv
 !nix/templates/dev/.envrc
+kitty.conf.bak
