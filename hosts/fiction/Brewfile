@@ -1,3 +1,6 @@
 brew "pam-reattach"
+brew "usbutils"
 
 cask "maccy"
+cask "cameracontroller"
+cask "vlc"

@@ -11,7 +11,7 @@ packages.mkShell {
     shellcheck
     kns-ktx
 
-    (pkgs.neovim.override {
+    (pkgs.neovim {
       withLspSupport = true;
       goPkg = go_1_21;
     })

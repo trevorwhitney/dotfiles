@@ -5,24 +5,37 @@ in
 {
   options = {
     programs._1password = {
+      host = {
+        darwin = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "set to true on darwin hosts to avoid some linux specific stuff";
+
+        };
+      };
       userSystemdUnit.enable = lib.mkOption {
         type = lib.types.bool;
-        default = false;
+        default = !cfg.host.darwin;
         description = "whether to enable the user systemd unit";
       };
       autostartDesktopFile.enable = lib.mkOption {
         type = lib.types.bool;
-        default = true;
+        default = !cfg.host.darwin;
         description = "whether to create the desktop file under ~/.config/autostart";
+      };
+      useNixPkgs = lib.mkOption {
+        type = lib.types.bool;
+        default = !cfg.host.darwin;
+        description = "whether to install 1pssword via nix packages. Disable if installd elsewhere";
       };
     };
 
   };
   config = {
-    home.packages = with pkgs; [
+    home.packages = lib.mkIf cfg.useNixPkgs (with pkgs; [
       _1password
       _1password-gui
-    ];
+    ]);
 
     # Automatcially start 1password
     xdg.configFile."autostart/1password.desktop" = lib.mkIf cfg.autostartDesktopFile.enable {
@@ -56,27 +69,21 @@ in
       Install = { WantedBy = [ "default.target" ]; };
     };
 
-    # use 1password ssh key for signing commits
-    # if I go back to GPG signing I'll have to remove this
-    programs.git.extraConfig = {
-      user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
-      gpg.format = "ssh";
-      # this doesn't work when forwarding agent of ssh
-      # gpg.ssh.program = "${pkgs._1password-gui}/bin/op-ssh-sign";
-      commit.gpgsign = true;
-    };
+    programs = {
+      # use 1password ssh key for signing commits
+      git.extraConfig = {
+        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
+        gpg.format = "ssh";
+        commit.gpgsign = true;
+      };
 
-    # use 1password ssh agent
-    programs.ssh = {
-      enable = true;
-      forwardAgent = true;
-      # this is breaking when agent is forwarded
-      # use the 1password ssh agent
-      # extraConfig = ''
-      #   IdentityAgent ~/.1password/agent.sock
-      # '';
-    };
+      # use 1password ssh agent
+      ssh = {
+        enable = true;
+        forwardAgent = true;
+      };
 
-    programs.zsh.use1Password = true;
+      zsh.use1Password = true;
+    };
   };
 }

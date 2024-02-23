@@ -36,7 +36,7 @@ packages.mkShell {
       nodejs = nodeJsPkg;
     })
 
-    (pkgs.neovim.override {
+    (pkgs.neovim {
       inherit
         goPkg
         nodeJsPkg

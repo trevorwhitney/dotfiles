@@ -83,5 +83,9 @@ in
         ".vim"
       ];
     };
+
+    home.packages = with pkgs; [
+      delta
+    ];
   };
 }

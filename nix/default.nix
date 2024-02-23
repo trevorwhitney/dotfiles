@@ -1,4 +1,5 @@
-{ flake-utils
+{ agenix
+, flake-utils
 , home-manager
 , lib
 , modulesPath
@@ -21,7 +22,7 @@
   };
 } // flake-utils.lib.eachSystem systems (system: {
   homeConfigurations = import ./home-manager {
-    inherit home-manager system nur;
+    inherit agenix home-manager system nur;
 
     pkgs = packages.${system};
   };

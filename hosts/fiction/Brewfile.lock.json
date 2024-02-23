@@ -54,6 +54,50 @@
             }
           }
         }
+      },
+      "usbutils": {
+        "version": "017",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_sonoma": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/usbutils/blobs/sha256:374ce8a0c6782808d4fd194dbfd177c779ca568e7d5b0a5687412add96cce4ed",
+              "sha256": "374ce8a0c6782808d4fd194dbfd177c779ca568e7d5b0a5687412add96cce4ed"
+            },
+            "arm64_ventura": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/usbutils/blobs/sha256:735a4d7ec2d7393bb3421c27583f1df30455c5a4c3b092786dfe3ee92144806e",
+              "sha256": "735a4d7ec2d7393bb3421c27583f1df30455c5a4c3b092786dfe3ee92144806e"
+            },
+            "arm64_monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/usbutils/blobs/sha256:eabe8a0f9cee89292386b2b0900677127c8827882bf43323dfb732013d6a2f1a",
+              "sha256": "eabe8a0f9cee89292386b2b0900677127c8827882bf43323dfb732013d6a2f1a"
+            },
+            "sonoma": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/usbutils/blobs/sha256:3c3468d2b41346db49f356b1f0ab04e86bfbcc93954bbcfc2c343c6fbd720eaa",
+              "sha256": "3c3468d2b41346db49f356b1f0ab04e86bfbcc93954bbcfc2c343c6fbd720eaa"
+            },
+            "ventura": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/usbutils/blobs/sha256:1c2b43d31059a4b67815be116ab308817487a9f06d670244a2a234a023851d93",
+              "sha256": "1c2b43d31059a4b67815be116ab308817487a9f06d670244a2a234a023851d93"
+            },
+            "monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/usbutils/blobs/sha256:6a760ee183985a6d80d58efe5e78c945511c3b89cce5e01bfb48858637fdb322",
+              "sha256": "6a760ee183985a6d80d58efe5e78c945511c3b89cce5e01bfb48858637fdb322"
+            },
+            "x86_64_linux": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/usbutils/blobs/sha256:17f5961f3ebd783d33e4851654070498c44c65c2bf235754ce8dcd704063dcaa",
+              "sha256": "17f5961f3ebd783d33e4851654070498c44c65c2bf235754ce8dcd704063dcaa"
+            }
+          }
+        }
       }
     },
     "cask": {
@@ -62,18 +106,30 @@
         "options": {
           "full_name": "maccy"
         }
+      },
+      "cameracontroller": {
+        "version": "1.4.0",
+        "options": {
+          "full_name": "cameracontroller"
+        }
+      },
+      "vlc": {
+        "version": "3.0.20",
+        "options": {
+          "full_name": "vlc"
+        }
       }
     }
   },
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.2.7",
+        "HOMEBREW_VERSION": "4.2.9",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.1.0.0.1.1700200546",
         "Xcode": "15.1",
-        "macOS": "14.3"
+        "macOS": "14.3.1"
       }
     }
   }

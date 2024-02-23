@@ -21,6 +21,7 @@
   };
 
   loki = import ./loki.nix { inherit pkgs secrets; };
+  gel = import ./gel.nix { inherit pkgs secrets; };
 
   prometheus = import ./dev-env.nix {
     inherit pkgs;

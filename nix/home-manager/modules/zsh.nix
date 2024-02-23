@@ -12,6 +12,11 @@ in
         default = false;
         description = "whether to include logic for the 1Password ssh agent";
       };
+      useBrew = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "whether to add /opt/homebrew/bin to PATH";
+      };
     };
   };
 
@@ -31,11 +36,13 @@ in
       };
 
       sessionVariables = {
+        EDITOR = "nvim";
         HYPHEN_INSENSITIVE = "true";
         KEYTIMEOUT = "17";
         NIX_LOG_DIR = "/nix/var/log/nix";
         NIX_STATE_DIR = "/nix/var/nix";
         NIX_STORE_DIR = "/nix/store";
+        OPENAPI_API_KEY = "''$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
         WORDCHARS = "*?_-.[]~=&;!#$%^(){}<>";
         ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];
       };
@@ -45,6 +52,16 @@ in
         save = 10000000;
         size = 10000000;
       };
+
+      initExtraFirst = builtins.concatStringsSep "\n" [
+        (lib.optionalString cfg.useBrew
+          ''
+            eval "$(/opt/homebrew/bin/brew shellenv)"
+          '')
+        ''
+          PATH="$HOME/.local/bin''${PATH+:''$PATH}"
+        ''
+      ];
 
       initExtra = builtins.concatStringsSep "\n" (with pkgs; [
         ''
@@ -105,20 +122,36 @@ in
           source <(${pkgs.kubectl}/bin/kubectl completion zsh)
           complete -F __start_kubectl k
 
-          PATH="$HOME/.local/bin:$PATH"
-
           autoload -U +X bashcompinit && bashcompinit
 
           if [ -n "$TMUX" ]; then
-            export "$(tmux show-environment -g | grep "^BAT_THEME")"
-            export "$(tmux show-environment -g | grep "^FZF_PREVIEW_PREVIEW_BAT_THEME")"
-            export "$(tmux show-environment -g | grep "^ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE")"
+            bat_theme="$(tmux show-environment -g | grep "^BAT_THEME")"
+            preview_bat_theme="$(tmux show-environment -g | grep "^FZF_PREVIEW_PREVIEW_BAT_THEME")"
+            autosuggest_highlight_style="$(tmux show-environment -g | grep "^ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE")"
+
+            if [ -n "''${bat_theme}" ]; then
+              eval "export \"''${bat_theme}\""
+            else
+              eval "export BAT_THEME=\"Solarized (Light)\""
+            fi
+
+            if [ -n "''${preview_bat_theme}" ]; then
+              eval "export \"''${preview_bat_theme}\""
+            else
+              eval "export FZF_PREVIEW_PREVIEW_BAT_THEME=\"Solarized (light)\""
+            fi
+
+            if [ -n "''${autosuggest_highlight_style}" ]; then
+              eval "export \"''${autosuggest_highlight_style}\""
+            else
+              eval "export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\"fg=#a6b0a0,bg=#f3ead3\""
+            fi
           fi
         ''
         (lib.optionalString cfg.use1Password
           ''
             if [ -z "$SSH_TTY" ]; then
-              export SSH_AUTH_SOCK=~/.1password/agent.sock
+              eval "export SSH_AUTH_SOCK=~/.1password/agent.sock"
             fi
           '')
       ]);

@@ -1,6 +1,13 @@
-{ config, pkgs, username, home-manager, ... }:
+{ cfg
+, home-manager
+, imports
+, pkgs
+, username
+, ...
+}:
 let
-  imports = [
+  _imports = [
+    ../modules/1password.nix
     ../modules/bash.nix
     ../modules/change-background.nix
     ../modules/darwin.nix
@@ -10,12 +17,13 @@ let
     ../modules/neovim.nix
     ../modules/tmux.nix
     ../modules/zsh.nix
-  ];
+  ] ++ imports;
+
+  homeDirectory = "/Users/${username}";
 
   baseConfig = {
     home = {
-      inherit username;
-      homeDirectory = "/Users/${username}";
+      inherit homeDirectory username;
       stateVersion = "23.11";
     };
   };
@@ -25,16 +33,23 @@ in
     inherit pkgs;
     modules = [
       baseConfig
-      config
-      {
-        # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
-        # manual.manpages.enable = false;
+      cfg
+      ({ config, ... }: {
         targets.darwin = {
           defaults = { };
           search = "Google";
         };
 
+        home.packages = [
+          (pkgs.writeShellScriptBin "echo-secret" ''
+            ${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path}
+          '')
+        ];
+
         programs = {
+          _1password = {
+            host.darwin = true;
+          };
           git = {
             includes =
               [{ path = "${pkgs.secrets}/git"; }];
@@ -58,8 +73,10 @@ in
           tmux = {
             theme = "everforest";
           };
+
+          zsh.useBrew = true;
         };
-      }
-    ] ++ imports;
+      })
+    ] ++ _imports;
   };
 }

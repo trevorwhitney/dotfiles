@@ -1,41 +1,6 @@
-{ config, pkgs, lib, ... }:
-let inherit (pkgs) dotfiles;
-  change-background = with pkgs; writeShellScriptBin "change-background" ''
-    function change_background() {
-      local mode="light"
-
-      if [[ ''${DARKMODE:-0} -eq 1 ]]; then
-        mode="dark"
-      fi
-
-      echo "changing background to ''${mode}"
-
-      for pid in ''$(pgrep vim); do kill -SIGUSR1 "''${pid}"; done
-
-      ${tmux}/bin/tmux set-environment -g BACKGROUND "''${mode}"
-      ${tmux}/bin/tmux source-file ~/.config/tmux/tmux.conf
-
-      # change kitty
-      case "''${mode}" in
-      dark)
-        ${kitty}/bin/kitten themes --reload-in=all "Everforest Dark Soft"
-        ${tmux}/bin/tmux set-environment -g BAT_THEME "Solarized (dark)"
-        ${tmux}/bin/tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (dark)"
-
-        ${tmux}/bin/tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#d3c6aa,bg=#333c43"
-        ;;
-      *)
-        ${kitty}/bin/kitten themes --reload-in=all "Everforest Light Soft"
-        ${tmux}/bin/tmux set-environment -g BAT_THEME "Solarized (light)"
-        ${tmux}/bin/tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (light)"
-
-        ${tmux}/bin/tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#5c6a72,bg=#f3ead3"
-        ;;
-      esac
-    }
-
-    change_background
-  '';
+{ pkgs, ... }:
+let
+  inherit (pkgs) dotfiles;
 in
 {
   nix = {
@@ -77,28 +42,6 @@ in
         keyserver  hkp://pool.sks-keyservers.net
         use-agent
       '';
-      "Library/LaunchAgents/ke.bou.dark-mode-notify.plist".text = ''
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
-        "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict>
-            <key>Label</key>
-            <string>ke.bou.dark-mode-notify</string>
-            <key>KeepAlive</key>
-            <true/>
-            <key>StandardErrorPath</key>
-            <string>/var/log/dark-mode-notify-stderr.log</string>
-            <key>StandardOutPath</key>
-            <string>/var/log/dark-mode-notify-stdout.log</string>
-            <key>ProgramArguments</key>
-            <array>
-               <string>/usr/local/bin/dark-mode-notify</string>
-               <string>${change-background}/bin/change-background</string>
-            </array>
-        </dict>
-        </plist>
-      '';
     };
 
     packages = with pkgs; [
@@ -109,7 +52,6 @@ in
       cmake
       coreutils
       curl
-      delta
       diffutils
       fd
       fzf
@@ -138,5 +80,5 @@ in
   };
 
   # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
-  manual.manpages.enable = false;
+  #manual.manpages.enable = false;
 }

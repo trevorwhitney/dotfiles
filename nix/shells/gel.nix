@@ -51,7 +51,7 @@ packages.mkShell {
     (packages.neovim {
       withLspSupport = true;
       goPkg = go_1_21;
-      goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
+      goBuildTags = "requires_docker,linux,cgo,promtail_journal_enabled";
     })
   ];
 

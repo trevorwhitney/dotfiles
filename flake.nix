@@ -42,8 +42,6 @@
     # run the latest jsonnet-language-server
     jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix";
 
-    devenv.url = "github:cachix/devenv";
-
     nixos-generators.url = "github:nix-community/nixos-generators";
     deploy-rs.url = "github:serokell/deploy-rs";
 
@@ -53,12 +51,14 @@
     neovim.inputs.nixpkgs.follows = "nixos-unstable";
 
     loki.url = "github:grafana/loki";
+
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs =
     { self
+    , agenix
     , deploy-rs
-    , devenv
     , flake-utils
     , home-manager
     , jsonnet-language-server
@@ -93,15 +93,6 @@
           inherit nix-alien system;
         })
 
-        (final: prev:
-          let
-            devenvPkgs = devenv.packages.${system};
-          in
-          {
-            inherit (devenvPkgs) devenv;
-          })
-
-
         deploy-rs.overlay
         jsonnet-language-server.overlay
         neovim.overlay
@@ -124,6 +115,7 @@
 
       nix = import ./nix {
         inherit
+          agenix
           flake-utils
           home-manager
           lib

@@ -26,7 +26,7 @@ in
 
       # all configuration done in custom neovim package
       home.packages = with pkgs; [
-        (neovim.override {
+        (neovim {
           inherit withLspSupport;
         })
       ];

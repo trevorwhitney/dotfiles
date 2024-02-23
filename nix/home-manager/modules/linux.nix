@@ -80,7 +80,6 @@ in
       chart-testing
       cmake
       curl
-      delta
       diffutils
       docker
       docker-compose
