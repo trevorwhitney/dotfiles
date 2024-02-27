@@ -1,4 +1,4 @@
-{ self, secrets, pkgs, lib, modulesPath, home-manager, nurPkgs, nixos-hardware, ... }:
+{ self, secrets, pkgs, lib, modulesPath, home-manager, nixos-hardware, ... }:
 let
   # Keep virtualbox on 6.x
   # since not all my images work on 7.x
@@ -38,17 +38,18 @@ in
 
   home-manager.nixosModules.home-manager
   {
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.backupFileExtension = "bak";
-    home-manager.users.twhitney = {
-      programs.firefox.nurPkgs = nurPkgs;
-      # Do not need to change this when updating home-manager versions.
-      # Only change when release notes indicate it's required, as it
-      # usually requires some manual intervention.
-      home.stateVersion = "22.11";
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
+      backupFileExtension = "bak";
+      users.twhitney = {
+        # Do not need to change this when updating home-manager versions.
+        # Only change when release notes indicate it's required, as it
+        # usually requires some manual intervention.
+        home.stateVersion = "22.11";
 
-      imports = [ ../../home-manager/hosts/cerebral.nix ];
+        imports = [ ../../home-manager/hosts/cerebral.nix ];
+      };
     };
   }
 ]

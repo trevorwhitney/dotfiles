@@ -118,13 +118,19 @@
         "options": {
           "full_name": "vlc"
         }
+      },
+      "raycast": {
+        "version": "1.68.1",
+        "options": {
+          "full_name": "raycast"
+        }
       }
     }
   },
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.2.9",
+        "HOMEBREW_VERSION": "4.2.10",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.1.0.0.1.1700200546",

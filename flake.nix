@@ -2,7 +2,8 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    # TODO: pinned because build go module broken on error -> apple-framework-CoreFoundation-11.0.0: used as improper sort of dependency
+    nixpkgs.url = "github:NixOS/nixpkgs/01885a071465e223f8f68971f864b15829988504";
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
@@ -12,6 +13,7 @@
 
     home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
     secrets = {
       #TODO: replace with https://github.com/ryantm/agenix
       url =
@@ -21,18 +23,8 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    nixgl = {
-      # For running OpenGL apps outside of NixOS
-      url = "github:guibou/nixGL";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     # Hardware specific configs
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # Nix User Repository
-    nur.url = "github:nix-community/NUR";
 
     # nix-alien allows running of programs with hardcoded link loaders
     # requires programs.nix-ld to be enabled
@@ -42,16 +34,19 @@
     # run the latest jsonnet-language-server
     jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix";
 
-    nixos-generators.url = "github:nix-community/nixos-generators";
+    # for remotely deploying nixos to machines
     deploy-rs.url = "github:serokell/deploy-rs";
 
+    # my vim just the way I like it
     # neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
     # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
     neovim.url = "github:trevorwhitney/tw-vim-lib";
-    neovim.inputs.nixpkgs.follows = "nixos-unstable";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
 
+    # for Loki shell
     loki.url = "github:grafana/loki";
 
+    # for secrete management
     agenix.url = "github:ryantm/agenix";
   };
 
@@ -65,12 +60,9 @@
     , loki
     , neovim
     , nix-alien
-    , nixgl
-    , nixos-generators
     , nixos-hardware
     , nixpkgs
     , nixos-unstable
-    , nur
     , secrets
     , ...
     }:
@@ -96,7 +88,7 @@
         deploy-rs.overlay
         jsonnet-language-server.overlay
         neovim.overlay
-        nixgl.overlay
+
         overlay
         secrets.overlay
       ];
@@ -113,27 +105,17 @@
         }
       );
 
-      nix = import ./nix {
-        inherit
-          agenix
-          flake-utils
-          home-manager
-          lib
-          nur nixos-hardware
-          packages
-          secrets
-          self
-          systems;
-
-        modulesPath = "${nixpkgs}/nixos/modules";
-      };
+      modulesPath = "${nixpkgs}/nixos/modules";
     in
     {
-      inherit (nix) nixosConfigurations;
-
-      homeConfigurations = {
-        inherit (nix.homeConfigurations.x86_64-linux) "twhitney@penguin" "twhitney@kolide";
-        inherit (nix.homeConfigurations.aarch64-darwin) "twhitney@fiction";
+      nixosConfigurations = {
+        cerebral = lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = import ./nix/hosts/cerebral {
+            inherit self secrets lib modulesPath home-manager nixos-hardware;
+            pkgs = packages.x86_64-linux;
+          };
+        };
       };
 
       inherit overlay;
@@ -160,27 +142,12 @@
         pkgs = packages.${system};
       };
 
-      packages =
-        let
-          overlays = [
-            (import "${self}/nix/overlays/dotfiles.nix")
-            (import "${self}/nix/overlays/kubectl.nix")
-            (import "${self}/nix/overlays/containers.nix" {
-              inherit self nixos-generators;
-            })
+      packages = {
+        homeConfigurations = import ./nix/home-manager {
+          inherit agenix home-manager system;
 
-            jsonnet-language-server.overlay
-          ];
-
-          pkgs = import nixos-unstable {
-            inherit overlays system;
-            config = {
-              allowUnfree = true;
-            };
-          };
-        in
-        {
-          inherit (pkgs) nvim-container dev-container;
+          pkgs = packages.${system};
         };
+      };
     }));
 }

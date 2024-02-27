@@ -9,12 +9,10 @@
       "--update-input" "home-manager"
       "--update-input" "neovim"
       "--update-input" "nix-alien"
-      "--update-input" "nixgl"
       "--update-input" "nixos-hardware"
       "--update-input" "nixpkgs"
       "--update-input" "nixpkgs-mozilla"
       "--update-input" "nixpkgs-unstable"
-      "--update-input" "nur"
       "--impure" # needed for reference to local vim-lib
     ];
     allowReboot = true;

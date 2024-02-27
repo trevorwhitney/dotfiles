@@ -22,7 +22,6 @@ in
   oh-my-zsh-custom =
     callRunCommandPkg ../packages/oh-my-zsh-custom;
 
-  faillint = callBuildGoModulePkg ../packages/faillint;
   gocomplete = callBuildGoModulePkg ../packages/gocomplete;
   jsonnet-lint =
     callBuildGoModulePkg ../packages/jsonnet-lint;

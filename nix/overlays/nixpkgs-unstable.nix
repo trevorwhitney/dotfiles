@@ -26,5 +26,6 @@ final: prev: rec {
     tmux
 
     # latest go version
-    go_1_21;
+    go_1_21
+    delve;
 }

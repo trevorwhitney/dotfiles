@@ -36,13 +36,8 @@ in
       };
 
       sessionVariables = {
-        EDITOR = "nvim";
         HYPHEN_INSENSITIVE = "true";
         KEYTIMEOUT = "17";
-        NIX_LOG_DIR = "/nix/var/log/nix";
-        NIX_STATE_DIR = "/nix/var/nix";
-        NIX_STORE_DIR = "/nix/store";
-        OPENAPI_API_KEY = "''$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
         WORDCHARS = "*?_-.[]~=&;!#$%^(){}<>";
         ZSH_AUTOSUGGEST_STRATEGY = [ "history" "completion" ];
       };
