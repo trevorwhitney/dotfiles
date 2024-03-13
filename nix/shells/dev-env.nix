@@ -2,7 +2,7 @@
 , useEslintDaemon ? true
 , extraPackages ? [ ]
 , nodeJsPkg ? pkgs.nodejs_20
-, goPkg ? pkgs.go_1_21
+, goPkg ? pkgs.go_1_22
 , ...
 }:
 let
@@ -36,7 +36,7 @@ packages.mkShell {
       nodejs = nodeJsPkg;
     })
 
-    (pkgs.neovim {
+    (packages.neovim {
       inherit
         goPkg
         nodeJsPkg
