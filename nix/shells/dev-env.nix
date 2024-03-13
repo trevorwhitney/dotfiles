@@ -50,6 +50,7 @@ packages.mkShell {
         extra-python-packages = python-packages:
           with python-packages; [
             gyp
+            tiktoken
           ];
         python-with-packages = python311.withPackages
           extra-python-packages;

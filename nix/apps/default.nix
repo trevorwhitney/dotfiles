@@ -24,60 +24,6 @@ let
     ));
 in
 {
-  gcom = {
-    type = "app";
-    program = with packages; "${
-                (writeShellScriptBin "gcom.sh" ''
-                  source ${packages.secrets}/grafana/deployment-tools.sh
-                  mkdir -p ''${XDG_CACHE_HOME}/gcom
-                  ${deploymentTools}/scripts/gcom/gcom "$@"
-                '')
-              }/bin/gcom.sh";
-  };
-
-  gcom-ops = {
-    type = "app";
-    program = with packages; "${
-                (writeShellScriptBin "gcom-ops.sh" ''
-                  source ${packages.secrets}/grafana/deployment-tools.sh
-                  mkdir -p ''${XDG_CACHE_HOME}/gcom
-                  GCOM_TOKEN="''${GCOM_OPS_TOKEN}" ${deploymentTools}/scripts/gcom/gcom-ops "$@"
-                '')
-              }/bin/gcom-ops.sh";
-  };
-
-  gcom-dev = {
-    type = "app";
-    program = with packages; "${
-                (writeShellScriptBin "gcom-dev.sh" ''
-                  source ${packages.secrets}/grafana/deployment-tools.sh
-                  mkdir -p ''${XDG_CACHE_HOME}/gcom
-                  GCOM_TOKEN="''${GCOM_DEV_TOKEN}" ${deploymentTools}/scripts/gcom/gcom-dev "$@"
-                '')
-              }/bin/gcom-dev.sh";
-  };
-
-
-  flux-ignore = {
-    type = "app";
-    program = with packages; "${
-                (writeShellScriptBin "flux-ignore.sh" ''
-                  source ${packages.secrets}/grafana/deployment-tools.sh
-                  ${deploymentTools}/scripts/flux/ignore.sh "$@"
-                '')
-              }/bin/flux-ignore.sh";
-  };
-
-  rt = {
-    type = "app";
-    program = with packages; "${
-                (writeShellScriptBin "rt.sh" ''
-                  source ${packages.secrets}/grafana/deployment-tools.sh
-                  ${deploymentTools}/scripts/cortex/rt.sh "$@"
-                '')
-              }/bin/rt.sh";
-  };
-
   loki = {
     type = "app";
     program = "${packages.loki.overrideAttrs(old: { doCheck = false; })}/bin/loki";

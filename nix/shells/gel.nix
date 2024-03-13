@@ -4,6 +4,7 @@ let
     [
       (import ../overlays/mixtool.nix)
       (import ../overlays/chart-testing.nix)
+      (import ../overlays/faillint.nix)
       secrets.overlay
     ]
     self));
@@ -17,6 +18,7 @@ packages.mkShell {
     golang-perf
     chart-testing-3_8_0
     delve
+    drone-cli
     envsubst
     faillint
     gcc

@@ -17,6 +17,13 @@ in
         default = false;
         description = "whether to add /opt/homebrew/bin to PATH";
       };
+      # this is normally done in /etc/zshrc, but since osx nukes that on every update
+      # we may need to do it ourselves
+      startNixDaemon = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "whether to source the nix daemon startup script for darwin";
+      };
     };
   };
 
@@ -48,6 +55,10 @@ in
         size = 10000000;
       };
 
+      envExtra = ''
+        export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
+      '';
+
       initExtraFirst = builtins.concatStringsSep "\n" [
         (lib.optionalString cfg.useBrew
           ''
@@ -56,6 +67,12 @@ in
         ''
           PATH="$HOME/.local/bin''${PATH+:''$PATH}"
         ''
+        (lib.optionalString cfg.startNixDaemon
+          ''
+            if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+              . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+            fi
+          '')
       ];
 
       initExtra = builtins.concatStringsSep "\n" (with pkgs; [
@@ -180,16 +197,6 @@ in
         # useful when piping output to vim
         vyaml = "nvim -c 'set filetype=yaml' -";
         vjson = "nvim -c 'set filetype=json' -";
-
-        #Grafana
-        logcli = "nix run --no-write-lock-file --impure path:/home/twhitney/workspace/dotfiles#logcli -- ";
-        loki = "nix run --no-write-lock-file --impure path:/home/twhitney/workspace/dotfiles#loki -- ";
-        promtail = "nix run --no-write-lock-file --impure path:/home/twhitney/workspace/dotfiles#promtail -- ";
-        gcom = "nix run --impure path:/home/twhitney/workspace/dotfiles#gcom -- ";
-        gcom-dev = "nix run --impure path:/home/twhitney/workspace/dotfiles#gcom-dev -- ";
-        gcom-ops = "nix run --impure path:/home/twhitney/workspace/dotfiles#gcom-dev -- ";
-        flux-ignore = "nix run --impure path:/home/twhitney/workspace/dotfiles#flux-ignore -- -actor=trevor.whitney@grafana.com ";
-        rt = "nix run --impure path:/home/twhitney/workspace/dotfiles#rt -- ";
       };
     };
   };

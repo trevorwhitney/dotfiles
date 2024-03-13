@@ -15,6 +15,7 @@ let
       secrets = {
         openApiKey.file = ../secrets/openApiKey.age;
       };
+      identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
     };
 
     home.sessionVariables = {
@@ -22,7 +23,10 @@ let
       NIX_LOG_DIR = "/nix/var/log/nix";
       NIX_STATE_DIR = "/nix/var/nix";
       NIX_STORE_DIR = "/nix/store";
-      OPENAI_API_KEY = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
+      XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";
+      XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+      XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
+      XDG_STATE_HOME = "${config.home.homeDirectory}/.local/state";
     };
 
   };

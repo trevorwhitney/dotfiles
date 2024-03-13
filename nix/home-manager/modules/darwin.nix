@@ -21,9 +21,12 @@ in
       enable = true;
       nix-direnv = { enable = true; };
     };
-
-    zsh.shellAliases = {
-      brew = "/opt/homebrew/bin/brew ";
+    zsh = {
+      shellAliases = {
+        brew = "/opt/homebrew/bin/brew ";
+      };
+      useBrew = true;
+      startNixDaemon = true;
     };
   };
 
@@ -64,6 +67,7 @@ in
         gke-gcloud-auth-plugin
       ]))
       jq
+      k9s
       lsof
       lua51Packages.luarocks
       luajit
@@ -73,6 +77,7 @@ in
       nmap
       rbenv
       ripgrep
+      unixtools.watch
       virtualenv
       yarn
       yq

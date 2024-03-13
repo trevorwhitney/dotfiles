@@ -4,6 +4,7 @@ let
     [
       (import ../overlays/mixtool.nix)
       (import ../overlays/chart-testing.nix)
+      (import ../overlays/faillint.nix)
       secrets.overlay
     ]
     self));
@@ -17,6 +18,7 @@ packages.mkShell {
     golang-perf
     chart-testing-3_8_0
     delve
+    drone-cli
     envsubst
     faillint
     gcc
@@ -53,6 +55,13 @@ packages.mkShell {
       goPkg = go_1_21;
       goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
     })
+
+
+    # TODO: need to remove systemd dependency
+    # (packages.loki.overrideAttrs(old: { doCheck = false; }))
+    # (packages.logcli.overrideAttrs(old: { doCheck = false; }))
+    # (packages.loki-canary.overrideAttrs(old: { doCheck = false; }))
+    # (packages.promtail.overrideAttrs(old: { doCheck = false; }))
   ];
 
   shellHook = ''

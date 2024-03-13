@@ -1,4 +1,4 @@
-{ pkgs, secrets, ... }: {
+{ pkgs, secrets, loki, ... }: {
   default = import ./dev-env.nix {
     inherit pkgs;
     extraPackages = with pkgs; [
@@ -20,7 +20,10 @@
     useEslintDaemon = false;
   };
 
-  loki = import ./loki.nix { inherit pkgs secrets; };
+  loki = import ./loki.nix {
+    inherit secrets;
+    pkgs = pkgs.extend loki.overlays.default;
+  };
   gel = import ./gel.nix { inherit pkgs secrets; };
 
   prometheus = import ./dev-env.nix {

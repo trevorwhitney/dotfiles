@@ -12,7 +12,6 @@ let
     ../modules/change-background.nix
     ../modules/darwin.nix
     ../modules/git.nix
-    ../modules/k9s.nix
     ../modules/kubernetes.nix
     ../modules/neovim.nix
     ../modules/tmux.nix
@@ -73,8 +72,6 @@ in
           tmux = {
             theme = "everforest";
           };
-
-          zsh.useBrew = true;
         };
       })
     ] ++ _imports;

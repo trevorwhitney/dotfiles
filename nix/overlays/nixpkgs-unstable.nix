@@ -6,8 +6,8 @@ final: prev: rec {
     kitty
     kitty-themes
 
-    # mosh, needed? @ 1.40 in 23.05
-    # mosh
+    #k9s
+    k9s
 
     # neovim
     neovim-unwrapped
