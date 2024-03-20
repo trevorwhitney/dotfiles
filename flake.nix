@@ -44,7 +44,7 @@
     neovim.inputs.nixpkgs.follows = "nixpkgs";
 
     # for Loki shell
-    loki.url = "github:grafana/loki";
+    loki.url = "github:grafana/loki/nix-package-darwin";
 
     # for secrete management
     agenix.url = "github:ryantm/agenix";

@@ -153,11 +153,11 @@
         "systems": "systems_6"
       },
       "locked": {
-        "lastModified": 1705309234,
-        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
         "type": "github"
       },
       "original": {
@@ -253,15 +253,16 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1709037719,
-        "narHash": "sha256-VPOHDYCaYq9Kw85brZFdv/OWZhvFdwCsscttD3TdbhE=",
+        "lastModified": 1710523244,
+        "narHash": "sha256-soQIV4/wxrLxkdt6UyON8ackGztrHlJc+ZJ3QoVdZZc=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "609fdb321491c88bda25b8fcb399d479df542c5d",
+        "rev": "166a8454fad58b62e1b6d53abd5bb2b4291592ea",
         "type": "github"
       },
       "original": {
         "owner": "grafana",
+        "ref": "nix-package-darwin",
         "repo": "loki",
         "type": "github"
       }
@@ -274,11 +275,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1709666389,
-        "narHash": "sha256-u6ocSRjLyJToHYGCz5JKRB05n4+VgyulyvCHGyanL8Q=",
+        "lastModified": 1710971031,
+        "narHash": "sha256-N7FpDEwTy2sBUu9tUYXodo85JxBuustJo0p2y0XN5VE=",
         "owner": "trevorwhitney",
         "repo": "tw-vim-lib",
-        "rev": "d0e8f1b2a7fd79c68e736e239ba86f3ca31345b7",
+        "rev": "4e0ed6426965480d63c475bf35da6b82e7c28423",
         "type": "github"
       },
       "original": {

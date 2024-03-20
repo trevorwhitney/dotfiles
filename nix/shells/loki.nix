@@ -58,10 +58,8 @@ packages.mkShell {
 
 
     # TODO: need to remove systemd dependency
-    # (packages.loki.overrideAttrs(old: { doCheck = false; }))
-    # (packages.logcli.overrideAttrs(old: { doCheck = false; }))
-    # (packages.loki-canary.overrideAttrs(old: { doCheck = false; }))
-    # (packages.promtail.overrideAttrs(old: { doCheck = false; }))
+    (packages.loki.overrideAttrs(old: { doCheck = false; }))
+    (packages.logcli.overrideAttrs(old: { doCheck = false; }))
   ];
 
   shellHook = ''
