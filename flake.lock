@@ -253,16 +253,15 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1710523244,
-        "narHash": "sha256-soQIV4/wxrLxkdt6UyON8ackGztrHlJc+ZJ3QoVdZZc=",
+        "lastModified": 1710971166,
+        "narHash": "sha256-clgbWoyCte5YL/foeKYhHw8fh75DoKR+EFFstTNmagM=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "166a8454fad58b62e1b6d53abd5bb2b4291592ea",
+        "rev": "704ac62a5f90969013d668075a95e68434dbd23c",
         "type": "github"
       },
       "original": {
         "owner": "grafana",
-        "ref": "nix-package-darwin",
         "repo": "loki",
         "type": "github"
       }
