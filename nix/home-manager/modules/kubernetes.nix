@@ -11,6 +11,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = with pkgs; [
+      cfg.package
+      kns-ktx
+      kubernetes-helm
+    ];
   };
 }
