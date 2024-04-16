@@ -81,6 +81,7 @@ in
         ".idea"
         ".vscode"
         ".vim"
+        "__debug_bin*"
       ];
     };
 

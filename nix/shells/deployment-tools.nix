@@ -45,6 +45,8 @@ packages.mkShell {
       source ${packages.secrets}/grafana/deployment-tools.sh
       ${deploymentTools}/scripts/cortex/rt.sh "$@"
     '')
+
+    (packages.logcli.overrideAttrs (old: { doCheck = false; }))
   ];
 
   shellHook = ''

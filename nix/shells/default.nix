@@ -11,7 +11,10 @@
     ];
   };
 
-  deployment-tools = import ./deployment-tools.nix { inherit pkgs secrets; };
+  deployment-tools = import ./deployment-tools.nix {
+    inherit secrets;
+    pkgs = pkgs.extend loki.overlays.default;
+  };
 
   dev-env = import ./dev-env.nix { inherit pkgs; };
 
