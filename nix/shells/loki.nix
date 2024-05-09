@@ -16,6 +16,7 @@ packages.mkShell {
   ];
   packages = with packages; [
     golang-perf
+    gotestsum
     chart-testing-3_8_0
     delve
     drone-cli

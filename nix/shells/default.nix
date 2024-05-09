@@ -23,6 +23,8 @@
     useEslintDaemon = false;
   };
 
+  grafana = import ./grafana.nix { inherit pkgs; };
+
   loki = import ./loki.nix {
     inherit secrets;
     pkgs = pkgs.extend loki.overlays.default;

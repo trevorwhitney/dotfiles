@@ -85,6 +85,10 @@
           inherit nix-alien system;
         })
 
+        (import "${self}/nix/overlays/deployment-tools.nix" {
+          inherit secrets;
+        })
+
         deploy-rs.overlay
         jsonnet-language-server.overlay
         neovim.overlay

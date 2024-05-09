@@ -162,6 +162,10 @@
             }
           }
         }
+      },
+      "pbkit": {
+        "version": "0.0.70",
+        "bottle": false
       }
     },
     "cask": {
@@ -184,23 +188,40 @@
         }
       },
       "raycast": {
-        "version": "1.71.3",
+        "version": "1.72.1",
         "options": {
           "full_name": "raycast"
         }
       },
       "kitty": {
-        "version": "0.34.0",
+        "version": "0.34.1",
         "options": {
           "full_name": "kitty"
         }
+      },
+      "qutebrowser": {
+        "version": "3.1.0",
+        "options": {
+          "full_name": "qutebrowser"
+        }
+      },
+      "tailscale": {
+        "version": "1.64.0",
+        "options": {
+          "full_name": "tailscale"
+        }
+      }
+    },
+    "tap": {
+      "pbkit/tap": {
+        "revision": "07b154e72d20fdf8a8192772eaf0f33188fbd263"
       }
     }
   },
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.2.18",
+        "HOMEBREW_VERSION": "4.2.20",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
