@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   check-appearance = pkgs.writeTextFile {
     name = "checkAppearance.scpt";
@@ -90,8 +90,8 @@ let
     '';
   };
 
-  monitor-appereance = pkgs.writeShellApplication {
-    name = "monitor-appereance";
+  monitor-appearance = pkgs.writeShellApplication {
+    name = "monitor-appearance";
     text = ''
       # Path to the AppleScript file
       APPLESCRIPT_PATH="${check-appearance}"
@@ -114,13 +114,13 @@ let
           # Check if the mode has changed
           if [ "$CURRENT_MODE" != "$PREV_MODE" ]; then
               # Run your action here
-              echo "changing from $PREV_MODE to $CURRENT_MODE"
+              echo "$(date) changing from $PREV_MODE to $CURRENT_MODE"
               ${change-background}/bin/change-background "$CURRENT_MODE"
 
               # Update previous mode
               PREV_MODE=$CURRENT_MODE
           else
-            echo "$PREV_MODE is still $CURRENT_MODE"
+            echo "$(date) $PREV_MODE is still $CURRENT_MODE"
           fi
 
           # Sleep for a while before checking again
@@ -133,6 +133,16 @@ in
 {
   home.packages = [
     change-background
-    monitor-appereance
+    monitor-appearance
   ];
+
+  launchd.agents.monitor-appearance = {
+    enable = true;
+    config = {
+      Program = "${monitor-appearance}/bin/monitor-appearance";
+      RunAtLoad = true;
+      StandardOutPath = "${config.home.homeDirectory}/Library/Logs/monitor-appearance.log";
+      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs//var/log/monitor-appearance.stderr.log";
+    };
+  };
 }
