@@ -12,3 +12,4 @@
 1. Install homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 1. Install homebrew bundle `brew bundle --file hosts/fiction/Brewfile`
 1. Copy `sudo_local` to `/etc/pam.d`
+1. Add `~/.nix-profile/bin/monitor-appereance` to `System Preferences > General > Login Items`

@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     install -m755 ${gcom}/bin/gcom $out/bin/gcom
     install -m755 ${gcom-dev}/bin/gcom-dev $out/bin/gcom-dev
     install -m755 ${gcom-ops}/bin/gcom-ops $out/bin/gcom-ops
-    install -m755 ${flux-ignore}/bin/flux-ignore $out/bin/flx-ignore
+    install -m755 ${flux-ignore}/bin/flux-ignore $out/bin/flux-ignore
     install -m755 ${rt}/bin/rt $out/bin/rt
     install -m755 ${grafana-sso}/bin/grafana-sso $out/bin/grafana-sso
   '';
