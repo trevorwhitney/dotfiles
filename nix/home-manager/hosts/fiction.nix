@@ -73,6 +73,23 @@ in
           tmux = {
             theme = "everforest";
           };
+
+          ssh = {
+            matchBlocks = {
+              "mickey" = {
+                host = "mickey";
+                hostname = "10.11.0.56";
+                # this is to enable remote builds, but those aren't working
+                # identityFile = "${config.home.homeDirectory}/.config/agenix/id_ed25519";
+                forwardAgent = true;
+              };
+              "monterey" = {
+                host = "monterey";
+                hostname = "10.11.0.51";
+                forwardAgent = true;
+              };
+            };
+          };
         };
       })
     ] ++ _imports;
