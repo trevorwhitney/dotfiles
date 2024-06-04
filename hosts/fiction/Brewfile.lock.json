@@ -188,13 +188,13 @@
         }
       },
       "raycast": {
-        "version": "1.72.1",
+        "version": "1.75.2",
         "options": {
           "full_name": "raycast"
         }
       },
       "kitty": {
-        "version": "0.34.1",
+        "version": "0.35.1",
         "options": {
           "full_name": "kitty"
         }
@@ -206,9 +206,15 @@
         }
       },
       "tailscale": {
-        "version": "1.64.0",
+        "version": "1.66.4",
         "options": {
           "full_name": "tailscale"
+        }
+      },
+      "flux": {
+        "version": "42.2",
+        "options": {
+          "full_name": "flux"
         }
       }
     },
@@ -221,12 +227,12 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.2.20",
+        "HOMEBREW_VERSION": "4.3.3",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
         "Xcode": "15.1",
-        "macOS": "14.4.1"
+        "macOS": "14.5"
       }
     }
   }

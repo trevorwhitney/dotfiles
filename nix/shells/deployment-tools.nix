@@ -16,8 +16,6 @@ packages.mkShell {
       withLspSupport = true;
       goPkg = go_1_21;
     })
-
-    (packages.logcli.overrideAttrs (old: { doCheck = false; }))
   ];
 
   shellHook = ''

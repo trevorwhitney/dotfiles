@@ -1,6 +1,13 @@
-{ stdenv, pkgs, secrets, lib, ... }:
+{ stdenv, pkgs, secrets, loki, lib, ... }:
 let
-  packages = pkgs.extend secrets.overlay;
+  # packages = pkgs.extend secrets.overlay;
+
+  packages = pkgs.extend (self: super: with super.lib; (foldl' (flip extends) (_: super)
+    [
+      loki.overlays.default
+      secrets.overlay
+    ]
+    self));
   rev = "8ccd8fd5cfeb641e8b749dbc7c017120e512f157";
 
   deploymentTools = builtins.fetchGit {
@@ -37,6 +44,35 @@ let
     ${deploymentTools}/scripts/sso/aws.sh
     ${deploymentTools}/scripts/sso/gcloud.sh
   '';
+
+  logcli = packages.writeShellScriptBin "logcli" ''
+        source ${packages.secrets}/grafana/deployment-tools.sh
+
+        mkdir -p ~/.config/loki
+        if [[ "''${1}" == "--ops" ]]; then
+          shift
+          if [[ ! -e ~/.config/loki/loki-ops.env ]]; then
+            cat <<EOF > ~/.config/loki/loki-ops.env
+              export LOKI_PASSWORD="$(VAULT_INSTANCE=prod ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key-ops secret/grafana-o11y/grafana-secrets | jq -r .)"
+              export LOKI_USERNAME=29
+              export LOKI_ADDR="https://logs-ops-us-east-0.grafana.net"
+EOF
+          fi
+          source ~/.config/loki/loki-ops.env
+        elif [[ "''${1}" == "--dev" ]]; then
+          shift
+          if [[ ! -e ~/.config/loki/loki-dev.env ]]; then
+            cat <<EOF > ~/.config/loki/loki-dev.env
+              export LOKI_PASSWORD="$(VAULT_INSTANCE=dev ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key secret/grafana-o11y/grafana-secrets | jq -r .)"
+              export LOKI_USERNAME=29
+              export LOKI_ADDR="https://logs-dev-005.grafana-dev.net"
+EOF
+          fi
+          source ~/.config/loki/loki-dev.env
+        fi
+
+        ${packages.logcli}/bin/logcli --org-id 29 "$@"
+  '';
 in
 stdenv.mkDerivation {
   pname = "deployment-tools";
@@ -53,6 +89,7 @@ stdenv.mkDerivation {
     install -m755 ${flux-ignore}/bin/flux-ignore $out/bin/flux-ignore
     install -m755 ${rt}/bin/rt $out/bin/rt
     install -m755 ${grafana-sso}/bin/grafana-sso $out/bin/grafana-sso
+    install -m755 ${logcli}/bin/logcli $out/bin/logcli
   '';
 
   meta = with lib; {

@@ -86,7 +86,7 @@
         })
 
         (import "${self}/nix/overlays/deployment-tools.nix" {
-          inherit secrets;
+          inherit secrets loki;
         })
 
         deploy-rs.overlay
