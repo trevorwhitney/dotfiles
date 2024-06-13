@@ -59,6 +59,8 @@ let
 EOF
           fi
           source ~/.config/loki/loki-ops.env
+          
+          ${packages.logcli}/bin/logcli --org-id 29 "$@"
         elif [[ "''${1}" == "--dev" ]]; then
           shift
           if [[ ! -e ~/.config/loki/loki-dev.env ]]; then
@@ -69,9 +71,12 @@ EOF
 EOF
           fi
           source ~/.config/loki/loki-dev.env
+          
+          ${packages.logcli}/bin/logcli --org-id 29 "$@"
+        else
+          ${packages.logcli}/bin/logcli "$@"
         fi
 
-        ${packages.logcli}/bin/logcli --org-id 29 "$@"
   '';
 in
 stdenv.mkDerivation {
