@@ -182,31 +182,31 @@
         }
       },
       "vlc": {
-        "version": "3.0.20",
+        "version": "3.0.21",
         "options": {
           "full_name": "vlc"
         }
       },
       "raycast": {
-        "version": "1.75.2",
+        "version": "1.78.0",
         "options": {
           "full_name": "raycast"
         }
       },
       "kitty": {
-        "version": "0.35.1",
+        "version": "0.35.2",
         "options": {
           "full_name": "kitty"
         }
       },
       "qutebrowser": {
-        "version": "3.1.0",
+        "version": "3.2.1",
         "options": {
           "full_name": "qutebrowser"
         }
       },
       "tailscale": {
-        "version": "1.66.4",
+        "version": "1.68.2",
         "options": {
           "full_name": "tailscale"
         }
@@ -215,6 +215,18 @@
         "version": "42.2",
         "options": {
           "full_name": "flux"
+        }
+      },
+      "chatgpt": {
+        "version": "1.2024.170,1719338033",
+        "options": {
+          "full_name": "chatgpt"
+        }
+      },
+      "iterm2": {
+        "version": "3.5.3",
+        "options": {
+          "full_name": "iterm2"
         }
       }
     },
@@ -227,11 +239,11 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.3",
+        "HOMEBREW_VERSION": "4.3.8",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
-        "Xcode": "15.1",
+        "Xcode": "15.4",
         "macOS": "14.5"
       }
     }

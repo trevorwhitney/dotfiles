@@ -21,28 +21,28 @@ let
   change-background = pkgs.writeShellApplication {
     name = "change-background";
 
-    runtimeInputs = with pkgs; [ kitty tmux ];
+    runtimeInputs = with pkgs; [ tmux ];
 
     text = ''
                 function everforest_light() {
-                  kitten themes --reload-in=all "Everforest Light Soft"
+                  #kitten themes --reload-in=all "Everforest Light Soft"
       		        tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#a6b0a0,bg=#f3ead3"
                 }
 
                 function everforest_dark() {
-                  kitten themes --reload-in=all "Everforest Dark Soft"
+                  #kitten themes --reload-in=all "Everforest Dark Soft"
                   tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#9da9a0,bg=#333c43"
 
                 }
 
                 function solarized_light() {
-                  kitten themes --reload-in=all "Solarized Light"
+                  #kitten themes --reload-in=all "Solarized Light"
                   tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#586e75,bg=#002b36"
 
                 }
 
                 function solarized_dark() {
-                  kitten themes --reload-in=all "Solarized Dark"
+                  #kitten themes --reload-in=all "Solarized Dark"
                   tmux set-environment -g ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE "fg=#586e75,bg=#002b36"
                 }
 

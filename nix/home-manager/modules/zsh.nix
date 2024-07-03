@@ -144,7 +144,7 @@ in
             if [ -n "''${bat_theme}" ]; then
               eval "export \"''${bat_theme}\""
             else
-              eval "export BAT_THEME=\"Solarized (Light)\""
+              eval "export BAT_THEME=\"Solarized (light)\""
             fi
 
             if [ -n "''${preview_bat_theme}" ]; then
