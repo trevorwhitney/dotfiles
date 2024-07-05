@@ -1,27 +1,29 @@
-{ pkgs, secrets, ... }:
-let
-  packages = pkgs.extend (self: super: with super.lib; (foldl' (flip extends) (_: super)
-    [
-      (import ../overlays/mixtool.nix)
-      (import ../overlays/chart-testing.nix)
-      (import ../overlays/faillint.nix)
-      secrets.overlay
-    ]
-    self));
-in
-packages.mkShell {
-  nativeBuildInputs = [ packages.bashInteractive ];
-  buildInputs = with packages; [
+{ pkgs, secrets, ... }: pkgs.mkShell {
+  nativeBuildInputs = [ pkgs.bashInteractive ];
+  buildInputs = with pkgs; [
     shellcheck
   ];
-  packages = with packages; [
+  packages = with pkgs; [
+    (import ../packages/mixtool { inherit (pkgs) lib buildGoModule fetchFromGitHub; })
+    (import ../packages/chart-testing/3_8_0.nix {
+      inherit (pkgs) system;
+      pkgs = pkgs;
+    })
+    (import ../packages/faillint {
+      inherit (pkgs) lib buildGoModule fetchFromGitHub;
+    })
+
+    (pkgs.neovim {
+      withLspSupport = true;
+      goPkg = pkgs.go_1_21;
+      goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
+    })
+
     golang-perf
     gotestsum
-    chart-testing-3_8_0
     delve
     drone-cli
     envsubst
-    faillint
     gcc
     graphviz
     gnumake
@@ -33,7 +35,6 @@ packages.mkShell {
     jsonnet
     jsonnet-bundler
     mage
-    mixtool
     nettools
     nixpkgs-fmt
     pprof
@@ -51,19 +52,11 @@ packages.mkShell {
     nodePackages.typescript
     nodePackages.typescript-language-server
 
-    (packages.neovim {
-      withLspSupport = true;
-      goPkg = go_1_21;
-      goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
-    })
-
-
-    (packages.loki.overrideAttrs (old: { doCheck = false; }))
-    (packages.promtail.overrideAttrs (old: { doCheck = false; }))
+    (pkgs.loki.overrideAttrs (old: { doCheck = false; }))
+    (pkgs.promtail.overrideAttrs (old: { doCheck = false; }))
   ];
 
   shellHook = ''
-    source ${packages.secrets}/grafana/deployment-tools.sh
+    source ${pkgs.secrets}/grafana/deployment-tools.sh
   '';
 }
-

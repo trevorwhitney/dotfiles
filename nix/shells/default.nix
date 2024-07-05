@@ -12,8 +12,7 @@
   };
 
   deployment-tools = import ./deployment-tools.nix {
-    inherit secrets;
-    pkgs = pkgs.extend loki.overlays.default;
+    inherit secrets pkgs;
   };
 
   dev-env = import ./dev-env.nix { inherit pkgs; };
@@ -26,8 +25,7 @@
   grafana = import ./grafana.nix { inherit pkgs; };
 
   loki = import ./loki.nix {
-    inherit secrets;
-    pkgs = pkgs.extend loki.overlays.default;
+    inherit secrets pkgs;
   };
   gel = import ./gel.nix { inherit pkgs secrets; };
 

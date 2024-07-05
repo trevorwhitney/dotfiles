@@ -1,11 +1,13 @@
 { pkgs, secrets, ... }:
 let
-  packages = pkgs.extend secrets.overlay;
+  ss = (pkgs.extend secrets.overlay).secrets;
 in
-packages.mkShell {
-  nativeBuildInputs = [ packages.bashInteractive ];
+pkgs.mkShell {
+  nativeBuildInputs = [ pkgs.bashInteractive ];
 
-  packages = with packages; [
+  packages = with pkgs; [
+    ss
+
     argo
     deployment-tools
     jsonnet
@@ -19,6 +21,6 @@ packages.mkShell {
   ];
 
   shellHook = ''
-    source ${packages.secrets}/grafana/deployment-tools.sh
+    source ${pkgs.secrets}/grafana/deployment-tools.sh
   '';
 }
