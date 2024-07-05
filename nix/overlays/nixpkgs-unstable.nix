@@ -28,5 +28,9 @@ final: prev: rec {
     # latest go version
     go_1_21
     go_1_22
+    # golangci-lint
+    # gotools
+    # mage
+    # gofumpt
     delve;
 }

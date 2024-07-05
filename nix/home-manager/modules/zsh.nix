@@ -31,9 +31,12 @@ in
     programs.zsh = {
       enable = true;
       autocd = false;
-      enableAutosuggestions = true;
       defaultKeymap = "viins";
       enableCompletion = false;
+
+      autosuggestion = {
+        enable = true;
+      };
 
       oh-my-zsh = {
         enable = true;

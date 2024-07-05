@@ -3,7 +3,7 @@
 
   inputs = {
     # TODO: pinned because build go module broken on error -> apple-framework-CoreFoundation-11.0.0: used as improper sort of dependency
-    nixpkgs.url = "github:NixOS/nixpkgs/01885a071465e223f8f68971f864b15829988504";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
@@ -11,7 +11,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/release-23.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     secrets = {
@@ -32,7 +32,7 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-license";
 
     # for remotely deploying nixos to machines
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -41,7 +41,6 @@
     # neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
     # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
     neovim.url = "github:trevorwhitney/tw-vim-lib";
-    neovim.inputs.nixpkgs.follows = "nixpkgs";
 
     # for Loki shell
     loki.url = "github:grafana/loki";
@@ -62,7 +61,7 @@
     , nix-alien
     , nixos-hardware
     , nixpkgs
-    , nixos-unstable
+    # , nixos-unstable
     , secrets
     , ...
     }:
@@ -72,14 +71,14 @@
       overlay = import ./nix/overlays;
 
       overlays = system: [
-        (import "${self}/nix/overlays/nixpkgs-unstable.nix" {
-          pkgs = import nixos-unstable {
-            inherit system;
-            config = {
-              allowUnfree = true;
-            };
-          };
-        })
+        # (import "${self}/nix/overlays/nixpkgs-unstable.nix" {
+        #   pkgs = import nixos-unstable {
+        #     inherit system;
+        #     config = {
+        #       allowUnfree = true;
+        #     };
+        #   };
+        # })
 
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien system;
@@ -90,8 +89,6 @@
         })
 
         deploy-rs.overlay
-        jsonnet-language-server.overlay
-        neovim.overlay
 
         overlay
         secrets.overlay
@@ -99,15 +96,20 @@
 
       systems = [ "x86_64-linux" "aarch64-darwin" ];
 
-      packages = lib.genAttrs systems (system:
-        import nixpkgs {
-          inherit system;
-          overlays = overlays system;
-          config = {
-            allowUnfree = true;
-          };
-        }
-      );
+      packages = lib.genAttrs systems
+        (system:
+          import nixpkgs
+            {
+              inherit system;
+              overlays = overlays system;
+              config = {
+                allowUnfree = true;
+              };
+            } // {
+            jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
+            neovim = neovim.neovim.${system};
+          }
+        );
 
       modulesPath = "${nixpkgs}/nixos/modules";
     in

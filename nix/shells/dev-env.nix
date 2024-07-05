@@ -6,15 +6,13 @@
 , ...
 }:
 let
-  packages = pkgs.extend (import ../overlays/faillint.nix);
-
-  env = packages.writers.writeBash "env.sh" ''
+  env = pkgs.writers.writeBash "env.sh" ''
     export NODE_PATH="${nodeJsPkg}/lib/node_modules:$NODE_PATH"
     export NPM_CONFIG_PREFIX="${nodeJsPkg}"
   '';
 in
-packages.mkShell {
-  packages = with packages; [
+pkgs.mkShell {
+  packages = with pkgs; [
     # General
     bashInteractive
     git
@@ -25,7 +23,9 @@ packages.mkShell {
     # Golang
     goPkg
     delve
-    faillint
+    (import ../packages/faillint {
+      inherit (pkgs) lib buildGoModule fetchFromGitHub;
+    })
     golangci-lint
     gotools
     mage
@@ -36,7 +36,7 @@ packages.mkShell {
       nodejs = nodeJsPkg;
     })
 
-    (packages.neovim {
+    (pkgs.neovim {
       inherit
         goPkg
         nodeJsPkg

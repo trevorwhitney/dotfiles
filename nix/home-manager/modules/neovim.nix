@@ -24,13 +24,6 @@ in
       xdg.dataFile."jdtls/config_linux/config.ini" =
         lib.mkIf withLspSupport { source = "${jdtls}/config_linux/config.ini"; };
 
-      # all configuration done in custom neovim package
-      home.packages = with pkgs; [
-        (neovim {
-          inherit withLspSupport;
-        })
-      ];
-
       programs.neovim.vimdiffAlias = true;
     };
 }

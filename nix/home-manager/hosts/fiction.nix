@@ -55,11 +55,18 @@ in
               [{ path = "${pkgs.secrets}/git"; }];
           };
 
-          neovim = {
-            # default installation disables LSP
-            # enable via .envrc in folders with code
-            withLspSupport = false;
-          };
+          neovim =
+            let
+              withLspSupport = false;
+            in
+            {
+              inherit withLspSupport;
+
+              package = pkgs.neovim {
+                # TODO: need to pass down go and node packageS?
+                inherit withLspSupport;
+              };
+            };
 
           gh = {
             enable = true;
