@@ -172,6 +172,7 @@ in
       ]);
 
       shellAliases = {
+        dots = "cd $HOME/workspace/dotfiles";
         hm-switch = "${pkgs.home-manager}/bin/home-manager switch --flake $HOME/workspace/dotfiles -b backup ";
         rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure ";
         rollback = "sudo nixos-rebuild switch --rollback";
