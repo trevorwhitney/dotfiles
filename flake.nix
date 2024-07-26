@@ -7,7 +7,7 @@
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -32,7 +32,8 @@
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
-    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-license";
+    # jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-license";
+    jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix";
 
     # for remotely deploying nixos to machines
     deploy-rs.url = "github:serokell/deploy-rs";
@@ -61,7 +62,7 @@
     , nix-alien
     , nixos-hardware
     , nixpkgs
-    # , nixos-unstable
+      # , nixos-unstable
     , secrets
     , ...
     }:
