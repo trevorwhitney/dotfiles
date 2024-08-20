@@ -82,6 +82,7 @@ in
         ".vscode"
         ".vim"
         "__debug_bin*"
+        ".codespellrc"
       ];
     };
 

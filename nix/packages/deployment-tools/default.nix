@@ -29,6 +29,16 @@ let
     GCOM_TOKEN="''${GCOM_DEV_TOKEN}" ${deploymentTools}/scripts/gcom/gcom-dev "$@"
   '';
 
+  iap-token = packages.writeShellScriptBin "iap-token" ''
+    source ${packages.secrets}/grafana/deployment-tools.sh
+    source ${deploymentTools}/scripts/gcom/lib.sh; get_iap_token "$@"
+  '';
+
+  id-token = packages.writeShellScriptBin "id-token" ''
+    source ${packages.secrets}/grafana/deployment-tools.sh
+    source ${deploymentTools}/scripts/gcom/lib.sh; get_id_token
+  '';
+
   flux-ignore = packages.writeShellScriptBin "flux-ignore" ''
     source ${packages.secrets}/grafana/deployment-tools.sh
     ${deploymentTools}/scripts/flux/ignore.sh "$@"
@@ -95,6 +105,8 @@ stdenv.mkDerivation {
     install -m755 ${rt}/bin/rt $out/bin/rt
     install -m755 ${grafana-sso}/bin/grafana-sso $out/bin/grafana-sso
     install -m755 ${logcli}/bin/logcli $out/bin/logcli
+    install -m755 ${iap-token}/bin/iap-token $out/bin/iap-token
+    install -m755 ${id-token}/bin/id-token $out/bin/id-token
   '';
 
   meta = with lib; {

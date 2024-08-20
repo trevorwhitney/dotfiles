@@ -145,4 +145,9 @@ in
       StandardErrorPath = "${config.home.homeDirectory}/Library/Logs//var/log/monitor-appearance.stderr.log";
     };
   };
+
+  programs.zsh.shellAliases = {
+    light = "${change-background}/bin/change-background light && source ~/.zshrc";
+    dark = "${change-background}/bin/change-background dark && source ~/.zshrc";
+  };
 }
