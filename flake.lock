@@ -253,11 +253,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1724692022,
-        "narHash": "sha256-BFZgAxO3IBs6pKwNq3YNtlVTAst3eEBQpIUWd1+pPLY=",
+        "lastModified": 1724778990,
+        "narHash": "sha256-T0B/7xkAuYjlWDpb7rXx8RIf8scR/Qn6j8UZgik3Oqs=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "5cedb1961f838485203a31dddf72f67081004384",
+        "rev": "1535183453737933c249e8376775ef273da52698",
         "type": "github"
       },
       "original": {
@@ -473,11 +473,11 @@
     },
     "nixpkgs_7": {
       "locked": {
-        "lastModified": 1724710075,
-        "narHash": "sha256-xfQtxI2dAXiNvb0dtXImj9rSa4eY85yUXmnMOpBYKXM=",
+        "lastModified": 1724776802,
+        "narHash": "sha256-qW0Lltn5TeIwYCWh11+upX0QyrchUciNrtmkAVyVBMU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f90b6428e50a309dbae2aafe4cbe8e09cdacf074",
+        "rev": "5a494b5d2a674269059ce7f4597fbddd6e4b65b4",
         "type": "github"
       },
       "original": {
