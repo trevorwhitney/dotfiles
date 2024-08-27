@@ -7,7 +7,7 @@
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
-    # nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -61,6 +61,7 @@
     , neovim
     , nix-alien
     , nixos-hardware
+    , nixos-unstable
     , nixpkgs
       # , nixos-unstable
     , secrets
@@ -112,6 +113,21 @@
           }
         );
 
+      unstablePackages = lib.genAttrs systems
+        (system:
+          import nixos-unstable
+            {
+              inherit system;
+              overlays = overlays system;
+              config = {
+                allowUnfree = true;
+              };
+            } // {
+            jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
+            neovim = neovim.neovim.${system};
+          }
+        );
+
       modulesPath = "${nixpkgs}/nixos/modules";
     in
     {
@@ -141,7 +157,7 @@
     {
       devShells = import ./nix/shells {
         inherit loki secrets;
-        pkgs = packages.${system};
+        pkgs = unstablePackages.${system};
       };
 
       apps = import ./nix/apps {

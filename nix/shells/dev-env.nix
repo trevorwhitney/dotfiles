@@ -51,8 +51,10 @@ pkgs.mkShell {
           with python-packages; [
             gyp
             tiktoken
+            pip
+            setuptools
           ];
-        python-with-packages = python311.withPackages
+        python-with-packages = python312.withPackages
           extra-python-packages;
       in
       python-with-packages
