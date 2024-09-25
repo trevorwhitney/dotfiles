@@ -8,6 +8,7 @@
 let
   _imports = [
     ../modules/1password.nix
+    ../modules/android.nix
     ../modules/bash.nix
     ../modules/change-background.nix
     ../modules/darwin.nix
