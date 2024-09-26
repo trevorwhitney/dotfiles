@@ -19,18 +19,19 @@
       goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
     })
 
-    golang-perf
-    gotestsum
+    crane
     delve
     drone-cli
     envsubst
     gcc
-    graphviz
     gnumake
     go_1_23
+    golang-perf
     golangci-lint
+    gotestsum
     gotools
     gox
+    graphviz
     helm-docs
     jsonnet
     jsonnet-bundler
