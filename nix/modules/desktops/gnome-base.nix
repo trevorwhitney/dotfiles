@@ -2,8 +2,10 @@
   services.xserver = {
     enable = true;
     layout = "us";
-    xkbVariant = "";
-    xkbOptions = "ctrl:nocaps,caps:ctrl_modifier";
+    xkb = {
+      variant = "";
+      options = "ctrl:nocaps,caps:ctrl_modifier";
+    };
 
     displayManager = {
       gdm = {

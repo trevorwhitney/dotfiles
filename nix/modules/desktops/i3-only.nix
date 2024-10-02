@@ -2,8 +2,10 @@
   services.xserver = {
     enable = true;
     layout = "us";
-    xkbVariant = "";
-    xkbOptions = "ctrl:nocaps";
+    xkb = {
+      variant = "";
+      options = "ctrl:nocaps";
+    };
     libinput.mouse.naturalScrolling = true;
 
     desktopManager.xterm.enable = false;
