@@ -80,7 +80,7 @@ in
       unixtools.watch
       virtualenv
       yarn
-      yq
+      yq-go
     ];
   };
 

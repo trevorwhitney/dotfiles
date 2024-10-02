@@ -22,7 +22,7 @@ pkgs.mkShell {
     gcc
     graphviz
     gnumake
-    go_1_21
+    go_1_23
     golangci-lint
     gotools
     gox

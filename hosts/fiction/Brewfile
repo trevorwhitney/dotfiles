@@ -2,6 +2,7 @@ brew "pam-reattach"
 brew "usbutils"
 brew "reattach-to-user-namespace"
 
+cask "discord"
 cask "chatgpt"
 cask "deadbeef@nightly"
 cask "flux"

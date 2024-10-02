@@ -44,6 +44,7 @@
     statix
     trivy
     yamllint
+    yq-go
 
     # Typescript for GitHub Actions
     nodejs
