@@ -3,15 +3,7 @@ let
   inherit (pkgs) dotfiles;
 in
 {
-  nix = {
-    package = pkgs.nix;
-    settings.experimental-features = [ "nix-command" "flakes" ];
-  };
-
   programs = {
-    # Let Home Manager install and manage itself.
-    home-manager.enable = true;
-
     java = {
       enable = true;
       package = pkgs.jdk11;
@@ -24,6 +16,7 @@ in
     zsh = {
       shellAliases = {
         brew = "/opt/homebrew/bin/brew ";
+        rebuild = "darwin-rebuild switch --flake $HOME/workspace/dotfiles ";
       };
       useBrew = true;
       startNixDaemon = true;
@@ -83,7 +76,4 @@ in
       yq-go
     ];
   };
-
-  # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
-  #manual.manpages.enable = false;
 }

@@ -51,4 +51,4 @@ let
     username = "twhitney";
   };
 in
-(import ./hosts/penguin.nix defaults) // (import ./hosts/fiction.nix defaults) // (import ./hosts/newImage.nix defaults)
+(import ./hosts/penguin.nix defaults) // (import ./hosts/newImage.nix defaults)

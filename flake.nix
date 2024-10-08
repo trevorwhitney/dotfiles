@@ -9,6 +9,9 @@
     # These get pulled in via an overlay.
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager.url = "github:nix-community/home-manager/release-24.05";
@@ -60,10 +63,10 @@
     , loki
     , neovim
     , nix-alien
+    , nix-darwin
     , nixos-hardware
     , nixos-unstable
     , nixpkgs
-      # , nixos-unstable
     , secrets
     , ...
     }:
@@ -135,8 +138,18 @@
         cerebral = lib.nixosSystem {
           system = "x86_64-linux";
           modules = import ./nix/hosts/cerebral {
-            inherit self secrets lib modulesPath home-manager nixos-hardware;
+            inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
             pkgs = packages.x86_64-linux;
+          };
+        };
+      };
+
+      darwinConfigurations = {
+        fiction = nix-darwin.lib.darwinSystem {
+          system = "x86_64-linux";
+          modules = import ./nix/hosts/fiction {
+            inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
+            pkgs = packages.aarch64-darwin;
           };
         };
       };

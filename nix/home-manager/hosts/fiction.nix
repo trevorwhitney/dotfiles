@@ -1,105 +1,88 @@
-{ cfg
-, home-manager
-, imports
-, pkgs
-, username
-, ...
-}:
-let
-  _imports = [
+{ config, pkgs, lib, ... }: {
+  imports = [
     ../modules/1password.nix
     ../modules/android.nix
     ../modules/bash.nix
     ../modules/change-background.nix
     ../modules/darwin.nix
-    ../modules/grafana.nix
+    # ../modules/grafana.nix
     ../modules/git.nix
     ../modules/kubernetes.nix
     ../modules/neovim.nix
     ../modules/tmux.nix
     ../modules/zsh.nix
-  ] ++ imports;
+  ];
 
-  homeDirectory = "/Users/${username}";
-
-  baseConfig = {
-    home = {
-      inherit homeDirectory username;
-      stateVersion = "23.11";
-    };
+  targets.darwin = {
+    defaults = { };
+    search = "Google";
   };
-in
-{
-  "twhitney@fiction" = home-manager.lib.homeManagerConfiguration {
-    inherit pkgs;
-    modules = [
-      baseConfig
-      cfg
-      ({ config, ... }: {
-        targets.darwin = {
-          defaults = { };
-          search = "Google";
+
+  # for debugging agenix secrets
+  # home.packages = [
+  #   (pkgs.writeShellScriptBin "echo-secret" ''
+  #     ${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path}
+  #   '')
+  # ];
+
+  age = {
+    secrets = {
+      openApiKey.file = ../../secrets/openApiKey.age;
+    };
+    secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
+    identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
+  };
+
+  programs = {
+    _1password = {
+      host.darwin = true;
+    };
+    git = {
+      includes =
+        [{ path = "${pkgs.secrets}/git"; }];
+    };
+
+    neovim =
+      let
+        withLspSupport = false;
+      in
+      {
+        inherit withLspSupport;
+
+        package = pkgs.neovim {
+          # TODO: need to pass down go and node packageS?
+          inherit withLspSupport;
         };
+      };
 
-        home.packages = [
-          (pkgs.writeShellScriptBin "echo-secret" ''
-            ${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path}
-          '')
-        ];
+    gh = {
+      enable = true;
+    };
 
-        programs = {
-          _1password = {
-            host.darwin = true;
-          };
-          git = {
-            includes =
-              [{ path = "${pkgs.secrets}/git"; }];
-          };
+    kubectl = {
+      enable = true;
+      package = pkgs.kubectl-1-25;
+    };
 
-          neovim =
-            let
-              withLspSupport = false;
-            in
-            {
-              inherit withLspSupport;
+    tmux = {
+      theme = "everforest";
+    };
 
-              package = pkgs.neovim {
-                # TODO: need to pass down go and node packageS?
-                inherit withLspSupport;
-              };
-            };
-
-          gh = {
-            enable = true;
-          };
-
-          kubectl = {
-            enable = true;
-            package = pkgs.kubectl-1-25;
-          };
-
-          tmux = {
-            theme = "everforest";
-          };
-
-          ssh = {
-            matchBlocks = {
-              "mickey" = {
-                host = "mickey";
-                hostname = "10.11.0.56";
-                # this is to enable remote builds, but those aren't working
-                # identityFile = "${config.home.homeDirectory}/.config/agenix/id_ed25519";
-                forwardAgent = true;
-              };
-              "monterey" = {
-                host = "monterey";
-                hostname = "10.11.0.51";
-                forwardAgent = true;
-              };
-            };
-          };
+    ssh = {
+      matchBlocks = {
+        "mickey" = {
+          host = "mickey";
+          hostname = "10.11.0.56";
+          # this is to enable remote builds, but those aren't working
+          # identityFile = "${config.home.homeDirectory}/.config/agenix/id_ed25519";
+          forwardAgent = true;
         };
-      })
-    ] ++ _imports;
+        "monterey" = {
+          host = "monterey";
+          hostname = "10.11.0.51";
+          forwardAgent = true;
+        };
+      };
+    };
   };
 }
