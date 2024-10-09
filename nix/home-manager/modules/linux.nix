@@ -33,6 +33,7 @@ in
         "${activateAndUnlock}/bin/activate-and-unlock";
 
       open = "${pkgs.xdg-utils}/bin/xdg-open";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure ";
     };
 
     tmux.extraConfig = ''
@@ -130,10 +131,6 @@ in
 
       # rust-bin.stable.latest.default # to bring in rustc, but not sure if it's needed in common
     ];
-
-    programs.zsh.shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure ";
-    };
   };
 
   # Currently broken: https://github.com/NixOS/nixpkgs/issues/196651
