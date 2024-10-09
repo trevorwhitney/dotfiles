@@ -16,7 +16,7 @@ pkgs.mkShell {
 
     (pkgs.neovim {
       withLspSupport = true;
-      goPkg = go_1_21;
+      goPkg = go_1_23;
     })
   ];
 

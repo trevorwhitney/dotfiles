@@ -1,5 +1,7 @@
 { pkgs, secrets, ... }:
-pkgs.mkShell {
+let
+  goPkg = pkgs.go_1_23;
+in pkgs.mkShell {
   nativeBuildInputs = [ pkgs.bashInteractive ];
   buildInputs = with pkgs; [
     shellcheck
@@ -14,6 +16,7 @@ pkgs.mkShell {
       inherit (pkgs) lib buildGoModule fetchFromGitHub;
     })
 
+    goPkg
 
     golang-perf
     delve
@@ -22,7 +25,6 @@ pkgs.mkShell {
     gcc
     graphviz
     gnumake
-    go_1_23
     golangci-lint
     gotools
     gox
@@ -48,8 +50,8 @@ pkgs.mkShell {
     nodePackages.typescript-language-server
 
     (pkgs.neovim {
+      inherit goPkg;
       withLspSupport = true;
-      goPkg = go_1_21;
       goBuildTags = "requires_docker,linux,cgo,promtail_journal_enabled";
     })
   ];

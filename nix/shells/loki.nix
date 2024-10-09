@@ -1,4 +1,8 @@
-{ pkgs, secrets, ... }: pkgs.mkShell {
+{ pkgs, secrets, ... }: 
+let
+  goPkg = pkgs.go_1_23;
+in 
+pkgs.mkShell {
   nativeBuildInputs = [ pkgs.bashInteractive ];
   buildInputs = with pkgs; [
     shellcheck
@@ -14,10 +18,12 @@
     })
 
     (pkgs.neovim {
+      inherit goPkg;
       withLspSupport = true;
-      goPkg = pkgs.go_1_21;
       goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
     })
+
+    goPkg
 
     crane
     delve
@@ -25,7 +31,6 @@
     envsubst
     gcc
     gnumake
-    go_1_23
     golang-perf
     golangci-lint
     gotestsum

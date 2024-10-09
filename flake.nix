@@ -149,7 +149,7 @@
           system = "x86_64-linux";
           modules = import ./nix/hosts/fiction {
             inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
-            pkgs = packages.aarch64-darwin;
+            pkgs = unstablePackages.aarch64-darwin;
           };
         };
       };
@@ -175,14 +175,14 @@
 
       apps = import ./nix/apps {
         inherit loki secrets;
-        pkgs = packages.${system};
+        pkgs = unstablePackages.${system};
       };
 
       packages = {
         homeConfigurations = import ./nix/home-manager {
           inherit agenix home-manager system;
 
-          pkgs = packages.${system};
+          pkgs = unstablePackages.${system};
         };
       };
     }));

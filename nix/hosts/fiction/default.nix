@@ -19,7 +19,6 @@
         fzf
         gnused
         gnumake
-        go
         (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
           beta
           alpha

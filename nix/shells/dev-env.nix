@@ -2,7 +2,7 @@
 , useEslintDaemon ? true
 , extraPackages ? [ ]
 , nodeJsPkg ? pkgs.nodejs_20
-, goPkg ? pkgs.go_1_22
+, goPkg ? pkgs.go_1_23
 , ...
 }:
 let
