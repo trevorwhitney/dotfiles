@@ -44,7 +44,7 @@
 
     neovim =
       let
-        withLspSupport = false;
+        withLspSupport = true;
       in
       {
         inherit withLspSupport;

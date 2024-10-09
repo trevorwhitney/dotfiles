@@ -5,6 +5,7 @@
       "pam-reattach"
       "usbutils"
       "reattach-to-user-namespace"
+      "mas"
     ];
 
     casks = [
@@ -21,5 +22,9 @@
       "vimr"
       "vlc"
     ];
+
+    masApps = {
+      Xcode = 497799835;
+    };
   };
 }

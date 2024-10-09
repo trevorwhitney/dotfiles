@@ -9,10 +9,6 @@ in
       package = pkgs.jdk11;
     };
 
-    direnv = {
-      enable = true;
-      nix-direnv = { enable = true; };
-    };
     zsh = {
       shellAliases = {
         brew = "/opt/homebrew/bin/brew ";

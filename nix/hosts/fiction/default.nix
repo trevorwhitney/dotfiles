@@ -1,11 +1,21 @@
 { self, pkgs, home-manager, agenix, ... }:
+let
+  goPkg = pkgs.go_1_23;
+  nodeJsPkg = pkgs.nodejs_20;
+in
 [
   {
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     environment.systemPackages =
       with pkgs; [
-        (neovim { withLspSupport = false; })
+        goPkg
+        nodeJsPkg
+
+        (neovim {
+          inherit goPkg nodeJsPkg;
+          withLspSupport = true;
+        })
 
         awscli2
         azure-cli
@@ -61,6 +71,18 @@
         inherit pkgs;
         hostPlatform = "aarch64-darwin";
       };
+
+    programs = {
+      tmux = {
+        enable = true;
+        defaultCommand = "reattach-to-user-namespace -l ${pkgs.zsh}/bin/zsh";
+      };
+
+      direnv = {
+        enable = true;
+        nix-direnv = { enable = true; };
+      };
+    };
   }
 
   ./twhitney.nix

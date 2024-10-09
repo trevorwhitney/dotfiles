@@ -8,6 +8,7 @@ let
     ./inshellisense.nix
     ./kubectl.nix
     ./pex.nix
+    ./jdtls.nix
   ];
 in
 with super.lib; (foldl' (flip extends) (_: super)

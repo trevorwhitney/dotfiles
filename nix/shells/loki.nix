@@ -3,7 +3,9 @@ let
   goPkg = pkgs.go_1_23;
 in 
 pkgs.mkShell {
-  nativeBuildInputs = [ pkgs.bashInteractive ];
+  nativeBuildInputs = [
+    pkgs.bashInteractive
+  ];
   buildInputs = with pkgs; [
     shellcheck
   ];
@@ -21,6 +23,19 @@ pkgs.mkShell {
       inherit goPkg;
       withLspSupport = true;
       goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
+      dapConfigurations = {
+        go = [
+          {
+            type = "go";
+            name = "Loki main";
+            request = "launch";
+            program = ''''${workspaceFolder}/cmd/loki/main.go'';
+            args = [
+              ''-config.file=''${workspaceFolder}/cmd/loki/loki-local-config.yaml''
+            ];
+          }
+        ];
+      };
     })
 
     goPkg
