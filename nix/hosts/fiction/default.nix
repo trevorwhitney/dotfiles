@@ -87,6 +87,7 @@ in
 
   ./twhitney.nix
   ./homebrew.nix
+  ./remote-build.nix
 
   home-manager.darwinModules.home-manager
   {

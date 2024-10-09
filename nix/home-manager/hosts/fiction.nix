@@ -5,7 +5,7 @@
     ../modules/bash.nix
     ../modules/change-background.nix
     ../modules/darwin.nix
-    # ../modules/grafana.nix
+    ../modules/grafana.nix
     ../modules/git.nix
     ../modules/kubernetes.nix
     ../modules/neovim.nix
