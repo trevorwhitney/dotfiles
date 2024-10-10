@@ -103,31 +103,39 @@
 
       packages = lib.genAttrs systems
         (system:
-          import nixpkgs
-            {
-              inherit system;
-              overlays = overlays system;
-              config = {
-                allowUnfree = true;
+          let
+            pkgs = import nixpkgs
+              {
+                inherit system;
+                overlays = overlays system;
+                config = {
+                  allowUnfree = true;
+                };
               };
-            } // {
+          in
+          pkgs // {
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
+            faillint = pkgs.callPackage ./nix/packages/faillint { };
           }
         );
 
       unstablePackages = lib.genAttrs systems
         (system:
-          import nixos-unstable
-            {
-              inherit system;
-              overlays = overlays system;
-              config = {
-                allowUnfree = true;
+          let
+            pkgs = import nixos-unstable
+              {
+                inherit system;
+                overlays = overlays system;
+                config = {
+                  allowUnfree = true;
+                };
               };
-            } // {
+          in
+          pkgs // {
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
+            faillint = pkgs.callPackage ./nix/packages/faillint { };
           }
         );
 
@@ -160,7 +168,6 @@
         golang-perf = import "${self}/nix/overlays/golang-perf.nix";
         chart-testing = import "${self}/nix/overlays/chart-testing.nix";
         dotfiles = import "${self}/nix/overlays/dotfiles.nix";
-        faillint = import "${self}/nix/overlays/faillint.nix";
         kubectl = import "${self}/nix/overlays/kubectl.nix";
         mixtool = import "${self}/nix/overlays/mixtool.nix";
       };

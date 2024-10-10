@@ -15,9 +15,6 @@ pkgs.mkShell {
       inherit (pkgs) system;
       pkgs = pkgs;
     })
-    (import ../packages/faillint {
-      inherit (pkgs) lib buildGoModule fetchFromGitHub;
-    })
 
     (pkgs.neovim {
       inherit goPkg;
@@ -44,6 +41,7 @@ pkgs.mkShell {
     delve
     drone-cli
     envsubst
+    faillint
     gcc
     gnumake
     golang-perf

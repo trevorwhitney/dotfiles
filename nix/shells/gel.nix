@@ -12,9 +12,6 @@ in pkgs.mkShell {
       inherit (pkgs) system;
       pkgs = pkgs;
     })
-    (import ../packages/faillint {
-      inherit (pkgs) lib buildGoModule fetchFromGitHub;
-    })
 
     goPkg
 
@@ -28,6 +25,7 @@ in pkgs.mkShell {
     golangci-lint
     gotools
     gox
+    faillint
     helm-docs
     jsonnet
     jsonnet-bundler

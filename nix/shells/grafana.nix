@@ -24,12 +24,10 @@ pkgs.mkShell {
     # Golang
     goPkg
     delve
+    faillint
     golangci-lint
     gotools
     mage
-    (import ../packages/faillint {
-      inherit (pkgs) lib buildGoModule fetchFromGitHub;
-    })
 
     # NodeJS
     nodeJsPkg
