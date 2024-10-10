@@ -253,16 +253,15 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1728579796,
-        "narHash": "sha256-G3/K87n6+LlqCbSIYeUifuMXTnR5OYN3PTvwXPQlnf0=",
+        "lastModified": 1728582890,
+        "narHash": "sha256-UrO6UkAqcdCvGDzZwBoRhOF7yLJjctin6RJkPyByE4U=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "6b356043cd7c850280dd059eb0289b19adb25989",
+        "rev": "26dfd628f0effe2367420f591da36727ebe78806",
         "type": "github"
       },
       "original": {
         "owner": "grafana",
-        "ref": "fix-nix-build",
         "repo": "loki",
         "type": "github"
       }

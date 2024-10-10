@@ -47,7 +47,7 @@
     neovim.url = "github:trevorwhitney/tw-vim-lib";
 
     # for Loki shell
-    loki.url = "github:grafana/loki?ref=fix-nix-build";
+    loki.url = "github:grafana/loki";
 
     # for secrete management
     agenix.url = "github:ryantm/agenix";
