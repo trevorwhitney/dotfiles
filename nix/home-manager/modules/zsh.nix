@@ -58,8 +58,10 @@ in
         size = 10000000;
       };
 
+      # TODO: do we still need this AND home.sessionVariables?
       envExtra = ''
         export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
+        export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
       '';
 
       initExtraFirst = builtins.concatStringsSep "\n" [

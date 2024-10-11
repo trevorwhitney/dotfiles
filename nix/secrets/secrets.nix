@@ -7,5 +7,6 @@ let
 in
 {
   "openApiKey.age".publicKeys = [ twhitney agenix ];
+  "anthropicApiKey.age".publicKeys = [ twhitney agenix ];
 }
 

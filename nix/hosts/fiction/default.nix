@@ -51,6 +51,10 @@ in
         yq-go
       ];
 
+    environment.variables = {
+      EDITOR = "vim";
+    };
+
     # Auto upgrade nix package and the daemon service.
     services.nix-daemon.enable = true;
 
