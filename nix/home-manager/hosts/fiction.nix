@@ -34,12 +34,6 @@
     identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
   };
 
-  # TODO: do we still need this AND zsh.envExtra?
-  home.sessionVariables = {
-    OPENAI_API_KEY = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
-    ANTHROPIC_API_KEY = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
-  };
-
   programs = {
     _1password = {
       host.darwin = true;
@@ -89,7 +83,14 @@
           hostname = "10.11.0.51";
           forwardAgent = true;
         };
+        "omada" = {
+          host = "omada";
+          hostname = "10.11.0.72";
+          forwardAgent = true;
+        };
       };
     };
+
+    zsh.useDotNetTools = true;
   };
 }

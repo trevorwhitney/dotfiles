@@ -58,8 +58,15 @@ in
     # Auto upgrade nix package and the daemon service.
     services.nix-daemon.enable = true;
 
-    # Necessary for using flakes on this system.
-    nix.settings.experimental-features = "nix-command flakes";
+    # General Nix settings
+    nix = {
+      settings = {
+        # Necessary for using flakes on this system.
+        experimental-features = "nix-command flakes";
+        auto-optimise-store = true;
+      };
+      gc.automatic = true;
+    };
 
     # Set Git commit hash for darwin-version.
     system.configurationRevision = self.rev or self.dirtyRev or null;

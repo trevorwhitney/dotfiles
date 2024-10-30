@@ -16,6 +16,7 @@
     casks = [
       "discord"
       "deadbeef@nightly"
+      "dotnet-sdk"
       "flux"
       "iterm2"
       "plexamp"
@@ -23,6 +24,7 @@
       "tailscale"
       "vimr"
       "vlc"
+      "wireshark"
     ];
 
     masApps = {

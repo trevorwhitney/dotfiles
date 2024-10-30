@@ -37,6 +37,7 @@ pkgs.mkShell {
 
     goPkg
 
+    act
     crane
     delve
     drone-cli

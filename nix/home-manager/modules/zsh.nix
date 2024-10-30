@@ -17,6 +17,11 @@ in
         default = false;
         description = "whether to add /opt/homebrew/bin to PATH";
       };
+      useDotNetTools = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "whether to add $HOME/.dotnet/tools to PATH";
+      };
       # this is normally done in /etc/zshrc, but since osx nukes that on every update
       # we may need to do it ourselves
       startNixDaemon = lib.mkOption {
@@ -60,14 +65,23 @@ in
 
       # TODO: do we still need this AND home.sessionVariables?
       envExtra = ''
+        export EDITOR="nvim";
         export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
         export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
+        export XDG_CACHE_HOME="${config.home.homeDirectory}/.cache";
+        export XDG_CONFIG_HOME="${config.home.homeDirectory}/.config";
+        export XDG_DATA_HOME="${config.home.homeDirectory}/.local/share";
+        export XDG_STATE_HOME="${config.home.homeDirectory}/.local/state";
       '';
 
       initExtraFirst = builtins.concatStringsSep "\n" [
         (lib.optionalString cfg.useBrew
           ''
             eval "$(/opt/homebrew/bin/brew shellenv)"
+          '')
+        (lib.optionalString cfg.useDotNetTools
+          ''
+            PATH="$PATH:$HOME/.dotnet/tools"
           '')
         ''
           PATH="$HOME/.local/bin''${PATH+:''$PATH}"
