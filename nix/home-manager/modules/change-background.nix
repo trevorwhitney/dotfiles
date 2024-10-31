@@ -76,11 +76,13 @@ let
                   dark)
                     tmux set-environment -g BAT_THEME "Solarized (dark)"
                     tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (dark)"
+                    sed -i 's/everforest-light/everforest-dark/' "''${XDG_CONFIG_HOME}/k9s/config.yaml"
                     everforest_dark
                     ;;
                   *)
                     tmux set-environment -g BAT_THEME "Solarized (light)"
                     tmux set-environment -g FZF_PREVIEW_PREVIEW_BAT_THEME "Solarized (light)"
+                    sed -i 's/everforest-dark/everforest-light/' "''${XDG_CONFIG_HOME}/k9s/config.yaml"
                     everforest_light
                     ;;
                   esac
