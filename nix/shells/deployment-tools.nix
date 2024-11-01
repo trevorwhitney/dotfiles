@@ -11,6 +11,7 @@ pkgs.mkShell {
     argo
     deployment-tools
     jsonnet
+    jsonnet-bundler
     shellcheck
     kns-ktx
 
