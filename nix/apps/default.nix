@@ -15,7 +15,6 @@ let
         loki.overlays.default
         secrets.overlay
 
-        (import ../overlays/kubectl.nix)
         (import ../overlays/golang-perf.nix)
         (import ../overlays/chart-testing.nix)
       ]

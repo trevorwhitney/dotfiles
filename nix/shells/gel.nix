@@ -15,6 +15,7 @@ in pkgs.mkShell {
 
     goPkg
 
+    act
     golang-perf
     delve
     drone-cli

@@ -6,7 +6,6 @@ let
     ./golang-perf.nix
     ./i3-gnome-flashback.nix
     ./inshellisense.nix
-    ./kubectl.nix
     ./pex.nix
     ./jdtls.nix
   ];

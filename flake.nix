@@ -117,6 +117,7 @@
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
             faillint = pkgs.callPackage ./nix/packages/faillint { };
+            kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
           }
         );
 
@@ -136,6 +137,7 @@
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
             faillint = pkgs.callPackage ./nix/packages/faillint { };
+            kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
           }
         );
 
@@ -168,7 +170,6 @@
         golang-perf = import "${self}/nix/overlays/golang-perf.nix";
         chart-testing = import "${self}/nix/overlays/chart-testing.nix";
         dotfiles = import "${self}/nix/overlays/dotfiles.nix";
-        kubectl = import "${self}/nix/overlays/kubectl.nix";
         mixtool = import "${self}/nix/overlays/mixtool.nix";
       };
 

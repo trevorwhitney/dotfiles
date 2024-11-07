@@ -65,7 +65,7 @@ let
             cat <<EOF > ~/.config/loki/loki-ops.env
               export LOKI_PASSWORD="$(VAULT_INSTANCE=prod ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key-ops secret/grafana-o11y/grafana-secrets | jq -r .)"
               export LOKI_USERNAME=29
-              export LOKI_ADDR="https://logs-ops-us-east-0.grafana.net"
+              export LOKI_ADDR="https://logs-ops-002.grafana-ops.net"
 EOF
           fi
           source ~/.config/loki/loki-ops.env

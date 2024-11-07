@@ -191,7 +191,7 @@ in
         dots = "cd $HOME/workspace/dotfiles";
         hm-switch = "${pkgs.home-manager}/bin/home-manager switch --flake $HOME/workspace/dotfiles -b backup ";
         rollback = "sudo nixos-rebuild switch --rollback";
-        k = "${pkgs.kubectl-1-25}/bin/kubectl ";
+        k = "${pkgs.kubectl}/bin/kubectl ";
 
         # git
         gco = "git checkout \$(git branch | fzf)";

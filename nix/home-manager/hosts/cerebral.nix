@@ -56,7 +56,6 @@
 
     kubectl = {
       enable = true;
-      package = pkgs.kubectl-1-25;
     };
 
     tmux = {
