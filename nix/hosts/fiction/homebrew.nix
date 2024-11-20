@@ -6,6 +6,7 @@
      cleanup = "zap";
      upgrade = true;
     };
+
     brews = [
       "pam-reattach"
       "usbutils"

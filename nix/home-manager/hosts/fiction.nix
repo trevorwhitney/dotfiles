@@ -72,7 +72,7 @@
       matchBlocks = {
         "mickey" = {
           host = "mickey";
-          hostname = "10.11.0.56";
+          hostname = "10.11.0.74";
           # this is to enable remote builds, but those aren't working
           # identityFile = "${config.home.homeDirectory}/.config/agenix/id_ed25519";
           forwardAgent = true;

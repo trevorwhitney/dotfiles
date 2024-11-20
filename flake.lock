@@ -272,11 +272,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1730850368,
-        "narHash": "sha256-Hm7ew0y4b453absNmhpQVTkW6NhPNVnXjywyDUQORIc=",
+        "lastModified": 1731520071,
+        "narHash": "sha256-MElZxNuyi1sc7nU6r4O2ycVCbEXaNnvgxenNDrA52vQ=",
         "owner": "trevorwhitney",
         "repo": "tw-vim-lib",
-        "rev": "70c8070ed8679e55cf9db1bc1ec88813b51dac19",
+        "rev": "0a4d395be2e067d386242b63028c829e6e7a3c4b",
         "type": "github"
       },
       "original": {
