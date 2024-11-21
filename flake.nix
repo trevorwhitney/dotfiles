@@ -7,7 +7,11 @@
 
     # Want certain packages from the bleeding-edge, but not the whole system.
     # These get pulled in via an overlay.
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    # upgrading past this sha breaks clang in a way that doesn't allow me to debug go apps
+    # maybe try again with 24.11?
+    nixos-unstable.url = "github:NixOS/nixpkgs/5633bcff0c6162b9e4b5f1264264611e950c8ec7";
 
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
