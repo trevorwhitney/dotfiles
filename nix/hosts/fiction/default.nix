@@ -86,7 +86,6 @@ in
     programs = {
       tmux = {
         enable = true;
-        defaultCommand = "reattach-to-user-namespace -l ${pkgs.zsh}/bin/zsh";
       };
 
       direnv = {
@@ -99,6 +98,7 @@ in
   ./twhitney.nix
   ./homebrew.nix
   ./remote-build.nix
+  ../../modules/desktops/macos.nix
 
   home-manager.darwinModules.home-manager
   {

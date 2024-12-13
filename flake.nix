@@ -2,23 +2,27 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    # TODO: pinned because build go module broken on error -> apple-framework-CoreFoundation-11.0.0: used as improper sort of dependency
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
 
-    # Want certain packages from the bleeding-edge, but not the whole system.
-    # These get pulled in via an overlay.
-    # nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    # upgrading past this sha breaks clang in a way that doesn't allow me to debug go apps
-    # maybe try again with 24.11?
-    nixos-unstable.url = "github:NixOS/nixpkgs/5633bcff0c6162b9e4b5f1264264611e950c8ec7";
+    # Currently only used for neovim, see below
+    # Once we can run that on 24.11, we can remove this
+    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
+    # my vim just the way I like it
+    # neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
+    # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
+    neovim.url = "github:trevorwhitney/tw-vim-lib";
+    # needs bleeding edge for CoreFoundation update, until https://github.com/NixOS/nixpkgs/pull/358321 is merged
+    # to test, rebuild with new dependency, and then try to run a go test and debug a go test
+    # the error will happen about linking clang, if the test passes then we can safely swtich back to the stable
+    neovim.inputs.nixpkgs.follows = "nixos-unstable"; 
+
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     secrets = {
@@ -44,11 +48,6 @@
 
     # for remotely deploying nixos to machines
     deploy-rs.url = "github:serokell/deploy-rs";
-
-    # my vim just the way I like it
-    # neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
-    # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
-    neovim.url = "github:trevorwhitney/tw-vim-lib";
 
     # for Loki shell
     loki.url = "github:grafana/loki";
@@ -125,6 +124,7 @@
           }
         );
 
+      #TODO: moved this to nixpkgs 24.11, if it works we can get rid of the unsatable dependency
       unstablePackages = lib.genAttrs systems
         (system:
           let

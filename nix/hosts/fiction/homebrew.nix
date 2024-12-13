@@ -8,10 +8,11 @@
     };
 
     brews = [
-      "pam-reattach"
-      "usbutils"
-      "reattach-to-user-namespace"
       "mas"
+      "pam-reattach"
+      "reattach-to-user-namespace"
+      "telnet"
+      "usbutils"
     ];
 
     casks = [
