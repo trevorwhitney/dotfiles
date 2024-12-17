@@ -79,15 +79,6 @@
       overlay = import ./nix/overlays;
 
       overlays = system: [
-        # (import "${self}/nix/overlays/nixpkgs-unstable.nix" {
-        #   pkgs = import nixos-unstable {
-        #     inherit system;
-        #     config = {
-        #       allowUnfree = true;
-        #     };
-        #   };
-        # })
-
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien system;
         })
@@ -99,6 +90,22 @@
       ];
 
       systems = [ "x86_64-linux" "aarch64-darwin" ];
+
+      # as far as I can tell, overlays make packages to home-manager, 
+      # while definitions here don't. though that's not true for neovim,
+      # but is for deployment-tools?
+      additionalPackages = (pkgs: system: {
+        jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
+        neovim = neovim.neovim.${system};
+        faillint = pkgs.callPackage ./nix/packages/faillint { };
+        kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
+        deployment-tools = pkgs.callPackage ./nix/packages/deployment-tools {
+          inherit (pkgs) stdenv lib;
+          pkgs = pkgs // {
+            inherit (loki.packages.${system}) loki logcli promtail;
+          };
+        };
+      });
 
       packages = lib.genAttrs systems
         (system:
@@ -112,19 +119,7 @@
                 };
               };
           in
-          pkgs // {
-            jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
-            neovim = neovim.neovim.${system};
-            faillint = pkgs.callPackage ./nix/packages/faillint { };
-            kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
-            deployment-tools = pkgs.callPackage ./nix/packages/deployment-tools {
-              inherit (pkgs) stdenv lib;
-              pkgs = pkgs // {
-                inherit (loki.packages.${system}) loki logcli promtail;
-              };
-            };
-          }
-        );
+          pkgs // additionalPackages pkgs system);
 
       unstablePackages = lib.genAttrs systems
         (system:
@@ -138,22 +133,7 @@
                 };
               };
           in
-          pkgs // {
-            jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
-            neovim = neovim.neovim.${system};
-            faillint = pkgs.callPackage ./nix/packages/faillint { };
-            kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
-            # tw-tmux-lib = (pkgs.callPackage ./nix/packages/tmux-plugins {
-            #   nixpkgs = pkgs;
-            # }).tw-tmux-lib;
-            deployment-tools = pkgs.callPackage ./nix/packages/deployment-tools {
-              inherit (pkgs) stdenv lib;
-              pkgs = pkgs // {
-                inherit (loki.packages.${system}) loki logcli promtail;
-              };
-            };
-          }
-        );
+          pkgs // additionalPackages pkgs system);
 
       modulesPath = "${nixpkgs}/nixos/modules";
     in

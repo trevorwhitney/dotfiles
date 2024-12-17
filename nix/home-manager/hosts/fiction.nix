@@ -50,7 +50,7 @@
         inherit withLspSupport;
 
         package = pkgs.neovim {
-          # TODO: need to pass down go and node packageS?
+          # TODO: need to pass down go and node packages?
           inherit withLspSupport;
         };
       };
