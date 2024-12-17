@@ -1,11 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, ... }: {
   imports = [
     ../modules/1password.nix
     ../modules/android.nix
     ../modules/bash.nix
     ../modules/change-background.nix
     ../modules/darwin.nix
-    ../modules/grafana.nix
     ../modules/git.nix
     ../modules/kubernetes.nix
     ../modules/neovim.nix

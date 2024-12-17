@@ -24,6 +24,7 @@ in
         cmake
         coreutils
         curl
+        deployment-tools
         diffutils
         fd
         fzf
@@ -63,8 +64,8 @@ in
       settings = {
         # Necessary for using flakes on this system.
         experimental-features = "nix-command flakes";
-        auto-optimise-store = true;
       };
+      optimise.automatic = true;
       gc.automatic = true;
     };
 

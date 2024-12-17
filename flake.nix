@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
 
     # Currently only used for neovim, see below
-    # Once we can run that on 24.11, we can remove this
+    # Once I can run that on 24.11, I can remove this
     nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nix-darwin.url = "github:LnL7/nix-darwin";
@@ -17,8 +17,8 @@
     neovim.url = "github:trevorwhitney/tw-vim-lib";
     # needs bleeding edge for CoreFoundation update, until https://github.com/NixOS/nixpkgs/pull/358321 is merged
     # to test, rebuild with new dependency, and then try to run a go test and debug a go test
-    # the error will happen about linking clang, if the test passes then we can safely swtich back to the stable
-    neovim.inputs.nixpkgs.follows = "nixos-unstable"; 
+    # the error will happen about linking clang, if the test passes then I can safely swtich back to the stable
+    neovim.inputs.nixpkgs.follows = "nixos-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -92,10 +92,6 @@
           inherit nix-alien system;
         })
 
-        (import "${self}/nix/overlays/deployment-tools.nix" {
-          inherit secrets loki;
-        })
-
         deploy-rs.overlay
 
         overlay
@@ -121,10 +117,15 @@
             neovim = neovim.neovim.${system};
             faillint = pkgs.callPackage ./nix/packages/faillint { };
             kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
+            deployment-tools = pkgs.callPackage ./nix/packages/deployment-tools {
+              inherit (pkgs) stdenv lib;
+              pkgs = pkgs // {
+                inherit (loki.packages.${system}) loki logcli promtail;
+              };
+            };
           }
         );
 
-      #TODO: moved this to nixpkgs 24.11, if it works we can get rid of the unsatable dependency
       unstablePackages = lib.genAttrs systems
         (system:
           let
@@ -142,6 +143,15 @@
             neovim = neovim.neovim.${system};
             faillint = pkgs.callPackage ./nix/packages/faillint { };
             kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
+            # tw-tmux-lib = (pkgs.callPackage ./nix/packages/tmux-plugins {
+            #   nixpkgs = pkgs;
+            # }).tw-tmux-lib;
+            deployment-tools = pkgs.callPackage ./nix/packages/deployment-tools {
+              inherit (pkgs) stdenv lib;
+              pkgs = pkgs // {
+                inherit (loki.packages.${system}) loki logcli promtail;
+              };
+            };
           }
         );
 
@@ -160,7 +170,7 @@
 
       darwinConfigurations = {
         fiction = nix-darwin.lib.darwinSystem {
-          system = "x86_64-linux";
+          system = "aarch64-darwin";
           modules = import ./nix/hosts/fiction {
             inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
             pkgs = unstablePackages.aarch64-darwin;
