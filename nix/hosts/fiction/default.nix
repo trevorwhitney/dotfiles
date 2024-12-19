@@ -105,7 +105,6 @@ in
   {
     home-manager = {
       useGlobalPkgs = true;
-      useUserPackages = true;
       backupFileExtension = "bak";
       users.twhitney = {
         # Do not need to change this when updating home-manager versions.

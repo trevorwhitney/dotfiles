@@ -12,7 +12,7 @@
       defaults = {
         NSGlobalDomain = {
           InitialKeyRepeat = 15;
-          KeyRepeat = 1;
+          KeyRepeat = 2;
         };
       };
     };

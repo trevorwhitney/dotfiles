@@ -7,7 +7,6 @@
     ../modules/darwin.nix
     ../modules/git.nix
     ../modules/kubernetes.nix
-    ../modules/neovim.nix
     ../modules/tmux.nix
     ../modules/zsh.nix
   ];
@@ -16,6 +15,12 @@
     defaults = { };
     search = "Google";
   };
+
+  # TODO: why doesn't this work?
+  # the package is only available if added via an overlay, but not via a merge in the top flake.nix
+  # home.packages = builtins.trace "!!! where is this package: ${pkgs.deployment-tools}" [
+  #   pkgs.deployment-tools
+  # ];
 
   # for debugging agenix secrets
   # home.packages = [
@@ -41,19 +46,6 @@
       includes =
         [{ path = "${pkgs.secrets}/git"; }];
     };
-
-    neovim =
-      let
-        withLspSupport = true;
-      in
-      {
-        inherit withLspSupport;
-
-        package = pkgs.neovim {
-          # TODO: need to pass down go and node packages?
-          inherit withLspSupport;
-        };
-      };
 
     gh = {
       enable = true;
