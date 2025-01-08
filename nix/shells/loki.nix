@@ -20,19 +20,44 @@ pkgs.mkShell {
       inherit goPkg;
       withLspSupport = true;
       goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
-      dapConfigurations = {
-        go = [
-          {
-            type = "go";
-            name = "Loki main";
-            request = "launch";
-            program = ''''${workspaceFolder}/cmd/loki/main.go'';
-            args = [
-              ''-config.file=''${workspaceFolder}/cmd/loki/loki-local-config.yaml''
-            ];
-          }
-        ];
-      };
+      dapConfigurations =
+        let
+          ports = {
+            "Distributor" = 18001;
+            "Ingester" = 18002;
+            "Querier" = 18004;
+            "Query Frontend" = 18007;
+            "Pattern Ingester" = 18010;
+          };
+
+          remoteDebugConfigs = (builtins.map
+            (service: {
+              type = "go";
+              request = "attach";
+              mode = "remote";
+              name = "Compose ${service}";
+              dlvToolPath = "${pkgs.delve}/bin/dlv";
+              remotePath = "/loki/loki";
+              port = ports.${service};
+              cwd = ''''${workspaceFolder}'';
+              showLog = true;
+            })
+            (builtins.attrNames ports));
+
+        in
+        {
+          go = [
+            {
+              type = "go";
+              name = "Loki main";
+              request = "launch";
+              program = ''''${workspaceFolder}/cmd/loki/main.go'';
+              args = [
+                ''-config.file=''${workspaceFolder}/cmd/loki/loki-local-config.yaml''
+              ];
+            }
+          ] ++ remoteDebugConfigs;
+        };
     })
 
     goPkg

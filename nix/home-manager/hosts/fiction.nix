@@ -78,6 +78,12 @@
           hostname = "10.11.0.72";
           forwardAgent = true;
         };
+        "proxmox" = {
+          user = "root";
+          host = "proxmox";
+          hostname = "10.11.0.100";
+          forwardAgent = true;
+        };
       };
     };
 
