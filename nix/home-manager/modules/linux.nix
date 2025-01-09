@@ -113,7 +113,6 @@ in
       ncurses
       ngrok
       nmap
-      pex
       rbenv
       ripgrep
       tanka
