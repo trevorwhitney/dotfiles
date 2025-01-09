@@ -29,6 +29,11 @@ in
         default = false;
         description = "whether to source the nix daemon startup script for darwin";
       };
+      includeSecrets = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "whether to include agenix secrets when rendering zshrc";
+      };
     };
   };
 
@@ -66,13 +71,14 @@ in
       # TODO: do we still need this AND home.sessionVariables?
       envExtra = ''
         export EDITOR="nvim";
-        export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
-        export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
         export XDG_CACHE_HOME="${config.home.homeDirectory}/.cache";
         export XDG_CONFIG_HOME="${config.home.homeDirectory}/.config";
         export XDG_DATA_HOME="${config.home.homeDirectory}/.local/share";
         export XDG_STATE_HOME="${config.home.homeDirectory}/.local/state";
-      '';
+      '' + (lib.optionalString cfg.includeSecrets ''
+        export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
+        export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
+      '');
 
       initExtraFirst = builtins.concatStringsSep "\n" [
         (lib.optionalString cfg.useBrew

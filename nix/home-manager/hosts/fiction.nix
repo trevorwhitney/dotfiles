@@ -87,6 +87,9 @@
       };
     };
 
-    zsh.useDotNetTools = true;
+    zsh = {
+      useDotNetTools = true;
+      includeSecrets = true;
+    };
   };
 }
