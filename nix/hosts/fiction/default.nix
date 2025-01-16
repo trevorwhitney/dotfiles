@@ -64,6 +64,7 @@ in
       settings = {
         # Necessary for using flakes on this system.
         experimental-features = "nix-command flakes";
+        download-buffer-size = 671088640;
       };
       optimise.automatic = true;
       gc.automatic = true;

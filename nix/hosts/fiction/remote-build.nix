@@ -4,7 +4,7 @@
     linux-builder.enable = true;
     buildMachines = [
       {
-        hostName = "mickey.trevorwhitney.net";
+        hostName = "10.11.0.74";
         sshUser = "twhitney";
         system = "x86_64-linux";
         maxJobs = 2;

@@ -78,10 +78,22 @@
           hostname = "10.11.0.72";
           forwardAgent = true;
         };
+        "plex" = {
+          user = "twhitney";
+          host = "plex";
+          hostname = "10.11.0.52";
+          forwardAgent = true;
+        };
         "proxmox" = {
           user = "root";
           host = "proxmox";
           hostname = "10.11.0.100";
+          forwardAgent = true;
+        };
+        "exit-node" = {
+          user = "twhitney";
+          host = "exit-node";
+          hostname = "24.199.116.208";
           forwardAgent = true;
         };
       };
