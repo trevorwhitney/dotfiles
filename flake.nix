@@ -2,23 +2,21 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
 
-    # Currently only used for neovim, see below
-    # Once I can run that on 24.11, I can remove this
-    nixos-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    nix-darwin.url = "github:LnL7/nix-darwin";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     # my vim just the way I like it
-    # neovim.url = "path:/home/twhitney/workspace/tw-vim-lib";
     # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
     neovim.url = "github:trevorwhitney/tw-vim-lib";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
+    # TODO: I've updated to using 24.11, and it seems to work, but I'm going to leave thie comment here for a while
+    # in case it breaks again.
     # needs bleeding edge for CoreFoundation update, until https://github.com/NixOS/nixpkgs/pull/358321 is merged
     # to test, rebuild with new dependency, and then try to run a go test and debug a go test
     # the error will happen about linking clang, if the test passes then I can safely swtich back to the stable
-    neovim.inputs.nixpkgs.follows = "nixos-unstable";
+    # neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -68,7 +66,6 @@
     , nix-alien
     , nix-darwin
     , nixos-hardware
-    , nixos-unstable
     , nixpkgs
     , secrets
     , ...
@@ -91,7 +88,7 @@
 
       systems = [ "x86_64-linux" "aarch64-darwin" ];
 
-      # as far as I can tell, overlays make packages to home-manager, 
+      # as far as I can tell, overlays make packages available to home-manager, 
       # while definitions here don't. though that's not true for neovim,
       # but is for deployment-tools?
       additionalPackages = (pkgs: system: {
@@ -121,20 +118,6 @@
           in
           pkgs // additionalPackages pkgs system);
 
-      unstablePackages = lib.genAttrs systems
-        (system:
-          let
-            pkgs = import nixos-unstable
-              {
-                inherit system;
-                overlays = overlays system;
-                config = {
-                  allowUnfree = true;
-                };
-              };
-          in
-          pkgs // additionalPackages pkgs system);
-
       modulesPath = "${nixpkgs}/nixos/modules";
     in
     {
@@ -153,7 +136,7 @@
           system = "aarch64-darwin";
           modules = import ./nix/hosts/fiction {
             inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
-            pkgs = unstablePackages.aarch64-darwin;
+            pkgs = packages.aarch64-darwin;
           };
         };
       };
@@ -172,19 +155,19 @@
     {
       devShells = import ./nix/shells {
         inherit loki secrets;
-        pkgs = unstablePackages.${system};
+        pkgs = packages.${system};
       };
 
       apps = import ./nix/apps {
         inherit loki secrets;
-        pkgs = unstablePackages.${system};
+        pkgs = packages.${system};
       };
 
       packages = {
         homeConfigurations = import ./nix/home-manager {
           inherit agenix home-manager system;
 
-          pkgs = unstablePackages.${system};
+          pkgs = packages.${system};
         };
       };
     }));

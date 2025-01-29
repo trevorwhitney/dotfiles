@@ -116,7 +116,7 @@ prompt_segment() {
 prompt_context() {
   # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
-    prompt_segment $violet 歷 "%(!.%{%F{yellow}%}.)%n@%m"
+    prompt_segment $violet 󰢩 "%(!.%{%F{yellow}%}.)%n@$(hostname -s)"
     print_separator
   fi
 }
