@@ -1,5 +1,6 @@
 { pkgs, home-manager, username, ... }: {
   "twhitney@proxmox" = home-manager.lib.homeManagerConfiguration rec {
+    inherit pkgs;
     home = {
       inherit username;
       homeDirectory = "/home/${username}";
