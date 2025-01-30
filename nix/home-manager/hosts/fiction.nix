@@ -61,39 +61,39 @@
 
     ssh = {
       matchBlocks = {
+        "exit-node" = {
+          user = "twhitney";
+          host = "exit-node";
+          hostname = "24.199.116.208";
+          forwardAgent = false;
+        };
+        "jerry" = {
+          user = "twhitney";
+          host = "jerry";
+          hostname = "10.11.0.52";
+          forwardAgent = false;
+        };
         "mickey" = {
+          user = "twhitney";
           host = "mickey";
           hostname = "10.11.0.74";
-          # this is to enable remote builds, but those aren't working
-          # identityFile = "${config.home.homeDirectory}/.config/agenix/id_ed25519";
           forwardAgent = true;
         };
         "monterey" = {
+          user = "twhitney";
           host = "monterey";
           hostname = "10.11.0.51";
-          forwardAgent = true;
+          forwardAgent = false;
         };
         "omada" = {
           host = "omada";
           hostname = "10.11.0.72";
           forwardAgent = true;
         };
-        "plex" = {
-          user = "twhitney";
-          host = "plex";
-          hostname = "10.11.0.52";
-          forwardAgent = true;
-        };
         "proxmox" = {
-          user = "root";
+          user = "twhitney";
           host = "proxmox";
           hostname = "10.11.0.100";
-          forwardAgent = true;
-        };
-        "exit-node" = {
-          user = "twhitney";
-          host = "exit-node";
-          hostname = "24.199.116.208";
           forwardAgent = true;
         };
       };
