@@ -40,6 +40,7 @@ let
     }
   ];
 
+  username = "twhitney";
   defaults = {
     inherit
       agenix
@@ -47,8 +48,10 @@ let
       home-manager
       imports
       pkgs
-      system;
-    username = "twhitney";
+      system
+      username;
   };
 in
-(import ./hosts/penguin.nix defaults) // (import ./hosts/newImage.nix defaults)
+(import ./hosts/penguin.nix defaults) //
+(import ./hosts/newImage.nix defaults) //
+(import ./hosts/proxmox.nix { inherit pkgs home-manager username; })
