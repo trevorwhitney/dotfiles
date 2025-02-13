@@ -37,7 +37,6 @@ in
     };
 
     packages = with pkgs; [
-      aider-chat
       awscli2
       azure-cli
       bat

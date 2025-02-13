@@ -14,6 +14,8 @@
       "reattach-to-user-namespace"
       "telnet"
       "usbutils"
+      "python"
+      "pipx"
     ];
 
     casks = [
