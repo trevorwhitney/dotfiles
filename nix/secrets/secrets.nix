@@ -8,5 +8,6 @@ in
 {
   "openApiKey.age".publicKeys = [ twhitney agenix ];
   "anthropicApiKey.age".publicKeys = [ twhitney agenix ];
+  "openRouterApiKey.age".publicKeys = [ twhitney agenix ];
 }
 

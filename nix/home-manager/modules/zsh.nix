@@ -75,9 +75,11 @@ in
         export XDG_CONFIG_HOME="${config.home.homeDirectory}/.config";
         export XDG_DATA_HOME="${config.home.homeDirectory}/.local/share";
         export XDG_STATE_HOME="${config.home.homeDirectory}/.local/state";
+        export XDG_RUNTIME_DIR="${config.home.homeDirectory}/.local/runtime";
       '' + (lib.optionalString cfg.includeSecrets ''
         export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
         export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
+        export OPENROUTER_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openRouterApiKey.path})";
       '');
 
       initExtraFirst = builtins.concatStringsSep "\n" [

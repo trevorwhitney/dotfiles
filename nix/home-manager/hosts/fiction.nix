@@ -33,6 +33,7 @@
     secrets = {
       openApiKey.file = ../../secrets/openApiKey.age;
       anthropicApiKey.file = ../../secrets/anthropicApiKey.age;
+      openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
     };
     secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
     identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];

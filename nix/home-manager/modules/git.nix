@@ -83,6 +83,8 @@ in
         ".vim"
         "__debug_bin*"
         ".codespellrc"
+        ".aider*"
+        ".env"
       ];
     };
 

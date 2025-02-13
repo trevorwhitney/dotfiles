@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-24.11-darwin";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-24.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +68,7 @@
     , nix-darwin
     , nixos-hardware
     , nixpkgs
+    , nixpkgs-unstable
     , secrets
     , ...
     }:
@@ -74,6 +76,21 @@
       inherit (nixpkgs) lib;
 
       overlay = import ./nix/overlays;
+
+      systems = [ "x86_64-linux" "aarch64-darwin" ];
+
+      # Certain packages are pulled from unstable to get the latest version
+      unstablePackages = lib.genAttrs systems
+        (system:
+          import nixpkgs-unstable
+            {
+              inherit system;
+              config = {
+                allowUnfree = true;
+              };
+            }
+        );
+
 
       overlays = system: [
         (import "${self}/nix/overlays/nix-alien.nix" {
@@ -84,9 +101,12 @@
 
         overlay
         secrets.overlay
-      ];
 
-      systems = [ "x86_64-linux" "aarch64-darwin" ];
+        # Overrides from unstable
+        (final: prev: {
+          inherit (unstablePackages.${system}) aider-chat;
+        })
+      ];
 
       # as far as I can tell, overlays make packages available to home-manager, 
       # while definitions here don't. though that's not true for neovim,
@@ -116,7 +136,8 @@
                 };
               };
           in
-          pkgs // additionalPackages pkgs system);
+          pkgs //
+          additionalPackages pkgs system);
 
       modulesPath = "${nixpkgs}/nixos/modules";
     in

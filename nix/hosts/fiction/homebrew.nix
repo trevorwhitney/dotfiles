@@ -8,6 +8,7 @@
     };
 
     brews = [
+      # "aider"
       "mas"
       "pam-reattach"
       "reattach-to-user-namespace"
