@@ -3,10 +3,12 @@ cache-prompts: true
 code-theme: solarized-light
 light-mode: true 
 # model: openrouter/anthropic/claude-3.5-sonnet 
-# model: anthropic/claude-3-5-sonnet-20241022
-model: ollama_chat/deepseek-r1
-architect: true
-editor-model: anthropic/claude-3-5-sonnet-20241022
-weak-model: anthropic/claude-3-5-sonnet-20241022
+model: anthropic/claude-3-5-sonnet-20241022
+# -- Start Ollama config
+# model: ollama_chat/deepseek-r1
+# architect: true
+# editor-model: anthropic/claude-3-5-sonnet-20241022
+# weak-model: anthropic/claude-3-5-sonnet-20241022
+# -- End Ollama config
 vim: true
 watch-files: true
