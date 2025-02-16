@@ -80,6 +80,8 @@ in
         export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path})";
         export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
         export OPENROUTER_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openRouterApiKey.path})";
+
+        source ${config.age.secrets.ollamaCredentials.path}
       '');
 
       initExtraFirst = builtins.concatStringsSep "\n" [
