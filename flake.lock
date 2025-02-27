@@ -256,11 +256,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1740611147,
-        "narHash": "sha256-a/jSVCVz4212gVcdZYIKgVDF+t6K28xRC1AdPIddoN8=",
+        "lastModified": 1740630212,
+        "narHash": "sha256-C+kplxu+VV89jvV0w7l9ulpLHY8WZbP36RbCqqtSBuY=",
         "owner": "trevorwhitney",
         "repo": "tw-vim-lib",
-        "rev": "bddf764774fc1516abdae6453fc6cc24c02c8908",
+        "rev": "9f821df87a3d8cc7540aece0d4f5744d26373aa5",
         "type": "github"
       },
       "original": {
