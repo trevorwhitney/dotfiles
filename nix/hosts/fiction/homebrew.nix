@@ -8,14 +8,13 @@
     };
 
     brews = [
-      # "aider"
       "mas"
       "pam-reattach"
       "reattach-to-user-namespace"
       "telnet"
       "usbutils"
       "python"
-      "pipx"
+      "pipx" # for aider
     ];
 
     casks = [
@@ -23,6 +22,7 @@
       "deadbeef@nightly"
       "dotnet-sdk"
       "flux"
+      "ghostty"
       "iterm2"
       "plexamp"
       "raycast"

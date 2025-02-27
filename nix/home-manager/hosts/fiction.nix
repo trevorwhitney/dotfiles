@@ -5,6 +5,7 @@
     ../modules/bash.nix
     ../modules/change-background.nix
     ../modules/darwin.nix
+    ../modules/ghostty.nix
     ../modules/git.nix
     ../modules/kubernetes.nix
     ../modules/tmux.nix

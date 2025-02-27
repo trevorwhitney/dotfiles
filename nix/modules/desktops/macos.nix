@@ -13,6 +13,7 @@
         NSGlobalDomain = {
           InitialKeyRepeat = 15;
           KeyRepeat = 2;
+          ApplePressAndHoldEnabled = false;
         };
       };
     };

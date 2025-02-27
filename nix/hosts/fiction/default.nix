@@ -97,9 +97,10 @@ in
     };
   }
 
-  ./twhitney.nix
   ./homebrew.nix
   ./remote-build.nix
+  ./twhitney.nix
+
   ../../modules/desktops/macos.nix
 
   home-manager.darwinModules.home-manager
