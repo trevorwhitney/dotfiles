@@ -9,8 +9,6 @@ let
     shell-integration = "zsh";
     shell-integration-features = "no-cursor";
     theme = "dark:everforest-dark,light:everforest-light";
-    # TODO: should be able to get config root path from home-manager
-    # custom-shader = "/Users/twhitney/.config/ghostty/shaders/starfield-colors.glsl";
   };
   themes = {
     # USing the soft versions of:

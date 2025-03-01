@@ -121,15 +121,6 @@ prompt_context() {
   fi
 }
 
-# Show Icon if in Nix Shell
-prompt_nix_shell() {
-  # Only show this if SSH'd into remote machine
-  if [[ -n "$IN_NIX_SHELL" ]]; then
-    prompt_segment $violet 
-    print_separator
-  fi
-}
-
 # Git: branch/detached head, dirty status
 prompt_git() {
   (( $+commands[git] )) || return
@@ -218,7 +209,6 @@ prompt() {
 build_prompt() {
   RETVAL=$?
   prompt_retval
-  prompt_nix_shell
   prompt_context
   prompt_k8s
   prompt_dir

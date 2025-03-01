@@ -7,6 +7,7 @@ let
     ./inshellisense.nix
     ./pex.nix
     ./jdtls.nix
+    ./change-background.nix
   ];
 in
 with super.lib; (foldl' (flip extends) (_: super)

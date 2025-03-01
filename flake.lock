@@ -253,14 +253,15 @@
         "flake-utils": "flake-utils_4",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1740630212,
-        "narHash": "sha256-C+kplxu+VV89jvV0w7l9ulpLHY8WZbP36RbCqqtSBuY=",
+        "lastModified": 1740777045,
+        "narHash": "sha256-UPQlFw5uIavGB07W2+OZ+JRK2ls86BoM/ByBeK2jZHA=",
         "owner": "trevorwhitney",
         "repo": "tw-vim-lib",
-        "rev": "9f821df87a3d8cc7540aece0d4f5744d26373aa5",
+        "rev": "b7dbaf7e478a729ef7105c693ce928f60b5786b1",
         "type": "github"
       },
       "original": {
@@ -364,6 +365,22 @@
       }
     },
     "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1740547748,
+        "narHash": "sha256-Ly2fBL1LscV+KyCqPRufUBuiw+zmWrlJzpWOWbahplg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "3a05eebede89661660945da1f151959900903b6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-unstable_2": {
       "locked": {
         "lastModified": 1739863612,
         "narHash": "sha256-UbtgxplOhFcyjBcNbTVO8+HUHAl/WXFDOb6LvqShiZo=",
@@ -472,7 +489,7 @@
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_6",
-        "nixpkgs-unstable": "nixpkgs-unstable",
+        "nixpkgs-unstable": "nixpkgs-unstable_2",
         "secrets": "secrets"
       }
     },
