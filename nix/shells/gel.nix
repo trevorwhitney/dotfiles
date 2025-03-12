@@ -1,6 +1,6 @@
 { pkgs, secrets, ... }:
 let
-  goPkg = pkgs.go_1_23;
+  goPkg = pkgs.go;
 in pkgs.mkShell {
   nativeBuildInputs = [ pkgs.bashInteractive ];
   buildInputs = with pkgs; [
@@ -51,7 +51,7 @@ in pkgs.mkShell {
     (pkgs.neovim {
       inherit goPkg;
       withLspSupport = true;
-      goBuildTags = "requires_docker,linux,cgo,promtail_journal_enabled";
+      goBuildTags = "requires_docker";
     })
   ];
 

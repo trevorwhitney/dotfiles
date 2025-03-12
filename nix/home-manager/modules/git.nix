@@ -85,6 +85,7 @@ in
         ".codespellrc"
         ".aider*"
         ".env"
+        "MEMORY.md"
       ];
     };
 

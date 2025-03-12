@@ -77,7 +77,7 @@ in
   };
 
   programs.zsh.shellAliases = {
-    light = "${change-background}/bin/change-background light && omz reload";
-    dark = "${change-background}/bin/change-background dark && omz reload";
+    light = "${change-background}/bin/change-background light && exec zsh";
+    dark = "${change-background}/bin/change-background dark && exec zsh";
   };
 }

@@ -2,7 +2,7 @@
 , useEslintDaemon ? true
 , extraPackages ? [ ]
 , nodeJsPkg ? pkgs.nodejs_20
-, goPkg ? pkgs.go_1_23
+, goPkg ? pkgs.go
 , ...
 }:
 let
@@ -18,6 +18,7 @@ pkgs.mkShell {
     git
     gnumake
     jsonnet
+    shellcheck
     zip
 
     # Golang

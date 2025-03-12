@@ -1,6 +1,6 @@
 { pkgs, secrets, ... }: 
 let
-  goPkg = pkgs.go_1_23;
+  goPkg = pkgs.go;
 in 
 pkgs.mkShell {
   nativeBuildInputs = [

@@ -12,6 +12,8 @@
     # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
     neovim.url = "github:trevorwhitney/tw-vim-lib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
+    neovim.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+
     # TODO: I've updated to using 24.11, and it seems to work, but I'm going to leave thie comment here for a while
     # in case it breaks again.
     # needs bleeding edge for CoreFoundation update, until https://github.com/NixOS/nixpkgs/pull/358321 is merged
@@ -79,17 +81,6 @@
 
       systems = [ "x86_64-linux" "aarch64-darwin" ];
 
-      # Certain packages are pulled from unstable to get the latest version
-      unstablePackages = lib.genAttrs systems
-        (system:
-          import nixpkgs-unstable
-            {
-              inherit system;
-              config = {
-                allowUnfree = true;
-              };
-            }
-        );
 
 
       overlays = system: [
@@ -101,33 +92,22 @@
 
         overlay
         secrets.overlay
-
-        # Overrides from unstable
-        (final: prev: {
-          inherit (unstablePackages.${system}) aider-chat;
-        })
       ];
 
-      # as far as I can tell, overlays make packages available to home-manager, 
-      # while definitions here don't. though that's not true for neovim,
-      # but is for deployment-tools?
-      additionalPackages = (pkgs: system: {
-        jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
-        neovim = neovim.neovim.${system};
-        faillint = pkgs.callPackage ./nix/packages/faillint { };
-        kubectl = pkgs.callPackage ./nix/packages/kubectl/1-25.nix { };
-        deployment-tools = pkgs.callPackage ./nix/packages/deployment-tools {
-          inherit (pkgs) stdenv lib;
-          pkgs = pkgs // {
-            inherit (loki.packages.${system}) loki logcli promtail;
-          };
-        };
-      });
 
       packages = lib.genAttrs systems
         (system:
           let
-            pkgs = import nixpkgs
+            # Certain packages are pulled from unstable to get the latest version
+            unstablePackages = import nixpkgs-unstable
+              {
+                inherit system;
+                config = {
+                  allowUnfree = true;
+                };
+              };
+
+            base = import nixpkgs
               {
                 inherit system;
                 overlays = overlays system;
@@ -136,8 +116,22 @@
                 };
               };
           in
-          pkgs //
-          additionalPackages pkgs system);
+          base // {
+            inherit (unstablePackages) aider-chat;
+            go_1_23 = base.go;
+            go = unstablePackages.go_1_24;
+            jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
+            neovim = neovim.neovim.${system};
+            faillint = base.callPackage ./nix/packages/faillint { };
+            kubectl = base.callPackage ./nix/packages/kubectl/1-25.nix { };
+            deployment-tools = base.callPackage ./nix/packages/deployment-tools {
+              inherit (base) stdenv lib;
+              pkgs = base // {
+                inherit (loki.packages.${system}) loki logcli promtail;
+              };
+            };
+          });
+
 
       modulesPath = "${nixpkgs}/nixos/modules";
     in
