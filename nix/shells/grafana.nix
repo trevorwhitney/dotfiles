@@ -2,7 +2,8 @@
 , useEslintDaemon ? true
 , extraPackages ? [ ]
 , nodeJsPkg ? pkgs.nodejs_20
-, goPkg ? pkgs.go_1_23
+, goPkg ? pkgs.go
+, delvePkg ? pkgs.delve
 , ...
 }:
 let
@@ -20,10 +21,12 @@ pkgs.mkShell {
     jsonnet
     zip
     lefthook
+    wire
 
     # Golang
     goPkg
-    delve
+    delvePkg
+
     faillint
     golangci-lint
     gotools
@@ -38,6 +41,7 @@ pkgs.mkShell {
     (pkgs.neovim {
       inherit
         goPkg
+        delvePkg
         nodeJsPkg
         useEslintDaemon;
       withLspSupport = true;

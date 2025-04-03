@@ -1,6 +1,7 @@
 { pkgs, secrets, ... }: 
 let
   goPkg = pkgs.go;
+  delvePkg = pkgs.delve;
 in 
 pkgs.mkShell {
   nativeBuildInputs = [
@@ -17,7 +18,7 @@ pkgs.mkShell {
     })
 
     (pkgs.neovim {
-      inherit goPkg;
+      inherit goPkg delvePkg;
       withLspSupport = true;
       goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
       dapConfigurations =
@@ -61,10 +62,10 @@ pkgs.mkShell {
     })
 
     goPkg
+    delvePkg
 
     act
     crane
-    delve
     drone-cli
     envsubst
     faillint

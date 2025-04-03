@@ -1,6 +1,7 @@
 { pkgs, secrets, ... }:
 let
   goPkg = pkgs.go;
+  delvePkg = pkgs.delve;
 in pkgs.mkShell {
   nativeBuildInputs = [ pkgs.bashInteractive ];
   buildInputs = with pkgs; [
@@ -14,10 +15,10 @@ in pkgs.mkShell {
     })
 
     goPkg
+    delvePkg
 
     act
     golang-perf
-    delve
     drone-cli
     envsubst
     gcc
@@ -49,7 +50,7 @@ in pkgs.mkShell {
     nodePackages.typescript-language-server
 
     (pkgs.neovim {
-      inherit goPkg;
+      inherit goPkg delvePkg;
       withLspSupport = true;
       goBuildTags = "requires_docker";
     })

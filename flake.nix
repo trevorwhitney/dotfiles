@@ -119,7 +119,9 @@
           base // {
             inherit (unstablePackages) aider-chat;
             go_1_23 = base.go;
+            delve_1_23 = base.delve;
             go = unstablePackages.go_1_24;
+            delve = unstablePackages.delve;
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
             faillint = base.callPackage ./nix/packages/faillint { };
