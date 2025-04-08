@@ -24,6 +24,8 @@
       "flux"
       "ghostty"
       "iterm2"
+      "mullvad-browser"
+      "mullvadvpn"
       "plexamp"
       "raycast"
       "tailscale"
@@ -31,9 +33,5 @@
       "vlc"
       "wireshark"
     ];
-
-    masApps = {
-      Xcode = 497799835;
-    };
   };
 }

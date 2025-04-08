@@ -163,6 +163,9 @@ in
           source <(${pkgs.kubectl}/bin/kubectl completion zsh)
           complete -F __start_kubectl k
 
+          source <(${config.programs.jujutsu.package}/bin/jj util completion zsh)
+          complete -F __jj j
+
           autoload -U +X bashcompinit && bashcompinit
 
           if [ -n "$TMUX" ]; then

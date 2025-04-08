@@ -1,7 +1,7 @@
 { self, pkgs, home-manager, agenix, ... }:
 let
-  goPkg = pkgs.go_1_23;
-  nodeJsPkg = pkgs.nodejs_20;
+  goPkg = pkgs.go;
+  nodeJsPkg = pkgs.nodejs;
 in
 [
   {
@@ -104,6 +104,11 @@ in
   ../../modules/desktops/macos.nix
 
   home-manager.darwinModules.home-manager
+  (
+  let
+    # this is the convulted way to get packages from unstable into home-manager wihtout using complicated overlays
+    inherit (pkgs) jujutsu deployment-tools lazyjj;
+  in
   {
     home-manager = {
       useGlobalPkgs = true;
@@ -124,7 +129,15 @@ in
 
           ../../home-manager/hosts/fiction.nix
         ];
+
+        # make sure inherited packages are use in this configuration block
+        programs.jujutsu.package = jujutsu;
+
+        home.packages = [
+          deployment-tools
+          lazyjj
+        ];
       };
     };
-  }
+  })
 ]

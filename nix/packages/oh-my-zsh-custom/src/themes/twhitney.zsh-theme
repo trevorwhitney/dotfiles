@@ -122,7 +122,7 @@ prompt_context() {
 }
 
 # Git: branch/detached head, dirty status
-prompt_git() {
+git_info() {
   (( $+commands[git] )) || return
   if [[ "$(git config --get oh-my-zsh.hide-status 2>/dev/null)" = 1 ]]; then
     return
@@ -154,8 +154,6 @@ prompt_git() {
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
 
-    print_separator
-
     info="${ref/refs\/heads\//}${vcs_info_msg_0_%% }${mode}"
     if [[ -n $dirty ]]; then
       prompt_segment $yellow  $info
@@ -164,6 +162,35 @@ prompt_git() {
     fi
 
   fi
+}
+
+jjgit_prompt()
+{
+  pwd_in_jjgit() # echo "jj" or "git" if either is found in $PWD or its parent directories
+  { # using the shell is much faster than `git rev-parse --git-dir` or `jj root`
+    local D="/$PWD"
+    while test -n "$D" ; do
+      test -e "$D/.jj" && { echo jj ; return; }
+      test -e "$D/.git" && { echo git ; return; }
+      D="${D%/*}"
+    done
+  }
+
+  local jjgit="`pwd_in_jjgit`"  # results in "jj", "git" or ""
+  if test "$jjgit" = jj ; then
+    # --ignore-working-copy: avoid inspecting $PWD and concurrent snapshotting which could create divergent commits
+    info="$(jj --ignore-working-copy --no-pager log --no-graph --color=always -r @ -T \
+       ' "[@ " ++ concat( separate(" ", format_short_change_id_with_hidden_and_divergent_info(self), format_short_commit_id(commit_id),
+           bookmarks, if(conflict, label("conflict", "conflict")) ) ) ++ "]\n" ' 2>/dev/null)"
+    echo -n " $info"
+  elif test "$jjgit" = git ; then
+    git_info
+  fi
+}
+
+prompt_git() {
+  print_separator
+  jjgit_prompt
 }
 
 # Dir: current working directory
