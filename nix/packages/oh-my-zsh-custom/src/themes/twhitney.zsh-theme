@@ -181,7 +181,7 @@ jjgit_prompt()
     # --ignore-working-copy: avoid inspecting $PWD and concurrent snapshotting which could create divergent commits
     info="$(jj --ignore-working-copy --no-pager log --no-graph --color=always -r @ -T \
        ' "[@ " ++ concat( separate(" ", format_short_change_id_with_hidden_and_divergent_info(self), format_short_commit_id(commit_id),
-           bookmarks, if(conflict, label("conflict", "conflict")) ) ) ++ "]\n" ' 2>/dev/null)"
+           bookmarks, description.trim(), if(conflict, label("conflict", "conflict")) ) ) ++ "]\n" ' 2>/dev/null)"
     echo -n " $info"
   elif test "$jjgit" = git ; then
     git_info
