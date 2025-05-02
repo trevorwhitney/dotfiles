@@ -1,6 +1,6 @@
 { stdenv, pkgs, lib, ... }:
 let
-  rev = "8ccd8fd5cfeb641e8b749dbc7c017120e512f157";
+  rev = "13697fa180ff92d0482611b21d37f187e5ac413f";
 
   deploymentTools = builtins.fetchGit {
     inherit rev;
@@ -45,6 +45,7 @@ let
     source ${pkgs.secrets}/grafana/deployment-tools.sh
     ${deploymentTools}/scripts/sso/aws.sh
     ${deploymentTools}/scripts/sso/gcloud.sh
+    go run -C ${deploymentTools}/scripts/timed-access-cli . ra
   '';
 
   logcli = pkgs.writeShellScriptBin "logcli" ''

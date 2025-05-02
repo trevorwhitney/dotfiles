@@ -154,6 +154,8 @@ git_info() {
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
 
+    print_separator
+
     info="${ref/refs\/heads\//}${vcs_info_msg_0_%% }${mode}"
     if [[ -n $dirty ]]; then
       prompt_segment $yellow  $info
@@ -182,6 +184,7 @@ jjgit_prompt()
     info="$(jj --ignore-working-copy --no-pager log --no-graph --color=always -r @ -T \
        ' "[@ " ++ concat( separate(" ", format_short_change_id_with_hidden_and_divergent_info(self), format_short_commit_id(commit_id),
            bookmarks, description.trim(), if(conflict, label("conflict", "conflict")) ) ) ++ "]\n" ' 2>/dev/null)"
+    print_separator
     echo -n " $info"
   elif test "$jjgit" = git ; then
     git_info
@@ -189,7 +192,6 @@ jjgit_prompt()
 }
 
 prompt_git() {
-  print_separator
   jjgit_prompt
 }
 

@@ -142,13 +142,14 @@
     in
     {
       nixosConfigurations = {
-        cerebral = lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = import ./nix/hosts/cerebral {
-            inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
-            pkgs = packages.x86_64-linux;
-          };
-        };
+        # TODO: This is getting pretty old, is cerebral dead?
+        # cerebral = lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   modules = import ./nix/hosts/cerebral {
+        #     inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
+        #     pkgs = packages.x86_64-linux;
+        #   };
+        # };
       };
 
       darwinConfigurations = {

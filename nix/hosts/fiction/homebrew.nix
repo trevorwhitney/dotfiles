@@ -8,13 +8,17 @@
     };
 
     brews = [
+      "k6"
       "mas"
       "pam-reattach"
+      "pipx" # for aider
+      "python"
       "reattach-to-user-namespace"
       "telnet"
+      "trufflehog"
       "usbutils"
-      "python"
-      "pipx" # for aider
+      "xk6"
+      "zizmor"
     ];
 
     casks = [
@@ -31,6 +35,7 @@
       "tailscale"
       "vimr"
       "vlc"
+      "warp"
       "wireshark"
     ];
   };
