@@ -1,19 +1,11 @@
-{ pkgs, loki, secrets, ... }:
+{ pkgs, loki, ... }:
 let
-  deploymentTools = builtins.fetchGit {
-    # Descriptive name to make the store path easier to identify
-    name = "deployment-tools";
-    url = "https://github.com/grafana/deployment_tools";
-    rev = "2df5edd74eacece52f7f3f3974de9285cceca1c8";
-  };
-
   # overlays needed for loki
   packages = pkgs.extend
     (self: super: with super.lib;
     (foldl' (flip extends) (_: super)
       [
         loki.overlays.default
-        secrets.overlay
 
         (import ../overlays/golang-perf.nix)
         (import ../overlays/chart-testing.nix)

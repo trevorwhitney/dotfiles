@@ -8,14 +8,16 @@ let
   cfg = { config, pkgs, ... }: {
     programs.git = {
       includes =
-        [{ path = "${pkgs.secrets}/git"; }];
+        [{ path = "${config.age.secrets.git.path}"; }];
     };
 
     age = {
       secrets = {
         openApiKey.file = ../secrets/openApiKey.age;
+        git.file = ../secrets/git.age;
       };
       identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
+      secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
     };
 
     home.sessionVariables = {

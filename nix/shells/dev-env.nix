@@ -19,6 +19,7 @@ pkgs.mkShell {
     git
     gnumake
     jsonnet
+    jsonnet-bundler
     shellcheck
     zip
 

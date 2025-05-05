@@ -26,15 +26,6 @@
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    secrets = {
-      #TODO: replace with https://github.com/ryantm/agenix
-      url =
-        "git+ssh://git@github.com/trevorwhitney/home-manager-secrets.git?ref=main&rev=85b2b445e9e0a7f2996a5f7964e6f7ad8072f675";
-
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     # Hardware specific configs
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -71,7 +62,6 @@
     , nixos-hardware
     , nixpkgs
     , nixpkgs-unstable
-    , secrets
     , ...
     }:
     let
@@ -81,8 +71,6 @@
 
       systems = [ "x86_64-linux" "aarch64-darwin" ];
 
-
-
       overlays = system: [
         (import "${self}/nix/overlays/nix-alien.nix" {
           inherit nix-alien system;
@@ -91,9 +79,7 @@
         deploy-rs.overlay
 
         overlay
-        secrets.overlay
       ];
-
 
       packages = lib.genAttrs systems
         (system:
@@ -118,6 +104,7 @@
           in
           base // {
             inherit (unstablePackages) aider-chat delve golangci-lint jujutsu lazyjj;
+            inherit (loki.packages.${system}) loki logcli promtail;
 
             go_1_23 = base.go;
             delve_1_23 = base.delve;
@@ -129,14 +116,7 @@
             neovim = neovim.neovim.${system};
             faillint = base.callPackage ./nix/packages/faillint { };
             kubectl = base.callPackage ./nix/packages/kubectl/1-25.nix { };
-            deployment-tools = base.callPackage ./nix/packages/deployment-tools {
-              inherit (base) stdenv lib;
-              pkgs = base // {
-                inherit (loki.packages.${system}) loki logcli promtail;
-              };
-            };
           });
-
 
       modulesPath = "${nixpkgs}/nixos/modules";
     in
@@ -156,7 +136,7 @@
         fiction = nix-darwin.lib.darwinSystem {
           system = "aarch64-darwin";
           modules = import ./nix/hosts/fiction {
-            inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
+            inherit self lib modulesPath home-manager nixos-hardware agenix loki;
             pkgs = packages.aarch64-darwin;
           };
         };
@@ -175,12 +155,12 @@
     } // (flake-utils.lib.eachSystem systems (system:
     {
       devShells = import ./nix/shells {
-        inherit loki secrets;
+        inherit loki;
         pkgs = packages.${system};
       };
 
       apps = import ./nix/apps {
-        inherit loki secrets;
+        inherit loki;
         pkgs = packages.${system};
       };
 

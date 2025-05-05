@@ -1,4 +1,4 @@
-{ pkgs, secrets, ... }: 
+{ pkgs, ... }: 
 let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
@@ -102,8 +102,4 @@ pkgs.mkShell {
     (pkgs.loki.overrideAttrs (old: { doCheck = false; }))
     (pkgs.promtail.overrideAttrs (old: { doCheck = false; }))
   ];
-
-  shellHook = ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
-  '';
 }

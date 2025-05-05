@@ -31,6 +31,8 @@
       anthropicApiKey.file = ../../secrets/anthropicApiKey.age;
       openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
       ollamaCredentials.file = ../../secrets/ollamaCredentials.age;
+      "deploymentTools.sh".file = ../../secrets/deploymentTools.sh.age;
+      "git".file = ../../secrets/git.age;
     };
     secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
     identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
@@ -42,7 +44,7 @@
     };
     git = {
       includes =
-        [{ path = "${pkgs.secrets}/git"; }];
+        [{ path = "${config.age.secrets.git.path}"; }];
     };
 
     gh = {

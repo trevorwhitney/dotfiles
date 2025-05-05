@@ -1,4 +1,4 @@
-{ pkgs, secrets, loki, ... }:
+{ pkgs, loki, ... }:
 let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
@@ -16,10 +16,6 @@ in
     ];
   };
 
-  deployment-tools = import ./deployment-tools.nix {
-    inherit secrets pkgs;
-  };
-
   dev-env = import ./dev-env.nix { inherit pkgs goPkg delvePkg; };
 
   dev-env-no-eslint-d = import ./dev-env.nix {
@@ -34,9 +30,9 @@ in
   };
 
   loki = import ./loki.nix {
-    inherit secrets pkgs goPkg delvePkg;
+    inherit pkgs goPkg delvePkg;
   };
-  gel = import ./gel.nix { inherit pkgs secrets goPkg delvePkg; };
+  gel = import ./gel.nix { inherit pkgs goPkg delvePkg; };
 
   prometheus = import ./dev-env.nix {
     inherit pkgs goPkg delvePkg;

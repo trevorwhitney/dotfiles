@@ -1,4 +1,10 @@
-{ stdenv, pkgs, lib, ... }:
+{ stdenv
+, pkgs
+, lib
+, deploymentToolsSecretsPath
+, logcli ? pkgs.logcli
+, ...
+}:
 let
   rev = "13697fa180ff92d0482611b21d37f187e5ac413f";
 
@@ -9,47 +15,47 @@ let
   };
 
   gcom = pkgs.writeShellScriptBin "gcom" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     ${deploymentTools}/scripts/gcom/gcom "$@"
   '';
   gcom-ops = pkgs.writeShellScriptBin "gcom-ops" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     GCOM_TOKEN="''${GCOM_OPS_TOKEN}" ${deploymentTools}/scripts/gcom/gcom-ops "$@"
   '';
   gcom-dev = pkgs.writeShellScriptBin "gcom-dev" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     GCOM_TOKEN="''${GCOM_DEV_TOKEN}" ${deploymentTools}/scripts/gcom/gcom-dev "$@"
   '';
 
   iap-token = pkgs.writeShellScriptBin "iap-token" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     source ${deploymentTools}/scripts/gcom/lib.sh; get_iap_token "$@"
   '';
 
   id-token = pkgs.writeShellScriptBin "id-token" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     source ${deploymentTools}/scripts/gcom/lib.sh; get_id_token
   '';
 
   flux-ignore = pkgs.writeShellScriptBin "flux-ignore" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     ${deploymentTools}/scripts/flux/ignore.sh "$@"
   '';
 
   rt = pkgs.writeShellScriptBin "rt" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     ${deploymentTools}/scripts/cortex/rt.sh "$@"
   '';
 
   grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
+    source ${deploymentToolsSecretsPath};
     ${deploymentTools}/scripts/sso/aws.sh
     ${deploymentTools}/scripts/sso/gcloud.sh
     go run -C ${deploymentTools}/scripts/timed-access-cli . ra
   '';
 
-  logcli = pkgs.writeShellScriptBin "logcli" ''
-        source ${pkgs.secrets}/grafana/deployment-tools.sh
+  _logcli = pkgs.writeShellScriptBin "logcli" ''
+        source ${deploymentToolsSecretsPath};
 
         mkdir -p ~/.config/loki
         if [[ "''${1}" == "--ops" ]]; then
@@ -63,7 +69,7 @@ EOF
           fi
           source ~/.config/loki/loki-ops.env
           
-              ${pkgs.logcli}/bin/logcli --org-id 29 "$@"
+              ${logcli}/bin/logcli --org-id 29 "$@"
             elif [[ "''${1}" == "--dev" ]]; then
               shift
               if [[ ! -e ~/.config/loki/loki-dev.env ]]; then
@@ -75,7 +81,7 @@ EOF
               fi
               source ~/.config/loki/loki-dev.env
           
-                  ${pkgs.logcli}/bin/logcli --org-id 29 "$@"
+                  ${logcli}/bin/logcli --org-id 29 "$@"
                 elif [[ "''${1}" == "--dev" ]]; then
                   shift
                   if [[ ! -e ~/.config/loki/loki-dev.env ]]; then
@@ -87,9 +93,9 @@ EOF
                   fi
                   source ~/.config/loki/loki-dev.env
           
-              ${pkgs.logcli}/bin/logcli --org-id 29 "$@"
+              ${logcli}/bin/logcli --org-id 29 "$@"
             else
-              ${pkgs.logcli}/bin/logcli "$@"
+              ${logcli}/bin/logcli "$@"
             fi
 
   '';
@@ -109,7 +115,7 @@ stdenv.mkDerivation {
     install -m755 ${flux-ignore}/bin/flux-ignore $out/bin/flux-ignore
     install -m755 ${rt}/bin/rt $out/bin/rt
     install -m755 ${grafana-sso}/bin/grafana-sso $out/bin/grafana-sso
-    install -m755 ${logcli}/bin/logcli $out/bin/logcli
+    install -m755 ${_logcli}/bin/logcli $out/bin/logcli
     install -m755 ${iap-token}/bin/iap-token $out/bin/iap-token
     install -m755 ${id-token}/bin/id-token $out/bin/id-token
   '';

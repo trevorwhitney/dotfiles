@@ -1,4 +1,4 @@
-{ pkgs, secrets, ... }:
+{ pkgs, ... }:
 let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
@@ -55,8 +55,4 @@ in pkgs.mkShell {
       goBuildTags = "requires_docker";
     })
   ];
-
-  shellHook = ''
-    source ${pkgs.secrets}/grafana/deployment-tools.sh
-  '';
 }

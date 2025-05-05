@@ -1,9 +1,10 @@
-{ self, pkgs, home-manager, agenix, ... }:
+{ self, pkgs, home-manager, agenix, loki, ... }:
 let
   goPkg = pkgs.go;
   nodeJsPkg = pkgs.nodejs;
 in
 [
+    agenix.nixosModules.default
   {
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
@@ -24,7 +25,6 @@ in
         cmake
         coreutils
         curl
-        deployment-tools
         diffutils
         fd
         fzf
@@ -100,14 +100,17 @@ in
   ./homebrew.nix
   ./remote-build.nix
   ./twhitney.nix
+  ./secrets.nix
 
   ../../modules/desktops/macos.nix
+  (import ../../modules/deployment-tools.nix { inherit loki; })
 
   home-manager.darwinModules.home-manager
   (
   let
     # this is the convulted way to get packages from unstable into home-manager wihtout using complicated overlays
-    inherit (pkgs) jujutsu deployment-tools lazyjj;
+    # inherit (pkgs) jujutsu deployment-tools lazyjj;
+    inherit (pkgs) jujutsu lazyjj;
   in
   {
     home-manager = {
@@ -134,7 +137,6 @@ in
         programs.jujutsu.package = jujutsu;
 
         home.packages = [
-          deployment-tools
           lazyjj
         ];
       };

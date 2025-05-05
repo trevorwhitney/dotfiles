@@ -10,5 +10,7 @@ in
   "anthropicApiKey.age".publicKeys = [ twhitney agenix ];
   "openRouterApiKey.age".publicKeys = [ twhitney agenix ];
   "ollamaCredentials.age".publicKeys = [ twhitney agenix ];
+  "deploymentTools.sh.age".publicKeys = [ twhitney agenix ];
+  "git.age".publicKeys = [ twhitney agenix ];
 }
 
