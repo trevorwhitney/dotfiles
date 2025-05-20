@@ -8,6 +8,7 @@
     };
 
     brews = [
+      "fswatch"
       "k6"
       "mas"
       "pam-reattach"

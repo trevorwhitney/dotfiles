@@ -18,7 +18,7 @@ pkgs.mkShell {
     bashInteractive
     git
     gnumake
-    jsonnet
+    go-jsonnet
     jsonnet-bundler
     shellcheck
     zip
