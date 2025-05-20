@@ -12,7 +12,7 @@ in
     zsh = {
       shellAliases = {
         brew = "/opt/homebrew/bin/brew ";
-        rebuild = "darwin-rebuild switch --flake $HOME/workspace/dotfiles ";
+        rebuild = "sudo darwin-rebuild switch --flake $HOME/workspace/dotfiles ";
       };
       useBrew = true;
       startNixDaemon = true;

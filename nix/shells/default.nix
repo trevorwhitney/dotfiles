@@ -2,6 +2,7 @@
 let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
+  nodeJsPkg = pkgs.nodejs_22;
 in
 {
   default = import ./dev-env.nix {
@@ -24,9 +25,7 @@ in
   };
 
   grafana = import ./grafana.nix {
-    inherit pkgs;
-    goPkg = pkgs.go_1_23;
-    delvePkg = pkgs.delve_1_23;
+    inherit pkgs goPkg delvePkg nodeJsPkg;
   };
 
   loki = import ./loki.nix {
@@ -35,7 +34,6 @@ in
   gel = import ./gel.nix { inherit pkgs goPkg delvePkg; };
 
   prometheus = import ./dev-env.nix {
-    inherit pkgs goPkg delvePkg;
-    nodeJsPkg = pkgs.nodejs_18;
+    inherit pkgs goPkg delvePkg nodeJsPkg;
   };
 }

@@ -84,7 +84,7 @@ in
         source ${config.age.secrets.ollamaCredentials.path}
       '');
 
-      initExtraFirst = builtins.concatStringsSep "\n" [
+      initContent = builtins.concatStringsSep "\n" (with pkgs; [
         (lib.optionalString cfg.useBrew
           ''
             eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -102,9 +102,6 @@ in
               . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
             fi
           '')
-      ];
-
-      initExtra = builtins.concatStringsSep "\n" (with pkgs; [
         ''
           # Fuzzy completion for history
           [ -f "${fzf}/share/fzf/completion.zsh" ] && source "${fzf}/share/fzf/completion.zsh"

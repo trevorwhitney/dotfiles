@@ -1,6 +1,8 @@
 { pkgs, lib, config, ... }: {
   nix.settings.trusted-users = [ "twhitney" ];
 
+  system.primaryUser = "twhitney";
+
   users.users.twhitney = {
     description = "Trevor Whitney";
     home = "/Users/twhitney";

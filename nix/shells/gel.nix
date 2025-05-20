@@ -2,6 +2,10 @@
 let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
+  nodejs = pkgs.nodejs_22;
+  nodeJsPkg = pkgs.nodejs_22;
+
+
 in pkgs.mkShell {
   nativeBuildInputs = [ pkgs.bashInteractive ];
   buildInputs = with pkgs; [
@@ -50,7 +54,7 @@ in pkgs.mkShell {
     nodePackages.typescript-language-server
 
     (pkgs.neovim {
-      inherit goPkg delvePkg;
+      inherit goPkg delvePkg nodeJsPkg;
       withLspSupport = true;
       goBuildTags = "requires_docker";
     })

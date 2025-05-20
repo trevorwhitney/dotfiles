@@ -11,7 +11,6 @@
       "fswatch"
       "k6"
       "mas"
-      "pam-reattach"
       "pipx" # for aider
       "python"
       "reattach-to-user-namespace"

@@ -2,6 +2,7 @@
 let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
+  nodeJsPkg = pkgs.nodejs_22;
 in 
 pkgs.mkShell {
   nativeBuildInputs = [
@@ -18,7 +19,7 @@ pkgs.mkShell {
     })
 
     (pkgs.neovim {
-      inherit goPkg delvePkg;
+      inherit goPkg delvePkg nodeJsPkg;
       withLspSupport = true;
       goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
       dapConfigurations =
@@ -92,9 +93,9 @@ pkgs.mkShell {
     yq-go
 
     # Typescript for GitHub Actions
-    nodejs
+    nodeJsPkg
     (yarn.override {
-      inherit nodejs;
+      nodejs = nodeJsPkg;
     })
     nodePackages.typescript
     nodePackages.typescript-language-server

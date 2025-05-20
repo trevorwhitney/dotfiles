@@ -1,7 +1,7 @@
 { pkgs
 , useEslintDaemon ? true
 , extraPackages ? [ ]
-, nodeJsPkg ? pkgs.nodejs_20
+, nodeJsPkg ? pkgs.nodejs_22
 , goPkg ? pkgs.go
 , delvePkg ? pkgs.delve
 , ...

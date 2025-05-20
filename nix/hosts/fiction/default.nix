@@ -1,7 +1,7 @@
 { self, pkgs, home-manager, agenix, loki, ... }:
 let
   goPkg = pkgs.go;
-  nodeJsPkg = pkgs.nodejs;
+  nodeJsPkg = pkgs.nodejs_22;
 in
 [
     agenix.nixosModules.default
@@ -56,11 +56,9 @@ in
       EDITOR = "vim";
     };
 
-    # Auto upgrade nix package and the daemon service.
-    services.nix-daemon.enable = true;
-
     # General Nix settings
     nix = {
+      enable = true;
       settings = {
         # Necessary for using flakes on this system.
         experimental-features = "nix-command flakes";
@@ -94,6 +92,12 @@ in
         enable = true;
         nix-direnv = { enable = true; };
       };
+    };
+
+    security.pam.services.sudo_local = {
+      enable = true;
+      reattach = true;
+      touchIdAuth = true;
     };
   }
 
