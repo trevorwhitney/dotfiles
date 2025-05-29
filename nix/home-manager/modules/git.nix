@@ -86,6 +86,7 @@ in
         ".aider*"
         ".env"
         "MEMORY.md"
+        ".claude"
       ];
     };
 
