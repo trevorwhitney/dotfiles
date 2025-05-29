@@ -29,7 +29,7 @@
       "ghostty"
       "iterm2"
       "mullvad-browser"
-      "mullvadvpn"
+      "mullvad-vpn"
       "plexamp"
       "raycast"
       "tailscale"
