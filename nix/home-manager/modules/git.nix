@@ -87,6 +87,7 @@ in
         ".env"
         "MEMORY.md"
         ".claude"
+        ".worktrees"
       ];
     };
 
