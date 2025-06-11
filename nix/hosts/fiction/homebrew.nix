@@ -36,6 +36,7 @@
       "vimr"
       "vlc"
       "warp"
+      "wine-stable"
       "wireshark"
     ];
   };

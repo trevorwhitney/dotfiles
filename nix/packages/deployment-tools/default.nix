@@ -6,13 +6,11 @@
 , ...
 }:
 let
-  rev = "13697fa180ff92d0482611b21d37f187e5ac413f";
+  rev = "a94461d6ba4dcf76073d3719806c962bf259662b";
 
-  deploymentTools = builtins.fetchGit {
-    inherit rev;
-    name = "deployment-tools";
-    url = "git+ssh://git@github.com/grafana/deployment_tools";
-  };
+  # TODO: make this configurable
+  # is there any way to avoid an absolute path?
+  deploymentTools = /Users/twhitney/workspace/deployment_tools;
 
   gcom = pkgs.writeShellScriptBin "gcom" ''
     source ${deploymentToolsSecretsPath};
@@ -49,9 +47,13 @@ let
 
   grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
     source ${deploymentToolsSecretsPath};
-    ${deploymentTools}/scripts/sso/aws.sh
+    cp ${deploymentTools}/scripts/sso/aws_config_dev ~/.aws/config
+
+    ${pkgs.gnumake}/bin/make -C ${deploymentTools} timed-access-cli ra
+
+    export AWS_CONFIG_FILE=${deploymentTools}/scripts/sso/aws_config_prod
+    ${deploymentTools}/scripts/sso/aws.sh workloads-prod
     ${deploymentTools}/scripts/sso/gcloud.sh
-    go run -C ${deploymentTools}/scripts/timed-access-cli . ra
   '';
 
   _logcli = pkgs.writeShellScriptBin "logcli" ''
