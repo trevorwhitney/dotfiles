@@ -47,12 +47,11 @@ let
 
   grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
     source ${deploymentToolsSecretsPath};
-    cp ${deploymentTools}/scripts/sso/aws_config_dev ~/.aws/config
 
     ${pkgs.gnumake}/bin/make -C ${deploymentTools} timed-access-cli ra
 
     export AWS_CONFIG_FILE=${deploymentTools}/scripts/sso/aws_config_prod
-    ${deploymentTools}/scripts/sso/aws.sh workloads-prod
+    ${deploymentTools}/scripts/sso/aws.sh reset workloads-prod
     ${deploymentTools}/scripts/sso/gcloud.sh
   '';
 

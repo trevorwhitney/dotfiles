@@ -8,6 +8,7 @@
     };
 
     brews = [
+      "awscli"
       "fswatch"
       "k6"
       "mas"
@@ -25,19 +26,20 @@
       "discord"
       "deadbeef@nightly"
       "dotnet-sdk"
-      "flux"
+      "flux-app"
       "ghostty"
       "iterm2"
       "mullvad-browser"
       "mullvad-vpn"
       "plexamp"
       "raycast"
-      "tailscale"
+      "spotify"
+      "tailscale-app"
       "vimr"
       "vlc"
       "warp"
       "wine-stable"
-      "wireshark"
+      "wireshark-app"
     ];
   };
 }

@@ -76,7 +76,7 @@
           inherit nix-alien system;
         })
 
-        deploy-rs.overlay
+        # deploy-rs.overlay
 
         overlay
       ];

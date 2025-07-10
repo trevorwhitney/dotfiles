@@ -37,7 +37,6 @@ in
     };
 
     packages = with pkgs; [
-      awscli2
       azure-cli
       bat
       bind
@@ -53,6 +52,7 @@ in
         beta
         alpha
         gke-gcloud-auth-plugin
+        cloud-sql-proxy
       ]))
       jq
       k9s

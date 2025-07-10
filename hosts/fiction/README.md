@@ -9,5 +9,4 @@
 
 1. Install homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 1. Remove `~/.ssh/config` and the automatically the 1Password ssh agent via 1Password settings
-1. Copy `sudo_local` to `/etc/pam.d`
 1. Run `nix develop` at the root of dotfiles, then run `nix run nix-darwin -- switch --flake .`
