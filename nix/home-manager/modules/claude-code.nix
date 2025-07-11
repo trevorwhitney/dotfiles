@@ -6,14 +6,13 @@ let
         "Bash(awk:*)"
         "Bash(chmod:*)"
         "Bash(find:*)"
-        "Bash(git -C * branch -a)"
-        "Bash(git -C * branch status)"
-        "Bash(git -C * log * status)"
-        "Bash(git -C /Users/twhitney/workspace/enterprise-logs status)"
+        "Bash(git branch:*)"
         "Bash(git checkout:*)"
         "Bash(git cherry-pick:*)"
         "Bash(git fetch:*)"
+        "Bash(git log:*)"
         "Bash(git rev-parse:*)"
+        "Bash(git status:*)"
         "Bash(go build:*)"
         "Bash(go run:*)"
         "Bash(go test:*)"
@@ -38,5 +37,5 @@ let
   '';
 in
 {
-  home.file.".claude/settings.json".source = prettyJson;
+  home.file.".claude/global-settings.local.json".source = prettyJson;
 }
