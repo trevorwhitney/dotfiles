@@ -26,6 +26,7 @@
       "discord"
       "deadbeef@nightly"
       "dotnet-sdk"
+      "brave-browser@beta"
       "flux-app"
       "ghostty"
       "iterm2"

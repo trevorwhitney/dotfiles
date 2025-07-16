@@ -21,7 +21,7 @@ pkgs.mkShell {
     (pkgs.neovim {
       inherit goPkg delvePkg nodeJsPkg;
       withLspSupport = true;
-      goBuildTags = "linux,cgo,promtail_journal_enabled,integration";
+      goBuildTags = "integration,slicelabels";
       dapConfigurations =
         let
           ports = {

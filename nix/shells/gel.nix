@@ -56,7 +56,7 @@ in pkgs.mkShell {
     (pkgs.neovim {
       inherit goPkg delvePkg nodeJsPkg;
       withLspSupport = true;
-      goBuildTags = "requires_docker";
+      goBuildTags = "requires_docker,slicelabels";
       dapConfigurations =
         let
           ports = {
