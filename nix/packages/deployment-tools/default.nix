@@ -47,11 +47,15 @@ let
 
   grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
     source ${deploymentToolsSecretsPath};
-
-    ${pkgs.gnumake}/bin/make -C ${deploymentTools} timed-access-cli ra
-
-    export AWS_CONFIG_FILE=${deploymentTools}/scripts/sso/aws_config_prod
     ${deploymentTools}/scripts/sso/aws.sh reset workloads-prod
+    ${deploymentTools}/scripts/sso/gcloud.sh
+  '';
+
+  timed-access = pkgs.writeShellScriptBin "timed-access" ''
+    source ${deploymentToolsSecretsPath};
+
+    # timed access handles aws login
+    ${pkgs.gnumake}/bin/make -C ${deploymentTools} timed-access-cli ra
     ${deploymentTools}/scripts/sso/gcloud.sh
   '';
 
@@ -116,6 +120,7 @@ stdenv.mkDerivation {
     install -m755 ${flux-ignore}/bin/flux-ignore $out/bin/flux-ignore
     install -m755 ${rt}/bin/rt $out/bin/rt
     install -m755 ${grafana-sso}/bin/grafana-sso $out/bin/grafana-sso
+    install -m755 ${timed-access}/bin/timed-access $out/bin/timed-access
     install -m755 ${_logcli}/bin/logcli $out/bin/logcli
     install -m755 ${iap-token}/bin/iap-token $out/bin/iap-token
     install -m755 ${id-token}/bin/id-token $out/bin/id-token
