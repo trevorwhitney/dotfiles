@@ -27,9 +27,11 @@ let
         "Bash(mkdir:*)"
         "Bash(rg:*)"
         "Bash(sed:*)"
+        "WebFetch(*)"
       ];
       deny = [];
     };
+    auto_edit = true;
   };
   
   prettyJson = pkgs.runCommand "claude-settings.json" {} ''
@@ -37,5 +39,5 @@ let
   '';
 in
 {
-  home.file.".claude/global-settings.local.json".source = prettyJson;
+  home.file.".claude/settings.local.json".source = prettyJson;
 }

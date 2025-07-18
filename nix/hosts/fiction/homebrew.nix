@@ -9,6 +9,7 @@
 
     brews = [
       "awscli"
+      "bfg"
       "fswatch"
       "k6"
       "mas"
@@ -23,6 +24,7 @@
     ];
 
     casks = [
+      "beekeeper-studio"
       "discord"
       "deadbeef@nightly"
       "dotnet-sdk"

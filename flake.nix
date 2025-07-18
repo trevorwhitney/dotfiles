@@ -103,7 +103,7 @@
               };
           in
           base // {
-            inherit (unstablePackages) aider-chat delve golangci-lint jujutsu lazyjj;
+            inherit (unstablePackages) aider-chat delve golangci-lint jujutsu lazyjj claude-code;
             inherit (loki.packages.${system}) loki logcli promtail;
 
             go_1_23 = base.go;

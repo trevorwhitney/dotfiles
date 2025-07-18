@@ -50,6 +50,42 @@ in
         virtualenv
         yarn
         yq-go
+
+
+        (pkgs.writeShellScriptBin "fix" ''
+          function show_spinner() {
+            local pid=''$1
+            local delay=0.1
+            local spinstr='|/-\'
+            echo -n "Claude is thinking... "
+
+            while kill -0 "''$pid" 2>/dev/null; do
+              local temp=''${spinstr#?}
+              printf " [%c]  " "''$spinstr"
+              local spinstr=''$temp''${spinstr%"''$temp"}
+              sleep ''$delay
+              printf "\b\b\b\b\b\b"
+            done
+          }
+
+          function fix_with_claude() {
+            if [ -z "''$TMUX" ]; then
+              echo "Not in a tmux session. Cannot capture pane output."
+              return 1
+            fi
+
+            ${claude-code}/bin/claude \
+              -p "The last command I ran in my zsh terminal failed. Here's the last 100 lines of output. Please help me understand and fix it, or tell me if you need more lines or context. Suggest a corrected command or next steps.\n\n''$(${tmux}/bin/tmux capture-pane -p -S -100)" \
+              --permission-mode acceptEdits \
+              --allowedTools "Bash(*),Read:*:.,Edit:*:."
+          }
+        
+          fix_with_claude &
+          claude_pid=''$!
+          show_spinner ''$claude_pid
+          wait ''$claude_pid
+        '')
+
       ];
 
     environment.variables = {
