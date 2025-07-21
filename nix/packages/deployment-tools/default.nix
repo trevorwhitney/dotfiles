@@ -56,7 +56,6 @@ let
 
     # timed access handles aws login
     ${pkgs.gnumake}/bin/make -C ${deploymentTools} timed-access-cli ra
-    ${deploymentTools}/scripts/sso/gcloud.sh
   '';
 
   _logcli = pkgs.writeShellScriptBin "logcli" ''
