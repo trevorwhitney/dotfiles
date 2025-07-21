@@ -19,6 +19,7 @@
       "telnet"
       "trufflehog"
       "usbutils"
+      "uv"
       "xk6"
       "zizmor"
     ];
@@ -38,6 +39,7 @@
       "raycast"
       "spotify"
       "tailscale-app"
+      "todoist-app"
       "vimr"
       "vlc"
       "warp"
