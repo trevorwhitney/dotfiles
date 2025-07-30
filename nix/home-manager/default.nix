@@ -13,7 +13,7 @@ let
 
     age = {
       secrets = {
-        openApiKey.file = ../secrets/openApiKey.age;
+        openAiKey.file = ../secrets/openAiKey.age;
         git.file = ../secrets/git.age;
       };
       identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];

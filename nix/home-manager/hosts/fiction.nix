@@ -22,13 +22,13 @@
   # for debugging agenix secrets
   # home.packages = [
   #   (pkgs.writeShellScriptBin "echo-secret" ''
-  #     ${pkgs.coreutils}/bin/cat ${config.age.secrets.openApiKey.path}
+  #     ${pkgs.coreutils}/bin/cat ${config.age.secrets.openAiKey.path}
   #   '')
   # ];
 
   age = {
     secrets = {
-      openApiKey.file = ../../secrets/openApiKey.age;
+      openAiKey.file = ../../secrets/openAiKey.age;
       anthropicApiKey.file = ../../secrets/anthropicApiKey.age;
       openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
       ollamaCredentials.file = ../../secrets/ollamaCredentials.age;

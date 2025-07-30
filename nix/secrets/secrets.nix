@@ -6,7 +6,7 @@ let
   agenix = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGQeR4ucBEgCTMTJDuIg5M0cs1Cjw1Tl17LQtmzkpMXl trevorjwhitney@gmail.com";
 in
 {
-  "openApiKey.age".publicKeys = [ twhitney agenix ];
+  "openAiKey.age".publicKeys = [ twhitney agenix ];
   "anthropicApiKey.age".publicKeys = [ twhitney agenix ];
   "openRouterApiKey.age".publicKeys = [ twhitney agenix ];
   "ollamaCredentials.age".publicKeys = [ twhitney agenix ];
