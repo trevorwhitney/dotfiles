@@ -65,20 +65,12 @@ in
     };
 
     packages = with pkgs; [
-      gocomplete
       jsonnet
-      jsonnet-lint
-      protoc-gen-gogofast
-      protoc-gen-gogoslick
-      kns-ktx
-      xk6
-
       awscli2
       azure-cli
       bashInteractive
       bat
       bind
-      chart-testing
       cmake
       curl
       diffutils
@@ -129,6 +121,14 @@ in
       yq
 
       # rust-bin.stable.latest.default # to bring in rustc, but not sure if it's needed in common
+    ] ++ [
+      gocomplete
+      jsonnet-lint
+      protoc-gen-gogofast
+      protoc-gen-gogoslick
+      kns-ktx
+      xk6
+      chart-testing-3_8_0
     ];
   };
 

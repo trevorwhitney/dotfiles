@@ -13,6 +13,7 @@
       "fswatch"
       "k6"
       "mas"
+      "mysql-client"
       "pipx" # for aider
       "python"
       "reattach-to-user-namespace"

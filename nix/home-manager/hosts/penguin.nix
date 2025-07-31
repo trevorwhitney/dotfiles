@@ -9,7 +9,6 @@ let
   imports = [
     ./modules/bash.nix
     ./modules/linux.nix
-    ./modules/fonts.nix
     ./modules/git.nix
     ./modules/neovim.nix
     ./modules/tmux.nix

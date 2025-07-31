@@ -14,25 +14,10 @@
     neovim.inputs.nixpkgs.follows = "nixpkgs";
     neovim.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
 
-    # TODO: I've updated to using 24.11, and it seems to work, but I'm going to leave thie comment here for a while
-    # in case it breaks again.
-    # needs bleeding edge for CoreFoundation update, until https://github.com/NixOS/nixpkgs/pull/358321 is merged
-    # to test, rebuild with new dependency, and then try to run a go test and debug a go test
-    # the error will happen about linking clang, if the test passes then I can safely swtich back to the stable
-    # neovim.inputs.nixpkgs.follows = "nixpkgs-unstable";
-
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Hardware specific configs
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # nix-alien allows running of programs with hardcoded link loaders
-    # requires programs.nix-ld to be enabled
-    # see: https://github.com/thiagokokada/nix-alien
-    nix-alien.url = "github:thiagokokada/nix-alien";
 
     # run the latest jsonnet-language-server
     # jsonnet-language-server.url = "github:grafana/jsonnet-language-server?dir=nix&ref=update-license";
@@ -44,7 +29,7 @@
     # for Loki shell
     loki.url = "github:grafana/loki";
 
-    # for secrete management
+    # for secret management
     agenix.url = "github:ryantm/agenix";
   };
 
@@ -57,9 +42,7 @@
     , jsonnet-language-server
     , loki
     , neovim
-    , nix-alien
     , nix-darwin
-    , nixos-hardware
     , nixpkgs
     , nixpkgs-unstable
     , ...
@@ -67,19 +50,7 @@
     let
       inherit (nixpkgs) lib;
 
-      overlay = import ./nix/overlays;
-
       systems = [ "x86_64-linux" "aarch64-darwin" ];
-
-      overlays = system: [
-        (import "${self}/nix/overlays/nix-alien.nix" {
-          inherit nix-alien system;
-        })
-
-        # deploy-rs.overlay
-
-        overlay
-      ];
 
       packages = lib.genAttrs systems
         (system:
@@ -96,7 +67,6 @@
             base = import nixpkgs
               {
                 inherit system;
-                overlays = overlays system;
                 config = {
                   allowUnfree = true;
                 };
@@ -116,39 +86,40 @@
             neovim = neovim.neovim.${system};
             faillint = base.callPackage ./nix/packages/faillint { };
             kubectl = base.callPackage ./nix/packages/kubectl/1-25.nix { };
+            
+            # Migrated from overlays
+            change-background = base.callPackage ./nix/packages/change-background { };
+            golang-perf = base.callPackage ./nix/packages/golang-perf { };
+            i3-gnome-flashback = base.callPackage ./nix/packages/i3-gnome-flashback { };
+            inshellisense = base.callPackage ./nix/packages/inshellisense { };
+            jdtls = base.callPackage ./nix/packages/jdtls { };
+            pex = base.callPackage ./nix/packages/pex { };
+            chart-testing-3_8_0 = base.callPackage ./nix/packages/chart-testing { };
+            
+            # Migrated from dotfiles.nix overlay
+            tw-tmux-lib = (base.callPackage ./nix/packages/tmux-plugins { nixpkgs = base; }).tw-tmux-lib;
+            dotfiles = base.callPackage ./nix/packages/dotfiles { };
+            git-template = base.callPackage ./nix/packages/git-template { };
+            kns-ktx = base.callPackage ./nix/packages/kns-ktx { };
+            oh-my-zsh-custom = base.callPackage ./nix/packages/oh-my-zsh-custom { };
+            gocomplete = base.callPackage ./nix/packages/gocomplete { };
+            jsonnet-lint = base.callPackage ./nix/packages/jsonnet-lint { };
+            mixtool = base.callPackage ./nix/packages/mixtool { };
+            protoc-gen-gogofast = base.callPackage ./nix/packages/protoc-gen-gogofast { };
+            protoc-gen-gogoslick = base.callPackage ./nix/packages/protoc-gen-gogoslick { };
+            xk6 = base.callPackage ./nix/packages/xk6 { };
+            stylua = base.callPackage ./nix/packages/stylua { };
           });
-
-      modulesPath = "${nixpkgs}/nixos/modules";
     in
     {
       nixosConfigurations = {
-        # TODO: This is getting pretty old, is cerebral dead?
-        # cerebral = lib.nixosSystem {
-        #   system = "x86_64-linux";
-        #   modules = import ./nix/hosts/cerebral {
-        #     inherit self secrets lib modulesPath home-manager nixos-hardware agenix;
-        #     pkgs = packages.x86_64-linux;
-        #   };
-        # };
       };
 
       darwinConfigurations = {
-        fiction = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = import ./nix/hosts/fiction {
-            inherit self lib modulesPath home-manager nixos-hardware agenix loki;
-            pkgs = packages.aarch64-darwin;
-          };
+        fiction = import ./nix/hosts/fiction {
+          inherit self home-manager agenix loki nix-darwin;
+          pkgs = packages.aarch64-darwin;
         };
-      };
-
-      inherit overlay;
-      # TODO: there is duplication here from ./nix/overlays/default.nix
-      overlays = {
-        golang-perf = import "${self}/nix/overlays/golang-perf.nix";
-        chart-testing = import "${self}/nix/overlays/chart-testing.nix";
-        dotfiles = import "${self}/nix/overlays/dotfiles.nix";
-        mixtool = import "${self}/nix/overlays/mixtool.nix";
       };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
