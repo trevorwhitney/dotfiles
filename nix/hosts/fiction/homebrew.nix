@@ -13,7 +13,6 @@
       "fswatch"
       "k6"
       "mas"
-      "mysql-client"
       "pipx" # for aider
       "python"
       "reattach-to-user-namespace"
@@ -36,6 +35,7 @@
       "iterm2"
       "mullvad-browser"
       "mullvad-vpn"
+      "orbstack"
       "plexamp"
       "raycast"
       "spotify"

@@ -39,6 +39,7 @@ in
       lua51Packages.luarocks
       luajit
       mosh
+      mysql-client
       ncurses
       ngrok
       nmap

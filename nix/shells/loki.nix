@@ -21,7 +21,7 @@ pkgs.mkShell {
     (pkgs.neovim {
       inherit goPkg delvePkg nodeJsPkg;
       withLspSupport = true;
-      goBuildTags = "integration,slicelabels";
+      goBuildTags = "integration";
       dapConfigurations =
         let
           ports = {
@@ -82,6 +82,7 @@ pkgs.mkShell {
     jsonnet
     jsonnet-bundler
     mage
+    mysql-client
     nettools
     nixpkgs-fmt
     pprof
