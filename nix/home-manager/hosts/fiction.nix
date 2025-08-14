@@ -28,12 +28,13 @@
 
   age = {
     secrets = {
-      openAiKey.file = ../../secrets/openAiKey.age;
       anthropicApiKey.file = ../../secrets/anthropicApiKey.age;
-      openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
+      ghToken.file = ../../secrets/ghToken.age;
+      git.file = ../../secrets/git.age;
       ollamaCredentials.file = ../../secrets/ollamaCredentials.age;
+      openAiKey.file = ../../secrets/openAiKey.age;
+      openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
       "deploymentTools.sh".file = ../../secrets/deploymentTools.sh.age;
-      "git".file = ../../secrets/git.age;
     };
     secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
     identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];

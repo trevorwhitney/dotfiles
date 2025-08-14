@@ -47,7 +47,7 @@ let
 
   grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
     source ${deploymentToolsSecretsPath};
-    ${deploymentTools}/scripts/sso/aws.sh reset workloads-prod
+    ${deploymentTools}/scripts/sso/aws.sh workloads-prod scripts/sso/aws_config_prod
     ${deploymentTools}/scripts/sso/gcloud.sh
   '';
 

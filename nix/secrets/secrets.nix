@@ -12,5 +12,6 @@ in
   "ollamaCredentials.age".publicKeys = [ twhitney agenix ];
   "deploymentTools.sh.age".publicKeys = [ twhitney agenix ];
   "git.age".publicKeys = [ twhitney agenix ];
+  "ghToken.age".publicKeys = [ twhitney agenix ];
 }
 
