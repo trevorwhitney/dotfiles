@@ -1,6 +1,6 @@
 if ! has nix_direnv_version || ! nix_direnv_version 3.0.4; then
     source_url "https://raw.githubusercontent.com/nix-community/nix-direnv/3.0.4/direnvrc" "sha256-DzlYZ33mWF/Gs8DDeyjr8mnVmQGx7ASYqA5WlxwvBG4="
 fi
-export GO_VERSION=$(head go.mod | grep -E '^go ([0-9.]+)$' | sed -E 's/^go ([0-9]+).([0-9]+)$/\1_\2/g')
+export GO_VERSION=$(head main/go.mod | grep -E '^go ([0-9.]+)$' | sed -E 's/^go ([0-9]+).([0-9]+)$/\1_\2/g')
 export GO_PACKAGE=go_${GO_VERSION}
 use flake ~/workspace/dotfiles#loki

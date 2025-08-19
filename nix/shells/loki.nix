@@ -30,6 +30,9 @@ pkgs.mkShell {
             "Querier" = 18004;
             "Query Frontend" = 18007;
             "Pattern Ingester" = 18010;
+            "Partition Ring" = 18020;
+            "Dataobj Index Builder" = 18021;
+            "Dataobj Consumer" = 18020;
           };
 
           remoteDebugConfigs = (builtins.map
