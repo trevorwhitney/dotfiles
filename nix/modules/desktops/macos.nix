@@ -6,6 +6,7 @@
           set -g default-command "reattach-to-user-namespace -l ${pkgs.zsh}/bin/zsh"
         '';
       };
+      zsh.enable = true;
     };
 
     system = {

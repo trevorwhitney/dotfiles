@@ -10,7 +10,7 @@ let
 
   # TODO: make this configurable
   # is there any way to avoid an absolute path?
-  deploymentTools = /Users/twhitney/workspace/deployment_tools;
+  deploymentTools = /Users/twhitney/workspace/deployment_tools/main;
 
   gcom = pkgs.writeShellScriptBin "gcom" ''
     source ${deploymentToolsSecretsPath};

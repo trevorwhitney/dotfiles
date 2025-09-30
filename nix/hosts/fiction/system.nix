@@ -93,14 +93,13 @@ in
 
   # General Nix settings
   nix = {
-    enable = true;
+    # deterministic nix runs it's own nix-daemon
+    enable = false;
     settings = {
       # Necessary for using flakes on this system.
       experimental-features = "nix-command flakes";
       download-buffer-size = 671088640;
     };
-    optimise.automatic = true;
-    gc.automatic = true;
   };
 
   # Set Git commit hash for darwin-version.

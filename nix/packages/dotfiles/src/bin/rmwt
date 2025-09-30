@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+BRANCH_PREFIX="${BRANCH_PREFIX:-twhitney}"
+
+function rmwt() {
+  local brname noforce
+  brname="$(basename "$1")"
+  noforce="$2"
+
+  if [[ "$(basename "$PWD")" != "main" ]]; then
+    printf "ERROR: please go to the 'main' dir of your git project and try again\n"
+    return 1
+  fi
+
+  curbr="${BRANCH_PREFIX}/${brname}"
+
+  forcestr=" --force"
+  [[ "$noforce" == "--noforce" ]] && forcestr=""
+  # shellcheck disable=SC2086
+  git worktree remove ${forcestr} ../${brname}
+
+  forcestr="-D"
+  [[ "$noforce" == "--noforce" ]] && forcestr=" -d"
+
+  # shellcheck disable=SC2086
+  git branch ${forcestr} ${curbr}
+  return $?
+}
+
+rmwt "$@"

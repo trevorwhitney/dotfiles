@@ -73,19 +73,16 @@
               };
           in
           base // {
-            inherit (unstablePackages) aider-chat delve golangci-lint jujutsu lazyjj claude-code;
+            inherit (unstablePackages) aider-chat delve golangci-lint jujutsu lazyjj claude-code go;
             inherit (loki.packages.${system}) loki logcli promtail;
 
-            go_1_23 = base.go;
-            delve_1_23 = base.delve;
-            golangci-lint_1_23 = base.golangci-lint;
-
-            go = unstablePackages.go_1_24;
+            go_1_24 = base.go;
+            delve_1_24 = base.delve;
+            golangci-lint_1_24 = base.golangci-lint;
 
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
             faillint = base.callPackage ./nix/packages/faillint { };
-            kubectl = base.callPackage ./nix/packages/kubectl/1-25.nix { };
             
             # Migrated from overlays
             change-background = base.callPackage ./nix/packages/change-background { };
@@ -126,7 +123,7 @@
     } // (flake-utils.lib.eachSystem systems (system:
     {
       devShells = import ./nix/shells {
-        inherit loki;
+        inherit loki deploy-rs;
         pkgs = packages.${system};
       };
 

@@ -15,7 +15,6 @@ in
         rebuild = "sudo darwin-rebuild switch --flake $HOME/workspace/dotfiles ";
       };
       useBrew = true;
-      startNixDaemon = true;
     };
   };
 
@@ -44,6 +43,7 @@ in
       coreutils
       curl
       diffutils
+      dotfiles
       fd
       fzf
       gnused

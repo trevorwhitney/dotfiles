@@ -1,4 +1,4 @@
-{ pkgs, loki, ... }:
+{ pkgs, deploy-rs, ... }:
 let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
@@ -8,7 +8,7 @@ in
   default = import ./dev-env.nix {
     inherit pkgs;
     extraPackages = with pkgs; [
-      deploy-rs.deploy-rs
+      deploy-rs.packages.${pkgs.system}.default
       home-manager
       libvirt
       nix

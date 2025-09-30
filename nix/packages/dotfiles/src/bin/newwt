@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+BRANCH_PREFIX="${BRANCH_PREFIX:-twhitney}"
+
+function newwt() {
+  local brname="$1"
+  local skip_br="$2"
+
+  if [[ "$(basename "$PWD")" != "main" ]]; then
+    printf "ERROR: please go to the 'main' dir of your git project and try again\n"
+    return 1
+  fi
+
+  local curbranch
+  curbranch=$(git rev-parse --abbrev-ref HEAD)
+
+  if [[ -z "$brname" ]]; then
+    printf "ERROR: please specify a branch name (no prefix)\n"
+    return 1
+  fi
+
+  newbr="-b ${BRANCH_PREFIX}/${brname}"
+  [[ "$skip_br" == "--skip-branch" ]] && newbr=""
+
+  # shellcheck disable=SC2086
+  git worktree add ${newbr} ../${brname}
+  cd "../${brname}" || return 1
+
+  git rebase "$curbranch"
+
+  return $?
+}
+
+newwt "$@"

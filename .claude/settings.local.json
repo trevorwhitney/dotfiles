@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(nix eval:*)",
+      "Bash(home-manager generations:*)",
+      "Bash(nix-instantiate:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(nix flake check:*)",
+      "Bash(go:*)",
+      "WebSearch"
+    ],
+    "deny": []
+  }
+}

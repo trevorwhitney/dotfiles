@@ -3,4 +3,6 @@ if ! has nix_direnv_version || ! nix_direnv_version 3.0.4; then
 fi
 export GO_VERSION=$(head main/go.mod | grep -E '^go ([0-9.]+)$' | sed -E 's/^go ([0-9]+).([0-9]+)$/\1_\2/g')
 export GO_PACKAGE=go_${GO_VERSION}
+export BUILD_IN_CONTAINER=false
+
 use flake ~/workspace/dotfiles#loki

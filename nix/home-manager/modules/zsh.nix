@@ -22,13 +22,6 @@ in
         default = false;
         description = "whether to add $HOME/.dotnet/tools to PATH";
       };
-      # this is normally done in /etc/zshrc, but since osx nukes that on every update
-      # we may need to do it ourselves
-      startNixDaemon = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "whether to source the nix daemon startup script for darwin";
-      };
       includeSecrets = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -97,12 +90,6 @@ in
         ''
           PATH="$HOME/.local/bin''${PATH+:''$PATH}"
         ''
-        (lib.optionalString cfg.startNixDaemon
-          ''
-            if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-              . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-            fi
-          '')
         ''
           # Fuzzy completion for history
           [ -f "${fzf}/share/fzf/completion.zsh" ] && source "${fzf}/share/fzf/completion.zsh"
@@ -213,6 +200,7 @@ in
         gst = "git status";
         gap = "git add -p";
         root = "cd \$(git root || pwd)";
+        gwt = "git worktree ";
 
         ":q" = "exit";
         ":Q" = "exit";
@@ -227,6 +215,8 @@ in
         # useful when piping output to vim
         vyaml = "nvim -c 'set filetype=yaml' -";
         vjson = "nvim -c 'set filetype=json' -";
+
+        newt = "${pkgs.dotfiles}/bin/newwt";
       };
     };
   };

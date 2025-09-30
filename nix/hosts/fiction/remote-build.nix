@@ -1,7 +1,5 @@
 { config, ... }: {
   nix = {
-    # distributedBuilds = true;
-    linux-builder.enable = true;
     buildMachines = [
       {
         hostName = "10.11.0.74";
