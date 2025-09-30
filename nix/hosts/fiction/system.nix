@@ -93,8 +93,6 @@ in
 
   # General Nix settings
   nix = {
-    # deterministic nix runs it's own nix-daemon
-    enable = false;
     settings = {
       # Necessary for using flakes on this system.
       experimental-features = "nix-command flakes";

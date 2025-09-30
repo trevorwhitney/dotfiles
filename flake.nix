@@ -8,6 +8,8 @@
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
+
     # my vim just the way I like it
     # neovim.url = "path:/Users/twhitney/workspace/tw-vim-lib";
     neovim.url = "github:trevorwhitney/tw-vim-lib";
@@ -37,6 +39,7 @@
     { self
     , agenix
     , deploy-rs
+    , determinate
     , flake-utils
     , home-manager
     , jsonnet-language-server
@@ -114,7 +117,7 @@
 
       darwinConfigurations = {
         fiction = import ./nix/hosts/fiction {
-          inherit self home-manager agenix loki nix-darwin;
+          inherit self home-manager agenix loki nix-darwin determinate;
           pkgs = packages.aarch64-darwin;
         };
       };
