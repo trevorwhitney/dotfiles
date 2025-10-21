@@ -47,6 +47,8 @@ let
 
   grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
     source ${deploymentToolsSecretsPath};
+
+    ${pkgs.gnumake}/bin/make -C ${deploymentTools} timed-access-cli ra
     ${deploymentTools}/scripts/sso/aws.sh workloads-prod scripts/sso/aws_config_prod
     ${deploymentTools}/scripts/sso/gcloud.sh
   '';

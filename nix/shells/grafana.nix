@@ -1,5 +1,4 @@
 { pkgs
-, useEslintDaemon ? true
 , extraPackages ? [ ]
 , nodeJsPkg ? pkgs.nodejs_20
 , goPkg ? pkgs.go
@@ -42,8 +41,7 @@ pkgs.mkShell {
       inherit
         goPkg
         delvePkg
-        nodeJsPkg
-        useEslintDaemon;
+        nodeJsPkg;
       withLspSupport = true;
     })
 

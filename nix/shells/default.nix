@@ -19,11 +19,6 @@ in
 
   dev-env = import ./dev-env.nix { inherit pkgs goPkg delvePkg; };
 
-  dev-env-no-eslint-d = import ./dev-env.nix {
-    inherit pkgs;
-    useEslintDaemon = false;
-  };
-
   grafana = import ./grafana.nix {
     inherit pkgs goPkg delvePkg nodeJsPkg;
   };

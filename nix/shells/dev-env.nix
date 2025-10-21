@@ -1,5 +1,4 @@
 { pkgs
-, useEslintDaemon ? true
 , extraPackages ? [ ]
 , nodeJsPkg ? pkgs.nodejs_22
 , goPkg ? pkgs.go
@@ -21,6 +20,7 @@ pkgs.mkShell {
     go-jsonnet
     jsonnet-bundler
     shellcheck
+    yamllint
     zip
 
     # Golang
@@ -41,8 +41,7 @@ pkgs.mkShell {
       inherit
         goPkg
         delvePkg
-        nodeJsPkg
-        useEslintDaemon;
+        nodeJsPkg;
       withLspSupport = true;
     })
 
