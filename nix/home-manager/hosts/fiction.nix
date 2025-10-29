@@ -8,7 +8,6 @@
     ../modules/darwin.nix
     ../modules/ghostty.nix
     ../modules/git.nix
-    ../modules/jujutsu.nix
     ../modules/kubernetes.nix
     ../modules/tmux.nix
     ../modules/zsh.nix

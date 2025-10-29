@@ -1,7 +1,4 @@
 { pkgs, agenix, ... }:
-let
-  inherit (pkgs) jujutsu lazyjj;
-in
 {
   home-manager = {
     useGlobalPkgs = true;
@@ -25,13 +22,6 @@ in
         }
 
         ../../home-manager/hosts/fiction.nix
-      ];
-
-      # make sure inherited packages are use in this configuration block
-      programs.jujutsu.package = jujutsu;
-
-      home.packages = [
-        lazyjj
       ];
     };
   };

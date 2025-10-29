@@ -28,6 +28,7 @@
     ];
 
     casks = [
+      "1password-cli"
       "beekeeper-studio"
       "discord"
       "deadbeef@nightly"

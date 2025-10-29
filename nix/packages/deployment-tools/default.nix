@@ -6,7 +6,7 @@
 , ...
 }:
 let
-  rev = "a94461d6ba4dcf76073d3719806c962bf259662b";
+  rev = "main";
 
   # TODO: make this configurable
   # is there any way to avoid an absolute path?
