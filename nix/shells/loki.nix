@@ -1,8 +1,11 @@
 { pkgs, ... }: 
 let
   goPkg = pkgs.go;
+  golangciLintPkg = pkgs.golangci-lint;
+  golangciLintLangServerPkg = pkgs.golangci-lint-langserver;
   delvePkg = pkgs.delve;
   nodeJsPkg = pkgs.nodejs_22;
+  goplsPkg = pkgs.gopls;
 in 
 pkgs.mkShell {
   nativeBuildInputs = [
@@ -19,7 +22,7 @@ pkgs.mkShell {
     })
 
     (pkgs.neovim {
-      inherit goPkg delvePkg nodeJsPkg;
+      inherit goPkg delvePkg nodeJsPkg golangciLintPkg golangciLintLangServerPkg goplsPkg;
       withLspSupport = true;
       goBuildTags = "integration";
       dapConfigurations =
@@ -66,7 +69,10 @@ pkgs.mkShell {
     })
 
     goPkg
+    goplsPkg
     delvePkg
+    golangciLintPkg
+    golangciLintLangServerPkg
 
     act
     crane

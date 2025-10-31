@@ -76,12 +76,14 @@
               };
           in
           base // {
-            inherit (unstablePackages) aider-chat delve golangci-lint lazyjj claude-code go;
+            inherit (unstablePackages) aider-chat delve golangci-lint golangci-lint-langserver claude-code go gopls;
             inherit (loki.packages.${system}) loki logcli promtail;
 
             go_1_24 = base.go;
             delve_1_24 = base.delve;
             golangci-lint_1_24 = base.golangci-lint;
+            golangci-lint-langserver_1_24 = base.golangci-lint-langserver;
+            gopls_1_24 = base.gopls;
 
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
