@@ -3,6 +3,8 @@ let
   goPkg = pkgs.go;
   delvePkg = pkgs.delve;
   nodeJsPkg = pkgs.nodejs_22;
+  golangciLintPkg = pkgs.golangci-lint;
+  golangciLintLangServerPkg = pkgs.golangci-lint-langserver;
 in
 {
   default = import ./dev-env.nix {
@@ -24,7 +26,7 @@ in
   };
 
   loki = import ./loki.nix {
-    inherit pkgs goPkg delvePkg;
+    inherit pkgs goPkg delvePkg golangciLintPkg golangciLintLangServerPkg nodeJsPkg;
   };
   gel = import ./gel.nix { inherit pkgs goPkg delvePkg; };
 

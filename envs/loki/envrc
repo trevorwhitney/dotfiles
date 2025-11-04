@@ -6,6 +6,6 @@ export GO_PACKAGE=go_${GO_VERSION}
 export BUILD_IN_CONTAINER=false
 export CGO_ENABLED=1
 export GOOS=darwin
-export GOARH=arm64
+export GOARCH=arm64
 
 use flake ~/workspace/dotfiles#loki
