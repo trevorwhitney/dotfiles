@@ -46,11 +46,21 @@ let
   '';
 
   grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
-    source ${deploymentToolsSecretsPath};
+    main() {
+      local env="''${1:-dev}"
 
-    ${pkgs.gnumake}/bin/make -C ${deploymentTools} timed-access-cli ra
-    ${deploymentTools}/scripts/sso/aws.sh workloads-prod scripts/sso/aws_config_prod
-    ${deploymentTools}/scripts/sso/gcloud.sh
+      if [[ "$env" != "prod" && "$env" != "dev" && "$env" != "ops" ]]; then
+        echo "Usage: grafana-sso [prod|dev|ops]"
+        exit 1
+      fi
+
+      source ${deploymentToolsSecretsPath};
+      cd ${deploymentTools} || exit 1
+      ./scripts/sso/gcloud.sh
+      ./scripts/sso/aws.sh ''${env}
+    }
+
+    main "$@"
   '';
 
   timed-access = pkgs.writeShellScriptBin "timed-access" ''
