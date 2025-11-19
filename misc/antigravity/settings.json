@@ -100,15 +100,6 @@
         },
         {
             "before": [
-                "<leader>",
-                "\\"
-            ],
-            "commands": [
-                "workbench.action.toggleSidebarVisibility"
-            ]
-        },
-        {
-            "before": [
                 "<C-h>"
             ],
             "commands": [
@@ -391,15 +382,6 @@
         {
             "before": [
                 "<leader>",
-                "|"
-            ],
-            "commands": [
-                "workbench.files.action.showActiveFileInExplorer"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
                 "d",
                 "C"
             ],
@@ -604,6 +586,7 @@
     "editor.fontSize": 14,
     "editor.formatOnSaveMode": "modificationsIfAvailable",
     "files.autoSave": "onFocusChange",
+    "git.confirmSync": false,
     "nix.enableLanguageServer": true,
     "nix.formatterPath": "nixpkgs-fmt",
     "nix.serverPath": "nil",
