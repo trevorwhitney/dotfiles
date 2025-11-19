@@ -42,9 +42,12 @@ in
       mysql-client
       ncurses
       ngrok
+      nil
+      nixpkgs-fmt
       nmap
       rbenv
       ripgrep
+      statix
       unixtools.watch
       virtualenv
       yarn

@@ -588,16 +588,29 @@
             "commands": [
                 "gitlens.openFileOnRemote"
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "z"
+            ],
+            "commands": [
+                "editor.action.sortLinesAscending"
+            ]
         }
     ],
+    "chat.fontSize": 14,
     "editor.fontLigatures": true,
-    "files.autoSave": "onFocusChange",
-    "vim.highlightedyank.enable": true,
-    "workbench.colorTheme": "Everforest Light",
-    "window.autoDetectColorScheme": true,
-    "workbench.preferredDarkColorTheme": "Everforest Dark",
-    "workbench.preferredLightColorTheme": "Everforest Light",
-    "window.systemColorTheme": "auto",
+    "editor.fontSize": 14,
     "editor.formatOnSaveMode": "modificationsIfAvailable",
-    "editor.fontSize": 14
+    "files.autoSave": "onFocusChange",
+    "nix.enableLanguageServer": true,
+    "nix.formatterPath": "nixpkgs-fmt",
+    "nix.serverPath": "nil",
+    "vim.highlightedyank.enable": true,
+    "window.autoDetectColorScheme": true,
+    "window.systemColorTheme": "auto",
+    "workbench.colorTheme": "Everforest Light",
+    "workbench.preferredDarkColorTheme": "Everforest Dark",
+    "workbench.preferredLightColorTheme": "Everforest Light"
 }
