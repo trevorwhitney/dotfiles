@@ -13,6 +13,8 @@ function newwt() {
   # Check if .env file exists in main directory
   local has_env=0
   [[ -f .env ]] && has_env=1
+  local has_vscode=0
+  [[ -f .vscode ]] && has_vscode=1
 
   local curbranch
   curbranch=$(git rev-parse --abbrev-ref HEAD)
@@ -29,9 +31,11 @@ function newwt() {
   git worktree add ${newbr} ../${brname}
   cd "../${brname}" || return 1
 
-  # Copy .env file if it existed in main directory
   if [[ $has_env -eq 1 ]]; then
     cp ../main/.env .
+  fi
+  if [[ $has_vscode -eq 1 ]]; then
+    cp ../main/.vscode .
   fi
 
   git rebase "$curbranch"

@@ -1,0 +1,127 @@
+[
+    {
+        "key": "cmd+i",
+        "command": "composerMode.agent"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.navigateLeft",
+        "when": "editorFocus || textInputFocus && !sideBarFocus && !auxiliaryBarFocus"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "sideBarFocus || auxiliaryBarFocus"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "!editorTextFocus && !terminalFocus"
+    },
+    {
+        "key": "enter",
+        "command": "explorer.openAndPassFocus",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "enter",
+        "command": "-renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "space e b",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Evaluate Jsonnet",
+        "when": "editorLangId == 'jsonnet' && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space t j",
+        "command": "go.add.tags",
+        "when": "editorLangId == 'go' && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space t x",
+        "command": "go.remove.tags",
+        "when": "editorLangId == 'go' && vim.mode == 'Normal'"
+    },
+    {
+        "key": "space g i",
+        "command": "go.impl.cursor",
+        "when": "editorLangId == 'go' && vim.mode == 'Normal'"
+    },
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+a",
+        "command": "explorer.newFolder",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "d",
+        "command": "deleteFile",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "r",
+        "command": "renameFile",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "l",
+        "command": "explorer.openAndPassFocus",
+        "when": "filesExplorerFocus && !inputFocus && !explorerResourceIsFolder"
+    },
+    {
+        "key": "l",
+        "command": "list.expand",
+        "when": "filesExplorerFocus && !inputFocus && explorerResourceIsFolder"
+    },
+    {
+        "key": "h",
+        "command": "list.collapse",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "v",
+        "command": "explorer.openToSide",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "x",
+        "command": "filesExplorer.cut",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "c",
+        "command": "filesExplorer.copy",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "p",
+        "command": "filesExplorer.paste",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "y",
+        "command": "copyFilePath",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+y",
+        "command": "copyRelativeFilePath",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+r",
+        "command": "workbench.files.action.refreshFilesExplorer",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "q",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "filesExplorerFocus && !inputFocus"
+    }
+]

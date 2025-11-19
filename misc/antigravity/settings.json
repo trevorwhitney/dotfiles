@@ -1,599 +1,588 @@
 {
-    "vim.leader": "<space>",
-    "vim.insertModeKeyBindings": [
-        {
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<Esc>"
-            ]
-        }
-    ],
-    "vim.insertModeKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<Esc>"
-            ]
-        }
-    ],
-    "vim.normalModeKeyBindings": [
-        {
-            "before": [
-                "g",
-                "r",
-                "r"
-            ],
-            "commands": [
-                "editor.action.goToReferences"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "r",
-                "i"
-            ],
-            "commands": [
-                "editor.action.goToImplementation"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "r",
-                "n"
-            ],
-            "commands": [
-                "editor.action.rename"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "r",
-                "a"
-            ],
-            "commands": [
-                "editor.action.quickFix"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "O"
-            ],
-            "commands": [
-                "workbench.action.gotoSymbol"
-            ]
-        },
-        {
-            "before": [
-                "K"
-            ],
-            "commands": [
-                "editor.action.showHover"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "d"
-            ],
-            "commands": [
-                "editor.action.revealDefinition"
-            ]
-        },
-        {
-            "before": [
-                "g",
-                "D"
-            ],
-            "commands": [
-                "editor.action.revealDeclaration"
-            ]
-        },
-        {
-            "before": [
-                "<C-h>"
-            ],
-            "commands": [
-                "workbench.action.navigateLeft"
-            ]
-        },
-        {
-            "before": [
-                "<C-j>"
-            ],
-            "commands": [
-                "workbench.action.navigateDown"
-            ]
-        },
-        {
-            "before": [
-                "<C-k>"
-            ],
-            "commands": [
-                "workbench.action.navigateUp"
-            ]
-        },
-        {
-            "before": [
-                "<C-l>"
-            ],
-            "commands": [
-                "workbench.action.navigateRight"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "f"
-            ],
-            "commands": [
-                "workbench.action.quickOpen"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "F"
-            ],
-            "commands": [
-                "workbench.action.findInFiles"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "b"
-            ],
-            "commands": [
-                "workbench.action.showAllEditors"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "S"
-            ],
-            "commands": [
-                "workbench.action.showAllSymbols"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "\\"
-            ],
-            "commands": [
-                "workbench.view.explorer"
-            ]
-        },
-        {
-            "before": [
-                "]",
-                "d"
-            ],
-            "commands": [
-                "editor.action.marker.next"
-            ]
-        },
-        {
-            "before": [
-                "[",
-                "d"
-            ],
-            "commands": [
-                "editor.action.marker.prev"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "D"
-            ],
-            "commands": [
-                "editor.action.showHover"
-            ]
-        },
-        {
-            "before": [
-                "\\",
-                "s"
-            ],
-            "commands": [
-                "workbench.view.scm"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "t",
-                "f"
-            ],
-            "commands": [
-                "testing.runCurrentFile"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "t",
-                "t"
-            ],
-            "commands": [
-                "testing.runAtCursor"
-            ]
-        },
-        {
-            "before": [
-                "[",
-                "c"
-            ],
-            "commands": [
-                "workbench.action.editor.previousChange"
-            ]
-        },
-        {
-            "before": [
-                "]",
-                "c"
-            ],
-            "commands": [
-                "workbench.action.editor.nextChange"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "S"
-            ],
-            "commands": [
-                "git.stage"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "U"
-            ],
-            "commands": [
-                "git.unstage"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "X"
-            ],
-            "commands": [
-                "git.clean"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "b"
-            ],
-            "commands": [
-                "gitlens.toggleLineBlame"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "c"
-            ],
-            "commands": [
-                "gitlens.toggleLineBlame"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "d"
-            ],
-            "commands": [
-                "gitlens.diffWithRevisionFrom"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "f"
-            ],
-            "commands": [
-                "gitlens.showFileHistory"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "h"
-            ],
-            "commands": [
-                "gitlens.showQuickRepoHistory"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "o"
-            ],
-            "commands": [
-                "gitlens.openFileOnRemote"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "p"
-            ],
-            "commands": [
-                "workbench.action.editor.nextChange"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "s"
-            ],
-            "commands": [
-                "git.stageSelectedRanges"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "u"
-            ],
-            "commands": [
-                "git.unstageSelectedRanges"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "x"
-            ],
-            "commands": [
-                "git.revertSelectedRanges"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "C"
-            ],
-            "commands": [
-                "workbench.debug.viewlet.action.removeAllBreakpoints"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "E"
-            ],
-            "commands": [
-                "editor.debug.action.selectionToRepl"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "R"
-            ],
-            "commands": [
-                "editor.debug.action.runToCursor"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "T"
-            ],
-            "commands": [
-                "editor.debug.action.conditionalBreakpoint"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "X"
-            ],
-            "commands": [
-                "workbench.action.debug.stop"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "b"
-            ],
-            "commands": [
-                "workbench.action.debug.stepBack"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "c"
-            ],
-            "commands": [
-                "workbench.action.debug.continue"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "d"
-            ],
-            "commands": [
-                "workbench.action.debug.start"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "e"
-            ],
-            "commands": [
-                "editor.debug.action.evaluate"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "h"
-            ],
-            "commands": [
-                "editor.action.showHover"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "i"
-            ],
-            "commands": [
-                "workbench.action.debug.stepInto"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "o"
-            ],
-            "commands": [
-                "workbench.action.debug.stepOver"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "p"
-            ],
-            "commands": [
-                "workbench.action.debug.pause"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "q"
-            ],
-            "commands": [
-                "workbench.action.debug.stop"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "r"
-            ],
-            "commands": [
-                "workbench.debug.action.toggleRepl"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "t"
-            ],
-            "commands": [
-                "editor.debug.action.toggleBreakpoint"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "u"
-            ],
-            "commands": [
-                "workbench.action.debug.stepOut"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
-                "x"
-            ],
-            "commands": [
-                "workbench.action.debug.disconnect"
-            ]
-        },
-    ],
-    "vim.visualModeKeyBindings": [
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "o"
-            ],
-            "commands": [
-                "gitlens.openFileOnRemote"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "z"
-            ],
-            "commands": [
-                "editor.action.sortLinesAscending"
-            ]
-        }
-    ],
-    "chat.fontSize": 14,
-    "editor.fontLigatures": true,
-    "editor.fontSize": 14,
-    "editor.formatOnSaveMode": "modificationsIfAvailable",
-    "files.autoSave": "onFocusChange",
-    "git.confirmSync": false,
-    "nix.enableLanguageServer": true,
-    "nix.formatterPath": "nixpkgs-fmt",
-    "nix.serverPath": "nil",
-    "vim.highlightedyank.enable": true,
-    "window.autoDetectColorScheme": true,
-    "window.systemColorTheme": "auto",
-    "workbench.colorTheme": "Everforest Light",
-    "workbench.preferredDarkColorTheme": "Everforest Dark",
-    "workbench.preferredLightColorTheme": "Everforest Light"
+  "vim.leader": " ",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.insertModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "j",
+        "j"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "vim.normalModeKeyBindings": [
+    {
+      "before": [
+        "g",
+        "r",
+        "r"
+      ],
+      "commands": [
+        "editor.action.goToReferences"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "r",
+        "i"
+      ],
+      "commands": [
+        "editor.action.goToImplementation"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "r",
+        "n"
+      ],
+      "commands": [
+        "editor.action.rename"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "r",
+        "a"
+      ],
+      "commands": [
+        "editor.action.quickFix"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "O"
+      ],
+      "commands": [
+        "workbench.action.gotoSymbol"
+      ]
+    },
+    {
+      "before": [
+        "K"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "d"
+      ],
+      "commands": [
+        "editor.action.revealDefinition"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "D"
+      ],
+      "commands": [
+        "editor.action.revealDeclaration"
+      ]
+    },
+    {
+      "before": [
+        "<C-h>"
+      ],
+      "commands": [
+        "workbench.action.navigateLeft"
+      ]
+    },
+    {
+      "before": [
+        "<C-j>"
+      ],
+      "commands": [
+        "workbench.action.navigateDown"
+      ]
+    },
+    {
+      "before": [
+        "<C-k>"
+      ],
+      "commands": [
+        "workbench.action.navigateUp"
+      ]
+    },
+    {
+      "before": [
+        "<C-l>"
+      ],
+      "commands": [
+        "workbench.action.navigateRight"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "f"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "F"
+      ],
+      "commands": [
+        "workbench.action.findInFiles"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "b"
+      ],
+      "commands": [
+        "workbench.action.showAllEditors"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "S"
+      ],
+      "commands": [
+        "workbench.action.showAllSymbols"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "\\"
+      ],
+      "commands": [
+        "workbench.view.explorer"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "d"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "d"
+      ],
+      "commands": [
+        "editor.action.marker.prev"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "D"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "\\",
+        "s"
+      ],
+      "commands": [
+        "workbench.view.scm"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "t",
+        "f"
+      ],
+      "commands": [
+        "testing.runCurrentFile"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "t",
+        "t"
+      ],
+      "commands": [
+        "testing.runAtCursor"
+      ]
+    },
+    {
+      "before": [
+        "[",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.editor.previousChange"
+      ]
+    },
+    {
+      "before": [
+        "]",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.editor.nextChange"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "S"
+      ],
+      "commands": [
+        "git.stage"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "U"
+      ],
+      "commands": [
+        "git.unstage"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "X"
+      ],
+      "commands": [
+        "git.clean"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "b"
+      ],
+      "commands": [
+        "gitlens.toggleLineBlame"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "c"
+      ],
+      "commands": [
+        "gitlens.toggleLineBlame"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "d"
+      ],
+      "commands": [
+        "gitlens.diffWithRevisionFrom"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "f"
+      ],
+      "commands": [
+        "gitlens.showFileHistory"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "h"
+      ],
+      "commands": [
+        "gitlens.showQuickRepoHistory"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "o"
+      ],
+      "commands": [
+        "gitlens.openFileOnRemote"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "p"
+      ],
+      "commands": [
+        "workbench.action.editor.nextChange"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "s"
+      ],
+      "commands": [
+        "git.stageSelectedRanges"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "u"
+      ],
+      "commands": [
+        "git.unstageSelectedRanges"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "x"
+      ],
+      "commands": [
+        "git.revertSelectedRanges"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "C"
+      ],
+      "commands": [
+        "workbench.debug.viewlet.action.removeAllBreakpoints"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "E"
+      ],
+      "commands": [
+        "editor.debug.action.selectionToRepl"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "R"
+      ],
+      "commands": [
+        "editor.debug.action.runToCursor"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "T"
+      ],
+      "commands": [
+        "editor.debug.action.conditionalBreakpoint"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "X"
+      ],
+      "commands": [
+        "workbench.action.debug.stop"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "b"
+      ],
+      "commands": [
+        "workbench.action.debug.stepBack"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.debug.continue"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "e"
+      ],
+      "commands": [
+        "workbench.debug.action.focusVariablesView"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "h"
+      ],
+      "commands": [
+        "editor.action.showHover"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "i"
+      ],
+      "commands": [
+        "workbench.action.debug.stepInto"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "o"
+      ],
+      "commands": [
+        "workbench.action.debug.stepOver"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "p"
+      ],
+      "commands": [
+        "workbench.action.debug.pause"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "q"
+      ],
+      "commands": [
+        "workbench.action.debug.stop"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "r"
+      ],
+      "commands": [
+        "workbench.debug.action.toggleRepl"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "t"
+      ],
+      "commands": [
+        "editor.debug.action.toggleBreakpoint"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "u"
+      ],
+      "commands": [
+        "workbench.action.debug.stepOut"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "d",
+        "x"
+      ],
+      "commands": [
+        "workbench.action.debug.disconnect"
+      ]
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "o"
+      ],
+      "commands": [
+        "gitlens.openFileOnRemote"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "z"
+      ],
+      "commands": [
+        "editor.action.sortLinesAscending"
+      ]
+    }
+  ],
+  "editor.fontLigatures": true,
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
+  "files.autoSave": "onFocusChange",
+  "git.confirmSync": false,
+  "nix.enableLanguageServer": true,
+  "nix.formatterPath": "nixpkgs-fmt",
+  "nix.serverPath": "nil",
+  "vim.highlightedyank.enable": true,
+  "window.autoDetectColorScheme": true,
+  "window.systemColorTheme": "auto",
+  "workbench.colorTheme": "Everforest Light",
+  "workbench.preferredDarkColorTheme": "Everforest Dark",
+  "workbench.preferredLightColorTheme": "Everforest Light"
 }
+
