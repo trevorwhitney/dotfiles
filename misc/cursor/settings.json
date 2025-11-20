@@ -160,7 +160,7 @@
         {
             "before": [
                 "<leader>",
-                "S"
+                "<shift+s>"
             ],
             "commands": [
                 "workbench.action.showAllSymbols"
@@ -173,6 +173,15 @@
             ],
             "commands": [
                 "workbench.view.explorer"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "|"
+            ],
+            "commands": [
+                "workbench.files.action.showActiveFileInExplorer"
             ]
         },
         {
@@ -204,15 +213,6 @@
         },
         {
             "before": [
-                "\\",
-                "s"
-            ],
-            "commands": [
-                "workbench.view.scm"
-            ]
-        },
-        {
-            "before": [
                 "<leader>",
                 "t",
                 "f"
@@ -229,24 +229,6 @@
             ],
             "commands": [
                 "testing.runAtCursor"
-            ]
-        },
-        {
-            "before": [
-                "[",
-                "c"
-            ],
-            "commands": [
-                "workbench.action.editor.previousChange"
-            ]
-        },
-        {
-            "before": [
-                "]",
-                "c"
-            ],
-            "commands": [
-                "workbench.action.editor.nextChange"
             ]
         },
         {
@@ -356,7 +338,7 @@
                 "s"
             ],
             "commands": [
-                "git.stageSelectedRanges"
+                "git.diff.stageHunk"
             ]
         },
         {
@@ -548,6 +530,15 @@
             "commands": [
                 "workbench.action.debug.disconnect"
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.replaceInFiles"
+            ]
         }
     ],
     "vim.visualModeKeyBindings": [
@@ -569,10 +560,21 @@
             "commands": [
                 "editor.action.sortLinesAscending"
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "s"
+            ],
+            "commands": [
+                "workbench.action.replaceInFiles"
+            ]
         }
     ],
     "editor.fontLigatures": true,
     "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.fontSize": 14,
     "files.autoSave": "onFocusChange",
     "git.confirmSync": false,
     "nix.enableLanguageServer": true,
@@ -583,9 +585,9 @@
             "formatting": {
                 "command": [
                     "nixpkgs-fmt"
-                ],
-            },
-        },
+                ]
+            }
+        }
     },
     "vim.highlightedyank.enable": true,
     "window.autoDetectColorScheme": true,
@@ -596,5 +598,26 @@
     "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
     "workbench.activityBar.orientation": "vertical",
     "editor.formatOnSave": true,
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "git.autofetch": true,
+    "window.openFoldersInNewWindow": "on",
+    "vim.useSystemClipboard": true,
+    "editor.wordWrap": "on",
+    "redhat.telemetry.enabled": true,
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-r>": true,
+        "<C-s>": false,
+        "<C-z>": false
+    },
+    "zenMode.showTabs": "none",
+    "zenMode.restore": true,
+    "zenMode.fullScreen": false,
+    "zenMode.hideStatusBar": false,
+    "zenMode.hideLineNumbers": false,
+    "zenMode.centerLayout": false,
+    "zenMode.hideActivityBar": false,
+    "workbench.editor.showTabs": "single",
+    "gitlens.ai.model": "gitkraken",
+    "gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash"
 }

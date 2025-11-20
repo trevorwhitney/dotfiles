@@ -34,27 +34,6 @@
         "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
     },
     {
-        "key": "space e b",
-        "command": "workbench.action.tasks.runTask",
-        "args": "Evaluate Jsonnet",
-        "when": "editorLangId == 'jsonnet' && vim.mode == 'Normal'"
-    },
-    {
-        "key": "space t j",
-        "command": "go.add.tags",
-        "when": "editorLangId == 'go' && vim.mode == 'Normal'"
-    },
-    {
-        "key": "space t x",
-        "command": "go.remove.tags",
-        "when": "editorLangId == 'go' && vim.mode == 'Normal'"
-    },
-    {
-        "key": "space g i",
-        "command": "go.impl.cursor",
-        "when": "editorLangId == 'go' && vim.mode == 'Normal'"
-    },
-    {
         "key": "a",
         "command": "explorer.newFile",
         "when": "filesExplorerFocus && !inputFocus"
@@ -128,5 +107,58 @@
         "key": "q",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "\\ s",
+        "command": "workbench.view.scm"
+    },
+    {
+        "key": "\\ o",
+        "command": "outline.focus"
+    },
+    {
+        "key": "\\ e",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "] c",
+        "command": "workbench.action.compareEditor.nextChange",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "] c",
+        "command": "workbench.action.editor.nextChange",
+        "when": "editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+    },
+    {
+        "key": "[ c",
+        "command": "workbench.action.compareEditor.previousChange",
+        "when": "textCompareEditorVisible"
+    },
+    {
+        "key": "[ c",
+        "command": "workbench.action.editor.previousChange",
+        "when": "editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+    },
+    {
+        "key": "] shift+d",
+        "command": "editor.action.marker.next",
+        "when": "editorFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "] d",
+        "command": "editor.action.marker.nextInFiles",
+        "when": "editorFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "[ shift+d",
+        "command": "editor.action.marker.prev",
+        "when": "editorFocus && vim.mode != 'Insert'"
+    },
+    {
+        "key": "[ d",
+        "command": "editor.action.marker.prevInFiles",
+        "when": "editorFocus && vim.mode != 'Insert'"
     }
 ]
