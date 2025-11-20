@@ -1,7 +1,7 @@
 [
   {
     "key": "ctrl+l",
-    "command": "workbench.action.navigateLeft",
+    "command": "workbench.action.navigateRight",
     "when": "editorFocus || textInputFocus && !sideBarFocus && !auxiliaryBarFocus"
   },
   {
@@ -11,8 +11,13 @@
   },
   {
     "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft",
+    "when": "editorFocus || textInputFocus && !sideBarFocus && !auxiliaryBarFocus"
+  },
+  {
+    "key": "ctrl+h",
     "command": "workbench.action.focusActiveEditorGroup",
-    "when": "!editorTextFocus && !terminalFocus"
+    "when": "sideBarFocus || auxiliaryBarFocus"
   },
   {
     "key": "enter",
