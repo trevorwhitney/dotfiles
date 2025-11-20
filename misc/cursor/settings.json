@@ -453,16 +453,6 @@
             "before": [
                 "<leader>",
                 "d",
-                "d"
-            ],
-            "commands": [
-                "workbench.action.debug.start"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "d",
                 "e"
             ],
             "commands": [
@@ -558,7 +548,7 @@
             "commands": [
                 "workbench.action.debug.disconnect"
             ]
-        },
+        }
     ],
     "vim.visualModeKeyBindings": [
         {
@@ -581,19 +571,30 @@
             ]
         }
     ],
-    "chat.fontSize": 14,
     "editor.fontLigatures": true,
-    "editor.fontSize": 14,
     "editor.formatOnSaveMode": "modificationsIfAvailable",
     "files.autoSave": "onFocusChange",
     "git.confirmSync": false,
     "nix.enableLanguageServer": true,
     "nix.formatterPath": "nixpkgs-fmt",
     "nix.serverPath": "nil",
+    "nix.serverSettings": {
+        "nil": {
+            "formatting": {
+                "command": [
+                    "nixpkgs-fmt"
+                ],
+            },
+        },
+    },
     "vim.highlightedyank.enable": true,
     "window.autoDetectColorScheme": true,
     "window.systemColorTheme": "auto",
     "workbench.colorTheme": "Everforest Light",
     "workbench.preferredDarkColorTheme": "Everforest Dark",
-    "workbench.preferredLightColorTheme": "Everforest Light"
+    "workbench.preferredLightColorTheme": "Everforest Light",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "workbench.activityBar.orientation": "vertical",
+    "editor.formatOnSave": true,
+    "diffEditor.ignoreTrimWhitespace": false
 }

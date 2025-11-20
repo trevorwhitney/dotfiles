@@ -1,5 +1,5 @@
 {
-  "vim.leader": " ",
+  "vim.leader": "<space>",
   "vim.insertModeKeyBindings": [
     {
       "before": [
@@ -593,5 +593,6 @@
   "workbench.colorTheme": "Everforest Light",
   "workbench.preferredDarkColorTheme": "Everforest Dark",
   "workbench.preferredLightColorTheme": "Everforest Light",
-  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono"
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "workbench.activityBar.orientation": "vertical"
 }
