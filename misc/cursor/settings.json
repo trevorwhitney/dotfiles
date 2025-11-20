@@ -617,7 +617,8 @@
     "zenMode.hideLineNumbers": false,
     "zenMode.centerLayout": false,
     "zenMode.hideActivityBar": false,
-    "workbench.editor.showTabs": "single",
+    "workbench.editor.showTabs": false,
     "gitlens.ai.model": "gitkraken",
-    "gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash"
+    "gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
+    "cursor.composer.textSizeScale": 1.15
 }
