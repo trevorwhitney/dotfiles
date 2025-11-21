@@ -24,6 +24,11 @@
         "when": "sideBarFocus || auxiliaryBarFocus"
     },
     {
+        "key": "ctrl+k",
+        "command": "workbench.action.navigateUp",
+        "when": "terminalFocus || problemsFocus || outputFocus || debugConsoleFocus"
+    },
+    {
         "key": "enter",
         "command": "explorer.openAndPassFocus",
         "when": "filesExplorerFocus && !inputFocus"
@@ -110,16 +115,18 @@
     },
     {
         "key": "\\ s",
-        "command": "workbench.view.scm"
+        "command": "workbench.view.scm",
+        "when": "!inputBoxFocus && vim.mode != 'Insert'"
     },
     {
         "key": "\\ o",
-        "command": "outline.focus"
+        "command": "outline.focus",
+        "when": "!inputBoxFocus && vim.mode != 'Insert'"
     },
     {
-        "key": "\\ e",
-        "command": "workbench.view.explorer",
-        "when": "viewContainer.workbench.view.explorer.enabled"
+        "key": "\\ d",
+        "command": "workbench.actions.view.problems",
+        "when": "!inputBoxFocus && vim.mode != 'Insert'"
     },
     {
         "key": "] c",
@@ -129,7 +136,7 @@
     {
         "key": "] c",
         "command": "workbench.action.editor.nextChange",
-        "when": "editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
     },
     {
         "key": "[ c",
@@ -139,26 +146,26 @@
     {
         "key": "[ c",
         "command": "workbench.action.editor.previousChange",
-        "when": "editorTextFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
     },
     {
         "key": "] shift+d",
         "command": "editor.action.marker.next",
-        "when": "editorFocus && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
     },
     {
         "key": "] d",
         "command": "editor.action.marker.nextInFiles",
-        "when": "editorFocus && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
     },
     {
         "key": "[ shift+d",
         "command": "editor.action.marker.prev",
-        "when": "editorFocus && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
     },
     {
         "key": "[ d",
         "command": "editor.action.marker.prevInFiles",
-        "when": "editorFocus && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
     }
 ]

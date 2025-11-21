@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, ... }: {
   imports = [
     ../modules/1password.nix
     ../modules/android.nix

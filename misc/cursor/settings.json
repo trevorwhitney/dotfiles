@@ -539,6 +539,36 @@
             "commands": [
                 "workbench.action.replaceInFiles"
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "l"
+            ],
+            "commands": [
+                "workbench.action.toggleAuxiliaryBar"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "h"
+            ],
+            "commands": [
+                "workbench.action.toggleSidebarVisibility"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "j"
+            ],
+            "commands": [
+                "workbench.action.togglePanel"
+            ]
         }
     ],
     "vim.visualModeKeyBindings": [
@@ -571,12 +601,27 @@
             ]
         }
     ],
-    "editor.fontLigatures": true,
-    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "vim.highlightedyank.enable": true,
+    "vim.useSystemClipboard": true,
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-r>": true,
+        "<C-s>": false,
+        "<C-z>": false
+    },
+    "cursor.composer.textSizeScale": 1.15,
+    "diffEditor.ignoreTrimWhitespace": false,
     "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+    "editor.fontLigatures": true,
     "editor.fontSize": 14,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
+    "editor.wordWrap": "on",
     "files.autoSave": "onFocusChange",
+    "git.autofetch": true,
     "git.confirmSync": false,
+    "gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
+    "gitlens.ai.model": "gitkraken",
     "nix.enableLanguageServer": true,
     "nix.formatterPath": "nixpkgs-fmt",
     "nix.serverPath": "nil",
@@ -589,36 +634,22 @@
             }
         }
     },
-    "vim.highlightedyank.enable": true,
+    "redhat.telemetry.enabled": true,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
     "window.autoDetectColorScheme": true,
+    "window.openFoldersInNewWindow": "on",
     "window.systemColorTheme": "auto",
+    "workbench.activityBar.orientation": "vertical",
     "workbench.colorTheme": "Everforest Light",
+    "workbench.editor.editorActionsLocation": "hidden",
+    "workbench.editor.showTabs": "none",
     "workbench.preferredDarkColorTheme": "Everforest Dark",
     "workbench.preferredLightColorTheme": "Everforest Light",
-    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
-    "workbench.activityBar.orientation": "vertical",
-    "editor.formatOnSave": true,
-    "diffEditor.ignoreTrimWhitespace": false,
-    "git.autofetch": true,
-    "window.openFoldersInNewWindow": "on",
-    "vim.useSystemClipboard": true,
-    "editor.wordWrap": "on",
-    "redhat.telemetry.enabled": true,
-    "vim.handleKeys": {
-        "<C-d>": true,
-        "<C-r>": true,
-        "<C-s>": false,
-        "<C-z>": false
-    },
-    "zenMode.showTabs": "none",
-    "zenMode.restore": true,
-    "zenMode.fullScreen": false,
-    "zenMode.hideStatusBar": false,
-    "zenMode.hideLineNumbers": false,
     "zenMode.centerLayout": false,
+    "zenMode.fullScreen": false,
     "zenMode.hideActivityBar": false,
-    "workbench.editor.showTabs": false,
-    "gitlens.ai.model": "gitkraken",
-    "gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
-    "cursor.composer.textSizeScale": 1.15
+    "zenMode.hideLineNumbers": false,
+    "zenMode.hideStatusBar": false,
+    "zenMode.restore": true,
+    "zenMode.showTabs": "none"
 }
