@@ -151,21 +151,21 @@
     {
         "key": "] shift+d",
         "command": "editor.action.marker.next",
-        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && vim.mode != 'Insert'"
     },
     {
         "key": "] d",
         "command": "editor.action.marker.nextInFiles",
-        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && vim.mode != 'Insert'"
     },
     {
         "key": "[ shift+d",
         "command": "editor.action.marker.prev",
-        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && vim.mode != 'Insert'"
     },
     {
         "key": "[ d",
         "command": "editor.action.marker.prevInFiles",
-        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && quickDiffDecorationCount != '0' && vim.mode != 'Insert'"
+        "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && vim.mode != 'Insert'"
     }
 ]
