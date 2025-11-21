@@ -32,10 +32,10 @@ function newwt() {
   cd "../${brname}" || return 1
 
   if [[ $has_env -eq 1 ]]; then
-    cp ../main/.env .
+    ln -s ../main/.env .
   fi
   if [[ $has_vscode -eq 1 ]]; then
-    cp ../main/.vscode .
+    ln -s ../main/.vscode .
   fi
 
   git rebase "$curbranch"

@@ -235,47 +235,7 @@
             "before": [
                 "<leader>",
                 "g",
-                "S"
-            ],
-            "commands": [
-                "git.stage"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "U"
-            ],
-            "commands": [
-                "git.unstage"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "X"
-            ],
-            "commands": [
-                "git.clean"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
                 "b"
-            ],
-            "commands": [
-                "gitlens.toggleLineBlame"
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "c"
             ],
             "commands": [
                 "gitlens.toggleLineBlame"
@@ -328,6 +288,16 @@
                 "p"
             ],
             "commands": [
+                "workbench.action.editor.previousChange"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "g",
+                "n"
+            ],
+            "commands": [
                 "workbench.action.editor.nextChange"
             ]
         },
@@ -358,7 +328,7 @@
                 "x"
             ],
             "commands": [
-                "git.revertSelectedRanges"
+                "git.revertChange"
             ]
         },
         {
@@ -568,6 +538,16 @@
             ],
             "commands": [
                 "workbench.action.togglePanel"
+            ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "c",
+                "t"
+            ],
+            "commands": [
+                "workbench.action.terminal.toggleTerminal"
             ]
         }
     ],
