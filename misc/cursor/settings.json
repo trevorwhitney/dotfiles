@@ -590,7 +590,6 @@
             ]
         }
     ],
-    "vim.highlightedyank.enable": true,
     "vim.useSystemClipboard": true,
     "vim.handleKeys": {
         "<C-d>": true,
@@ -640,5 +639,9 @@
     "zenMode.hideLineNumbers": false,
     "zenMode.hideStatusBar": false,
     "zenMode.restore": true,
-    "zenMode.showTabs": "none"
+    "zenMode.showTabs": "none",
+    "extensions.ignoreRecommendations": true,
+    "vim.highlightedyank.enable": true,
+    "everforest.lightContrast": "hard",
+    "everforest.darkContrast": "hard"
 }
