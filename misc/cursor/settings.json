@@ -549,6 +549,15 @@
             "commands": [
                 "workbench.action.terminal.toggleTerminal"
             ]
+        },
+        {
+            "before": [
+                "<leader>",
+                "="
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
         }
     ],
     "vim.visualModeKeyBindings": [

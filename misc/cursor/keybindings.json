@@ -26,7 +26,7 @@
     {
         "key": "ctrl+k",
         "command": "workbench.action.navigateUp",
-        "when": "terminalFocus || problemsFocus || outputFocus || debugConsoleFocus"
+        "when": "!editorFocus"
     },
     {
         "key": "enter",
@@ -167,5 +167,10 @@
         "key": "[ d",
         "command": "editor.action.marker.prevInFiles",
         "when": "editorTextFocus && !inputBoxFocus && !textCompareEditorActive && vim.mode != 'Insert'"
+    },
+    {
+        "key": "g f",
+        "command": "git.openFile",
+        "when": "isInDiffEditor"
     }
 ]
