@@ -171,6 +171,31 @@
     {
         "key": "g f",
         "command": "git.openFile",
-        "when": "isInDiffEditor"
+        "when": "isInDiffEditor && vim.mode != 'Insert'"
+    },
+    {
+        "key": "g s",
+        "command": "git.diff.stageHunk",
+        "when": "isInDiffEditor && vim.mode != 'Insert'"
+    },
+    {
+        "key": "g x",
+        "command": "diffEditor.revert",
+        "when": "isInDiffEditor && vim.mode != 'Insert'"
+    },
+    {
+        "key": "g g",
+        "command": "cursorTop",
+        "when": "isInDiffEditor && vim.mode != 'Insert'"
+    },
+    {
+        "key": "ctrl+o",
+        "command": "workbench.action.navigateBack",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "workbench.action.navigateForward",
+        "when": "editorTextFocus && vim.active && !inDebugRepl"
     }
 ]

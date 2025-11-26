@@ -558,6 +558,22 @@
             "commands": [
                 "editor.action.formatDocument"
             ]
+        },
+        {
+            "before": [
+                "<C-o>"
+            ],
+            "commands": [
+                "workbench.action.navigateBack"
+            ]
+        },
+        {
+            "before": [
+                "<C-i>"
+            ],
+            "commands": [
+                "workbench.action.navigateForward"
+            ]
         }
     ],
     "vim.visualModeKeyBindings": [
@@ -643,5 +659,9 @@
     "extensions.ignoreRecommendations": true,
     "vim.highlightedyank.enable": true,
     "everforest.lightContrast": "hard",
-    "everforest.darkContrast": "hard"
+    "everforest.darkContrast": "hard",
+    "files.exclude": {
+        "**/.direnv": true
+    },
+    "diffEditor.codeLens": true
 }
