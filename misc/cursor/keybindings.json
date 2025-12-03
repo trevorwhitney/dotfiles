@@ -6,7 +6,7 @@
     {
         "key": "ctrl+l",
         "command": "workbench.action.navigateRight",
-        "when": "editorFocus || textInputFocus && !sideBarFocus && !auxiliaryBarFocus"
+        "when": "(editorFocus || textInputFocus) && !sideBarFocus && !auxiliaryBarFocus && !isInDiffLeftEditor"
     },
     {
         "key": "ctrl+l",
@@ -14,14 +14,24 @@
         "when": "sideBarFocus || auxiliaryBarFocus"
     },
     {
+        "key": "ctrl+l",
+        "command": "workbench.action.compareEditor.focusPrimarySide",
+        "when": "isInDiffLeftEditor && vim.mode != 'Insert'"
+    },
+    {
         "key": "ctrl+h",
         "command": "workbench.action.navigateLeft",
-        "when": "editorFocus || textInputFocus && !sideBarFocus && !auxiliaryBarFocus"
+        "when": "(editorFocus || textInputFocus || isInDiffEditor) && !sideBarFocus && !auxiliaryBarFocus && !isInDiffRightEditor"
     },
     {
         "key": "ctrl+h",
         "command": "workbench.action.focusActiveEditorGroup",
         "when": "sideBarFocus || auxiliaryBarFocus"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.compareEditor.focusSecondarySide",
+        "when": "isInDiffRightEditor && vim.mode != 'Insert'"
     },
     {
         "key": "ctrl+k",
@@ -74,7 +84,7 @@
         "when": "filesExplorerFocus && !inputFocus"
     },
     {
-        "key": "v",
+        "key": "ctrl+v",
         "command": "explorer.openToSide",
         "when": "filesExplorerFocus && !inputFocus"
     },
@@ -187,15 +197,17 @@
         "key": "g g",
         "command": "cursorTop",
         "when": "isInDiffEditor && vim.mode != 'Insert'"
-    },
-    {
-        "key": "ctrl+o",
-        "command": "workbench.action.navigateBack",
-        "when": "editorTextFocus && vim.active && !inDebugRepl"
-    },
-    {
-        "key": "ctrl+i",
-        "command": "workbench.action.navigateForward",
-        "when": "editorTextFocus && vim.active && !inDebugRepl"
     }
+    // TODO: can I replace these with proper jumplist behavior?
+    // {
+    //     "key": "ctrl+o",
+    //     "command": "workbench.action.navigateBack",
+    //     "when": "editorTextFocus && vim.active && !inDebugRepl"
+    // },
+    // {
+    //     "key": "ctrl+i",
+    //     "command": "workbench.action.navigateForward",
+    //     "when": "editorTextFocus && vim.active && !inDebugRepl"
+    // }
+    // foo new change
 ]
