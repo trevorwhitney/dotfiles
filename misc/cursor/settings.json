@@ -674,5 +674,6 @@
         "**/.direnv": true
     },
     "diffEditor.codeLens": true,
-    "debug.inlineValues": "on"
+    "debug.inlineValues": "off",
+    "vim.timeout": 1250
 }

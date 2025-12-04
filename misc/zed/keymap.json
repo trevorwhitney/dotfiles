@@ -1,0 +1,110 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  // ============================================================================
+  // INSERT MODE
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": "vim::NormalBefore" // jj to escape to normal mode
+    }
+  },
+
+  // ============================================================================
+  // NORMAL MODE
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      // LSP / Code Navigation
+      // Note: gd, gD, K are built-in to Zed's vim mode with same keys
+      "g r r": "editor::FindAllReferences", // Find all references
+      "g r n": "editor::Rename", // Rename symbol
+      "g r a": "editor::ToggleCodeActions", // Code actions
+      "g O": "outline::Toggle", // Go to symbol in file
+
+      // Leader key bindings (space is default leader)
+      // File/Project Operations
+      "space f": "file_finder::Toggle", // Quick open files
+      "space shift-f": "pane::DeploySearch", // Find in files
+      "space b": "tab_switcher::Toggle", // Show all buffers/tabs
+      "space shift-s": "project_symbols::Toggle", // Find symbol in project
+      "space \\": "project_panel::ToggleFocus", // Toggle file explorer
+      "space |": "pane::RevealInProjectPanel", // Reveal file in explorer
+
+      // Formatting
+      "space =": "editor::Format", // Format document
+
+      // Search and Replace
+      "space s": ["pane::DeploySearch", { "replace_enabled": true }],
+
+      // Pane Navigation with Ctrl+hjkl
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+
+  // ============================================================================
+  // VISUAL MODE
+  // ============================================================================
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      // Search and Replace
+      "space s": ["pane::DeploySearch", { "replace_enabled": true }],
+      "space *": "pane::DeploySearch", // Find in files
+
+      // Pane Navigation with Ctrl+hjkl
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+
+  // ============================================================================
+  // WORKSPACE-LEVEL (Works everywhere, including vim modes)
+  // ============================================================================
+  {
+    "context": "Workspace",
+    "bindings": {
+      // Pane Navigation with Ctrl+hjkl - global fallback
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "] c": "editor::GoToNextChange"
+    }
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "[ c": "editor::GoToPreviousChange"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "\\ s": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "(GitPanel && ChangesList)",
+    "bindings": {
+      "\\ s": "git_panel::Close"
+    }
+  }
+]
