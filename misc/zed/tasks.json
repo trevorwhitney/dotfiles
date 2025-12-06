@@ -1,0 +1,13 @@
+// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
+[
+  {
+    "label": "go test - current function",
+    "command": "go test -v -run $ZED_SYMBOL -timeout=10s ./$ZED_RELATIVE_DIR",
+    "reveal": "always"
+  },
+  {
+    "label": "go test - current package",
+    "command": "go test -v -timeout=1m ./$ZED_RELATIVE_DIR/...",
+    "reveal": "always"
+  }
+]

@@ -14,7 +14,7 @@
     "model_parameters": [],
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-sonnet-4-5-thinking-latest"
+      "model": "claude-opus-4-5-thinking-latest"
     }
   },
   "icon_theme": "Zed (Default)",
@@ -38,5 +38,6 @@
     "dark": "One Dark"
   },
   "features": { "edit_prediction_provider": "zed" },
-  "edit_predictions": { "mode": "eager" }
+  "edit_predictions": { "mode": "eager" },
+  "show_edit_predictions": true
 }

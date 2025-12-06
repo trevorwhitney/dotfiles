@@ -27,16 +27,16 @@
       "g r r": "editor::FindAllReferences", // Find all references
       "g r n": "editor::Rename", // Rename symbol
       "g r a": "editor::ToggleCodeActions", // Code actions
-      "g O": "outline::Toggle", // Go to symbol in file
+      "\\ o": "outline::Toggle", // Show outline
 
       // Leader key bindings (space is default leader)
       // File/Project Operations
-      "space f": "file_finder::Toggle", // Quick open files
-      "space shift-f": "pane::DeploySearch", // Find in files
+      "space f": "pane::DeploySearch", // Find in files
       "space b": "tab_switcher::Toggle", // Show all buffers/tabs
       "space shift-s": "project_symbols::Toggle", // Find symbol in project
-      "space \\": "project_panel::ToggleFocus", // Toggle file explorer
+      "space \\": "workspace::ToggleLeftDock", // Toggle file explorer
       "space |": "pane::RevealInProjectPanel", // Reveal file in explorer
+      "space ;": "workspace::ToggleRightDock",
 
       // Formatting
       "space =": "editor::Format", // Format document
@@ -44,11 +44,39 @@
       // Search and Replace
       "space s": ["pane::DeploySearch", { "replace_enabled": true }],
 
-      // Pane Navigation with Ctrl+hjkl
-      "ctrl-h": "workspace::ActivatePaneLeft",
-      "ctrl-j": "workspace::ActivatePaneDown",
-      "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight"
+      // AI
+      "space c l": ["agent::NewExternalAgentThread", { "agent": "claude_code" }],
+
+      // Debugger
+      "space d b": "debugger::StepBack", // Step back
+      "space d c": "debugger::Continue", // Continue
+      "space d d": "debugger::Start",
+      "space d i": "debugger::StepInto", // Step into
+      "space d o": "debugger::StepOver", // Step over
+      "space d p": "debugger::Pause", // Pause
+      "space d q": "debugger::Stop", // Stop debugging
+      "space d t": "editor::ToggleBreakpoint", // Toggle breakpoint
+      "space d u": "debugger::StepOut", // Step out
+      "space d x": "debugger::Stop", // Disconnect/stop
+      "space d shift-c": "debugger::ClearAllBreakpoints", // Remove all breakpoints
+      "space d shift-r": "debugger::RunToCursor", // Run to cursor
+      "space d shift-x": "debugger::Stop", // Stop debugging
+
+      // Tasks
+      "space t l": "task::Rerun",
+      "space t t": "task::Spawn"
+    }
+  },
+
+  // Duplicate some normal mode keybindings to also operate at the Workspace level
+  // outside of an editor pane for consistency.
+  {
+    "context": "(Workspace && !Editor)",
+    "bindings": {
+      "\\ d": "diagnostics::Deploy",
+      "space \\": "workspace::ToggleLeftDock",
+      "space ;": "workspace::ToggleRightDock"
+      // "space c l": ["agent::NewExternalAgentThread", { "agent": "claude_code" }]
     }
   },
 
@@ -62,11 +90,26 @@
       "space s": ["pane::DeploySearch", { "replace_enabled": true }],
       "space *": "pane::DeploySearch", // Find in files
 
+      // Debugger
+      "space d e": "debugger::EvaluateSelectedText" // Evaluate selected text
+    }
+  },
+
+  // ==============
+  // Navigation
+  // ==============
+  {
+    "context": "Editor",
+    "bindings": {
       // Pane Navigation with Ctrl+hjkl
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight"
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      // Diagnostics
+      "\\ d": "diagnostics::DeployCurrentFile",
+      "\\ shift-d": "diagnostics::Deploy"
     }
   },
 
@@ -80,31 +123,56 @@
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-j": "workspace::ActivatePaneDown",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-l": "workspace::ActivatePaneRight"
-    }
-  },
-  {
-    "context": "(Editor && mode == full)",
-    "bindings": {
-      "] c": "editor::GoToNextChange"
-    }
-  },
-  {
-    "context": "(Editor && mode == full)",
-    "bindings": {
-      "[ c": "editor::GoToPreviousChange"
-    }
-  },
-  {
-    "context": "Workspace",
-    "bindings": {
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      // Git
       "\\ s": "git_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "] c": "editor::GoToNextChange",
+      "[ c": "editor::GoToPreviousChange"
     }
   },
   {
     "context": "(GitPanel && ChangesList)",
     "bindings": {
       "\\ s": "git_panel::Close"
+    }
+  },
+  {
+    "context": "((Editor && !agent_diff) && !AgentPanel)",
+    "bindings": {
+      "cmd-n": "git::Restore"
+    }
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "alt-cmd-u": "agent::RejectOnce"
+    }
+  },
+  {
+    "context": "!ContextEditor > (Editor && mode == full)",
+    "bindings": {
+      "] c": "editor::GoToHunk",
+      "[ c": "editor::GoToPreviousHunk"
+    }
+  },
+  // Always use tab for edit predictions. Use Enter for LSP suggestions
+  {
+    "context": "Editor && edit_prediction_conflict && showing_completions",
+    "bindings": {
+      "tab": "editor::AcceptEditPrediction"
+    }
+  },
+  // NERDTree equivilents
+  {
+    "context": "(ProjectPanel && not_editing)",
+    "bindings": {
+      "a": "project_panel::NewFile"
     }
   }
 ]

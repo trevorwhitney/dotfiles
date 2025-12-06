@@ -62,6 +62,7 @@ in
       mosh
       ncurses
       ngrok
+      nixd
       nmap
       rbenv
       ripgrep
