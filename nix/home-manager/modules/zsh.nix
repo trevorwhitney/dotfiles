@@ -174,7 +174,8 @@ in
             if [ -n "''${autosuggest_highlight_style}" ]; then
               eval "export \"''${autosuggest_highlight_style}\""
             else
-              eval "export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\"fg=#a6b0a0,bg=#f3ead3\""
+              # eval "export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\"fg=#a6b0a0,bg=#f3ead3\""
+              eval "export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\"fg=#a6b0a0\""
             fi
           fi
         ''

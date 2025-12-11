@@ -64,7 +64,12 @@
 
       // Tasks
       "space t l": "task::Rerun",
-      "space t t": "task::Spawn"
+      "space t t": "task::Spawn",
+
+      // Git
+      "space g o": "editor::OpenPermalinkToLine",
+      "space g b": "git::Blame",
+      "space g shift-b": "editor::OpenGitBlameCommit"
     }
   },
 
@@ -73,10 +78,16 @@
   {
     "context": "(Workspace && !Editor)",
     "bindings": {
-      "\\ d": "diagnostics::Deploy",
       "space \\": "workspace::ToggleLeftDock",
-      "space ;": "workspace::ToggleRightDock"
+      "space ;": "workspace::ToggleRightDock",
+      "space f": "pane::DeploySearch" // Find in files
       // "space c l": ["agent::NewExternalAgentThread", { "agent": "claude_code" }]
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "\\ d": "diagnostics::Deploy"
     }
   },
 
@@ -86,6 +97,8 @@
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
+      "space f": "pane::DeploySearch", // Find in files
+
       // Search and Replace
       "space s": ["pane::DeploySearch", { "replace_enabled": true }],
       "space *": "pane::DeploySearch", // Find in files
@@ -168,11 +181,20 @@
       "tab": "editor::AcceptEditPrediction"
     }
   },
-  // NERDTree equivilents
+  // NERDTree equivalents
   {
     "context": "(ProjectPanel && not_editing)",
     "bindings": {
-      "a": "project_panel::NewFile"
+      "a": "project_panel::NewFile",
+      "ctrl-v": "project_panel::OpenSplitVertical",
+      "ctrl-x": "project_panel::OpenSplitHorizontal"
+    }
+  },
+  {
+    "context": "(FileFinder || FileFinder > Picker > Editor)",
+    "bindings": {
+      "ctrl-v": "pane::SplitRight",
+      "ctrl-x": "pane::SplitDown"
     }
   }
 ]

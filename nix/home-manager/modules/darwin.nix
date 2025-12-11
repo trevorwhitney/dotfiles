@@ -36,7 +36,6 @@ in
     };
 
     packages = with pkgs; [
-      azure-cli
       bat
       bind
       cmake
@@ -48,12 +47,6 @@ in
       fzf
       gnused
       gnumake
-      (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
-        beta
-        alpha
-        gke-gcloud-auth-plugin
-        cloud-sql-proxy
-      ]))
       jq
       k9s
       lsof

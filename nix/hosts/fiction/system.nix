@@ -16,7 +16,16 @@ in
         withLspSupport = true;
       })
 
-      azure-cli
+      (azure-cli.withExtensions [
+        azure-cli-extensions.account
+      ])
+      (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
+        beta
+        alpha
+        gke-gcloud-auth-plugin
+        cloud-sql-proxy
+      ]))
+
       bat
       bind
       cmake
@@ -27,12 +36,7 @@ in
       fzf
       gnused
       gnumake
-      (google-cloud-sdk.withExtraComponents (with google-cloud-sdk.components; [
-        beta
-        alpha
-        gke-gcloud-auth-plugin
-        cloud-sql-proxy
-      ]))
+      golangci-lint
       jq
       k9s
       lsof
@@ -81,7 +85,7 @@ in
             --permission-mode acceptEdits \
             --allowedTools "Bash(*),Read:*:.,Edit:*:."
         }
-      
+
         fix_with_claude &
         claude_pid=''$!
         show_spinner ''$claude_pid

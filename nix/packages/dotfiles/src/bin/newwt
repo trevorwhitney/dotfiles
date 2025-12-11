@@ -15,6 +15,8 @@ function newwt() {
   [[ -f .env ]] && has_env=1
   local has_vscode=0
   [[ -f .vscode ]] && has_vscode=1
+  local has_zed=0
+  [[ -f .zed ]] && has_zed=1
 
   local curbranch
   curbranch=$(git rev-parse --abbrev-ref HEAD)
@@ -36,6 +38,9 @@ function newwt() {
   fi
   if [[ $has_vscode -eq 1 ]]; then
     ln -s ../main/.vscode .
+  fi
+  if [[ $has_zed -eq 1 ]]; then
+    ln -s ../main/.zed .
   fi
 
   git rebase "$curbranch"
