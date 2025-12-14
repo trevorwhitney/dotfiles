@@ -128,7 +128,7 @@ in
       protoc-gen-gogoslick
       kns-ktx
       xk6
-      chart-testing-3_8_0
+      # chart-testing-3_8_0
     ];
   };
 
