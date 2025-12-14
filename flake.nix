@@ -2,10 +2,10 @@
   description = "NixOS and Home Manager System Configs";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.05";
+    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/3";
@@ -18,7 +18,7 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # run the latest jsonnet-language-server
@@ -88,7 +88,7 @@
             jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
             neovim = neovim.neovim.${system};
             faillint = base.callPackage ./nix/packages/faillint { };
-            
+
             # Migrated from overlays
             change-background = base.callPackage ./nix/packages/change-background { };
             golang-perf = base.callPackage ./nix/packages/golang-perf { };
@@ -97,7 +97,7 @@
             jdtls = base.callPackage ./nix/packages/jdtls { };
             pex = base.callPackage ./nix/packages/pex { };
             chart-testing-3_8_0 = base.callPackage ./nix/packages/chart-testing { };
-            
+
             # Migrated from dotfiles.nix overlay
             tw-tmux-lib = (base.callPackage ./nix/packages/tmux-plugins { nixpkgs = base; }).tw-tmux-lib;
             dotfiles = base.callPackage ./nix/packages/dotfiles { };
@@ -137,7 +137,7 @@
         pkgs = packages.${system};
       };
 
-      packages = {
+      packages = packages.${system} // {
         homeConfigurations = import ./nix/home-manager {
           inherit agenix home-manager system;
 

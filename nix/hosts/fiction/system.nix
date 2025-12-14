@@ -43,7 +43,7 @@ in
       lua51Packages.luarocks
       luajit
       mosh
-      mysql-client
+      mariadb.client
       ncurses
       ngrok
       nil

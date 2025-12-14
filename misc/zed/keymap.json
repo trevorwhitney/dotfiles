@@ -76,7 +76,7 @@
   // Duplicate some normal mode keybindings to also operate at the Workspace level
   // outside of an editor pane for consistency.
   {
-    "context": "(Workspace && !Editor)",
+    "context": "(Workspace && !Editor && !Terminal)",
     "bindings": {
       "space \\": "workspace::ToggleLeftDock",
       "space ;": "workspace::ToggleRightDock",

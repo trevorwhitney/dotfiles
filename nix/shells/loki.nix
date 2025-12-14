@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
 let
   goPkg = pkgs.go;
   golangciLintPkg = pkgs.golangci-lint;
@@ -6,7 +6,7 @@ let
   delvePkg = pkgs.delve;
   nodeJsPkg = pkgs.nodejs_22;
   goplsPkg = pkgs.gopls;
-in 
+in
 pkgs.mkShell {
   nativeBuildInputs = [
     pkgs.bashInteractive
@@ -91,7 +91,7 @@ pkgs.mkShell {
     jsonnet
     jsonnet-bundler
     mage
-    mysql-client
+    mariadb.client
     nettools
     nixpkgs-fmt
     pprof

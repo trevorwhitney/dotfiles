@@ -1,7 +1,7 @@
 { pkgs, lib, buildGoModule, fetchFromGitHub }:
 
 buildGoModule.override {
- go = pkgs.go_1_23;
+ go = pkgs.go;
 } rec {
   pname = "pex";
   version = "69e65b77f500d372e6b76ddc85d75edfb093a92c";

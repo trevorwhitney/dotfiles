@@ -64,5 +64,6 @@
     "Go": {
       "language_servers": ["gopls", "golangci-lint"]
     }
-  }
+  },
+  "load_direnv": "shell_hook"
 }
