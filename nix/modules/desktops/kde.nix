@@ -13,7 +13,7 @@
         user = "twhitney";
       };
       sddm = {
-        enable = false;
+        enable = true;
         enableHidpi = true;
         autoLogin = {
           minimumUid = 1000;
