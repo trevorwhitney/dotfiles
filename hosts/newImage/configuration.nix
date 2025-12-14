@@ -40,7 +40,7 @@
         home-manager
         k9s
         kind
-        kube3d
+        k3d
         kubectl
         libcxx
         slack

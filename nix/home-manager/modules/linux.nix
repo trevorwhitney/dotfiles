@@ -94,7 +94,7 @@ in
       jsonnet-bundler
       jq
       kotlin
-      kube3d
+      k3d
       kubernetes-helm
       lsof
       lua51Packages.luarocks
