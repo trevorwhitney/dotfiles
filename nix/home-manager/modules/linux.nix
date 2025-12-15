@@ -119,8 +119,6 @@ in
       yamale
       yarn
       yq
-
-      # rust-bin.stable.latest.default # to bring in rustc, but not sure if it's needed in common
     ] ++ [
       gocomplete
       jsonnet-lint
@@ -128,7 +126,6 @@ in
       protoc-gen-gogoslick
       kns-ktx
       xk6
-      # chart-testing-3_8_0
     ];
   };
 

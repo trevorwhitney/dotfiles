@@ -14,16 +14,13 @@
       };
       sddm = {
         enable = true;
-        enableHidpi = true;
-        autoLogin = {
-          minimumUid = 1000;
-        };
+        wayland.enable = true;
       };
       defaultSession = "plasmawayland";
     };
 
     desktopManager = {
-      plasma5 = {
+      plasma6 = {
         enable = true;
         useQtScaling = true;
       };

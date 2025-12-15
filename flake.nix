@@ -144,5 +144,12 @@
           pkgs = packages.${system};
         };
       };
+
+      overlays = {
+        home-manager = (import ./nix/home-manager {
+          pkgs = packages.${system};
+        }).overlay;
+        };
+
     }));
 }
