@@ -57,7 +57,7 @@ in
 (import ./hosts/penguin.nix defaults) //
 (import ./hosts/newImage.nix defaults) //
 (import ./hosts/proxmox.nix { inherit pkgs home-manager username; }) // {
-  overlay: (self: super: {
+  overlay = (self: super: {
             inherit pkgs
             chart-testing-3_8_0
             git-template
@@ -67,5 +67,5 @@ in
             oh-my-zsh-custom
             protoc-gen-gogofast
             protoc-gen-gogoslick;
-          })
+          });
 }
