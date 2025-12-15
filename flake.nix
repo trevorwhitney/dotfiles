@@ -146,9 +146,17 @@
       };
 
       overlays = {
-        home-manager = (import ./nix/home-manager {
-          pkgs = packages.${system};
-        }).overlay;
+        home-manager = (self: super: {
+                  inherit (packages.${system})
+                  chart-testing-3_8_0
+                  git-template
+                  gocomplete
+                  jsonnet-lint
+                  kns-ktx
+                  oh-my-zsh-custom
+                  protoc-gen-gogofast
+                  protoc-gen-gogoslick;
+                });
         };
 
     }));
