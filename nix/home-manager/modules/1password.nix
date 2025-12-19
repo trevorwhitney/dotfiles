@@ -71,7 +71,7 @@ in
 
     programs = {
       # use 1password ssh key for signing commits
-      git.extraConfig = {
+      git.settings.extraConfig = {
         user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
         gpg.format = "ssh";
         commit.gpgsign = true;
@@ -80,7 +80,33 @@ in
       # use 1password ssh agent
       ssh = {
         enable = true;
-        forwardAgent = true;
+        enableDefaultConfig = false;
+        matchBlocks = {
+          jerry = {
+            forwardAgent = false;
+            user = "twhitney";
+            hostname = "10.11.0.52";
+          };
+          mickey = {
+            forwardAgent = true;
+            user = "twhitney";
+            hostname = "10.11.0.74";
+          };
+          monterey = {
+            forwardAgent = false;
+            user = "twhitney";
+            hostname = "10.11.0.51";
+          };
+          omada = {
+            forwardAgent = true;
+            hostname = "10.11.0.72";
+          };
+          proxmox = {
+            forwardAgent = true;
+            user = "twhitney";
+            hostname = "10.11.0.100";
+          };
+        };
       };
 
       zsh.use1Password = true;

@@ -6,44 +6,45 @@ in
 {
   options = { };
   config = {
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
+
     programs.git = {
       enable = true;
-      userName = "Trevor Whitney";
-      userEmail = "trevorjwhitney@gmail.com";
-      delta = { enable = true; };
+      settings = {
+        user = {
+          name = "Trevor Whitney";
+          email = "trevorjwhitney@gmail.com";
+        };
 
-      lfs = {
-        enable = true;
-        skipSmudge = true;
-      };
+        alias = {
+          st = "status";
+          di = "diff";
+          co = "checkout";
+          ci = "commit";
+          br = "branch";
+          sta = "stash";
+          llog = "log --date=local";
+          flog = "log --pretty=fuller --decorate";
+          lg =
+            "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+          lol = "log --graph --decorate --oneline";
+          lola = "log --graph --decorate --oneline --all";
+          blog = "log origin/master... --left-right";
+          ds = "diff --staged";
+          fixup = "commit --fixup";
+          squash = "commit --squash";
+          unstage = "reset HEAD";
+          rum = "rebase";
+          ctags = "!.git/hooks/ctags";
+          sur = "submodule update --recursive";
+          cane = "commit --amend --no-edit";
+          root = "rev-parse --show-toplevel";
+          wip = "commit --all -m wip";
+        };
 
-      aliases = {
-        st = "status";
-        di = "diff";
-        co = "checkout";
-        ci = "commit";
-        br = "branch";
-        sta = "stash";
-        llog = "log --date=local";
-        flog = "log --pretty=fuller --decorate";
-        lg =
-          "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-        lol = "log --graph --decorate --oneline";
-        lola = "log --graph --decorate --oneline --all";
-        blog = "log origin/master... --left-right";
-        ds = "diff --staged";
-        fixup = "commit --fixup";
-        squash = "commit --squash";
-        unstage = "reset HEAD";
-        rum = "rebase";
-        ctags = "!.git/hooks/ctags";
-        sur = "submodule update --recursive";
-        cane = "commit --amend --no-edit";
-        root = "rev-parse --show-toplevel";
-        wip = "commit --all -m wip";
-      };
-
-      extraConfig = {
         core = {
           editor = "nvim";
           excludesfile = "~/.config/git/ignore";
@@ -59,13 +60,23 @@ in
         branch = { autosetupmerge = true; };
         rebase = { autosquash = true; };
         push = { default = "simple"; };
-        merge = { tool = "vimdiff"; };
-        diff = { tool = "vimdiff"; };
-        mergetool = { keepBackup = false; };
+        merge = { tool = "diffview"; };
+        diff = { tool = "nvimdiff"; };
+        mergetool = {
+          keepBackup = false;
+          diffview = {
+            cmd = ''nvim -n -c "set wrap" -c "DiffviewOpen -uno" "''$MERGE"'';
+          };
+        };
         init = {
           templatedir = "${git-template}";
           defaultBranch = "main";
         };
+      };
+
+      lfs = {
+        enable = true;
+        skipSmudge = true;
       };
 
       ignores = [

@@ -32,7 +32,7 @@
       // Leader key bindings (space is default leader)
       // File/Project Operations
       "space f": "pane::DeploySearch", // Find in files
-      "space b": "tab_switcher::Toggle", // Show all buffers/tabs
+      "space b": "tab_switcher::ToggleAll", // Show all buffers/tabs
       "space shift-s": "project_symbols::Toggle", // Find symbol in project
       "space \\": "workspace::ToggleLeftDock", // Toggle file explorer
       "space |": "pane::RevealInProjectPanel", // Reveal file in explorer
@@ -64,7 +64,7 @@
 
       // Tasks
       "space t l": "task::Rerun",
-      "space t t": "task::Spawn",
+      "space t t": "editor::SpawnNearestTask",
 
       // Git
       "space g o": "editor::OpenPermalinkToLine",
@@ -88,6 +88,12 @@
     "context": "Workspace",
     "bindings": {
       "\\ d": "diagnostics::Deploy"
+    }
+  },
+  {
+    "context": "Diagnostics",
+    "bindings": {
+      "\\ shift-d": "diagnostics::Deploy"
     }
   },
 
