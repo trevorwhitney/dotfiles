@@ -182,7 +182,13 @@
   },
   // Always use tab for edit predictions. Use Enter for LSP suggestions
   {
-    "context": "Editor && edit_prediction_conflict && showing_completions",
+    "context": "(Editor && edit_prediction_conflict && showing_completions)",
+    "bindings": {
+      "tab": "editor::AcceptEditPrediction"
+    }
+  },
+  {
+    "context": "(Editor && edit_prediction_conflict)",
     "bindings": {
       "tab": "editor::AcceptEditPrediction"
     }
