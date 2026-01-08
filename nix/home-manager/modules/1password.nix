@@ -71,10 +71,12 @@ in
 
     programs = {
       # use 1password ssh key for signing commits
-      git.settings.extraConfig = {
-        user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
-        gpg.format = "ssh";
-        commit.gpgsign = true;
+      git = {
+        signing = {
+          signByDefault = true;
+          format = "ssh";
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
+        };
       };
 
       # use 1password ssh agent
