@@ -9,6 +9,7 @@ let
     shell-integration = "zsh";
     shell-integration-features = "no-cursor";
     theme = "dark:everforest-dark,light:everforest-light";
+    macos-titlebar-style = "tabs";
   };
   themes = {
     # USing the soft versions of:
@@ -78,13 +79,13 @@ in
       };
     }
 
-    (lib.mkIf (themes != { }) (lib.mapAttrs'
-      (name: value: {
+    (lib.mkIf (themes != { }) (
+      lib.mapAttrs' (name: value: {
         name = "ghostty/themes/${name}";
         value = {
           source = keyValue.generate "ghostty-${name}-theme" value;
         };
-      })
-      themes))
+      }) themes
+    ))
   ];
 }

@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "session": {
+    "trust_all_worktrees": true,
+  },
   "buffer_line_height": "standard",
   "agent": {
     "always_allow_tool_actions": true,
@@ -22,16 +25,10 @@
   "vim_mode": true,
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font Mono",
-    "shell": {
-      "with_arguments": {
-        "program": "tmux",
-        "args": ["new"]
-      }
-    }
   },
   "tab_bar": {
     "show": false,
-    "show_tab_bar_buttons": false
+    "show_tab_bar_buttons": false,
   },
   "autosave": "on_focus_change",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
@@ -42,7 +39,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "One Dark"
+    "dark": "One Dark",
   },
   "features": { "edit_prediction_provider": "zed" },
   "edit_predictions": { "mode": "eager" },
@@ -51,19 +48,19 @@
     "jsonnet-language-server": {
       "settings": {
         "log_level": "info",
-        "resolve_paths_with_tanka": true
-      }
+        "resolve_paths_with_tanka": true,
+      },
     },
     "golangci-lint": {
       "initialization_options": {
-        "command": ["golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--output.text.path="]
-      }
-    }
+        "command": ["golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--output.text.path="],
+      },
+    },
   },
   "languages": {
     "Go": {
-      "language_servers": ["gopls", "golangci-lint"]
-    }
+      "language_servers": ["gopls", "golangci-lint"],
+    },
   },
-  "load_direnv": "shell_hook"
+  "load_direnv": "shell_hook",
 }
