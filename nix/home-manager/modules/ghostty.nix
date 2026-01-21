@@ -8,9 +8,25 @@ let
     link-url = true;
     shell-integration = "zsh";
     shell-integration-features = "no-cursor";
-    theme = "dark:everforest-dark,light:everforest-light";
+    theme = "dark:Atom,light:Light Owl";
     macos-titlebar-style = "tabs";
   };
+  keybindings = ''
+
+    # Vim-style split navigation
+    # Uses Cmd+Ctrl to avoid the "Hide Others" (Cmd+Opt+H) system conflict
+    keybind = cmd+opt+h=goto_split:left
+    keybind = cmd+opt+j=goto_split:bottom
+    keybind = cmd+opt+k=goto_split:top
+    keybind = cmd+opt+l=goto_split:right
+
+    # Optional: Vim-style split resizing
+    # Uses Cmd+Ctrl+Shift
+    keybind = cmd+opt+shift+h=resize_split:left,10
+    keybind = cmd+opt+shift+j=resize_split:down,10
+    keybind = cmd+opt+shift+k=resize_split:up,10
+    keybind = cmd+opt+shift+l=resize_split:right,10
+  '';
   themes = {
     # USing the soft versions of:
     # https://github.com/metalelf0/everforest.ghostty
@@ -75,7 +91,7 @@ in
   xdg.configFile = lib.mkMerge [
     {
       "ghostty/config" = lib.mkIf (settings != { }) {
-        source = keyValue.generate "ghostty-config" settings;
+        text = (keyValue.generate "ghostty-config" settings).text + keybindings;
       };
     }
 

@@ -7,8 +7,11 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "which_key": {
+    "enabled": true,
+  },
   "session": {
-    "trust_all_worktrees": true,
+    "trust_all_worktrees": true
   },
   "buffer_line_height": "standard",
   "agent": {
@@ -18,8 +21,8 @@
     "model_parameters": [],
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-opus-4-5-thinking-latest"
-    }
+      "model": "claude-opus-4-5-thinking-latest",
+    },
   },
   "icon_theme": "Zed (Default)",
   "vim_mode": true,
@@ -53,7 +56,12 @@
     },
     "golangci-lint": {
       "initialization_options": {
-        "command": ["golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--output.text.path="],
+        "command": ["golangci-lint", "run", "--output.json.path", "stdout", "--show-stats=false", "--output.text.path=", "--skip-dirs=vendor"],
+      },
+    },
+    "gopls": {
+      "initialization_options": {
+        "directoryFilters": ["-vendor"],
       },
     },
   },
