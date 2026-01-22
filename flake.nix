@@ -36,82 +36,95 @@
   };
 
   outputs =
-    { self
-    , agenix
-    , deploy-rs
-    , determinate
-    , flake-utils
-    , home-manager
-    , jsonnet-language-server
-    , loki
-    , neovim
-    , nix-darwin
-    , nixpkgs
-    , nixpkgs-unstable
-    , ...
+    {
+      self,
+      agenix,
+      deploy-rs,
+      determinate,
+      flake-utils,
+      home-manager,
+      jsonnet-language-server,
+      loki,
+      neovim,
+      nix-darwin,
+      nixpkgs,
+      nixpkgs-unstable,
+      ...
     }:
     let
       inherit (nixpkgs) lib;
 
-      systems = [ "x86_64-linux" "aarch64-darwin" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
 
-      packages = lib.genAttrs systems
-        (system:
-          let
-            # Certain packages are pulled from unstable to get the latest version
-            unstablePackages = import nixpkgs-unstable
-              {
-                inherit system;
-                config = {
-                  allowUnfree = true;
-                };
-              };
+      packages = lib.genAttrs systems (
+        system:
+        let
+          # Certain packages are pulled from unstable to get the latest version
+          unstablePackages = import nixpkgs-unstable {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
 
-            base = import nixpkgs
-              {
-                inherit system;
-                config = {
-                  allowUnfree = true;
-                };
-              };
-          in
-          base // {
-            inherit (unstablePackages) aider-chat delve golangci-lint golangci-lint-langserver claude-code go gopls;
-            inherit (loki.packages.${system}) loki logcli promtail;
+          base = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+            };
+          };
+        in
+        base
+        // {
+          inherit (unstablePackages)
+            aider-chat
+            delve
+            golangci-lint
+            golangci-lint-langserver
+            claude-code
+            go
+            gopls
+            ;
+          inherit (loki.packages.${system}) loki logcli promtail;
 
-            go_1_24 = base.go;
-            delve_1_24 = base.delve;
-            golangci-lint_1_24 = base.golangci-lint;
-            golangci-lint-langserver_1_24 = base.golangci-lint-langserver;
-            gopls_1_24 = base.gopls;
+          go_1_24 = base.go;
+          delve_1_24 = base.delve;
+          golangci-lint_1_24 = base.golangci-lint;
+          golangci-lint-langserver_1_24 = base.golangci-lint-langserver;
+          gopls_1_24 = base.gopls;
 
-            jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
-            neovim = neovim.neovim.${system};
-            faillint = base.callPackage ./nix/packages/faillint { };
+          jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
+          neovim = neovim.neovim.${system};
+          faillint = base.callPackage ./nix/packages/faillint { };
 
-            # Migrated from overlays
-            change-background = base.callPackage ./nix/packages/change-background { };
-            golang-perf = base.callPackage ./nix/packages/golang-perf { };
-            i3-gnome-flashback = base.callPackage ./nix/packages/i3-gnome-flashback { };
-            inshellisense = base.callPackage ./nix/packages/inshellisense { };
-            jdtls = base.callPackage ./nix/packages/jdtls { };
-            pex = base.callPackage ./nix/packages/pex { };
-            chart-testing-3_8_0 = base.callPackage ./nix/packages/chart-testing { };
+          # Migrated from overlays
+          change-background = base.callPackage ./nix/packages/change-background { };
+          golang-perf = base.callPackage ./nix/packages/golang-perf { };
+          i3-gnome-flashback = base.callPackage ./nix/packages/i3-gnome-flashback { };
+          inshellisense = base.callPackage ./nix/packages/inshellisense { };
+          jdtls = base.callPackage ./nix/packages/jdtls { };
+          pex = base.callPackage ./nix/packages/pex { };
+          chart-testing-3_8_0 = base.callPackage ./nix/packages/chart-testing { };
 
-            # Migrated from dotfiles.nix overlay
-            tw-tmux-lib = (base.callPackage ./nix/packages/tmux-plugins { nixpkgs = base; }).tw-tmux-lib;
-            dotfiles = base.callPackage ./nix/packages/dotfiles { };
-            git-template = base.callPackage ./nix/packages/git-template { };
-            kns-ktx = base.callPackage ./nix/packages/kns-ktx { };
-            oh-my-zsh-custom = base.callPackage ./nix/packages/oh-my-zsh-custom { };
-            gocomplete = base.callPackage ./nix/packages/gocomplete { };
-            jsonnet-lint = base.callPackage ./nix/packages/jsonnet-lint { };
-            mixtool = base.callPackage ./nix/packages/mixtool { };
-            protoc-gen-gogofast = base.callPackage ./nix/packages/protoc-gen-gogofast { };
-            protoc-gen-gogoslick = base.callPackage ./nix/packages/protoc-gen-gogoslick { };
-            xk6 = base.callPackage ./nix/packages/xk6 { };
-            stylua = base.callPackage ./nix/packages/stylua { };
-          });
+          # Migrated from dotfiles.nix overlay
+          tw-tmux-lib = (base.callPackage ./nix/packages/tmux-plugins { nixpkgs = base; }).tw-tmux-lib;
+          dotfiles = base.callPackage ./nix/packages/dotfiles { };
+          claude = base.callPackage ./nix/packages/claude { };
+          git-template = base.callPackage ./nix/packages/git-template { };
+          kns-ktx = base.callPackage ./nix/packages/kns-ktx { };
+          oh-my-zsh-custom = base.callPackage ./nix/packages/oh-my-zsh-custom { };
+          gocomplete = base.callPackage ./nix/packages/gocomplete { };
+          jsonnet-lint = base.callPackage ./nix/packages/jsonnet-lint { };
+          mixtool = base.callPackage ./nix/packages/mixtool { };
+          protoc-gen-gogofast = base.callPackage ./nix/packages/protoc-gen-gogofast { };
+          protoc-gen-gogoslick = base.callPackage ./nix/packages/protoc-gen-gogoslick { };
+          xk6 = base.callPackage ./nix/packages/xk6 { };
+          stylua = base.callPackage ./nix/packages/stylua { };
+        }
+      );
     in
     {
       nixosConfigurations = {
@@ -119,14 +132,21 @@
 
       darwinConfigurations = {
         fiction = import ./nix/hosts/fiction {
-          inherit self home-manager agenix loki nix-darwin determinate;
+          inherit
+            self
+            home-manager
+            agenix
+            loki
+            nix-darwin
+            determinate
+            ;
           pkgs = packages.aarch64-darwin;
         };
       };
 
       checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-    } // (flake-utils.lib.eachSystem systems (system:
-    {
+    }
+    // (flake-utils.lib.eachSystem systems (system: {
       devShells = import ./nix/shells {
         inherit loki deploy-rs;
         pkgs = packages.${system};
@@ -146,18 +166,21 @@
       };
 
       overlays = {
-        home-manager = (self: super: {
-                  inherit (packages.${system})
-                  chart-testing-3_8_0
-                  git-template
-                  gocomplete
-                  jsonnet-lint
-                  kns-ktx
-                  oh-my-zsh-custom
-                  protoc-gen-gogofast
-                  protoc-gen-gogoslick;
-                });
-        };
+        home-manager = (
+          self: super: {
+            inherit (packages.${system})
+              chart-testing-3_8_0
+              git-template
+              gocomplete
+              jsonnet-lint
+              kns-ktx
+              oh-my-zsh-custom
+              protoc-gen-gogofast
+              protoc-gen-gogoslick
+              ;
+          }
+        );
+      };
 
     }));
 }

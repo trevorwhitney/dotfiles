@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (pkgs) dotfiles;
+  inherit (pkgs) dotfiles claude;
 in
 {
   programs = {
@@ -33,6 +33,10 @@ in
         keyserver  hkp://pool.sks-keyservers.net
         use-agent
       '';
+
+      ".claude/agents".source = "${claude}/agents";
+      ".claude/commands".source = "${claude}/commands";
+      ".claude/skills".source = "${claude}/skills";
     };
 
     packages = with pkgs; [

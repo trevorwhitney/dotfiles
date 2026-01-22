@@ -12,8 +12,8 @@
   {
     "context": "Editor && vim_mode == insert",
     "bindings": {
-      "j j": "vim::NormalBefore" // jj to escape to normal mode
-    }
+      "j j": "vim::NormalBefore", // jj to escape to normal mode
+    },
   },
 
   // ============================================================================
@@ -31,7 +31,9 @@
 
       // Leader key bindings (space is default leader)
       // File/Project Operations
-      "space f": "pane::DeploySearch", // Find in files
+      "space f": "pane::DeploySearch", // Text search in files
+      "space p": "file_finder::Toggle", // File finder
+      "space shift-p": "command_palette::Toggle", // Toggle command palette
       "space b": "tab_switcher::ToggleAll", // Show all buffers/tabs
       "space shift-s": "project_symbols::Toggle", // Find symbol in project
       "space \\": "workspace::ToggleLeftDock", // Toggle file explorer
@@ -69,8 +71,8 @@
       // Git
       "space g o": "editor::OpenPermalinkToLine",
       "space g b": "git::Blame",
-      "space g shift-b": "editor::OpenGitBlameCommit"
-    }
+      "space g shift-b": "editor::OpenGitBlameCommit",
+    },
   },
 
   // Duplicate some normal mode keybindings to also operate at the Workspace level
@@ -80,21 +82,21 @@
     "bindings": {
       "space \\": "workspace::ToggleLeftDock",
       "space ;": "workspace::ToggleRightDock",
-      "space f": "pane::DeploySearch" // Find in files
+      "space f": "pane::DeploySearch", // Find in files
       // "space c l": ["agent::NewExternalAgentThread", { "agent": "claude_code" }]
-    }
+    },
   },
   {
     "context": "Workspace",
     "bindings": {
-      "\\ d": "diagnostics::Deploy"
-    }
+      "\\ d": "diagnostics::Deploy",
+    },
   },
   {
     "context": "Diagnostics",
     "bindings": {
-      "\\ shift-d": "diagnostics::Deploy"
-    }
+      "\\ shift-d": "diagnostics::Deploy",
+    },
   },
 
   // ============================================================================
@@ -110,8 +112,8 @@
       "space *": "pane::DeploySearch", // Find in files
 
       // Debugger
-      "space d e": "debugger::EvaluateSelectedText" // Evaluate selected text
-    }
+      "space d e": "debugger::EvaluateSelectedText", // Evaluate selected text
+    },
   },
 
   // ==============
@@ -128,8 +130,8 @@
 
       // Diagnostics
       "\\ d": "diagnostics::DeployCurrentFile",
-      "\\ shift-d": "diagnostics::Deploy"
-    }
+      "\\ shift-d": "diagnostics::Deploy",
+    },
   },
 
   // ============================================================================
@@ -145,53 +147,53 @@
       "ctrl-l": "workspace::ActivatePaneRight",
 
       // Git
-      "\\ s": "git_panel::ToggleFocus"
-    }
+      "\\ s": "git_panel::ToggleFocus",
+    },
   },
   {
     "context": "(Editor && mode == full)",
     "bindings": {
       "] c": "editor::GoToNextChange",
-      "[ c": "editor::GoToPreviousChange"
-    }
+      "[ c": "editor::GoToPreviousChange",
+    },
   },
   {
     "context": "(GitPanel && ChangesList)",
     "bindings": {
-      "\\ s": "git_panel::Close"
-    }
+      "\\ s": "git_panel::Close",
+    },
   },
   {
     "context": "((Editor && !agent_diff) && !AgentPanel)",
     "bindings": {
-      "cmd-n": "git::Restore"
-    }
+      "cmd-n": "git::Restore",
+    },
   },
   {
     "context": "AgentPanel",
     "bindings": {
-      "alt-cmd-u": "agent::RejectOnce"
-    }
+      "alt-cmd-u": "agent::RejectOnce",
+    },
   },
   {
     "context": "!ContextEditor > (Editor && mode == full)",
     "bindings": {
       "] c": "editor::GoToHunk",
-      "[ c": "editor::GoToPreviousHunk"
-    }
+      "[ c": "editor::GoToPreviousHunk",
+    },
   },
   // Always use tab for edit predictions. Use Enter for LSP suggestions
   {
     "context": "(Editor && edit_prediction_conflict && showing_completions)",
     "bindings": {
-      "tab": "editor::AcceptEditPrediction"
-    }
+      "tab": "editor::AcceptEditPrediction",
+    },
   },
   {
     "context": "(Editor && edit_prediction_conflict)",
     "bindings": {
-      "tab": "editor::AcceptEditPrediction"
-    }
+      "tab": "editor::AcceptEditPrediction",
+    },
   },
   // NERDTree equivalents
   {
@@ -199,14 +201,14 @@
     "bindings": {
       "a": "project_panel::NewFile",
       "ctrl-v": "project_panel::OpenSplitVertical",
-      "ctrl-x": "project_panel::OpenSplitHorizontal"
-    }
+      "ctrl-x": "project_panel::OpenSplitHorizontal",
+    },
   },
   {
     "context": "(FileFinder || FileFinder > Picker > Editor)",
     "bindings": {
       "ctrl-v": "pane::SplitRight",
-      "ctrl-x": "pane::SplitDown"
-    }
-  }
+      "ctrl-x": "pane::SplitDown",
+    },
+  },
 ]
