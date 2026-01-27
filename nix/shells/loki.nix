@@ -16,13 +16,21 @@ pkgs.mkShell {
   ];
   packages = with pkgs; [
     (import ../packages/mixtool { inherit (pkgs) lib buildGoModule fetchFromGitHub; })
+    (import ../packages/protoc-gen-gogoslick { inherit (pkgs) lib buildGoModule fetchFromGitHub; })
     (import ../packages/chart-testing/3_8_0.nix {
       inherit (pkgs) system;
       pkgs = pkgs;
     })
 
     (pkgs.neovim {
-      inherit goPkg delvePkg nodeJsPkg golangciLintPkg golangciLintLangServerPkg goplsPkg;
+      inherit
+        goPkg
+        delvePkg
+        nodeJsPkg
+        golangciLintPkg
+        golangciLintLangServerPkg
+        goplsPkg
+        ;
       withLspSupport = true;
       goBuildTags = "integration";
       dapConfigurations =
@@ -38,8 +46,8 @@ pkgs.mkShell {
             "Dataobj Consumer" = 18020;
           };
 
-          remoteDebugConfigs = (builtins.map
-            (service: {
+          remoteDebugConfigs = (
+            builtins.map (service: {
               type = "go";
               request = "attach";
               mode = "remote";
@@ -49,8 +57,8 @@ pkgs.mkShell {
               port = ports.${service};
               cwd = ''''${workspaceFolder}'';
               showLog = true;
-            })
-            (builtins.attrNames ports));
+            }) (builtins.attrNames ports)
+          );
 
         in
         {
@@ -64,7 +72,8 @@ pkgs.mkShell {
                 ''-config.file=''${workspaceFolder}/cmd/loki/loki-local-config.yaml''
               ];
             }
-          ] ++ remoteDebugConfigs;
+          ]
+          ++ remoteDebugConfigs;
         };
     })
 
@@ -95,6 +104,9 @@ pkgs.mkShell {
     nettools
     nixpkgs-fmt
     pprof
+    protobuf
+    protoc-gen-go
+    protoc-gen-go-grpc
     revive
     snyk
     statix
@@ -110,7 +122,11 @@ pkgs.mkShell {
     nodePackages.typescript
     nodePackages.typescript-language-server
 
-    (pkgs.loki.overrideAttrs (old: { doCheck = false; }))
-    (pkgs.promtail.overrideAttrs (old: { doCheck = false; }))
+    (pkgs.loki.overrideAttrs (old: {
+      doCheck = false;
+    }))
+    (pkgs.promtail.overrideAttrs (old: {
+      doCheck = false;
+    }))
   ];
 }
