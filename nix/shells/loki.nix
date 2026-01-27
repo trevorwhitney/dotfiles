@@ -104,7 +104,7 @@ pkgs.mkShell {
     nettools
     nixpkgs-fmt
     pprof
-    protobuf
+    protobuf_21
     protoc-gen-go
     protoc-gen-go-grpc
     revive
