@@ -62,6 +62,7 @@ in
       nixd
       nmap
       rbenv
+      rclone
       ripgrep
       unixtools.watch
       virtualenv

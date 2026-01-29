@@ -11,6 +11,8 @@
     "claude": {
       "env": {
         "CLAUDE_CODE_EXECUTABLE": "/run/current-system/sw/bin/claude",
+        "CLAUDE_CODE_PERMISSION_MODE": "acceptEdits",
+        "ANTHROPIC_MODEL": "opus",
       },
     },
   },

@@ -164,12 +164,6 @@
     },
   },
   {
-    "context": "((Editor && !agent_diff) && !AgentPanel)",
-    "bindings": {
-      "cmd-n": "git::Restore",
-    },
-  },
-  {
     "context": "AgentPanel",
     "bindings": {
       "alt-cmd-u": "agent::RejectOnce",
