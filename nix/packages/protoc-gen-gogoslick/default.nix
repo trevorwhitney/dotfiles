@@ -12,10 +12,10 @@ buildGoModule rec {
     owner = "gogo";
     repo = "protobuf";
     rev = "v${version}";
-    sha256 = "sha256-CoUqgLFnLNCS9OxKFS7XwjE17SlH6iL1Kgv+0uEK2zU=";
+    sha256 = "sha256-KjjUlemlf7CC9gWc/USE7eu7QMpK8fGBu5e1u2r2jmo=";
   };
 
-  vendorHash = "sha256-nOL2Ulo9VlOHAqJgZuHl7fGjz/WFAaWPdemplbQWcak=";
+  vendorHash = null;
 
   subPackages = [ "protoc-gen-gogoslick" ];
 

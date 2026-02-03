@@ -205,4 +205,16 @@
       "ctrl-x": "pane::SplitDown",
     },
   },
+  {
+    "context": "(Editor && editor_agent_diff)",
+    "bindings": {
+      "cmd-y": "agent::Keep",
+    },
+  },
+  {
+    "context": "AgentDiff",
+    "bindings": {
+      "cmd-y": "agent::Keep",
+    },
+  },
 ]

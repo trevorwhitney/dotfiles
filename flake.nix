@@ -59,7 +59,7 @@
         "aarch64-darwin"
       ];
 
-      packages = lib.genAttrs systems (
+      allPackages = lib.genAttrs systems (
         system:
         let
           # Certain packages are pulled from unstable to get the latest version
@@ -107,7 +107,7 @@
           inshellisense = base.callPackage ./nix/packages/inshellisense { };
           jdtls = base.callPackage ./nix/packages/jdtls { };
           pex = base.callPackage ./nix/packages/pex { };
-          chart-testing-3_8_0 = base.callPackage ./nix/packages/chart-testing { };
+          chart-testing-3_8_0 = base.callPackage ./nix/packages/chart-testing/3_8_0.nix { };
 
           # Migrated from dotfiles.nix overlay
           tw-tmux-lib = (base.callPackage ./nix/packages/tmux-plugins { nixpkgs = base; }).tw-tmux-lib;
@@ -140,46 +140,82 @@
             nix-darwin
             determinate
             ;
-          pkgs = packages.aarch64-darwin;
+          pkgs = allPackages.aarch64-darwin;
         };
       };
 
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
+      overlays = {
+        home-manager = final: prev: {
+          chart-testing-3_8_0 = prev.callPackage ./nix/packages/chart-testing/3_8_0.nix { };
+          git-template = prev.callPackage ./nix/packages/git-template { };
+          gocomplete = prev.callPackage ./nix/packages/gocomplete { };
+          jsonnet-lint = prev.callPackage ./nix/packages/jsonnet-lint { };
+          kns-ktx = prev.callPackage ./nix/packages/kns-ktx { };
+          oh-my-zsh-custom = prev.callPackage ./nix/packages/oh-my-zsh-custom { };
+          protoc-gen-gogofast = prev.callPackage ./nix/packages/protoc-gen-gogofast { };
+          protoc-gen-gogoslick = prev.callPackage ./nix/packages/protoc-gen-gogoslick { };
+        };
+      };
     }
     // (flake-utils.lib.eachSystem systems (system: {
       devShells = import ./nix/shells {
         inherit loki deploy-rs;
-        pkgs = packages.${system};
+        pkgs = allPackages.${system};
       };
 
       apps = import ./nix/apps {
         inherit loki;
-        pkgs = packages.${system};
+        pkgs = allPackages.${system};
       };
 
-      packages = packages.${system} // {
-        homeConfigurations = import ./nix/home-manager {
-          inherit agenix home-manager system;
-
-          pkgs = packages.${system};
-        };
+      packages = {
+        inherit (allPackages.${system})
+          aider-chat
+          change-background
+          chart-testing-3_8_0
+          claude
+          claude-code
+          delve
+          delve_1_24
+          dotfiles
+          faillint
+          git-template
+          go
+          go_1_24
+          gocomplete
+          golangci-lint
+          golangci-lint_1_24
+          golangci-lint-langserver
+          golangci-lint-langserver_1_24
+          golang-perf
+          gopls
+          gopls_1_24
+          i3-gnome-flashback
+          inshellisense
+          jdtls
+          jsonnet-language-server
+          jsonnet-lint
+          kns-ktx
+          logcli
+          loki
+          mixtool
+          oh-my-zsh-custom
+          pex
+          promtail
+          protoc-gen-gogofast
+          protoc-gen-gogoslick
+          stylua
+          tw-tmux-lib
+          xk6
+          ;
       };
 
-      overlays = {
-        home-manager = (
-          self: super: {
-            inherit (packages.${system})
-              chart-testing-3_8_0
-              git-template
-              gocomplete
-              jsonnet-lint
-              kns-ktx
-              oh-my-zsh-custom
-              protoc-gen-gogofast
-              protoc-gen-gogoslick
-              ;
-          }
-        );
+      homeConfigurations = import ./nix/home-manager {
+        inherit agenix home-manager system;
+
+        pkgs = allPackages.${system};
       };
 
     }));
