@@ -14,7 +14,7 @@ in pkgs.mkShell {
   packages = with pkgs; [
     (import ../packages/mixtool { inherit (pkgs) lib buildGoModule fetchFromGitHub; })
     (import ../packages/chart-testing/3_8_0.nix {
-      inherit (pkgs) system;
+      inherit (pkgs) stdenv;
       pkgs = pkgs;
     })
 

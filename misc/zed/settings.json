@@ -53,8 +53,7 @@
     "light": "One Light",
     "dark": "One Dark",
   },
-  "features": { "edit_prediction_provider": "zed" },
-  "edit_predictions": { "mode": "eager" },
+  "edit_predictions": { "provider": "zed", "mode": "eager" },
   "show_edit_predictions": true,
   "lsp": {
     "jsonnet-language-server": {

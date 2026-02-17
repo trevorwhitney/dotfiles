@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  inherit (pkgs) dotfiles claude;
+  inherit (pkgs) dotfiles;
 in
 {
   programs = {
@@ -12,7 +12,7 @@ in
     zsh = {
       shellAliases = {
         brew = "/opt/homebrew/bin/brew ";
-        rebuild = "sudo darwin-rebuild switch --flake $HOME/workspace/dotfiles ";
+        rebuild = "sudo darwin-rebuild switch --impure --flake $HOME/workspace/dotfiles ";
       };
       useBrew = true;
     };
@@ -33,10 +33,6 @@ in
         keyserver  hkp://pool.sks-keyservers.net
         use-agent
       '';
-
-      ".claude/agents".source = "${claude}/agents";
-      ".claude/commands".source = "${claude}/commands";
-      ".claude/skills".source = "${claude}/skills";
     };
 
     packages = with pkgs; [

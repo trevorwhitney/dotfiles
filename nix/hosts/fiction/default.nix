@@ -1,4 +1,13 @@
-{ self, pkgs, home-manager, agenix, loki, nix-darwin, determinate, ... }:
+{
+  self,
+  pkgs,
+  home-manager,
+  agenix,
+  loki,
+  nix-darwin,
+  determinate,
+  ...
+}:
 nix-darwin.lib.darwinSystem {
   system = "aarch64-darwin";
   modules = [
@@ -19,4 +28,3 @@ nix-darwin.lib.darwinSystem {
     (import ../../modules/deployment-tools.nix { inherit loki; })
   ];
 }
-

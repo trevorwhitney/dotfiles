@@ -32,7 +32,7 @@ in
   default = import ./dev-env.nix {
     inherit pkgs;
     extraPackages = with pkgs; [
-      deploy-rs.packages.${pkgs.system}.default
+      deploy-rs.packages.${pkgs.stdenv.hostPlatform.system}.default
       home-manager
       libvirt
       nix

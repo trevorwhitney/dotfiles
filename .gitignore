@@ -7,3 +7,4 @@ result
 !nix/templates/dev/.envrc
 kitty.conf.bak
 !.aider.conf.yml
+.planning

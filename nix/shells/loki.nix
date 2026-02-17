@@ -18,7 +18,7 @@ pkgs.mkShell {
     (import ../packages/mixtool { inherit (pkgs) lib buildGoModule fetchFromGitHub; })
     (import ../packages/protoc-gen-gogoslick { inherit (pkgs) lib buildGoModule fetchFromGitHub; })
     (import ../packages/chart-testing/3_8_0.nix {
-      inherit (pkgs) system;
+      inherit (pkgs) stdenv;
       pkgs = pkgs;
     })
 
@@ -55,7 +55,7 @@ pkgs.mkShell {
               dlvToolPath = "${pkgs.delve}/bin/dlv";
               remotePath = "/loki/loki";
               port = ports.${service};
-              cwd = ''''${workspaceFolder}'';
+              cwd = "\${workspaceFolder}";
               showLog = true;
             }) (builtins.attrNames ports)
           );
@@ -67,9 +67,9 @@ pkgs.mkShell {
               type = "go";
               name = "Loki main";
               request = "launch";
-              program = ''''${workspaceFolder}/cmd/loki/main.go'';
+              program = "\${workspaceFolder}/cmd/loki/main.go";
               args = [
-                ''-config.file=''${workspaceFolder}/cmd/loki/loki-local-config.yaml''
+                "-config.file=\${workspaceFolder}/cmd/loki/loki-local-config.yaml"
               ];
             }
           ]
@@ -119,8 +119,8 @@ pkgs.mkShell {
     (yarn.override {
       nodejs = nodeJsPkg;
     })
-    nodePackages.typescript
-    nodePackages.typescript-language-server
+    nodeJsPkg.pkgs.typescript
+    nodeJsPkg.pkgs.typescript-language-server
 
     (pkgs.loki.overrideAttrs (old: {
       doCheck = false;

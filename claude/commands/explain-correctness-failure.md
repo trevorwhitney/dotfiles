@@ -1,11 +1,11 @@
-# Debug Bench Test Failure
+# Explain Correctness Failure
 
 Debug a failing LogQL Correctness Test in Loki that compares chunk store vs dataobj-engine results.
 
 ## Usage
 
 ```bash
-/debug-bench [CI_URL or test details]
+/explain-correctness-failure [CI_URL or test details]
 ```
 
 ## Arguments
@@ -16,7 +16,7 @@ Debug a failing LogQL Correctness Test in Loki that compares chunk store vs data
 
 ## Instructions
 
-Invoke the `debug-bench-test-failure` skill to execute a systematic debugging workflow for `pkg/logql/bench/bench_test.go` failures.
+Invoke the `explain-correctness-failure` skill to execute a systematic debugging workflow for `pkg/logql/bench/bench_test.go` failures.
 
 This skill is specialized for debugging the `TestStorageEquality` test, which compares query results between:
 - **Chunk store** (legacy implementation) - the "expected" baseline
@@ -85,13 +85,13 @@ At completion, you will have:
 
 ```bash
 # Debug from CI URL
-/debug-bench https://github.com/grafana/loki/actions/runs/12345/job/67890
+/explain-correctness-failure https://github.com/grafana/loki/actions/runs/12345/job/67890
 
 # Debug by query name
-/debug-bench TestStorageEquality/query=count_over_time
+/explain-correctness-failure TestStorageEquality/query=count_over_time
 
 # Start investigation
-/debug-bench
+/explain-correctness-failure
 ```
 
 ## Notes

@@ -1,10 +1,11 @@
-{ ... }: {
+{ ... }:
+{
   homebrew = {
     enable = true;
     onActivation = {
-     autoUpdate = true;
-     cleanup = "zap";
-     upgrade = true;
+      autoUpdate = true;
+      cleanup = "zap";
+      upgrade = true;
     };
 
     brews = [
@@ -20,6 +21,7 @@
       "reattach-to-user-namespace"
       "telnet"
       "tree"
+      "trivy"
       "trufflehog"
       "usbutils"
       "uv"
@@ -36,6 +38,7 @@
       "brave-browser@beta"
       "flux-app"
       "ghostty"
+      "gstreamer-runtime"
       "iterm2"
       "mullvad-browser"
       "mullvad-vpn"

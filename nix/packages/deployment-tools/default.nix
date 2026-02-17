@@ -1,15 +1,15 @@
-{ stdenv
-, pkgs
-, lib
-, deploymentToolsSecretsPath
-, logcli ? pkgs.logcli
-, ...
+{
+  stdenv,
+  pkgs,
+  lib,
+  deploymentToolsSecretsPath,
+  logcli ? pkgs.logcli,
+  ...
 }:
 let
   rev = "main";
 
-  # TODO: make this configurable
-  # is there any way to avoid an absolute path?
+  # This requires --impure flag since it references a local development path
   deploymentTools = /Users/twhitney/workspace/deployment_tools/main;
 
   gcom = pkgs.writeShellScriptBin "gcom" ''
@@ -71,32 +71,20 @@ let
   '';
 
   _logcli = pkgs.writeShellScriptBin "logcli" ''
-        source ${deploymentToolsSecretsPath};
+            source ${deploymentToolsSecretsPath};
 
-        mkdir -p ~/.config/loki
-        if [[ "''${1}" == "--ops" ]]; then
-          shift
-          if [[ ! -e ~/.config/loki/loki-ops.env ]]; then
-            cat <<EOF > ~/.config/loki/loki-ops.env
-              export LOKI_PASSWORD="$(VAULT_INSTANCE=prod ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key-ops secret/grafana-o11y/grafana-secrets | jq -r .)"
-              export LOKI_USERNAME=29
-              export LOKI_ADDR="https://logs-ops-002.grafana-ops.net"
-EOF
-          fi
-          source ~/.config/loki/loki-ops.env
-          
-              ${logcli}/bin/logcli --org-id 29 "$@"
-            elif [[ "''${1}" == "--dev" ]]; then
+            mkdir -p ~/.config/loki
+            if [[ "''${1}" == "--ops" ]]; then
               shift
-              if [[ ! -e ~/.config/loki/loki-dev.env ]]; then
-                cat <<EOF > ~/.config/loki/loki-dev.env
-                  export LOKI_PASSWORD="$(VAULT_INSTANCE=dev ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key secret/grafana-o11y/grafana-secrets | jq -r .)"
+              if [[ ! -e ~/.config/loki/loki-ops.env ]]; then
+                cat <<EOF > ~/.config/loki/loki-ops.env
+                  export LOKI_PASSWORD="$(VAULT_INSTANCE=prod ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key-ops secret/grafana-o11y/grafana-secrets | jq -r .)"
                   export LOKI_USERNAME=29
-                  export LOKI_ADDR="https://logs-dev-005.grafana-dev.net"
-EOF
+                  export LOKI_ADDR="https://logs-ops-002.grafana-ops.net"
+    EOF
               fi
-              source ~/.config/loki/loki-dev.env
-          
+              source ~/.config/loki/loki-ops.env
+
                   ${logcli}/bin/logcli --org-id 29 "$@"
                 elif [[ "''${1}" == "--dev" ]]; then
                   shift
@@ -105,14 +93,26 @@ EOF
                       export LOKI_PASSWORD="$(VAULT_INSTANCE=dev ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key secret/grafana-o11y/grafana-secrets | jq -r .)"
                       export LOKI_USERNAME=29
                       export LOKI_ADDR="https://logs-dev-005.grafana-dev.net"
-EOF
+    EOF
                   fi
                   source ~/.config/loki/loki-dev.env
-          
-              ${logcli}/bin/logcli --org-id 29 "$@"
-            else
-              ${logcli}/bin/logcli "$@"
-            fi
+
+                      ${logcli}/bin/logcli --org-id 29 "$@"
+                    elif [[ "''${1}" == "--dev" ]]; then
+                      shift
+                      if [[ ! -e ~/.config/loki/loki-dev.env ]]; then
+                        cat <<EOF > ~/.config/loki/loki-dev.env
+                          export LOKI_PASSWORD="$(VAULT_INSTANCE=dev ${deploymentTools}/scripts/vault/vault-get -format json -field grafana-loki-read-key secret/grafana-o11y/grafana-secrets | jq -r .)"
+                          export LOKI_USERNAME=29
+                          export LOKI_ADDR="https://logs-dev-005.grafana-dev.net"
+    EOF
+                      fi
+                      source ~/.config/loki/loki-dev.env
+
+                  ${logcli}/bin/logcli --org-id 29 "$@"
+                else
+                  ${logcli}/bin/logcli "$@"
+                fi
 
   '';
 in

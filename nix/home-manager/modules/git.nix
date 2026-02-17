@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (pkgs) git-template;
   cfg = config.programs.git;
@@ -28,8 +33,7 @@ in
           sta = "stash";
           llog = "log --date=local";
           flog = "log --pretty=fuller --decorate";
-          lg =
-            "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+          lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
           lol = "log --graph --decorate --oneline";
           lola = "log --graph --decorate --oneline --all";
           blog = "log origin/master... --left-right";
@@ -49,7 +53,9 @@ in
           editor = "nvim";
           excludesfile = "~/.config/git/ignore";
         };
-        apply = { whitespace = "nowarn"; };
+        apply = {
+          whitespace = "nowarn";
+        };
         color = {
           branch = "auto";
           diff = "auto";
@@ -57,11 +63,21 @@ in
           status = "auto";
           ui = "auto";
         };
-        branch = { autosetupmerge = true; };
-        rebase = { autosquash = true; };
-        push = { default = "simple"; };
-        merge = { tool = "diffview"; };
-        diff = { tool = "nvimdiff"; };
+        branch = {
+          autosetupmerge = true;
+        };
+        rebase = {
+          autosquash = true;
+        };
+        push = {
+          default = "simple";
+        };
+        merge = {
+          tool = "diffview";
+        };
+        diff = {
+          tool = "nvimdiff";
+        };
         mergetool = {
           keepBackup = false;
           diffview = {
@@ -101,6 +117,7 @@ in
         ".zed"
         "MEMORY.md"
         "__debug_bin*"
+        ".planning"
       ];
     };
 

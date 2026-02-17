@@ -1,11 +1,11 @@
 ---
-name: debug-bench-test-failure
+name: explain-correctness-failure
 description: Figure out exactly why a LogQL Correctness Test in Loki is failing.
 ---
 
-# Bench Test Debugger
+# Explain Loki Correctness Test Failure
 
-Use this skill when debugging failures in `pkg/logql/bench/bench_test.go` (the `TestStorageEquality` test that compares chunk store vs dataobj-engine results). This skill should be invoked with a URL to a failing CI job or a reference to downloaded logs from a failure.
+Use this skill when debugging failures in `pkg/logql/bench/bench_test.go` (the `TestStorageEquality` test that compares chunk store vs dataobj-engine results), also known as the Loki Correctness Tests. This skill should be invoked with a URL to a failing CI job or a reference to downloaded logs from a failure.
 
 ## Tools to Use
 
@@ -402,6 +402,110 @@ go test -v -run TestFailingCase ./pkg/...
 
 ---
 
+### Phase 5: Implement the Fix
+
+**Goal**: Apply the fix to resolve the root cause and make the failing tests pass.
+
+**Steps**:
+
+1. **Review the proposed fix from Phase 4**:
+   - Confirm the exact file and line numbers to modify
+   - Understand what needs to change and why
+   - Review the failing test that documents the bug
+
+2. **Implement the fix**:
+   - Use **Read** to examine the current implementation
+   - Use **Edit** to make the necessary changes
+   - Keep changes minimal and focused on the root cause
+   - Add code comments explaining why the fix is needed (reference the bug)
+   - Follow existing code patterns and style in the file
+
+4. **Verify the fix**:
+   - Run the unit tests from phase 3, they should now be green
+
+5. **Update PROBLEM_SUMMARY.md**:
+
+```markdown
+## 5. Implementation
+
+### Changes Made
+**File**: `path/file.go`
+**Lines**: `X-Y`
+
+**What changed**:
+- [Description of the fix]
+- [Why this resolves the root cause]
+
+### Rationale
+[Why this approach was chosen]
+[How it aligns with chunk store behavior]
+```
+
+---
+
+### Phase 6: Validate the Implementation
+
+**Goal**: Verify that the fix resolves the issue without breaking anything else.
+
+**Steps**:
+
+1. **Run the failing unit test from Phase 3** (should now PASS):
+   ```bash
+   # Run the RED test that documented the bug
+   go test -v -run TestFailingCase ./pkg/engine/...
+   ```
+   - ✅ Expected: Test now PASSES
+   - ❌ If still failing: Review fix, check for edge cases
+   - Document results in PROBLEM_SUMMARY.md
+
+3. **Run the original failing correctness test**:
+   ```bash
+   # Run the specific TestStorageEquality case that was failing
+   go test -v -run 'TestStorageEquality/query=...' ./pkg/logql/bench/
+   ```
+   - ✅ Expected: Test now PASSES
+   - ❌ If still failing: Root cause may be different, return to Phase 2
+   - Document results in PROBLEM_SUMMARY.md
+
+5. **Run related package tests**:
+   ```bash
+   # Run all tests in the package you modified
+   go test -v ./pkg/dataobj/...
+   # Or for logql changes
+   go test -v ./pkg/logql/...
+   ```
+   - ✅ Expected: All tests PASS
+   - ❌ If tests fail: Fix may have broader impact than expected
+   - Review failing tests and adjust fix accordingly
+
+8. **If any validation fails**:
+   - Document the failure clearly in PROBLEM_SUMMARY.md
+   - Determine if it's:
+     - **Same root cause**: Fix is incomplete, needs refinement
+     - **New issue**: Fix introduced regression, needs adjustment  
+     - **Unrelated**: Pre-existing issue, can be handled separately
+   - Return to appropriate phase:
+     - Incomplete fix → Refine implementation in Phase 5
+     - New regression → Generate new hypothesis in Phase 2
+     - Unrelated issue → Document and proceed with merge
+
+9. **Clean up**:
+   - Ensure all debug logging is removed (should be done in Phase 3a)
+   - Remove any temporary test files or scripts
+   - Verify only production-quality code and tests remain
+   - Run final format/lint checks:
+   ```bash
+   gofmt -w .
+   golangci-lint run ./...
+   ```
+
+10. **Final summary to user**:
+    - Present complete PROBLEM_SUMMARY.md
+    - Show test results proving fix works
+    - Confirm ready for PR/commit
+    - Ask if any additional validation is needed
+---
+
 ## If You Get Stuck
 
 - **Results look identical but test fails**: Check for subtle differences
@@ -503,7 +607,20 @@ go test -v -run TestFailingCase ./pkg/...
    - Show failing test (RED state - documents bug)
    - Show passing test (GREEN state - proves logic works)
    - Propose fix location and approach
-   - **User can now implement fix with confidence**
+
+7. **You implement** Phase 5:
+   - Use **Read** to examine code to be fixed
+   - Use **Edit** to apply the fix
+   - Keep changes minimal and focused
+   - Add inline comments explaining the fix
+   - Update PROBLEM_SUMMARY.md with implementation details
+
+8. **You validate** Phase 6:
+   - Run unit tests from Phase 3 with **Bash** (should now pass)
+   - Run original failing correctness test (should now pass)
+   - Run related package tests (should all pass)
+   - Document all validation results in PROBLEM_SUMMARY.md
+   - **User has working fix ready for PR/commit**
 
 ---
 
@@ -511,29 +628,41 @@ go test -v -run TestFailingCase ./pkg/...
 
 After completing this workflow, you should have:
 
-1. **PROBLEM_SUMMARY.md** - Complete analysis document in worktree root with:
+1. **PROBLEM_SUMMARY.md** - Complete analysis and implementation document in worktree root with:
    - CI log snippets (if applicable)
    - Exact problem description comparing chunk store vs dataobj-engine results
    - Git diff analysis (`main...HEAD`)
    - Test data structure from generator.go
    - Hypotheses tested (validated and ruled out)
-   - Root cause (if found)
+   - Root cause identification with evidence
    - Evidence from tests and logging
-   - Proposed fix with specific code locations
+   - Implementation details (Phase 5)
+   - Complete test execution summary
 
 2. **Unit test(s)** - In appropriate `*_test.go` file (same package as code under test):
-   - Failing test that reproduces the bug (RED state)
-   - Passing test that proves logic is sound (GREEN state)
-   - Tests should follow TDD red-green pattern
+   - Tests that reproduce the bug (initially RED, now GREEN after fix)
+   - Tests that prove logic is sound (GREEN throughout)
+   - Tests follow TDD red-green pattern
    - Tests are committed to prevent regressions
+   - All tests now passing
 
-3. **Clean codebase**:
+3. **Production code fix** - In the identified file(s):
+   - Minimal, focused changes addressing root cause
+   - Inline comments explaining why fix was needed
+   - References to test cases that caught the bug
+   - Follows existing code patterns and style
+   - No debug logging or temporary code
+
+4. **Clean codebase**:
    - NO debug logging left in code
    - NO temporary test files for invalidated hypotheses
-   - Only production-quality tests remain
+   - Only production-quality code and tests remain
+   - Code formatted and linted
 
-4. **Clear path forward** for the user:
-   - Specific file/line to fix in dataobj-engine (or chunk store if that's where the bug is)
-   - Test that will validate the fix
-   - Evidence-based understanding of the problem
-   - Confidence that the fix will make TestStorageEquality pass
+5. **Validated solution** ready for PR:
+   - Original failing correctness test now passes
+   - All unit tests pass (both new and existing)
+   - Full TestStorageEquality suite passes
+   - Related package tests pass
+   - No regressions introduced
+   - Evidence-based confidence in the fix

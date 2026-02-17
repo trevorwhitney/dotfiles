@@ -1,10 +1,10 @@
-{ config, ... }: {
+{ config, ... }:
+{
   imports = [
     ../modules/1password.nix
     ../modules/android.nix
     ../modules/bash.nix
     ../modules/change-background.nix
-    ../modules/claude-code.nix
     ../modules/darwin.nix
     ../modules/ghostty.nix
     ../modules/git.nix
@@ -34,6 +34,7 @@
       openAiKey.file = ../../secrets/openAiKey.age;
       openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
       "deploymentTools.sh".file = ../../secrets/deploymentTools.sh.age;
+      grafana.file = ../../secrets/grafana.age;
     };
     secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
     identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
@@ -44,8 +45,7 @@
       host.darwin = true;
     };
     git = {
-      includes =
-        [{ path = "${config.age.secrets.git.path}"; }];
+      includes = [ { path = "${config.age.secrets.git.path}"; } ];
     };
 
     gh = {

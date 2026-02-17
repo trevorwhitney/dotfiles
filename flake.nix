@@ -75,6 +75,18 @@
             config = {
               allowUnfree = true;
             };
+            overlays = [
+              # Override inetutils to use version 2.6 which builds successfully
+              (final: prev: {
+                inetutils = prev.inetutils.overrideAttrs (old: rec {
+                  version = "2.6";
+                  src = prev.fetchurl {
+                    url = "mirror://gnu/inetutils/inetutils-${version}.tar.gz";
+                    sha256 = "sha256-zKolbg1kbffyhf8VijKR83zR/IOC83dNIvclQSdjXac=";
+                  };
+                });
+              })
+            ];
           };
         in
         base
@@ -87,6 +99,7 @@
             claude-code
             go
             gopls
+            snyk
             ;
           inherit (loki.packages.${system}) loki logcli promtail;
 
@@ -112,7 +125,6 @@
           # Migrated from dotfiles.nix overlay
           tw-tmux-lib = (base.callPackage ./nix/packages/tmux-plugins { nixpkgs = base; }).tw-tmux-lib;
           dotfiles = base.callPackage ./nix/packages/dotfiles { };
-          claude = base.callPackage ./nix/packages/claude { };
           git-template = base.callPackage ./nix/packages/git-template { };
           kns-ktx = base.callPackage ./nix/packages/kns-ktx { };
           oh-my-zsh-custom = base.callPackage ./nix/packages/oh-my-zsh-custom { };
@@ -175,7 +187,6 @@
           aider-chat
           change-background
           chart-testing-3_8_0
-          claude
           claude-code
           delve
           delve_1_24
