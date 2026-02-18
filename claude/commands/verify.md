@@ -14,16 +14,20 @@ Execute verification in this exact order:
    - Run TypeScript/type checker if applicable to project language
    - Report all errors with file:line if applicable to project language
 
-3. **Lint Check**
+3. **Format Check**
+   - Run formatter if applicable to project
+   - Report warnings and errors
+   
+4. **Lint Check**
    - Run linter
    - Report warnings and errors
 
-4. **Test Suite**
+5. **Test Suite**
    - Run all tests
    - Report pass/fail count
    - Report coverage percentage
 
-5. **Git Status**
+6. **Git Status**
    - Show uncommitted changes
    - Show files modified since last commit
 
@@ -52,3 +56,20 @@ $ARGUMENTS can be:
 - `full` - All checks (default)
 - `pre-commit` - Checks relevant for commits
 - `pre-pr` - Full checks plus security scan
+
+## Makefile
+
+If the project has a Makefile, tasks may be defined as targets, for example:
+
+```
+.PHONY: build
+build:
+
+.PHONY: test
+test:
+
+.PHONY: format
+format:
+```
+
+Look for these as they will know how to execute these specific steps for this project and language.
