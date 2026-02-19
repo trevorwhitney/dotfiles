@@ -15,25 +15,8 @@
 
 ## Edits and Commits
 
-**BEFORE starting any plan or significant piece of work, you MUST ask**: "Should I commit changes automatically for this task, or would you prefer to review and commit them yourself?"
-
-Default behavior unless explicitly authorized otherwise:
-- Do NOT commit your own edits to git tracked files
-- Do NOT push commits
-- I will review and author commits myself
-
-Rationale: When using Claude in Zed via the ACP, uncommitted changes provide a visual interface to modify, accept, and reject individual hunks. Once committed, this granular control is lost.
-
-When auto-commit IS authorized:
-- Greenfield projects where review isn't critical
-- Personal tools and experiments
-- Explicitly requested automation workflows
-
-When auto-commit is NOT authorized:
-- Production code requiring peer review
-- Work projects with code review processes
-- Any changes where I need granular approval
-
+When using Claude in Zed via the ACP, uncommitted changes provide a visual interface to modify, accept, and reject individual hunks. Once committed, this granular control is lost.
+If the ACP tools are detected, ask for confirmation before committing changes so this interface is not lost.
 If uncertain about the context, default to asking first.
 
 ## Praise

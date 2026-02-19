@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 let
   inherit (pkgs) git-template;
@@ -102,9 +101,7 @@ in
         "*.project"
         ".DS_Store"
         ".aider*"
-        ".claude"
         ".codespellrc"
-        ".cursor"
         ".direnv"
         ".env"
         ".envrc"

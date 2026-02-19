@@ -7,12 +7,27 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "auto_update": false,
+  "context_servers": {
+    "mcp-server-grafana": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "grafana_url": "GRAFANA_URL",
+      },
+    },
+    "mcp-server-github": {
+      "enabled": true,
+      "remote": false,
+      "settings": {
+        "github_personal_access_token": "GITHUB_PERSONAL_ACCESS_TOKEN",
+      },
+    },
+  },
   "agent_servers": {
     "claude": {
       "env": {
         "CLAUDE_CODE_EXECUTABLE": "/run/current-system/sw/bin/claude",
-        "CLAUDE_CODE_PERMISSION_MODE": "acceptEdits",
-        "ANTHROPIC_MODEL": "opus",
       },
     },
   },
@@ -24,7 +39,9 @@
   },
   "buffer_line_height": "standard",
   "agent": {
-    "always_allow_tool_actions": true,
+    "tool_permissions": {
+      "default": "allow",
+    },
     "default_profile": "write",
     "play_sound_when_agent_done": true,
     "model_parameters": [],

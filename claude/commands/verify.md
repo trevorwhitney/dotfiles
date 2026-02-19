@@ -16,10 +16,16 @@ Execute verification in this exact order:
 
 3. **Format Check**
    - Run formatter if applicable to project
+   - This may be defined as a project task, such as `make format` or `npm run format`
    - Report warnings and errors
    
 4. **Lint Check**
    - Run linter
+   - **CRITICAL for Go projects**: Only run linting against changed files
+     - `golangci-lint run -v --timeout 15m ./pkg/path/to/changed/...` (check only modified packages)
+     - Or to check entire changed files: `golangci-lint run -v --timeout 15m $(git diff --name-only origin/main | grep '\.go$')`
+   - **DO NOT use `make lint`** - it may stop on pre-existing issues in other files before checking your changes
+   - If linter fails on pre-existing issues in unrelated files, narrow scope to only your changed files
    - Report warnings and errors
 
 5. **Test Suite**
@@ -56,20 +62,3 @@ $ARGUMENTS can be:
 - `full` - All checks (default)
 - `pre-commit` - Checks relevant for commits
 - `pre-pr` - Full checks plus security scan
-
-## Makefile
-
-If the project has a Makefile, tasks may be defined as targets, for example:
-
-```
-.PHONY: build
-build:
-
-.PHONY: test
-test:
-
-.PHONY: format
-format:
-```
-
-Look for these as they will know how to execute these specific steps for this project and language.
