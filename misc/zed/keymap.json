@@ -48,6 +48,21 @@
 
       // AI
       "space c l": ["agent::NewExternalAgentThread", { "agent": "claude_code" }],
+      "space c c": ["agent::NewExternalAgentThread", { "agent": "codex" }],
+      "space c o": [
+        "agent::NewExternalAgentThread",
+        {
+          "agent": {
+            "custom": {
+              "name": "OpenCode",
+              "command": {
+                "command": "opencode",
+                "args": ["acp"],
+              },
+            },
+          },
+        },
+      ],
 
       // Debugger
       "space d b": "debugger::StepBack", // Step back

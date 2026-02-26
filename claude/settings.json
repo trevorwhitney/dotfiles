@@ -9,6 +9,16 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/twhitney/.claude/hooks/gsd-context-monitor.js\""
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -27,5 +37,6 @@
     "grafana-o11y@grafana-ai-kit": true,
     "grafana-engineering@grafana-ai-kit": true,
     "grafana-delegator@grafana-ai-kit": true
-  }
+  },
+  "skipDangerousModePermissionPrompt": true
 }

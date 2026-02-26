@@ -8,12 +8,17 @@
       upgrade = true;
     };
 
+    taps = [
+      "anomalyco/tap"
+    ];
+
     brews = [
+      "anomalyco/tap/opencode"
       "awscli"
       "bfg"
       "fswatch"
-      "goose"
       "gnu-sed"
+      "goose"
       "k6"
       "mas"
       "pipx" # for aider
@@ -32,6 +37,7 @@
     casks = [
       "1password-cli"
       "beekeeper-studio"
+      "codex"
       "discord"
       "deadbeef@nightly"
       "dotnet-sdk"

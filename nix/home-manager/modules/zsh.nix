@@ -97,6 +97,7 @@ in
 
         source ${config.age.secrets.ollamaCredentials.path}
         source ${config.age.secrets.grafana.path}
+        source ${config.age.secrets.brave.path}
       '');
 
       initContent = builtins.concatStringsSep "\n" (

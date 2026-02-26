@@ -38,4 +38,8 @@ in
     twhitney
     agenix
   ];
+  "brave.age".publicKeys = [
+    twhitney
+    agenix
+  ];
 }

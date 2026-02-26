@@ -35,6 +35,7 @@
       openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
       "deploymentTools.sh".file = ../../secrets/deploymentTools.sh.age;
       grafana.file = ../../secrets/grafana.age;
+      brave.file = ../../secrets/grafana.age;
     };
     secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
     identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
