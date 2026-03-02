@@ -341,11 +341,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1772050881,
-        "narHash": "sha256-sQAzyzDkDg1TS2pf2kRkx05hKV4BBoygXPw/Cf87k/k=",
+        "lastModified": 1772125002,
+        "narHash": "sha256-kl1SMWXgeWmJJg/3dQ3awiz/Gn+RyGLinlSrOvrFdRo=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "d94ee608830cb8dab70ad4efad0ddf6d732e8528",
+        "rev": "57d1368e179c3d9debb90a695e7a10f10e2d30ae",
         "type": "github"
       },
       "original": {

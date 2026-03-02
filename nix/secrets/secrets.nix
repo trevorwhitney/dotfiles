@@ -38,7 +38,7 @@ in
     twhitney
     agenix
   ];
-  "brave.age".publicKeys = [
+  "apiKeys.age".publicKeys = [
     twhitney
     agenix
   ];

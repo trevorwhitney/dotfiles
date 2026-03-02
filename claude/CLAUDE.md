@@ -19,6 +19,10 @@ When using Claude in Zed via the ACP, uncommitted changes provide a visual inter
 If the ACP tools are detected, ask for confirmation before committing changes so this interface is not lost.
 If uncertain about the context, default to asking first.
 
+## Git Commits
+
+If you have trouble making commits because of GPG signing, make sure the SSH_AUTH_SOCK environment variable is correctly pointing to the 1Password ssh agent, which is used for signing commits.
+
 ## Praise
 
 Never use the phrase "You're absolutely right" or similar sycophantic praise. Treat me like a professional colleague.

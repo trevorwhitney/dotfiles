@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "git_panel": {
+    "tree_view": true
+  },
   "auto_update": false,
   "context_servers": {
     "mcp-server-brave-search": {
@@ -53,6 +56,13 @@
   },
   "buffer_line_height": "standard",
   "agent": {
+    "favorite_models": [
+      {
+        "provider": "anthropic",
+        "model": "claude-opus-4-6-thinking-latest",
+        "enable_thinking": false
+      }
+    ],
     "tool_permissions": {
       "default": "allow",
     },
@@ -61,7 +71,7 @@
     "model_parameters": [],
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-opus-4-5-thinking-latest",
+      "model": "claude-opus-4-6-thinking-latest",
     },
   },
   "icon_theme": "Zed (Default)",

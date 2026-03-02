@@ -1,7 +1,8 @@
-{ config
-, pkgs
-, lib
-, ...
+{
+  config,
+  pkgs,
+  lib,
+  ...
 }:
 let
   inherit (pkgs) git-template;
@@ -107,6 +108,7 @@ in
         ".envrc"
         ".gradle"
         ".idea"
+        ".logs"
         ".vagrant"
         ".vim"
         ".vscode"

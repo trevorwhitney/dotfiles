@@ -8,12 +8,7 @@
       upgrade = true;
     };
 
-    taps = [
-      "anomalyco/tap"
-    ];
-
     brews = [
-      "anomalyco/tap/opencode"
       "awscli"
       "bfg"
       "fswatch"
