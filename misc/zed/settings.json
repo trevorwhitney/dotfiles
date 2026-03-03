@@ -8,7 +8,7 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "git_panel": {
-    "tree_view": true
+    "tree_view": true,
   },
   "auto_update": false,
   "context_servers": {
@@ -47,6 +47,11 @@
         "CLAUDE_CODE_EXECUTABLE": "/run/current-system/sw/bin/claude",
       },
     },
+    "goose": {
+      "command": "goose",
+      "args": ["acp"],
+      "env": {},
+    },
   },
   "which_key": {
     "enabled": true,
@@ -60,8 +65,8 @@
       {
         "provider": "anthropic",
         "model": "claude-opus-4-6-thinking-latest",
-        "enable_thinking": false
-      }
+        "enable_thinking": false,
+      },
     ],
     "tool_permissions": {
       "default": "allow",

@@ -13,7 +13,6 @@
       "bfg"
       "fswatch"
       "gnu-sed"
-      "goose"
       "k6"
       "mas"
       "pipx" # for aider

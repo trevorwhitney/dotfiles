@@ -1,6 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-gemini-auth@latest", "@spoons-and-mirrors/subtask2@latest"],
+  "plugin": [
+    "opencode-gemini-auth@latest",
+    "@spoons-and-mirrors/subtask2@latest",
+    "oh-my-opencode@latest"
+  ],
   "model": "anthropic/claude-opus-4-6",
   "permission": {
     "read": {
@@ -13,28 +17,61 @@
   "mcp": {
     "context7": {
       "type": "local",
-      "command": ["npx", "-y", "@upstash/context7-mcp"],
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
       "enabled": true
     },
     "mcp-grafana": {
       "type": "local",
-      "command": ["docker", "run", "--rm", "-i", "-e", "GRAFANA_URL", "-e", "GRAFANA_SERVICE_ACCOUNT_TOKEN", "grafana/mcp-grafana", "-t", "stdio"],
+      "command": [
+        "docker",
+        "run",
+        "--rm",
+        "-i",
+        "-e",
+        "GRAFANA_URL",
+        "-e",
+        "GRAFANA_SERVICE_ACCOUNT_TOKEN",
+        "grafana/mcp-grafana",
+        "-t",
+        "stdio"
+      ],
       "enabled": true
     },
     "goldfish": {
       "type": "local",
-      "command": ["/Users/twhitney/.local/bin/goldfish-mcp", "--api-url", "http://localhost:3100"],
+      "command": [
+        "/Users/twhitney/.local/bin/goldfish-mcp",
+        "--api-url",
+        "http://localhost:3100"
+      ],
       "enabled": true
     },
     "brave-search": {
       "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "-e", "BRAVE_API_KEY", "docker.io/mcp/brave-search"],
+      "command": [
+        "docker",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "BRAVE_API_KEY",
+        "docker.io/mcp/brave-search"
+      ],
       "enabled": true
     },
     "qdrant-code": {
-      "command": ["npx", "-y", "@mhalder/qdrant-mcp-server@latest"],
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@mhalder/qdrant-mcp-server@latest"
+      ],
       "enabled": true,
-      "env": {
+      "environment": {
         "QDRANT_URL": "http://localhost:6333",
         "EMBEDDING_PROVIDER": "openai",
         "OLLAMA_BASE_URL": "http://localhost:11434",

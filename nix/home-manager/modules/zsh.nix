@@ -112,6 +112,7 @@ in
           ''
             PATH="$HOME/.local/bin''${PATH+:''$PATH}"
             PATH="$HOME/.antigravity/antigravity/bin''${PATH+:''$PATH}"
+            PATH="$HOME/.opencode/bin''${PATH+:''$PATH}"
           ''
           ''
             # Fuzzy completion for history
