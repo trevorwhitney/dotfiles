@@ -1,5 +1,9 @@
 nerdfont: true
+agent: opencode
 worktree_dir: ../
 worktree_naming: full
+panes:
+  - command: <agent>
+    focus: true
 post_create:
   - direnv allow

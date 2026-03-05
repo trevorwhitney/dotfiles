@@ -1,11 +1,16 @@
-{ nixpkgs ? import <nixpkgs> { } }:
+{ nixpkgs ? import <nixpkgs> { }
+,
+}:
 let
   inherit (nixpkgs) stdenv lib pkgs;
   rtpPath = "share/tmux-plugins";
-  addRtp = path: rtpFilePath: attrs: derivation:
-    derivation // {
+  addRtp =
+    path: rtpFilePath: attrs: derivation:
+    derivation
+    // {
       rtp = "${derivation}/${path}/${rtpFilePath}";
-    } // {
+    }
+    // {
       overrideAttrs = f: mkTmuxPlugin (attrs // f attrs);
     };
   mkTmuxPlugin =
@@ -22,25 +27,37 @@ let
     , path ? lib.getName pluginName
     , ...
     }:
-    addRtp "${rtpPath}/${path}" rtpFilePath a (with nixpkgs;
-    stdenv.mkDerivation (a // {
-      pname = namePrefix + pluginName;
-      name = namePrefix + pluginName;
+    addRtp "${rtpPath}/${path}" rtpFilePath a (
+      with nixpkgs;
+      stdenv.mkDerivation (
+        a
+        // {
+          pname = namePrefix + pluginName;
+          name = namePrefix + pluginName;
 
-      inherit pluginName unpackPhase configurePhase buildPhase addonInfo
-        preInstall postInstall;
+          inherit
+            pluginName
+            unpackPhase
+            configurePhase
+            buildPhase
+            addonInfo
+            preInstall
+            postInstall
+            ;
 
-      installPhase = ''
-        runHook preInstall
-        target=$out/${rtpPath}/${path}
-        mkdir -p $out/${rtpPath}
-        cp -r . $target
-        if [ -n "$addonInfo" ]; then
-          echo "$addonInfo" > $target/addon-info.json
-        fi
-        runHook postInstall
-      '';
-    }));
+          installPhase = ''
+            runHook preInstall
+            target=$out/${rtpPath}/${path}
+            mkdir -p $out/${rtpPath}
+            cp -r . $target
+            if [ -n "$addonInfo" ]; then
+              echo "$addonInfo" > $target/addon-info.json
+            fi
+            runHook postInstall
+          '';
+        }
+      )
+    );
 in
 {
   tw-tmux-lib = mkTmuxPlugin {
@@ -49,7 +66,7 @@ in
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
       rev = "main";
-      sha256 = "1zqkwxq0pd7al0zm95ygra03sc1cqf4ycqhh73azk576ndra26vn";
+      sha256 = "02wgymhll1zzqqdwgsr0n49gqvd8fpabd72fy78b1vafga5j9lmb";
     };
   };
 }
