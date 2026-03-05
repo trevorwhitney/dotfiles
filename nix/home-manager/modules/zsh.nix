@@ -1,9 +1,8 @@
 # vi: ft=nix
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 let
   custom = pkgs.oh-my-zsh-custom;
@@ -111,8 +110,6 @@ in
           '')
           ''
             PATH="$HOME/.local/bin''${PATH+:''$PATH}"
-            PATH="$HOME/.antigravity/antigravity/bin''${PATH+:''$PATH}"
-            PATH="$HOME/.opencode/bin''${PATH+:''$PATH}"
           ''
           ''
             # Fuzzy completion for history
@@ -208,8 +205,8 @@ in
       );
 
       shellAliases = {
-        dots = "cd $HOME/workspace/dotfiles";
-        hm-switch = "${pkgs.home-manager}/bin/home-manager switch --flake $HOME/workspace/dotfiles -b backup ";
+        dots = "cd $HOME/workspace/dotfiles/dotfiles";
+        hm-switch = "${pkgs.home-manager}/bin/home-manager switch --flake $HOME/workspace/dotfiles/dotfiles -b backup ";
         rollback = "sudo nixos-rebuild switch --rollback";
         k = "${pkgs.kubectl}/bin/kubectl ";
 

@@ -33,23 +33,25 @@
 
     # for secret management
     agenix.url = "github:ryantm/agenix";
+
+    workmux.url = "github:raine/workmux";
   };
 
   outputs =
-    {
-      self,
-      agenix,
-      deploy-rs,
-      determinate,
-      flake-utils,
-      home-manager,
-      jsonnet-language-server,
-      loki,
-      neovim,
-      nix-darwin,
-      nixpkgs,
-      nixpkgs-unstable,
-      ...
+    { self
+    , agenix
+    , deploy-rs
+    , determinate
+    , flake-utils
+    , home-manager
+    , jsonnet-language-server
+    , loki
+    , neovim
+    , nix-darwin
+    , nixpkgs
+    , nixpkgs-unstable
+    , workmux
+    , ...
     }:
     let
       inherit (nixpkgs) lib;
@@ -99,6 +101,7 @@
             claude-code
             go
             gopls
+            opencode
             snyk
             ;
           inherit (loki.packages.${system}) loki logcli promtail;
@@ -135,12 +138,13 @@
           protoc-gen-gogoslick = base.callPackage ./nix/packages/protoc-gen-gogoslick { };
           xk6 = base.callPackage ./nix/packages/xk6 { };
           stylua = base.callPackage ./nix/packages/stylua { };
+
+          workmux = workmux.packages.${system}.default;
         }
       );
     in
     {
-      nixosConfigurations = {
-      };
+      nixosConfigurations = { };
 
       darwinConfigurations = {
         fiction = import ./nix/hosts/fiction {

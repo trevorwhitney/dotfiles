@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   inherit (pkgs) dotfiles;
+  dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
+  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
   programs = {
@@ -12,7 +14,7 @@ in
     zsh = {
       shellAliases = {
         brew = "/opt/homebrew/bin/brew ";
-        rebuild = "sudo darwin-rebuild switch --impure --flake $HOME/workspace/dotfiles/main ";
+        rebuild = "sudo darwin-rebuild switch --impure --flake $HOME/workspace/dotfiles/dotfiles ";
       };
       useBrew = true;
     };
@@ -65,5 +67,10 @@ in
       yarn
       yq-go
     ];
+  };
+
+  xdg.configFile = {
+    "workmux/config.yaml".source = mkSymlink "${dotfilesPath}/workmux/config.yaml";
+    "opencode/opencode.json".source = mkSymlink "${dotfilesPath}/opencode/opencode.json";
   };
 }

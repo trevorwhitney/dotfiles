@@ -33,7 +33,7 @@ in
         "${activateAndUnlock}/bin/activate-and-unlock";
 
       open = "${pkgs.xdg-utils}/bin/xdg-open";
-      rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles --impure ";
+      rebuild = "sudo nixos-rebuild switch --flake $HOME/workspace/dotfiles/dotfiles --impure ";
     };
 
     tmux.extraConfig = ''

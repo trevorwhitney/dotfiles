@@ -5,11 +5,13 @@
     ../modules/android.nix
     ../modules/bash.nix
     ../modules/change-background.nix
+    ../modules/claude-code.nix
     ../modules/darwin.nix
     ../modules/ghostty.nix
     ../modules/git.nix
     ../modules/kubernetes.nix
     ../modules/tmux.nix
+    ../modules/zed.nix
     ../modules/zsh.nix
   ];
 

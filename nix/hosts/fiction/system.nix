@@ -52,10 +52,12 @@ in
     nil
     nixpkgs-fmt
     nmap
+    opencode
     rbenv
     ripgrep
     statix
     unixtools.watch
+    workmux
     virtualenv
     yarn
     yq-go

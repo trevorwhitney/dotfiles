@@ -26,6 +26,9 @@ let
     keybind = cmd+opt+shift+j=resize_split:down,10
     keybind = cmd+opt+shift+k=resize_split:up,10
     keybind = cmd+opt+shift+l=resize_split:right,10
+
+    # passthrough for Cmd+P
+    keybind = unconsumed:cmd+p=text:
   '';
   themes = {
     # USing the soft versions of:
@@ -96,12 +99,14 @@ in
     }
 
     (lib.mkIf (themes != { }) (
-      lib.mapAttrs' (name: value: {
-        name = "ghostty/themes/${name}";
-        value = {
-          source = keyValue.generate "ghostty-${name}-theme" value;
-        };
-      }) themes
+      lib.mapAttrs'
+        (name: value: {
+          name = "ghostty/themes/${name}";
+          value = {
+            source = keyValue.generate "ghostty-${name}-theme" value;
+          };
+        })
+        themes
     ))
   ];
 }

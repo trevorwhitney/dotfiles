@@ -49,7 +49,6 @@
       // AI
       "space c c": ["agent::NewExternalAgentThread", { "agent": "codex" }],
       "space c l": ["agent::NewExternalAgentThread", { "agent": "claude_code" }],
-      "space c g": ["agent::NewExternalAgentThread", { "agent": "goose" }],
       "space c o": [
         "agent::NewExternalAgentThread",
         {

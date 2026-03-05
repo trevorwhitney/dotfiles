@@ -1,5 +1,8 @@
-{pkgs, ...}: 
+{ config, pkgs, ... }:
 let
+  dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
+  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
+
   claudeSettings = {
     permissions = {
       allow = [
@@ -33,11 +36,30 @@ let
     };
     auto_edit = true;
   };
-  
+
   prettyJson = pkgs.runCommand "claude-settings.json" {} ''
     echo '${builtins.toJSON claudeSettings}' | ${pkgs.jq}/bin/jq . > $out
   '';
+
+  skillNames = [
+    "debug-ci-failure"
+    "explain-correctness-failure"
+    "fix-correctness-bug"
+    "git-worktree"
+    "goldfish-analyze"
+    "grafana-assistant"
+    "security-review"
+    "tdd-workflow"
+    "test-correctness-hypothesis"
+  ];
+
+  skillSymlinks = builtins.listToAttrs (map (name: {
+    name = ".claude/skills/${name}";
+    value = { source = mkSymlink "${dotfilesPath}/claude/skills/${name}"; };
+  }) skillNames);
 in
 {
-  home.file.".claude/settings.local.json".source = prettyJson;
+  home.file = {
+    ".claude/settings.local.json".source = prettyJson;
+  } // skillSymlinks;
 }

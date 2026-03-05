@@ -1,8 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 let
   inherit (pkgs) git-template;
@@ -112,6 +111,7 @@ in
         ".vagrant"
         ".vim"
         ".vscode"
+        ".workmux"
         ".worktrees"
         ".zed"
         "MEMORY.md"
