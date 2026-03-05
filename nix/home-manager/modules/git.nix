@@ -111,6 +111,7 @@ in
         ".vagrant"
         ".vim"
         ".vscode"
+        ".workmux.yaml"
         ".workmux"
         ".worktrees"
         ".zed"

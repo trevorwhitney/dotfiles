@@ -170,31 +170,6 @@ in
             complete -F __start_kubectl k
 
             autoload -U +X bashcompinit && bashcompinit
-
-            if [ -n "$TMUX" ]; then
-              bat_theme="$(tmux show-environment -g | grep "^BAT_THEME")"
-              preview_bat_theme="$(tmux show-environment -g | grep "^FZF_PREVIEW_PREVIEW_BAT_THEME")"
-              autosuggest_highlight_style="$(tmux show-environment -g | grep "^ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE")"
-
-              if [ -n "''${bat_theme}" ]; then
-                eval "export \"''${bat_theme}\""
-              else
-                eval "export BAT_THEME=\"Solarized (light)\""
-              fi
-
-              if [ -n "''${preview_bat_theme}" ]; then
-                eval "export \"''${preview_bat_theme}\""
-              else
-                eval "export FZF_PREVIEW_PREVIEW_BAT_THEME=\"Solarized (light)\""
-              fi
-
-              if [ -n "''${autosuggest_highlight_style}" ]; then
-                eval "export \"''${autosuggest_highlight_style}\""
-              else
-                # eval "export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\"fg=#a6b0a0,bg=#f3ead3\""
-                eval "export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE=\"fg=#a6b0a0\""
-              fi
-            fi
           ''
           (lib.optionalString cfg.use1Password ''
             if [ -z "$SSH_TTY" ]; then
