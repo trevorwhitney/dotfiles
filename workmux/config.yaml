@@ -6,4 +6,7 @@ panes:
   - command: <agent>
     focus: true
 post_create:
-  - direnv allow
+  - direnv allow || true
+files:
+  symlink:
+    - .envrc
