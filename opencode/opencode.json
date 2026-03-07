@@ -68,6 +68,18 @@
         "OLLAMA_BASE_URL": "http://localhost:11434",
         "OPENAI_MODEL": "text-embedding-3-small"
       }
+    },
+    "github": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "enabled": true,
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": ""
+      }
     }
   }
 }

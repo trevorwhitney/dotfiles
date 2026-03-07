@@ -211,6 +211,8 @@ in
         vjson = "nvim -c 'set filetype=json' -";
 
         newt = "${pkgs.dotfiles}/bin/newwt";
+        claude = "${pkgs.claude-code}/bin/claude --dangerously-skip-permissions ";
+        oc = "opencode ";
       };
     };
   };
