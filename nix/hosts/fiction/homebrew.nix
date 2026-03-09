@@ -33,6 +33,7 @@
       "1password-cli"
       "beekeeper-studio"
       "codex"
+      "codexbar"
       "discord"
       "deadbeef@nightly"
       "dotnet-sdk"
