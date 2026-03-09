@@ -10,6 +10,7 @@
 
     brews = [
       "awscli"
+      "beads" # AI task management for coding agents
       "bfg"
       "fswatch"
       "gnu-sed"
