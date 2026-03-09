@@ -118,6 +118,10 @@ in
         "MEMORY.md"
         "__debug_bin*"
         ".planning"
+
+        # for beads
+        ".dolt/"
+        "*.db"
       ];
     };
 

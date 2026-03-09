@@ -8,3 +8,4 @@ panes:
 post_create:
   - '[ ! -f .envrc ] && [ -f "$WM_PROJECT_ROOT/.envrc" ] && ln -s "$WM_PROJECT_ROOT/.envrc" .envrc || true'
   - direnv allow || true
+  - beads init --stealth || true
