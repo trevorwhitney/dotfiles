@@ -8,4 +8,11 @@ panes:
 post_create:
   - '[ ! -f .envrc ] && [ -f "$WM_PROJECT_ROOT/.envrc" ] && ln -s "$WM_PROJECT_ROOT/.envrc" .envrc || true'
   - direnv allow || true
-  - beads init --stealth || true
+  - >-
+    REPO_GROUP=$(basename $(readlink -f $(git rev-parse --git-common-dir)/../..));
+    if ! bd status >/dev/null 2>&1; then
+      echo "Initializing Beads for $REPO_GROUP...";
+      bd init --stealth --prefix "$REPO_GROUP";
+    else
+      echo "Beads already active for $REPO_GROUP.";
+    fi
