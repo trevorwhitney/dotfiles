@@ -123,6 +123,7 @@
           inshellisense = base.callPackage ./nix/packages/inshellisense { };
           jdtls = base.callPackage ./nix/packages/jdtls { };
           pex = base.callPackage ./nix/packages/pex { };
+          todoist-cli = base.callPackage ./nix/packages/todoist-cli { };
           chart-testing-3_8_0 = base.callPackage ./nix/packages/chart-testing/3_8_0.nix { };
 
           # Migrated from dotfiles.nix overlay
@@ -222,6 +223,7 @@
           protoc-gen-gogofast
           protoc-gen-gogoslick
           stylua
+          todoist-cli
           tw-tmux-lib
           xk6
           ;

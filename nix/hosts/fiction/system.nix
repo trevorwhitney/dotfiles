@@ -56,6 +56,7 @@ in
     rbenv
     ripgrep
     statix
+    todoist-cli
     unixtools.watch
     workmux
     virtualenv
