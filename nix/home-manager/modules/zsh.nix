@@ -83,6 +83,7 @@ in
         export XDG_DATA_HOME="${config.home.homeDirectory}/.local/share";
         export XDG_STATE_HOME="${config.home.homeDirectory}/.local/state";
         export XDG_RUNTIME_DIR="${config.home.homeDirectory}/.local/runtime";
+        export OPENCODE_EXPERIMENTAL_MARKDOWN=false
       ''
       + (lib.optionalString cfg.includeSecrets ''
         export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openAiKey.path})";
