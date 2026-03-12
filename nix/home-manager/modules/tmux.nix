@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.programs.tmux;
+  dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
+  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
 
@@ -31,14 +33,23 @@ in
           clock24 = true;
           historyLimit = 5000;
           escapeTime = 10;
+          extraConfig = ''
+            set -g @tmux-which-key-xdg-enable 1
+          '';
           plugins = with pkgs; [
             tw-tmux-lib
             tmuxPlugins.sessionist
+            tmuxPlugins.tmux-which-key
           ];
         };
 
         zsh.sessionVariables.TMUX_THEME = theme;
         bash.sessionVariables.TMUX_THEME = theme;
+      };
+
+      xdg.configFile = {
+        "tmux/plugins/tmux-which-key/config.yaml".source =
+          mkSymlink "${dotfilesPath}/misc/tmux/tmux-which-key/config.yaml";
       };
     };
 }
