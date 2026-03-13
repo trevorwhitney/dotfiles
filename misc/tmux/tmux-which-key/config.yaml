@@ -1,4 +1,9 @@
 # yaml-language-server: $schema=config.schema.yaml
+#
+# Which-key menu config for tmux.
+# Keys here mirror the actual prefix bindings so the menu
+# reinforces muscle memory.  Prefix is C-q.
+#
 command_alias_start_index: 200
 keybindings:
   # root_table: C-Space
@@ -17,50 +22,93 @@ macros:
   - name: reload-config
     commands:
       - display "#{log_info} Loading config... "
-      - source-file $HOME/.tmux.conf
+      - source-file $HOME/.config/tmux/tmux.conf
       - display -p "\n\n... Press ENTER to continue"
   - name: restart-pane
     commands:
       - display "#{log_info} Restarting pane"
       - "respawnp -k -c #{pane_current_path}"
+  - name: fzf-session
+    commands:
+      - "run-shell -b \"tmux display-popup -E \\\"tmux list-sessions | fzf --reverse | cut -d: -f1 | xargs tmux switch-client -t\\\"\""
+  - name: fzf-window
+    commands:
+      - "run-shell -b \"tmux display-popup -E \\\"tmux list-windows | fzf --reverse | cut -d: -f1 | xargs tmux select-window -t\\\"\""
 items:
-  - name: Run
-    key: space
+  # -- Quick actions -----------------------------------------------------------
+  # These mirror direct prefix bindings (C-q <key>)
+  - name: "Run cmd  :"
+    key: ":"
     command: command-prompt
-  - name: Last window
+  - name: "Last win  Tab"
     key: tab
     command: last-window
-  - name: Last pane
-    key: "`"
+  - name: "Last pane  ;"
+    key: ";"
     command: last-pane
-  - name: Copy
-    key: c
-    menu:
-      - name: Copy
-        key: c
-        command: copy-mode
-      - name: List buffers
-        key: "#"
-        command: list-buffers
+  - name: "Copy mode  v"
+    key: v
+    command: copy-mode
+  - name: "Detach  C-d"
+    key: d
+    command: detach
   - separator: true
+
+  # -- Workmux -----------------------------------------------------------------
+  - name: +Workmux
+    key: W
+    menu:
+      - name: "Dashboard  C-s"
+        key: s
+        command: 'display-popup -h 30 -w 100 -E "workmux dashboard"'
+      - name: "Add worktree  C-a"
+        key: a
+        command: "display-popup -E -d \"#{pane_current_path}\" -h 30 -w 100 $HOME/.nix-profile/share/tmux-plugins/tw-tmux-lib/scripts/workmux_add_prompt.sh"
+
+  # -- Navigate -----------------------------------------------------------------
+  - name: +Navigate
+    key: n
+    menu:
+      - name: "Session (fzf)  C-j"
+        key: j
+        macro: fzf-session
+      - name: "Window (fzf)  C-h"
+        key: h
+        macro: fzf-window
+      - separator: true
+      - name: "Goto session  g"
+        key: g
+        command: command-prompt -p session "switch-client -t %%"
+      - name: "Find window  f"
+        key: f
+        command: command-prompt "find-window -Z %%"
+
+  # -- Windows -----------------------------------------------------------------
   - name: +Windows
     key: w
     menu:
-      - name: Last
+      - name: "Last  Tab"
         key: tab
         command: last-window
-      - name: Choose
+      - name: "Choose  w"
         key: w
         command: choose-tree -Zw
-      - name: Previous
+      - name: "Previous  C-p/["
         key: p
         command: previous-window
-      - name: Next
+      - name: "Next  C-n/]"
         key: n
         command: next-window
-      - name: New
+      - name: "New  c"
         key: c
         command: "neww -c #{pane_current_path}"
+      - separator: true
+      - name: "Split horiz  -"
+        key: "-"
+        command: "splitw -v -c #{pane_current_path} -l 20"
+      - name: "Split vert  _/|"
+        key: "|"
+        command: "splitw -h -c #{pane_current_path}"
       - separator: true
       - name: +Layout
         key: l
@@ -84,12 +132,6 @@ items:
           - name: Vertical main
             key: V
             command: selectl main-vertical
-      - name: Split horizontal
-        key: /
-        command: "splitw -h -c #{pane_current_path}"
-      - name: Split vertical
-        key: "-"
-        command: "splitw -v -c #{pane_current_path}"
       - name: Rotate
         key: o
         command: rotatew
@@ -99,132 +141,157 @@ items:
         command: rotatew -D
         transient: true
       - separator: true
-      - name: Rename
+      - name: "Rename  ,"
         key: R
         command: command-prompt -I "#W" "renamew -- \"%%\""
-      - name: Kill
+      - name: "Kill  &"
         key: X
         command: 'confirm -p "Kill window #W? (y/n)" killw'
+
+  # -- Panes -------------------------------------------------------------------
   - name: +Panes
     key: p
     menu:
-      - name: Last
+      - name: "Last  ;(pane)"
         key: tab
         command: lastp
-      - name: Choose
-        key: p
+      - name: "Choose  q"
+        key: q
         command: displayp -d 0
       - separator: true
-      - name: Left
+      - name: "Left  h"
         key: h
         command: selectp -L
-      - name: Down
+      - name: "Down  j"
         key: j
         command: selectp -D
-      - name: Up
+      - name: "Up  k"
         key: k
         command: selectp -U
-      - name: Right
+      - name: "Right  l"
         key: l
         command: selectp -R
       - separator: true
-      - name: Zoom
+      - name: "Zoom  z"
         key: z
         command: resizep -Z
       - name: +Resize
         key: r
         menu:
-          - name: Left
+          - name: "Left  H"
             key: h
-            command: resizep -L
+            command: resizep -L 2
             transient: true
-          - name: Down
+          - name: "Down  J"
             key: j
-            command: resizep -D
+            command: resizep -D 2
             transient: true
-          - name: Up
+          - name: "Up  K"
             key: k
-            command: resizep -U
+            command: resizep -U 2
             transient: true
-          - name: Right
+          - name: "Right  L"
             key: l
-            command: resizep -R
+            command: resizep -R 2
             transient: true
-          - name: Left more
+          - name: Left +10
             key: H
             command: resizep -L 10
             transient: true
-          - name: Down more
+          - name: Down +10
             key: J
             command: resizep -D 10
             transient: true
-          - name: Up more
+          - name: Up +10
             key: K
             command: resizep -U 10
             transient: true
-          - name: Right more
+          - name: Right +10
             key: L
             command: resizep -R 10
             transient: true
-      - name: Swap left
-        key: H
-        command: swapp -t "{left-of}"
-      - name: Swap down
-        key: J
-        command: swapp -t "{down-of}"
-      - name: Swap up
-        key: K
-        command: swapp -t "{up-of}"
-      - name: Swap right
-        key: L
-        command: swapp -t "{right-of}"
-      - name: Break
+      - separator: true
+      - name: "Swap prev  <"
+        key: "<"
+        command: swapp -U
+      - name: "Swap next  >"
+        key: ">"
+        command: swapp -D
+      - name: "Join  @"
+        key: "@"
+        command: "choose-window \"join-pane -h -s %%\""
+      - name: "Break  !"
         key: "!"
         command: break-pane
       - separator: true
-      - name: Mark
+      - name: "Mark  m"
         key: m
         command: selectp -m
-      - name: Unmark
+      - name: "Unmark  M"
         key: M
         command: selectp -M
       - name: Capture
         key: C
         command: capture-pane
-      - name: Respawn pane
+      - name: Respawn
         key: R
         macro: restart-pane
-      - name: Kill
-        key: X
-        command: 'confirm -p "Kill pane #P? (y/n)" killp'
+      - name: "Kill  x"
+        key: x
+        command: killp
+
+  # -- Buffers -----------------------------------------------------------------
   - name: +Buffers
     key: b
     menu:
-      - name: Choose
+      - name: "List  b"
         key: b
+        command: list-buffers
+      - name: "Choose  ="
+        key: "="
         command: choose-buffer -Z
-      - name: List
-        key: l
-        command: lsb
-      - name: Paste
+      - name: "Paste  p"
         key: p
         command: pasteb
+      - name: "Pick paste  P"
+        key: P
+        command: choose-buffer
+
+  # -- Sessions ----------------------------------------------------------------
   - name: +Sessions
     key: s
     menu:
-      - name: Choose
+      - name: "Choose  s"
         key: s
         command: choose-tree -Zs
-      - name: New
-        key: N
-        command: new
-      - name: Rename
+      - name: "New  C (sessionist)"
+        key: C
+        command: command-prompt -p "New session:" "new-session -s '%%'"
+      - name: "Rename  $"
         key: r
-        command: rename
+        command: command-prompt -I "#S" "rename-session -- \"%%\""
+      - name: "Kill  X (sessionist)"
+        key: X
+        command: 'confirm -p "Kill session #S? (y/n)" kill-session'
+      - separator: true
+      - name: "Previous  ("
+        key: p
+        command: switch-client -p
+      - name: "Next  )"
+        key: n
+        command: switch-client -n
+      - name: "Last  S (sessionist)"
+        key: l
+        command: switchc -l
+      - name: "Detach  C-d/d"
+        key: d
+        command: detach
+
+  # -- Client ------------------------------------------------------------------
   - name: +Client
     key: C
     menu:
-      - name: Choose
+      - name: "Choose  D"
         key: c
         command: choose-client -Z
       - name: Last
@@ -237,44 +304,28 @@ items:
         key: n
         command: switchc -n
       - separator: true
-      - name: Refresh
+      - name: "Refresh  R"
         key: R
         command: refresh
-      - name: +Plugins
-        key: P
-        menu:
-          - name: Install
-            key: i
-            command:
-              run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/install_plugins
-          - name: Update
-            key: u
-            command:
-              run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/update_plugins
-          - name: Clean
-            key: c
-            command:
-              run-shell $TMUX_PLUGIN_MANAGER_PATH/tpm/bindings/clean_plugins
-      - name: Detach
-        key: D
-        command: detach
       - name: Suspend
         key: Z
         command: suspendc
       - separator: true
-      - name: Reload config
+      - name: "Reload config  r"
         key: r
         macro: reload-config
       - name: Customize
         key: ","
         command: customize-mode -Z
+
+  # -- Misc --------------------------------------------------------------------
   - separator: true
-  - name: Time
-    key: T
-    command: clock-mode
-  - name: Show messages
+  - name: "Messages  i"
+    key: i
+    command: display-message
+  - name: "Show messages  ~"
     key: "~"
     command: show-messages
-  - name: +Keys
+  - name: "Keys  ?"
     key: "?"
     command: list-keys -N
