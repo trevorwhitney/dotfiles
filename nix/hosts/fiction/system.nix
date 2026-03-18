@@ -37,6 +37,7 @@ in
     diffutils
     fd
     fzf
+    gcalcli
     gnused
     gnumake
     golangci-lint
