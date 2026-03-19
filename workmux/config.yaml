@@ -3,7 +3,7 @@ agent: opencode
 worktree_dir: ../
 worktree_naming: full
 panes:
-  - command: <agent>
+  - command: nvim
     focus: true
 post_create:
   - '[ ! -f .envrc ] && [ -f "$WM_PROJECT_ROOT/.envrc" ] && ln -s "$WM_PROJECT_ROOT/.envrc" .envrc || true'

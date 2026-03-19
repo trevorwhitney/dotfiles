@@ -52,6 +52,7 @@ pkgs.mkShell {
           with python-packages; [
             gyp
             tiktoken
+            tkinter
             pip
             setuptools
           ];
