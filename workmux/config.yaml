@@ -2,6 +2,7 @@ nerdfont: true
 agent: opencode
 worktree_dir: ../
 worktree_naming: full
+prompt_file_only: true
 panes:
   - command: nvim
     focus: true
