@@ -41,9 +41,8 @@ in pkgs.mkShell {
     pprof
     revive
     snyk
-    statix
-    trivy
-    yamllint
+     statix
+     yamllint
 
     # Typescript for GitHub Actions
     nodejs

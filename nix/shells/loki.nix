@@ -109,9 +109,8 @@ pkgs.mkShell {
     protoc-gen-go-grpc
     revive
     # snyk  # removed: pulls in nodejs-20 which fails to build on current nixpkgs
-    statix
-    trivy
-    yamllint
+     statix
+     yamllint
     yq-go
 
     # Typescript for GitHub Actions
