@@ -212,8 +212,18 @@ in
         vjson = "nvim -c 'set filetype=json' -";
 
         newt = "${pkgs.dotfiles}/bin/newwt";
-        claude = "${pkgs.claude-code}/bin/claude --dangerously-skip-permissions ";
-        oc = "opencode ";
+
+        # sandboxed agent aliases
+        # The wrapper reads ~/.config/sandbox-exec/agent.sb and generates
+        # dynamic workdir + worktree rules at launch time.
+        # Use --add-dirs=<path> to grant additional read/write directories.
+        safe = "$HOME/.config/sandbox-exec/run-sandboxed.sh ";
+        claude = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.claude-code}/bin/claude --dangerously-skip-permissions ";
+        oc = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.opencode}/bin/opencode ";
+        opencode = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.opencode}/bin/opencode ";
+        codex = "$HOME/.config/sandbox-exec/run-sandboxed.sh /opt/homebrew/bin/codex ";
+        gemini = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.gemini-cli}/bin/gemini ";
+        aider = "$HOME/.config/sandbox-exec/run-sandboxed.sh $HOME/.local/bin/aider ";
       };
     };
   };

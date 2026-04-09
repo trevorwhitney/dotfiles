@@ -8,6 +8,10 @@
       upgrade = true;
     };
 
+    taps = [
+      "eugene1g/safehouse"
+    ];
+
     brews = [
       "awscli"
       "beads" # AI task management for coding agents
@@ -21,11 +25,12 @@
       "reattach-to-user-namespace"
       "telnet"
       "tree"
-       "trufflehog"
+      "trufflehog"
       "usbutils"
       "uv"
       "xk6"
       "zizmor"
+      "eugene1g/safehouse/agent-safehouse"
     ];
 
     casks = [
@@ -48,6 +53,7 @@
       "raycast"
       "spotify"
       "tailscale-app"
+      "telegram"
       "todoist-app"
       "vimr"
       "vlc"

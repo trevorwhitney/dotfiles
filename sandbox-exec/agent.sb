@@ -1,0 +1,790 @@
+(version 1)
+
+;; ===========================================================================
+;; Custom Agent Sandbox Profile
+;; Machine: fiction (aarch64-darwin, nix-darwin + Home Manager)
+;; User:    twhitney
+;; Style:   Modeled on Agent Safehouse (github.com/eugene1g/agent-safehouse)
+;;
+;; This is the durable, machine-local portion of the policy.
+;; The companion wrapper script (run-sandboxed.sh) generates dynamic
+;; workdir, --add-dirs, and worktree rules at launch time and prepends
+;; them to a temporary copy of this profile before invoking sandbox-exec.
+;; ===========================================================================
+
+;; ---------------------------------------------------------------------------
+;; 00 -- Base Profile
+;; Core definitions, HOME_DIR, helper macros.
+;; Reference: 00-base.sb
+;; ---------------------------------------------------------------------------
+
+(define HOME_DIR "/Users/twhitney")
+
+(define (home-subpath rel) (subpath (string-append HOME_DIR rel)))
+(define (home-literal rel) (literal (string-append HOME_DIR rel)))
+(define (home-prefix  rel) (prefix  (string-append HOME_DIR rel)))
+
+(deny default)
+
+;; ---------------------------------------------------------------------------
+;; 10 -- System Runtime
+;; Process execution, tmp/dev access, system binaries, mach services.
+;; Reference: 10-system-runtime.sb
+;; ---------------------------------------------------------------------------
+
+;; -- System binary and framework reads --
+
+(allow file-read*
+    (subpath "/usr")                                                  ;; Core system binaries and libraries.
+    (subpath "/bin")                                                  ;; POSIX userland binaries.
+    (subpath "/sbin")                                                 ;; System utilities some build flows invoke.
+    (subpath "/opt")                                                  ;; Homebrew and other package-manager roots.
+    (subpath "/System/Library")                                       ;; macOS runtime frameworks/resources.
+    (subpath "/System/Volumes/Preboot")                               ;; dyld/framework lookups on modern macOS.
+    (subpath "/Library/Apple")                                        ;; Apple private frameworks touched by toolchains.
+    (subpath "/Library/Frameworks")                                   ;; Global framework lookup path.
+    (subpath "/Library/Fonts")                                        ;; Font reads used by headless renderers.
+    (subpath "/Library/Filesystems/NetFSPlugins")                     ;; Path resolution may load NetFS plugins.
+    (subpath "/Library/Preferences/Logging")                          ;; Logging stack reads prefs during init.
+    (literal "/Library/Preferences/.GlobalPreferences.plist")         ;; Locale/time defaults queried by runtimes.
+    (literal "/Library/Preferences/com.apple.networkd.plist")         ;; DNS/network bootstrap reads.
+    (literal "/dev")                                                  ;; /dev directory listing; shells enumerate it.
+)
+
+;; -- Metadata traversal on system roots --
+
+(allow file-read-metadata
+    (subpath "/System")                                               ;; Traversal for framework path resolution.
+    (subpath "/private/var/run")                                      ;; Socket namespace metadata.
+)
+
+;; -- /etc and /var (symlinks into /private/*) --
+
+(allow file-read*
+    (literal "/private")                                              ;; Symlink traversal under /private.
+    (literal "/private/var")                                          ;; Symlink traversal to /var-backed paths.
+    (subpath "/private/var/db/timezone")                              ;; Timezone DB for date/time formatting.
+    (literal "/private/var/select/sh")                                ;; /bin/sh selector.
+    (literal "/private/var/select/developer_dir")                     ;; xcode-select developer dir pointer.
+    (literal "/var/select/developer_dir")                             ;; Compatibility alias.
+    (literal "/private/var/db/xcode_select_link")                     ;; xcode-select link lookup.
+    (literal "/var/db/xcode_select_link")                             ;; Compatibility alias.
+    (literal "/private/etc/hosts")                                    ;; Host override file.
+    (literal "/private/etc/resolv.conf")                              ;; DNS resolver config.
+    (literal "/private/etc/services")                                 ;; Service name-to-port mappings.
+    (literal "/private/etc/protocols")                                ;; Protocol metadata.
+    (literal "/private/etc/shells")                                   ;; Valid shell list.
+    (subpath "/private/etc/ssl")                                      ;; TLS CA bundles/certs.
+    (literal "/private/etc/localtime")                                ;; Localtime symlink.
+    (literal "/etc")                                                  ;; Compatibility symlink root.
+    (literal "/var")                                                  ;; Compatibility symlink root.
+)
+
+;; -- XDG/home probe paths (metadata only) --
+
+(allow file-read-metadata
+    (literal "/home")                                                 ;; Probed by some runtimes.
+    (literal "/private/etc")                                          ;; Directory traversal for /etc.
+    (subpath "/dev")                                                  ;; Metadata on /dev entries.
+    (home-literal "/.config")                                         ;; XDG config root traversal.
+    (home-literal "/.cache")                                          ;; XDG cache root traversal.
+    (home-literal "/.local")                                          ;; XDG data root traversal.
+    (home-literal "/.local/share")                                    ;; XDG data share dir traversal.
+)
+
+;; -- User preference reads --
+
+(allow file-read*
+    (home-prefix "/Library/Preferences/.GlobalPreferences")           ;; User-level locale/defaults.
+    (home-prefix "/Library/Preferences/com.apple.GlobalPreferences")  ;; Apple-namespaced variant.
+    (home-subpath "/Library/Preferences/ByHost")                      ;; Per-host preferences.
+    (home-literal "/.CFUserTextEncoding")                             ;; Text encoding prefs.
+    (home-literal "/.config")                                         ;; XDG config root directory listing.
+    (home-literal "/.cache")                                          ;; XDG cache root directory listing.
+    (home-literal "/.local/bin")                                      ;; PATH probing may readdir here.
+)
+
+;; -- Process primitives (broad; agent workflows chain many subprocesses) --
+
+(allow process-exec)                                                  ;; Execute toolchain binaries/shells.
+(allow process-fork)                                                  ;; Normal child-process trees.
+(allow sysctl-read)                                                   ;; Runtime/process introspection.
+(allow process-info* (target same-sandbox))                           ;; Introspect within same sandbox.
+(allow signal (target same-sandbox))                                  ;; Signal children for cancel/term.
+(allow mach-priv-task-port (target same-sandbox))                     ;; Same-sandbox process controls.
+(allow pseudo-tty)                                                    ;; PTY allocation for terminals.
+
+;; -- Temporary file and socket locations --
+
+(allow file-read* file-write*
+    (subpath "/tmp")                                                  ;; Primary temp dir.
+    (subpath "/private/tmp")                                          ;; macOS backing path for /tmp.
+    (subpath "/var/folders")                                          ;; macOS per-user temp/cache roots.
+    (subpath "/private/var/folders")                                  ;; macOS backing path for /var/folders.
+)
+
+;; Defense-in-depth: launchd listener sockets stay opt-in.
+;; The SSH integration below re-opens these when needed.
+(deny file-read* file-write*
+    (regex #"^/private/tmp/com\.apple\.launchd\.[^/]+/Listeners$")
+    (regex #"^/tmp/com\.apple\.launchd\.[^/]+/Listeners$")
+)
+
+;; -- Device nodes --
+
+(allow file-read* file-write*
+    (subpath "/dev/fd")                                               ;; Process substitution / fd access.
+    (literal "/dev/stdout")
+    (literal "/dev/stderr")
+    (literal "/dev/null")
+    (literal "/dev/tty")                                              ;; Controlling terminal.
+    (literal "/dev/ptmx")                                             ;; PTY multiplexer.
+    (literal "/dev/dtracehelper")
+    (regex #"^/dev/tty")
+    (regex #"^/dev/ttys")
+    (regex #"^/dev/pty")
+)
+
+(allow file-read*
+    (literal "/dev/zero")
+    (literal "/dev/autofs_nowait")
+    (literal "/dev/dtracehelper")
+    (literal "/dev/urandom")
+    (literal "/dev/random")
+)
+
+(allow file-ioctl
+    (literal "/dev/dtracehelper")
+    (literal "/dev/tty")
+    (literal "/dev/ptmx")
+    (regex #"^/dev/tty")
+    (regex #"^/dev/ttys")
+    (regex #"^/dev/pty")
+)
+
+;; -- Baseline mach services --
+
+(allow mach-lookup
+    (global-name "com.apple.system.notification_center")
+    (global-name "com.apple.system.opendirectoryd.libinfo")
+    (global-name "com.apple.logd")
+    (global-name "com.apple.FSEvents")
+    (global-name "com.apple.SystemConfiguration.configd")
+    (global-name "com.apple.SystemConfiguration.DNSConfiguration")
+    (global-name "com.apple.trustd.agent")
+    (global-name "com.apple.diagnosticd")
+    (global-name "com.apple.analyticsd")
+    (global-name "com.apple.dnssd.service")
+    (global-name "com.apple.CoreServices.coreservicesd")
+    (global-name "com.apple.DiskArbitration.diskarbitrationd")
+    (global-name "com.apple.analyticsd.messagetracer")
+    (global-name "com.apple.system.logger")
+    (global-name "com.apple.coreservices.launchservicesd")
+)
+
+(allow system-socket)                                                 ;; AF_SYSTEM sockets for kernel event monitoring.
+
+(allow ipc-posix-shm-read-data
+    (ipc-posix-name "apple.shm.notification_center")
+)
+
+;; ---------------------------------------------------------------------------
+;; 20 -- Network
+;; Fully open; exfiltration/C2 prevention is NOT a goal.
+;; Reference: 20-network.sb
+;; ---------------------------------------------------------------------------
+
+(allow network*)
+
+;; ---------------------------------------------------------------------------
+;; 30 -- Toolchain: Nix (custom; no upstream Safehouse equivalent)
+;; Nix store, daemon, profiles, and nix-darwin system paths.
+;; ---------------------------------------------------------------------------
+
+;; Nix store is immutable after build; read-only is correct.
+(allow file-read*
+    (subpath "/nix/store")                                            ;; All Nix derivation outputs (binaries, libs, etc.).
+    (subpath "/nix/var")                                              ;; Nix DB, GC roots, daemon metadata.
+    (subpath "/run/current-system")                                   ;; nix-darwin system profile (symlink tree).
+    (literal "/run")                                                  ;; Symlink traversal (/run -> /private/var/run).
+    (home-subpath "/.nix-profile")                                    ;; User-level Nix profile symlink.
+    (home-subpath "/.local/state/nix")                                ;; HM generation links and Nix user state.
+    (home-subpath "/.nix-defexpr")                                    ;; Nix channel expression roots (if present).
+)
+
+;; Nix daemon socket (needed for nix build/eval inside sandbox).
+(allow file-read* file-write*
+    (literal "/nix/var/nix/daemon-socket/socket")                     ;; Nix daemon IPC socket.
+    (literal "/var/run/nix-daemon.socket")                            ;; Alternate daemon socket path.
+)
+
+;; ---------------------------------------------------------------------------
+;; 30 -- Toolchain: Node.js
+;; Node.js runtime with npm, yarn, pnpm, and corepack paths.
+;; Reference: 30-toolchains/node.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    ;; npm
+    (home-subpath "/.npm")
+    (home-subpath "/.config/npm")
+    (home-subpath "/.cache/npm")
+    (home-subpath "/.cache/node")
+    (home-subpath "/.cache/prisma")
+    (home-subpath "/Library/Caches/npm")
+    (home-literal "/.npmrc")
+
+    ;; configstore
+    (home-subpath "/.config/configstore")
+
+    ;; node-gyp
+    (home-subpath "/.node-gyp")
+    (home-subpath "/.cache/node-gyp")
+
+    ;; pnpm
+    (home-subpath "/.config/pnpm")
+    (home-subpath "/.pnpm-state")
+    (home-subpath "/.pnpm-store")
+    (home-subpath "/.local/share/pnpm")
+    (home-subpath "/.local/state/pnpm")
+    (home-subpath "/Library/pnpm")
+    (home-subpath "/Library/Caches/pnpm")
+    (home-subpath "/Library/Preferences/pnpm")
+
+    ;; yarn (classic + modern)
+    (home-subpath "/.yarn")
+    (home-literal "/.yarnrc")
+    (home-literal "/.yarnrc.yml")
+    (home-subpath "/.config/yarn")
+    (home-subpath "/.cache/yarn")
+    (home-subpath "/Library/Caches/Yarn")
+
+    ;; corepack
+    (home-subpath "/.cache/node/corepack")
+    (home-subpath "/Library/Caches/node/corepack")
+
+    ;; Node ecosystem caches
+    (home-subpath "/Library/Caches/typescript")
+    (home-subpath "/Library/Caches/claude-cli-nodejs")
+
+    ;; Turborepo
+    (home-subpath "/.cache/turbo")
+    (home-subpath "/Library/Caches/turbo")
+    (home-subpath "/Library/Application Support/turborepo")
+)
+
+;; ---------------------------------------------------------------------------
+;; 30 -- Toolchain: Go
+;; Go toolchain, module cache, and build cache paths.
+;; Reference: 30-toolchains/go.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/go")                                              ;; GOPATH default.
+    (home-subpath "/.cache/go-build")
+    (home-subpath "/Library/Caches/go-build")
+    (home-subpath "/.config/go")
+    (home-subpath "/.cache/golangci-lint")
+    (home-subpath "/Library/Caches/golangci-lint")
+    (home-subpath "/.config/golangci-lint")
+    (home-subpath "/.local/share/go")
+    (home-subpath "/.cache/gopls")
+)
+
+;; ---------------------------------------------------------------------------
+;; 30 -- Toolchain: Python
+;; Python runtime, pip, uv, and virtualenv paths.
+;; Reference: 30-toolchains/python.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-literal "/.local/bin/uv")
+    (home-literal "/.local/bin/uvx")
+    (home-subpath "/.local/share/uv")
+    (home-subpath "/.local/state/uv")
+    (home-subpath "/.local/pipx")
+    (home-subpath "/.cache/uv")
+    (home-subpath "/Library/Caches/uv")
+    (home-subpath "/.config/uv")
+    (home-subpath "/.cache/pip")
+    (home-subpath "/.config/pip")
+    (home-subpath "/Library/Caches/pip")
+    (home-subpath "/.cache/pre-commit")
+    (home-subpath "/.cache/mypy")
+    (home-subpath "/.cache/ruff")
+    (home-subpath "/.virtualenvs")
+    (home-subpath "/.ipython")
+    (home-subpath "/.pyenv")
+    (home-literal "/.python_history")
+)
+
+;; ---------------------------------------------------------------------------
+;; 30 -- Toolchain: Java (minimal; Nix-managed JDK)
+;; Reference: 30-toolchains/java.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read*
+    (subpath "/Library/Java")                                         ;; System JDK bundles (read-only).
+)
+
+(allow file-read* file-write*
+    (home-subpath "/.m2")
+    (home-subpath "/.gradle")
+    (home-subpath "/.java")
+    (home-subpath "/Library/Java")                                    ;; User-local JDK bundles.
+)
+
+(allow file-read-metadata
+    (literal "/Library")
+    (literal "/Library/Internet Plug-Ins")
+    (home-literal "/Library")
+    (home-literal "/Library/Internet Plug-Ins")
+)
+
+(allow sysctl-write
+    (sysctl-name "kern.grade_cputype")                                ;; Apple Silicon JVM startup.
+)
+
+(allow mach-lookup
+    (global-name "com.apple.bsd.dirhelper")                           ;; JVM temp directory discovery.
+    (global-name "com.apple.system.opendirectoryd.membership")        ;; Group membership queries.
+)
+
+;; ---------------------------------------------------------------------------
+;; 30 -- Toolchain: Ruby (system Ruby only; minimal)
+;; Reference: 30-toolchains/ruby.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read*
+    (literal "/Library/Ruby")
+    (subpath "/Library/Ruby/Gems")                                    ;; System gem catalog (read-only).
+)
+
+;; ---------------------------------------------------------------------------
+;; 40 -- Shared Agent Context
+;; Shared skills, agents, and guidance files.
+;; Reference: 40-shared/agent-common.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.skills")
+    (home-subpath "/.agents")
+    (home-literal "/AGENTS.md")
+)
+
+(allow file-read*
+    (home-subpath "/.claude/agents")
+    (home-subpath "/.claude/skills")
+    (home-literal "/CLAUDE.md")
+)
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Container Runtime Default Deny
+;; Reference: 50-integrations-core/container-runtime-default-deny.sb
+;; ---------------------------------------------------------------------------
+
+(deny file-read* file-write*
+    (literal "/var/run/docker.sock")
+    (literal "/private/var/run/docker.sock")
+    (literal "/var/run/podman/podman.sock")
+    (literal "/private/var/run/podman/podman.sock")
+    (home-literal "/.docker/run/docker.sock")
+    (home-literal "/.rd/docker.sock")
+    (home-literal "/.orbstack/run/docker.sock")
+    (regex (string-append "^" HOME_DIR "/\\.colima/docker\\.sock$"))
+    (regex (string-append "^" HOME_DIR "/\\.colima/[^/]+/docker\\.sock$"))
+    (regex (string-append "^" HOME_DIR "/\\.local/share/containers/podman/machine/podman\\.sock$"))
+    (regex (string-append "^" HOME_DIR "/\\.local/share/containers/podman/machine/[^/]+/podman\\.sock$"))
+)
+
+(deny network-outbound
+    (remote unix-socket (path-literal "/var/run/docker.sock"))
+    (remote unix-socket (path-literal "/private/var/run/docker.sock"))
+    (remote unix-socket (path-literal "/var/run/podman/podman.sock"))
+    (remote unix-socket (path-literal "/private/var/run/podman/podman.sock"))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.docker/run/docker\\.sock$")))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.rd/docker\\.sock$")))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.orbstack/run/docker\\.sock$")))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.colima/docker\\.sock$")))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.colima/[^/]+/docker\\.sock$")))
+)
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: SSH Agent Default Deny
+;; Baseline deny for SSH agent sockets; re-opened by SSH integration below.
+;; Reference: 50-integrations-core/ssh-agent-default-deny.sb
+;; ---------------------------------------------------------------------------
+
+(deny network-outbound
+    (remote unix-socket (path-regex #"^/private/tmp/com\.apple\.launchd\.[^/]+/Listeners$"))
+    (remote unix-socket (path-regex #"^/tmp/com\.apple\.launchd\.[^/]+/Listeners$"))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.ssh/agent(/.*)?$")))
+)
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Git
+;; Git client configuration (read-only).
+;; Reference: 50-integrations-core/git.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read*
+    (home-prefix "/.gitconfig")                                       ;; User gitconfig and variants.
+    (home-prefix "/.gitignore")                                       ;; User global gitignore variants.
+    (home-subpath "/.config/git")                                     ;; XDG-style git config directory.
+    (home-literal "/.gitattributes")                                  ;; Global gitattributes.
+)
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Agenix Secrets (read-only)
+;; Git config includes an agenix-managed file with private repo URL rewrites.
+;; Other secrets (API keys) are inherited as env vars from the parent shell.
+;; ---------------------------------------------------------------------------
+
+(allow file-read-metadata
+    (home-literal "/.agenix")                                         ;; Traversal for agenix secrets dir.
+    (home-literal "/.agenix/secrets")                                 ;; Traversal for secrets dir listing.
+)
+
+(allow file-read*
+    (home-literal "/.agenix/secrets/git")                             ;; Git URL rewrite rules for private repos.
+)
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: SCM CLIs (gh, glab)
+;; Reference: 50-integrations-core/scm-clis.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.config/gh")
+    (home-subpath "/.cache/gh")
+    (home-subpath "/.local/share/gh")
+    (home-subpath "/.local/state/gh")
+    (home-subpath "/.config/glab-cli")
+    (home-subpath "/.cache/glab-cli")
+    (home-subpath "/.local/share/glab-cli")
+    (home-subpath "/.local/state/glab-cli")
+)
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Git Worktree Common Dir
+;; Template section; actual rules generated by wrapper at launch time.
+;; Reference: 50-integrations-core/worktree-common-dir.sb
+;; ---------------------------------------------------------------------------
+
+;; Worktree common dir rules are emitted dynamically by run-sandboxed.sh.
+;; See the wrapper script for the generation logic.
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Git Worktrees
+;; Template section; sibling worktree read-only grants generated by wrapper.
+;; Reference: 50-integrations-core/worktrees.sb
+;; ---------------------------------------------------------------------------
+
+;; Sibling worktree read-only rules are emitted dynamically by run-sandboxed.sh.
+
+;; ---------------------------------------------------------------------------
+;; 55 -- Integration: SSH
+;; SSH agent sockets, system config, safe config access.
+;; Private key reads are denied.
+;; Reference: 55-integrations-optional/ssh.sb
+;; ---------------------------------------------------------------------------
+
+;; Defense-in-depth: block private key reads by default.
+(deny file-read* file-write*
+    (home-subpath "/.ssh")
+)
+
+;; Directory traversal so specific-file allows resolve through ~/.ssh.
+(allow file-read-metadata
+    (home-literal "/.ssh")
+    (home-literal "/.ssh/agent")                                      ;; macOS 26 ssh-agent socket directory.
+)
+
+;; Allow non-sensitive SSH metadata needed for git/remote operations.
+(allow file-read*
+    (home-literal "/.ssh/known_hosts")
+    (home-literal "/.ssh/config")
+    (home-subpath "/.ssh/config.d")
+    (home-literal "/.ssh/allowed_signers")                            ;; SSH signature verification (git signing).
+    (literal "/private/etc/ssh/ssh_config")
+    (subpath "/private/etc/ssh/ssh_config.d")
+    (literal "/private/etc/ssh/crypto.conf")
+    (subpath "/private/etc/ssh/crypto")
+    (subpath "/private/etc/static")                                    ;; nix-darwin managed /etc fragments (symlink tree into /nix/store).
+    (subpath "/etc/static")                                           ;; Compatibility alias for nix-darwin /etc/static.
+)
+
+;; Allow writing known_hosts for first-connect host key acceptance.
+(allow file-write*
+    (home-literal "/.ssh/known_hosts")
+    (home-literal "/.ssh/known_hosts.old")
+)
+
+;; SSH agent socket access via launchd-managed paths.
+(allow file-read* file-write*
+    (regex #"^/private/tmp/com\.apple\.launchd\.[^/]+/Listeners$")
+    (regex #"^/tmp/com\.apple\.launchd\.[^/]+/Listeners$")
+    (home-subpath "/.ssh/agent")                                      ;; macOS 26 ssh-agent socket dir.
+)
+
+;; Re-open network-outbound for SSH agent unix sockets (overrides default deny).
+(allow network-outbound
+    (remote unix-socket (path-regex #"^/private/tmp/com\.apple\.launchd\.[^/]+/Listeners$"))
+    (remote unix-socket (path-regex #"^/tmp/com\.apple\.launchd\.[^/]+/Listeners$"))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.ssh/agent(/.*)?$")))
+)
+
+;; ---------------------------------------------------------------------------
+;; 55 -- Integration: 1Password
+;; 1Password desktop app and CLI agent socket access.
+;; Required for SSH agent forwarding and git commit signing via 1Password.
+;; Reference: 55-integrations-optional/1password.sb
+;; ---------------------------------------------------------------------------
+
+;; File access for 1Password agent socket and CLI config.
+(allow file-read* file-write*
+    (home-subpath "/.config/op")                                      ;; 1Password CLI config and session tokens.
+    (home-subpath "/.1password")                                      ;; 1Password SSH agent symlink dir (~/.1password/agent.sock).
+    (subpath "/Users/Shared/.1password")                              ;; Shared path variant for SSH agent socket.
+    (regex (string-append "^" HOME_DIR "/Library/Group Containers/[A-Za-z0-9]+\\.com\\.1password/t/agent\\.sock$"))  ;; Real 1Password SSH agent socket.
+)
+
+;; 1Password Desktop settings probe (read-only).
+(allow file-read*
+    (regex (string-append "^" HOME_DIR "/Library/Group Containers/[A-Za-z0-9]+\\.com\\.1password/Library/Application Support/1Password/Data/settings(/.*)?$"))
+)
+
+;; 1Password SSH agent config (controls which keys are offered).
+(allow file-read*
+    (home-subpath "/.config/1Password")
+)
+
+;; Network-outbound for 1Password SSH agent unix socket.
+;; This is critical: SSH connect() to the agent socket is classified as
+;; network-outbound by sandbox-exec, not file-read/write.
+(allow network-outbound
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.1password/agent\\.sock$")))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/Library/Group Containers/[A-Za-z0-9]+\\.com\\.1password/t/agent\\.sock$")))
+)
+
+;; 1Password app/service IPC endpoints.
+(allow mach-lookup
+    (global-name-regex #"^([A-Za-z0-9]+\.)?com\.1password(\..*)?$")   ;; 1Password app/service IPC (incl. team-prefixed names).
+    (global-name-regex #"^com\.agilebits(\..*)?$")                    ;; Legacy AgileBits service names.
+)
+
+;; ---------------------------------------------------------------------------
+;; 55 -- Integration: Keychain
+;; macOS Keychain and Security framework.
+;; Required by Claude Code, Codex, and other agents for credential storage.
+;; Reference: 55-integrations-optional/keychain.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/Library/Keychains")
+    (home-literal "/Library/Preferences/com.apple.security.plist")
+)
+
+(allow file-read*
+    (literal "/Library/Preferences/com.apple.security.plist")
+    (literal "/Library/Keychains/System.keychain")
+    (subpath "/private/var/db/mds")
+)
+
+(allow file-read-metadata
+    (home-literal "/Library")
+    (home-literal "/Library/Keychains")
+    (literal "/Library/Keychains")
+)
+
+(allow mach-lookup
+    (global-name "com.apple.SecurityServer")
+    (global-name "com.apple.security.agent")
+    (global-name "com.apple.securityd.xpc")
+    (global-name "com.apple.security.authhost")
+    (global-name "com.apple.secd")
+    (global-name "com.apple.trustd")
+)
+
+(allow ipc-posix-shm-read-data ipc-posix-shm-write-create ipc-posix-shm-write-data
+    (ipc-posix-name "com.apple.AppleDatabaseChanged")
+)
+
+;; ---------------------------------------------------------------------------
+;; 55 -- Integration: Shell Init
+;; Opt-in reads for shell init/config files.
+;; Required because shell is Nix-managed zsh; PATH setup needs these.
+;; Reference: 55-integrations-optional/shell-init.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read*
+    ;; Shared shell startup files and PATH defaults.
+    (literal "/private/etc/profile")
+    (literal "/private/etc/paths")
+    (subpath "/private/etc/paths.d")
+
+    ;; Zsh startup files.
+    (literal "/private/etc/zprofile")
+    (literal "/private/etc/zshrc")
+    (home-literal "/.zshenv")
+    (home-literal "/.zprofile")
+    (home-literal "/.zshrc")
+    (home-literal "/.zcompdump")
+    (home-prefix "/.zcompdump")                                       ;; Versioned variants.
+)
+
+;; ---------------------------------------------------------------------------
+;; 60 -- Agent: Claude Code
+;; Claude Code CLI binary, state, config, and MCP integration paths.
+;; Reference: 60-agents/claude-code.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-prefix "/.local/bin/claude")
+    (home-subpath "/.cache/claude")
+    (home-subpath "/.claude")
+    (home-prefix "/.claude.json")
+    (home-literal "/.claude.lock")
+    (home-subpath "/.config/claude")
+    (home-subpath "/.local/state/claude")
+    (home-subpath "/.local/share/claude")
+    (home-literal "/.mcp.json")
+)
+
+(allow file-read*
+    (home-prefix "/.claude.json.")
+    (home-literal "/Library/Application Support/Claude/claude_desktop_config.json")
+    (subpath "/Library/Application Support/ClaudeCode/.claude")
+    (literal "/Library/Application Support/ClaudeCode/managed-settings.json")
+    (literal "/Library/Application Support/ClaudeCode/managed-mcp.json")
+    (literal "/Library/Application Support/ClaudeCode/CLAUDE.md")
+)
+
+;; VS Code editor handoff metadata (for Ctrl+G).
+(allow file-read-metadata
+    (literal "/Applications")
+    (subpath "/Applications/Visual Studio Code.app")
+    (subpath "/Applications/Visual Studio Code - Insiders.app")
+)
+
+;; ---------------------------------------------------------------------------
+;; 60 -- Agent: Codex
+;; Codex CLI binary, state, and config paths.
+;; Reference: 60-agents/codex.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-prefix "/.local/bin/codex")
+    (home-subpath "/.codex")
+    (home-subpath "/.cache/codex")
+)
+
+(allow file-read*
+    (home-literal "/Library/Preferences/com.openai.codex.plist")
+    (literal "/Library/Preferences/com.openai.codex.plist")
+    (literal "/Library/Managed Preferences/com.openai.codex.plist")
+    (subpath "/etc/codex")
+)
+
+;; ---------------------------------------------------------------------------
+;; 60 -- Agent: OpenCode
+;; OpenCode CLI binary, state, and config paths.
+;; Reference: 60-agents/opencode.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-prefix "/.opencode/bin/opencode")
+    (home-prefix "/.local/bin/opencode")
+    (home-prefix "/bin/opencode")
+    (home-literal "/.config")                                         ;; mkdir -p for ~/.config/opencode.
+    (home-literal "/.cache")                                          ;; mkdir -p for ~/.cache/opencode.
+    (home-literal "/.local")                                          ;; mkdir -p for ~/.local/{share,state}/opencode.
+    (home-literal "/.local/share")
+    (home-literal "/.local/state")
+    (home-subpath "/.opencode")
+    (home-subpath "/.config/opencode")
+    (home-subpath "/.cache/opencode")
+    (home-subpath "/.local/share/opencode")
+    (home-subpath "/.local/share/opentui")
+    (home-subpath "/.local/state/opencode")
+    (home-literal "/.opencode.json")
+)
+
+(allow file-read*
+    (home-subpath "/.config/github-copilot")                          ;; Copilot token read for auth.
+)
+
+;; ---------------------------------------------------------------------------
+;; 60 -- Agent: Gemini
+;; Gemini CLI binary, state, and config paths.
+;; Reference: 60-agents/gemini.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-prefix "/.local/bin/gemini")
+    (home-subpath "/.config/gemini")
+    (home-subpath "/.cache/gemini")
+    (home-subpath "/.local/share/gemini")
+    (home-subpath "/.local/state/gemini")
+    (home-literal "/.gemini.json")
+    (home-literal "/GEMINI.md")
+)
+
+;; ---------------------------------------------------------------------------
+;; 60 -- Agent: Aider
+;; Aider CLI binary, state, and config paths.
+;; Reference: 60-agents/aider.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-literal "/.local/bin/aider")
+    (home-subpath "/.aider")
+    (home-subpath "/.config/aider")
+    (home-subpath "/.cache/aider")
+    (home-subpath "/.local/share/aider")
+    (home-subpath "/.local/state/aider")
+    (home-literal "/.aider.conf.yml")
+    (home-literal "/.aider.model.settings.yml")
+)
+
+;; ---------------------------------------------------------------------------
+;; 60 -- Agent: Cursor
+;; Cursor Agent mode paths.
+;; Reference: 60-agents/cursor-agent.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.cursor")
+    (home-subpath "/.config/cursor")
+    (home-subpath "/.cache/cursor")
+    (home-subpath "/Library/Application Support/Cursor")
+    (home-subpath "/Library/Caches/Cursor")
+)
+
+(allow file-read-metadata
+    (subpath "/Applications/Cursor.app")
+)
+
+;; ---------------------------------------------------------------------------
+;; Static read-only: ~/workspace
+;; Broad read visibility across all projects; write access is workdir-only
+;; (or via --add-dirs at launch).
+;; ---------------------------------------------------------------------------
+
+;; Ancestor literal reads for ~/workspace so agents can readdir() up the tree.
+(allow file-read*
+    (literal "/")
+    (literal "/Users")
+    (literal "/Users/twhitney")
+    (literal "/Users/twhitney/workspace")
+)
+
+(allow file-read*
+    (home-subpath "/workspace")                                       ;; Read-only access across all projects.
+)
+
+;; ===========================================================================
+;; END OF DURABLE PROFILE
+;; Dynamic workdir, --add-dirs, and worktree rules are generated by
+;; run-sandboxed.sh and prepended to a temporary copy at launch time.
+;; ===========================================================================
