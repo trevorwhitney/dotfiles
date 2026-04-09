@@ -146,4 +146,27 @@ in
     reattach = true;
     touchIdAuth = true;
   };
+
+  # Increase system-wide open file limits to avoid "Too many open files" errors
+  # during large Nix builds. Setting NumberOfFiles on a system-wide daemon also
+  # adjusts kern.maxfiles (soft) and kern.maxfilesperproc (hard) via sysctl.
+  launchd.daemons.limit-maxfiles = {
+    serviceConfig = {
+      Label = "limit.maxfiles";
+      ProgramArguments = [
+        "/bin/launchctl"
+        "limit"
+        "maxfiles"
+        "524288"
+        "524288"
+      ];
+      RunAtLoad = true;
+      SoftResourceLimits = {
+        NumberOfFiles = 524288;
+      };
+      HardResourceLimits = {
+        NumberOfFiles = 524288;
+      };
+    };
+  };
 }

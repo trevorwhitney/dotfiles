@@ -88,6 +88,12 @@
                   };
                 });
               })
+              # Skip direnv tests that hang in the sandbox
+              (final: prev: {
+                direnv = prev.direnv.overrideAttrs (old: {
+                  doCheck = false;
+                });
+              })
             ];
           };
         in
@@ -104,7 +110,7 @@
             opencode
             snyk
             ;
-          inherit (loki.packages.${system}) loki logcli promtail;
+          inherit (loki.packages.${system}) loki logcli;
 
           go_1_24 = base.go;
           delve_1_24 = base.delve;
@@ -219,7 +225,6 @@
           mixtool
           oh-my-zsh-custom
           pex
-          promtail
           protoc-gen-gogofast
           protoc-gen-gogoslick
           stylua

@@ -124,8 +124,5 @@ pkgs.mkShell {
     (pkgs.loki.overrideAttrs (old: {
       doCheck = false;
     }))
-    (pkgs.promtail.overrideAttrs (old: {
-      doCheck = false;
-    }))
   ];
 }

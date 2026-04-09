@@ -8,14 +8,6 @@
       })
     }/bin/loki";
   };
-  promtail = {
-    type = "app";
-    program = "${
-      pkgs.promtail.overrideAttrs (old: {
-        doCheck = false;
-      })
-    }/bin/promtail";
-  };
   logcli = {
     type = "app";
     program = "${

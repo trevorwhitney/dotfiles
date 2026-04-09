@@ -48,7 +48,7 @@
       host.darwin = true;
     };
     git = {
-      includes = [ { path = "${config.age.secrets.git.path}"; } ];
+      includes = [{ path = "${config.age.secrets.git.path}"; }];
     };
 
     gh = {
@@ -87,6 +87,12 @@
           user = "twhitney";
           host = "monterey";
           hostname = "10.11.0.51";
+          forwardAgent = false;
+        };
+        "remy" = {
+          user = "twhitney";
+          host = "remy";
+          hostname = "10.11.0.15";
           forwardAgent = false;
         };
         "omada" = {
