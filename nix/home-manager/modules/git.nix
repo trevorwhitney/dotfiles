@@ -127,6 +127,7 @@ in
 
     home.packages = with pkgs; [
       delta
+      git-absorb
     ];
   };
 }
