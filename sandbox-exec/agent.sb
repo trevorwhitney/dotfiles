@@ -202,6 +202,14 @@
 ;; ---------------------------------------------------------------------------
 
 ;; Nix store is immutable after build; read-only is correct.
+;; Node.js realpathSync() walks up the path tree and needs to
+;; lstat('/nix') -- the APFS firmlink mount point -- to resolve
+;; paths inside the store. Without this, npx and any CJS require()
+;; of Nix-store paths fail with EPERM.
+(allow file-read-metadata
+    (literal "/nix")                                                  ;; Firmlink mount-point traversal (lstat only).
+)
+
 (allow file-read*
     (subpath "/nix/store")                                            ;; All Nix derivation outputs (binaries, libs, etc.).
     (subpath "/nix/var")                                              ;; Nix DB, GC roots, daemon metadata.
@@ -358,6 +366,17 @@
 (allow file-read*
     (literal "/Library/Ruby")
     (subpath "/Library/Ruby/Gems")                                    ;; System gem catalog (read-only).
+)
+
+;; ---------------------------------------------------------------------------
+;; 30 -- Toolchain: Dolt (beads task tracking database)
+;; Dolt needs ~/.dolt for global config (user.name, user.email).
+;; Per-project beads state lives in <workdir>/.beads/ which is covered
+;; by the dynamic workdir grant.
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.dolt")                                           ;; Dolt global config directory.
 )
 
 ;; ---------------------------------------------------------------------------
