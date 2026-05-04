@@ -108,6 +108,7 @@
             go
             gopls
             opencode
+            pi-coding-agent
             snyk
             ;
           inherit (loki.packages.${system}) loki logcli;

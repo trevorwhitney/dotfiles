@@ -1,4 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config
+, pkgs
+, lib
+, ...
+}:
 let
   cfg = config.programs.tmux;
   dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
@@ -11,8 +15,7 @@ in
       theme = lib.mkOption {
         type = lib.types.str;
         default = "solarized";
-        description =
-          "which tmux theme to use";
+        description = "which tmux theme to use";
       };
     };
   };
@@ -35,11 +38,15 @@ in
           escapeTime = 10;
           extraConfig = ''
             set -g @tmux-which-key-xdg-enable 1
+            set -g @continuum-restore 'on'
+            set -g @resurrect-processes 'opencode claude'
           '';
           plugins = with pkgs; [
             tw-tmux-lib
             tmuxPlugins.sessionist
             tmuxPlugins.tmux-which-key
+            tmuxPlugins.resurrect
+            tmuxPlugins.continuum
           ];
         };
 

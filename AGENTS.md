@@ -37,6 +37,25 @@ home-manager switch --flake .#<config-name>        # Apply HM config
 
 Uses direnv + nix-direnv. Run `direnv allow` or `direnv reload` after modifying `.envrc`.
 
+### Nix in the Agent Sandbox
+
+The macOS sandbox blocks agent access to `~/.cache/` and `~/.local/share/`, which breaks `nix build`, `nix flake check`, and `direnv allow` out of the box.
+
+**Workaround:** Prefix nix commands with `XDG_CACHE_HOME=/tmp/nixcache` to redirect Nix's evaluation cache to a writable location:
+
+```bash
+XDG_CACHE_HOME=/tmp/nixcache nix flake check                                    # Validate flake
+XDG_CACHE_HOME=/tmp/nixcache nix build .#devShells.aarch64-darwin.dev-env         # Build dev shell
+XDG_CACHE_HOME=/tmp/nixcache nix build .#darwinConfigurations.fiction.system      # Build macOS host
+XDG_CACHE_HOME=/tmp/nixcache nix develop .#dev-env --command bash -c "some cmd"  # Run in dev shell
+XDG_CACHE_HOME=/tmp/nixcache nix eval .#someAttr                                 # Evaluate an attr
+XDG_CACHE_HOME=/tmp/nixcache nix flake lock --update-input <input>               # Update a flake input
+```
+
+**What doesn't work:** `direnv allow` writes to `~/.local/share/direnv/allow/` and cannot be redirected this way. Use direct `nix build` / `nix develop` commands instead.
+
+**Timeouts:** Flake evaluation and builds can be slow. Use `timeout: 120` or higher for build commands, and `timeout: 300` for full builds that pull from the binary cache.
+
 ### Unit System (Legacy)
 
 ```bash

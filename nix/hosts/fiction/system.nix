@@ -54,6 +54,8 @@ in
     nixpkgs-fmt
     nmap
     opencode
+    pi-coding-agent
+    pre-commit
     rbenv
     ripgrep
     statix

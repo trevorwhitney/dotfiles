@@ -799,6 +799,18 @@
 )
 
 ;; ---------------------------------------------------------------------------
+;; 60 -- Agent: Pi (pi-coding-agent)
+;; Pi coding agent CLI binary, state, config, sessions, and extensions.
+;; All global state lives under ~/.pi/agent/.
+;; Per-project .pi/ dirs are covered by the dynamic workdir grant.
+;; Reference: 60-agents/pi.sb
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.pi")                                             ;; Global config, sessions, extensions, skills, themes.
+)
+
+;; ---------------------------------------------------------------------------
 ;; Static read-only: ~/workspace
 ;; Broad read visibility across all projects; write access is workdir-only
 ;; (or via --add-dirs at launch).
