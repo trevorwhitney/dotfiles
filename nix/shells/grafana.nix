@@ -8,7 +8,6 @@
 let
   env = pkgs.writers.writeBash "env.sh" ''
     export NODE_PATH="${nodeJsPkg}/lib/node_modules:$NODE_PATH"
-    export NPM_CONFIG_PREFIX="${nodeJsPkg}"
   '';
 in
 pkgs.mkShell {

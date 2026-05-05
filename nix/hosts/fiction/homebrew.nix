@@ -20,6 +20,7 @@
       "gnu-sed"
       "k6"
       "mas"
+      "node"
       "pipx" # for aider
       "python"
       "reattach-to-user-namespace"

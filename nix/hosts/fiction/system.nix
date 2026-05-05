@@ -8,7 +8,6 @@ in
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     goPkg
-    nodeJsPkg
 
     (neovim {
       inherit goPkg nodeJsPkg;
@@ -54,7 +53,6 @@ in
     nixpkgs-fmt
     nmap
     opencode
-    pi-coding-agent
     pre-commit
     rbenv
     ripgrep

@@ -110,7 +110,7 @@ in
             PATH="$PATH:$HOME/.dotnet/tools"
           '')
           ''
-            PATH="$HOME/.local/bin''${PATH+:''$PATH}"
+            PATH="$HOME/.npm-global/bin:$HOME/.local/bin''${PATH+:''$PATH}"
           ''
           ''
             # Fuzzy completion for history
@@ -224,7 +224,7 @@ in
         gemini = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.gemini-cli}/bin/gemini ";
         oc = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.opencode}/bin/opencode ";
         opencode = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.opencode}/bin/opencode ";
-        pi = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.pi-coding-agent}/bin/pi ";
+        pi = "$HOME/.config/sandbox-exec/run-sandboxed.sh $HOME/.npm-global/bin/pi ";
       };
     };
   };

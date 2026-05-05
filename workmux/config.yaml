@@ -17,3 +17,4 @@ post_create:
     else
       echo "Beads already active for $REPO_GROUP.";
     fi
+  - '[ -f package.json ] && npm install || true'

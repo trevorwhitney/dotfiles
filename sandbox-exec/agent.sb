@@ -235,6 +235,7 @@
 (allow file-read* file-write*
     ;; npm
     (home-subpath "/.npm")
+    (home-subpath "/.npm-global")                                      ;; npm global prefix (user-writable alternative to Nix store).
     (home-subpath "/.config/npm")
     (home-subpath "/.cache/npm")
     (home-subpath "/.cache/node")
