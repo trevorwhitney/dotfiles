@@ -17,6 +17,7 @@
       "beads" # AI task management for coding agents
       "bfg"
       "fswatch"
+      "ffmpeg"
       "gnu-sed"
       "k6"
       "mas"
