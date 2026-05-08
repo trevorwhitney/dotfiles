@@ -101,7 +101,7 @@
     (home-literal "/.CFUserTextEncoding")                             ;; Text encoding prefs.
     (home-literal "/.config")                                         ;; XDG config root directory listing.
     (home-literal "/.cache")                                          ;; XDG cache root directory listing.
-    (home-literal "/.local/bin")                                      ;; PATH probing may readdir here.
+    (home-subpath "/.local/bin")                                     ;; Personal CLIs installed outside Nix (grafana-assistant, etc.).
 )
 
 ;; -- Process primitives (broad; agent workflows chain many subprocesses) --
@@ -497,6 +497,29 @@
 
 (allow file-read*
     (home-subpath "/.config/workmux")                                 ;; Config is a symlink into nix store; read-only.
+)
+
+;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Cloud CLIs (gcloud, kubectl, grafana-assistant)
+;; Tool state, credentials, and cache directories for cloud/cluster CLIs.
+;; Posture is consistent with gh/glab above: read+write on the tool's own
+;; state, no broader access. Initial OAuth/browser auth flows should be run
+;; outside the sandbox; the resulting tokens are then readable from inside.
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    ;; Google Cloud SDK (gcloud, gsutil, bq).
+    (home-subpath "/.config/gcloud")                                  ;; Active config, ADC, account state, logs, lock files.
+    (home-subpath "/.cache/gcloud")                                   ;; Component cache (if used).
+
+    ;; Kubernetes CLI.
+    (home-subpath "/.kube")                                           ;; kubeconfig, http-cache, discovery cache, plugin state.
+
+    ;; grafana-assistant CLI state (auth tokens, instance config).
+    (home-subpath "/.config/grafana-assistant")
+    (home-subpath "/.cache/grafana-assistant")
+    (home-subpath "/.local/share/grafana-assistant")
+    (home-subpath "/.local/state/grafana-assistant")
 )
 
 ;; ---------------------------------------------------------------------------
