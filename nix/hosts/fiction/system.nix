@@ -121,6 +121,13 @@ in
   # $ darwin-rebuild changelog
   system.stateVersion = 5;
 
+  # OSX defaults
+  system = {
+    defaults = {
+      dock.appswitcher-all-displays = true;
+    };
+  };
+
   # The platform the configuration will be used on.
   # nixpkgs.hostPlatform = "aarch64-darwin";
   nixpkgs = {

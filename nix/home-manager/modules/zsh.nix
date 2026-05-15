@@ -222,11 +222,16 @@ in
         claude = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.claude-code}/bin/claude --dangerously-skip-permissions ";
         codex = "$HOME/.config/sandbox-exec/run-sandboxed.sh /opt/homebrew/bin/codex ";
         gemini = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.gemini-cli}/bin/gemini ";
-        oc = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.opencode}/bin/opencode ";
         oc-unboxed = "${pkgs.opencode}/bin/opencode ";
         opencode = "$HOME/.config/sandbox-exec/run-sandboxed.sh ${pkgs.opencode}/bin/opencode ";
         pi = "$HOME/.config/sandbox-exec/run-sandboxed.sh $HOME/.npm-global/bin/pi ";
         pi-unboxed = "$HOME/.npm-global/bin/pi ";
+
+        # aliases to launch agent in a vim context
+        cld = "nvim '+AgentFullscreen claude'";
+        cdx = "nvim '+AgentFullscreen codex'";
+        oc = "nvim '+AgentFullscreen opencode'";
+        p = "nvim '+AgentFullscreen pi'";
       };
     };
   };

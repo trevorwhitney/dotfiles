@@ -15,6 +15,10 @@ set -euo pipefail
 #   --workdir=<path>         Explicit workdir (default: pwd -P)
 #   --add-dirs=<p1:p2:...>   Colon-separated directories to grant read/write
 #   --add-dirs-ro=<p1:p2:..> Colon-separated directories to grant read-only
+#   --no-project-scope       Disable the dynamic per-project RW grant.
+#                            By default, workdirs under ~/workspace/<project>/
+#                            get RW access to the whole <project> directory
+#                            so sibling worktrees and `workmux add` work.
 #   --dry-run                Print the generated policy to stdout and exit
 #
 # Modeled on Agent Safehouse (github.com/eugene1g/agent-safehouse)
@@ -30,6 +34,7 @@ opt_workdir=""
 opt_add_dirs=""
 opt_add_dirs_ro=""
 opt_dry_run=0
+opt_no_project_scope=0
 command_args=()
 
 while [[ $# -gt 0 ]]; do
@@ -48,6 +53,10 @@ while [[ $# -gt 0 ]]; do
 		;;
 	--dry-run)
 		opt_dry_run=1
+		shift
+		;;
+	--no-project-scope)
+		opt_no_project_scope=1
 		shift
 		;;
 	--)
@@ -209,6 +218,61 @@ detect_worktrees() {
 detect_worktrees
 
 # ---------------------------------------------------------------------------
+# Project-scope detection
+#
+# Layout convention: ~/workspace/<project>/<worktree-or-subdir>[/...]
+# If the workdir lives under ~/workspace/<X>/<...>, the project root is
+# ~/workspace/<X> and we grant RW on the whole project subtree. This covers
+# the current worktree, all sibling worktrees in the same project, and the
+# git worktree common dir (which lives under the project root in this layout).
+#
+# Skipped when:
+#   - --no-project-scope is set
+#   - workdir is not under ~/workspace
+#   - workdir IS ~/workspace itself, or a direct child (no project subdir to
+#     scope to -- workdir RW already covers the single level).
+# ---------------------------------------------------------------------------
+
+project_root=""
+
+detect_project_root() {
+	[[ $opt_no_project_scope -eq 1 ]] && return
+
+	local ws_prefix="${HOME}/workspace"
+	# Must be strictly under ~/workspace/.
+	[[ "$effective_workdir" == "$ws_prefix"/* ]] || return
+
+	local rel="${effective_workdir#${ws_prefix}/}"
+	# rel must contain at least one '/', i.e. workdir is at depth >= 2 below
+	# ~/workspace. A top-level child (~/workspace/foo) has rel == "foo" with
+	# no slash -- no project subdir to derive, skip.
+	[[ "$rel" == */* ]] || return
+
+	local project_name="${rel%%/*}"
+	[[ -n "$project_name" ]] || return
+
+	project_root="${ws_prefix}/${project_name}"
+	# Sanity: project root must exist and be a directory.
+	[[ -d "$project_root" ]] || project_root=""
+}
+
+detect_project_root
+
+# Drop linked worktrees from the dynamic RO emission if they're already
+# covered by project_root (i.e. they live under the same project). In your
+# layout this is always true, so the list typically ends up empty.
+if [[ -n "$project_root" ]]; then
+	filtered_wts=()
+	for wt_path in "${linked_worktree_paths[@]:-}"; do
+		[[ -z "$wt_path" ]] && continue
+		if [[ "$wt_path" != "$project_root"* ]]; then
+			filtered_wts+=("$wt_path")
+		fi
+	done
+	linked_worktree_paths=("${filtered_wts[@]:-}")
+fi
+
+# ---------------------------------------------------------------------------
 # Build dynamic policy section
 # ---------------------------------------------------------------------------
 
@@ -217,6 +281,11 @@ build_dynamic_policy() {
 	echo ";; ==========================================================================="
 	echo ";; Dynamic rules generated at launch: $(date -Iseconds)"
 	echo ";; Workdir: ${effective_workdir}"
+	if [[ -n "$project_root" ]]; then
+		echo ";; Project root (RW): ${project_root}"
+	elif [[ $opt_no_project_scope -eq 1 ]]; then
+		echo ";; Project scope: disabled (--no-project-scope)"
+	fi
 	if [[ -n "$opt_add_dirs" ]]; then
 		echo ";; --add-dirs: ${opt_add_dirs}"
 	fi
@@ -235,19 +304,39 @@ build_dynamic_policy() {
 	echo ";; Workdir read/write access."
 	emit_rw_grant "$effective_workdir"
 
-	# -- Worktree common dir (read/write) --
-	if [[ -n "$worktree_common_dir" && "$worktree_common_dir" != "${effective_workdir}"* ]]; then
+	# -- Project root (read/write) --
+	# Grants RW on ~/workspace/<project>/, covering sibling worktrees and
+	# the git common dir (which both live under the project root in this
+	# layout). Subsumes the per-workdir grant above and any same-project
+	# worktree paths -- those are left in the output for documentation.
+	if [[ -n "$project_root" ]]; then
 		echo ""
-		echo ";; Git worktree common dir (shared metadata lives outside workdir)."
+		echo ";; Project root read/write access (sibling worktrees + workmux add)."
+		emit_ancestor_literals "$project_root"
+		emit_rw_grant "$project_root"
+	fi
+
+	# -- Worktree common dir (read/write) --
+	# Only emit if NOT already covered by project_root (e.g. unusual layouts
+	# where the common dir lives outside ~/workspace/<project>/).
+	if [[ -n "$worktree_common_dir" \
+		&& "$worktree_common_dir" != "${effective_workdir}"* \
+		&& ( -z "$project_root" || "$worktree_common_dir" != "${project_root}"* ) ]]; then
+		echo ""
+		echo ";; Git worktree common dir (shared metadata lives outside workdir/project)."
 		emit_ancestor_literals "$worktree_common_dir"
 		emit_rw_grant "$worktree_common_dir"
 	fi
 
 	# -- Sibling worktrees (read-only) --
+	# Emitted only for worktrees outside the project root (rare in this
+	# layout; same-project siblings are covered by the project_root RW grant
+	# above and were filtered out of linked_worktree_paths).
 	if [[ ${#linked_worktree_paths[@]} -gt 0 ]]; then
 		echo ""
-		echo ";; Sibling git worktrees (read-only snapshot at launch time)."
+		echo ";; Out-of-project git worktrees (read-only snapshot at launch time)."
 		for wt_path in "${linked_worktree_paths[@]}"; do
+			[[ -z "$wt_path" ]] && continue
 			emit_ancestor_literals "$wt_path"
 			emit_ro_grant "$wt_path"
 		done

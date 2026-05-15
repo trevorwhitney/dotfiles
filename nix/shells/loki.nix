@@ -84,6 +84,7 @@ pkgs.mkShell {
     golangciLintLangServerPkg
 
     act
+    buf
     crane
     drone-cli
     envsubst

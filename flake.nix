@@ -147,7 +147,17 @@
           xk6 = base.callPackage ./nix/packages/xk6 { };
           stylua = base.callPackage ./nix/packages/stylua { };
 
-          workmux = workmux.packages.${system}.default;
+          # Upstream workmux's check phase calls home::home_dir() and tries to
+          # create directories under HOME, which fails in the Nix sandbox
+          # because HOME defaults to /homeless-shelter (a read-only path).
+          # A few tests also read $USER to construct Lima guest home paths.
+          # Provide both during checkPhase so the test suite passes.
+          workmux = (workmux.packages.${system}.default).overrideAttrs (old: {
+            preCheck = (old.preCheck or "") + ''
+              export HOME=$TMPDIR
+              export USER=''${USER:-nixbld}
+            '';
+          });
         }
       );
     in

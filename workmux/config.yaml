@@ -18,3 +18,4 @@ post_create:
       echo "Beads already active for $REPO_GROUP.";
     fi
   - '[ -f package.json ] && npm install || true'
+theme: glacier-signal

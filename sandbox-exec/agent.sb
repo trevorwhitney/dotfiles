@@ -39,6 +39,9 @@
     (subpath "/bin")                                                  ;; POSIX userland binaries.
     (subpath "/sbin")                                                 ;; System utilities some build flows invoke.
     (subpath "/opt")                                                  ;; Homebrew and other package-manager roots.
+    (subpath "/Applications")                                         ;; Cask/GUI app bundles; CLI helpers symlinked from /usr/local/bin
+                                                                      ;; (docker, kubectl, code, cursor, zed, etc.) resolve to targets here.
+                                                                      ;; Read-only; sandbox-exec checks the resolved target after symlink follow.
     (subpath "/System/Library")                                       ;; macOS runtime frameworks/resources.
     (subpath "/System/Volumes/Preboot")                               ;; dyld/framework lookups on modern macOS.
     (subpath "/Library/Apple")                                        ;; Apple private frameworks touched by toolchains.
@@ -226,6 +229,17 @@
     (literal "/var/run/nix-daemon.socket")                            ;; Alternate daemon socket path.
 )
 
+;; User-level Nix evaluation cache and fetcher cache.
+;; Required by `nix build`, `nix flake check`, `nix develop`, and by
+;; nix-direnv when it loads a flake profile during `direnv reload`.
+;; Without this, nix subcommands fall back to no-cache mode and direnv
+;; reload fails with EPERM on ~/.cache/nix.
+(allow file-read* file-write*
+    (home-subpath "/.cache/nix")                                      ;; Eval cache, fetcher cache, tarball cache.
+    (home-subpath "/.local/state/nix")                                ;; Per-user profile state (already partially granted RO above).
+    (home-subpath "/.config/nix")                                     ;; User nix.conf (e.g. experimental-features).
+)
+
 ;; ---------------------------------------------------------------------------
 ;; 30 -- Toolchain: Node.js
 ;; Node.js runtime with npm, yarn, pnpm, and corepack paths.
@@ -400,6 +414,8 @@
 
 ;; ---------------------------------------------------------------------------
 ;; 50 -- Integration: Container Runtime Default Deny
+;; Baseline deny for docker/podman sockets. Selectively re-opened by the
+;; Docker (OrbStack) integration in section 55 below.
 ;; Reference: 50-integrations-core/container-runtime-default-deny.sb
 ;; ---------------------------------------------------------------------------
 
@@ -592,6 +608,60 @@
 )
 
 ;; ---------------------------------------------------------------------------
+;; 55 -- Integration: Docker via OrbStack
+;; Re-opens the container-runtime default-deny block for OrbStack's docker
+;; socket so the docker / docker compose CLI can talk to the daemon.
+;;
+;; Socket topology on this machine (verified with `ls -la`):
+;;   /var/run/docker.sock          -> ~/.orbstack/run/docker.sock  (symlink)
+;;   /private/var/run/docker.sock  -> ~/.orbstack/run/docker.sock  (symlink)
+;;   ~/.orbstack/run/docker.sock                                    (real socket)
+;;
+;; All three paths are allowed because sandbox-exec evaluates rules against
+;; both pre- and post-resolution paths depending on the operation, and
+;; different docker client builds probe different aliases.
+;;
+;; The daemon (running outside the sandbox) does all heavy lifting -- image
+;; storage, networking, container lifecycle. The CLI only needs:
+;;   - read/write on ~/.docker (config, contexts, buildx state)
+;;   - read on  ~/.orbstack (daemon-side state probed for capabilities)
+;;   - file + network access to the docker socket
+;;
+;; If you switch from OrbStack to Docker Desktop (or Colima), the real socket
+;; path changes. Update the rules below and the deny block in section 50.
+;; ---------------------------------------------------------------------------
+
+;; Docker CLI config, contexts, buildx state, plugin cache.
+(allow file-read* file-write*
+    (home-subpath "/.docker")                                         ;; config.json, contexts/, buildx/, cli-plugins/, run/.
+)
+
+;; OrbStack runtime metadata (CLI probes capabilities here; read-only).
+(allow file-read*
+    (home-subpath "/.orbstack")                                       ;; Daemon-managed state, socket dir, VM metadata.
+)
+
+;; Re-open file ops on the docker socket nodes (overrides section 50 deny).
+;; The CLI stats / opens the socket file before issuing connect(2).
+(allow file-read* file-write*
+    (literal "/var/run/docker.sock")
+    (literal "/private/var/run/docker.sock")
+    (home-literal "/.orbstack/run/docker.sock")
+    (home-literal "/.docker/run/docker.sock")                         ;; Docker Desktop layout (harmless if absent).
+)
+
+;; Re-open network-outbound for the docker socket (overrides section 50 deny).
+;; Critical: connect(2) on a Unix socket is classified as network-outbound
+;; by sandbox-exec, NOT as a file op. This is the rule that actually lets
+;; `docker ps`, `docker run`, `docker compose up` reach the daemon.
+(allow network-outbound
+    (remote unix-socket (path-literal "/var/run/docker.sock"))
+    (remote unix-socket (path-literal "/private/var/run/docker.sock"))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.orbstack/run/docker\\.sock$")))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.docker/run/docker\\.sock$")))
+)
+
+;; ---------------------------------------------------------------------------
 ;; 55 -- Integration: 1Password
 ;; 1Password desktop app and CLI agent socket access.
 ;; Required for SSH agent forwarding and git commit signing via 1Password.
@@ -665,6 +735,27 @@
 
 (allow ipc-posix-shm-read-data ipc-posix-shm-write-create ipc-posix-shm-write-data
     (ipc-posix-name "com.apple.AppleDatabaseChanged")
+)
+
+;; ---------------------------------------------------------------------------
+;; 55 -- Integration: direnv + nix-direnv
+;; Required so `direnv allow` and `direnv reload` work inside the sandbox.
+;;
+;; Paths:
+;;   ~/.config/direnv         -- direnvrc, user config.
+;;   ~/.local/share/direnv    -- allowlist (hashes of authorized .envrc files);
+;;                               written by `direnv allow`.
+;;   ~/.cache/direnv          -- nix-direnv flake profile cache, layout dir state.
+;;
+;; The per-project `.direnv/` directory is covered by the dynamic workdir grant.
+;; The Nix user eval cache (~/.cache/nix) is granted in the Nix toolchain block
+;; above, which nix-direnv needs to evaluate the flake during reload.
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.config/direnv")
+    (home-subpath "/.local/share/direnv")
+    (home-subpath "/.cache/direnv")
 )
 
 ;; ---------------------------------------------------------------------------
@@ -836,8 +927,16 @@
 
 ;; ---------------------------------------------------------------------------
 ;; Static read-only: ~/workspace
-;; Broad read visibility across all projects; write access is workdir-only
-;; (or via --add-dirs at launch).
+;; Broad read visibility across all projects so agents can reference code,
+;; tooling, and shared assets in sibling repos. Write access is granted only
+;; to the current project root (derived from the workdir as the first path
+;; component under ~/workspace/), emitted dynamically by run-sandboxed.sh.
+;; This allows worktree creation (`workmux add`, `git worktree add ../...`)
+;; inside the active project while preventing cross-project writes.
+;;
+;; Escape hatches:
+;;   --add-dirs=<path>      explicit RW grant outside the project root.
+;;   --no-project-scope     disable the dynamic project-root grant.
 ;; ---------------------------------------------------------------------------
 
 ;; Ancestor literal reads for ~/workspace so agents can readdir() up the tree.
@@ -849,7 +948,7 @@
 )
 
 (allow file-read*
-    (home-subpath "/workspace")                                       ;; Read-only access across all projects.
+    (home-subpath "/workspace")                                       ;; Read-only across all projects; per-project RW is dynamic.
 )
 
 ;; ---------------------------------------------------------------------------
