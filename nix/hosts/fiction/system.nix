@@ -56,6 +56,7 @@ in
     pre-commit
     rbenv
     ripgrep
+    slackcli
     statix
     todoist-cli
     unixtools.watch

@@ -35,6 +35,9 @@
     agenix.url = "github:ryantm/agenix";
 
     workmux.url = "github:raine/workmux";
+
+    slackcli.url = "github:grafana/slackcli";
+    slackcli.flake = false;
   };
 
   outputs =
@@ -50,6 +53,7 @@
     , nix-darwin
     , nixpkgs
     , nixpkgs-unstable
+    , slackcli
     , workmux
     , ...
     }:
@@ -145,6 +149,10 @@
           protoc-gen-gogofast = base.callPackage ./nix/packages/protoc-gen-gogofast { };
           protoc-gen-gogoslick = base.callPackage ./nix/packages/protoc-gen-gogoslick { };
           xk6 = base.callPackage ./nix/packages/xk6 { };
+          slackcli = base.callPackage ./nix/packages/slackcli {
+            src = slackcli;
+            version = slackcli.shortRev;
+          };
           stylua = base.callPackage ./nix/packages/stylua { };
 
           # Upstream workmux's check phase calls home::home_dir() and tries to
@@ -242,6 +250,7 @@
           todoist-cli
           tw-tmux-lib
           xk6
+          slackcli
           ;
       };
 

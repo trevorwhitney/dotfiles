@@ -177,6 +177,23 @@ in
               eval "export SSH_AUTH_SOCK=~/.1password/agent.sock"
             fi
           '')
+          ''
+            # Clone a repo following workspace worktree conventions:
+            #   ~/workspace/<repo>/<repo>  ← main clone
+            #   ~/workspace/<repo>/<branch> ← worktrees (siblings)
+            clone() {
+              local url="$1"
+              if [[ -z "$url" ]]; then
+                printf "ERROR: please specify a git URL\n"
+                return 1
+              fi
+              local repo_name
+              repo_name=$(basename "''${url%.git}")
+              local parent_dir="$HOME/workspace/''${repo_name}"
+              mkdir -p "''${parent_dir}"
+              git clone "''${url}" "''${parent_dir}/''${repo_name}" && cd "''${parent_dir}/''${repo_name}"
+            }
+          ''
         ]
       );
 
