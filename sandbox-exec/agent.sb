@@ -536,6 +536,12 @@
     (home-subpath "/.cache/grafana-assistant")
     (home-subpath "/.local/share/grafana-assistant")
     (home-subpath "/.local/state/grafana-assistant")
+
+    ;; gcx CLI state (Grafana Cloud resource manager: auth, config, cache).
+    (home-subpath "/.config/gcx")
+    (home-subpath "/.cache/gcx")
+    (home-subpath "/.local/share/gcx")
+    (home-subpath "/.local/state/gcx")
 )
 
 ;; ---------------------------------------------------------------------------

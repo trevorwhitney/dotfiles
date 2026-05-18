@@ -18,6 +18,7 @@
       "bfg"
       "fswatch"
       "ffmpeg"
+      "gitleaks"
       "gnu-sed"
       "k6"
       "mas"
