@@ -119,9 +119,10 @@ in
         "__debug_bin*"
         ".planning"
 
-        # for beads
+        # Beads / Dolt files (added by bd init)
         ".dolt/"
-        "*.db"
+        "**.db"
+        ".beads-credential-key"
       ];
     };
 

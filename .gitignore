@@ -9,6 +9,3 @@ kitty.conf.bak
 !.aider.conf.yml
 .planning
 
-# Dolt database files (added by bd init)
-.dolt/
-*.db
