@@ -63,6 +63,23 @@
         "type": "github"
       }
     },
+    "deployment-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779135537,
+        "narHash": "sha256-ExExG1iK/8Qr+YqB3HSuuhL/60XW5VjbbJgPUz0Std0=",
+        "ref": "refs/heads/master",
+        "rev": "5e44d6031bfbb39be1e62aa39991f5d5c462e678",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/grafana/deployment_tools"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/grafana/deployment_tools"
+      }
+    },
     "determinate": {
       "inputs": {
         "determinate-nixd-aarch64-darwin": "determinate-nixd-aarch64-darwin",
@@ -612,6 +629,7 @@
       "inputs": {
         "agenix": "agenix",
         "deploy-rs": "deploy-rs",
+        "deployment-tools": "deployment-tools",
         "determinate": "determinate",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
@@ -621,7 +639,24 @@
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-unstable": "nixpkgs-unstable_2",
+        "slackcli": "slackcli",
         "workmux": "workmux"
+      }
+    },
+    "slackcli": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778869863,
+        "narHash": "sha256-dzkBnxShTY6fQqW74lNqxL2U+vQEbDxOqKqWmxG5mYA=",
+        "ref": "refs/heads/main",
+        "rev": "9e73b77273aed73cb2001ebc9bafc75f54f653d2",
+        "revCount": 10,
+        "type": "git",
+        "url": "ssh://git@github.com/grafana/slackcli"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/grafana/slackcli"
       }
     },
     "systems": {

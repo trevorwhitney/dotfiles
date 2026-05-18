@@ -14,7 +14,7 @@ in
     zsh = {
       shellAliases = {
         brew = "/opt/homebrew/bin/brew ";
-        rebuild = "sudo darwin-rebuild switch --impure --flake $HOME/workspace/dotfiles/dotfiles ";
+        rebuild = "sudo darwin-rebuild switch --flake $HOME/workspace/dotfiles/dotfiles ";
       };
       useBrew = true;
     };

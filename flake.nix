@@ -36,8 +36,11 @@
 
     workmux.url = "github:raine/workmux";
 
-    slackcli.url = "github:grafana/slackcli";
+    # non-nix sources to build packages from
+    slackcli.url = "git+ssh://git@github.com/grafana/slackcli";
     slackcli.flake = false;
+    deployment-tools.url = "git+ssh://git@github.com/grafana/deployment_tools?shallow=1";
+    deployment-tools.flake = false;
   };
 
   outputs =
@@ -53,6 +56,7 @@
     , nix-darwin
     , nixpkgs
     , nixpkgs-unstable
+    , deployment-tools
     , slackcli
     , workmux
     , ...
@@ -152,6 +156,7 @@
           slackcli = base.callPackage ./nix/packages/slackcli {
             src = slackcli;
             version = slackcli.shortRev;
+            go = base.go_1_26;
           };
           stylua = base.callPackage ./nix/packages/stylua { };
 
@@ -182,6 +187,7 @@
             nix-darwin
             determinate
             ;
+          deploymentToolsSrc = deployment-tools;
           pkgs = allPackages.aarch64-darwin;
         };
       };
@@ -246,11 +252,11 @@
           pex
           protoc-gen-gogofast
           protoc-gen-gogoslick
+          slackcli
           stylua
           todoist-cli
           tw-tmux-lib
           xk6
-          slackcli
           ;
       };
 

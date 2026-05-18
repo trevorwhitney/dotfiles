@@ -1,6 +1,7 @@
 { stdenv
 , pkgs
 , lib
+, src
 , deploymentToolsSecretsPath
 , logcli ? pkgs.logcli
 , ...
@@ -8,8 +9,7 @@
 let
   rev = "main";
 
-  # This requires --impure flag since it references a local development path
-  deploymentTools = /Users/twhitney/workspace/deployment_tools/deployment_tools;
+  deploymentTools = src;
 
   gcom = pkgs.writeShellScriptBin "gcom" ''
     source ${deploymentToolsSecretsPath};

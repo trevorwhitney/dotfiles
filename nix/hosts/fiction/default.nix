@@ -6,6 +6,7 @@
   loki,
   nix-darwin,
   determinate,
+  deploymentToolsSrc,
   ...
 }:
 nix-darwin.lib.darwinSystem {
@@ -25,6 +26,6 @@ nix-darwin.lib.darwinSystem {
     ./twhitney.nix
 
     ../../modules/desktops/macos.nix
-    (import ../../modules/deployment-tools.nix { inherit loki; })
+    (import ../../modules/deployment-tools.nix { inherit loki deploymentToolsSrc; })
   ];
 }

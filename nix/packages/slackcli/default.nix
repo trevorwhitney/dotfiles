@@ -1,10 +1,10 @@
-{ lib, buildGoModule, src, version }:
+{ lib, buildGoModule, go, src, version }:
 
-buildGoModule {
+(buildGoModule.override { inherit go; }) {
   pname = "slackcli";
   inherit src version;
 
-  vendorHash = lib.fakeHash;
+  vendorHash = "sha256-HuHSEuW2LzJO0tgSr61T6FOPOpttLo7qAsAibLAyw0w=";
 
   ldflags = [
     "-s"

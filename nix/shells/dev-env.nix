@@ -21,6 +21,7 @@ pkgs.mkShell {
       go-jsonnet
       jsonnet-bundler
       shellcheck
+      slackcli
       yamllint
       zip
 
