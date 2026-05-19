@@ -2,8 +2,8 @@
   "$schema": "https://opencode.ai/config.json",
   "permission": "allow",
   "plugin": [
-    "opencode-gemini-auth@latest",
-    "@mohak34/opencode-notifier@latest"
+    "opencode-gemini-auth@1.4.15",
+    "@mohak34/opencode-notifier@0.2.5"
   ],
   "model": "anthropic/claude-opus-4-6",
   "mcp": {
@@ -17,7 +17,7 @@
       "command": [
         "npx",
         "-y",
-        "@mhalder/qdrant-mcp-server@latest"
+        "@mhalder/qdrant-mcp-server@3.3.4"
       ],
       "enabled": true,
       "environment": {

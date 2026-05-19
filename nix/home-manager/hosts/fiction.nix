@@ -12,6 +12,7 @@
     ../modules/kubernetes.nix
     ../modules/tmux.nix
     ../modules/zed.nix
+    ../modules/npm.nix
     ../modules/zsh.nix
   ];
 
