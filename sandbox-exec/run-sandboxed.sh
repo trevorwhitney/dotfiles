@@ -171,7 +171,7 @@ detect_worktrees() {
 	fi
 
 	local git_dir
-	git_dir="$(git -C "$effective_workdir" rev-parse --git-dir 2>/dev/null)" || return
+	git_dir="$(git -C "$effective_workdir" rev-parse --git-dir 2>/dev/null)" || return 0
 	# Resolve to absolute path.
 	if [[ "$git_dir" != /* ]]; then
 		git_dir="${effective_workdir}/${git_dir}"
@@ -240,16 +240,16 @@ detect_project_root() {
 
 	local ws_prefix="${HOME}/workspace"
 	# Must be strictly under ~/workspace/.
-	[[ "$effective_workdir" == "$ws_prefix"/* ]] || return
+	[[ "$effective_workdir" == "$ws_prefix"/* ]] || return 0
 
 	local rel="${effective_workdir#${ws_prefix}/}"
 	# rel must contain at least one '/', i.e. workdir is at depth >= 2 below
 	# ~/workspace. A top-level child (~/workspace/foo) has rel == "foo" with
 	# no slash -- no project subdir to derive, skip.
-	[[ "$rel" == */* ]] || return
+	[[ "$rel" == */* ]] || return 0
 
 	local project_name="${rel%%/*}"
-	[[ -n "$project_name" ]] || return
+	[[ -n "$project_name" ]] || return 0
 
 	project_root="${ws_prefix}/${project_name}"
 	# Sanity: project root must exist and be a directory.
