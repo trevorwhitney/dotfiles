@@ -1,6 +1,9 @@
 { pkgs, config, lib, ... }:
 let
   cfg = config.programs._1password;
+  signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
+  signingEmail = "trevorjwhitney@gmail.com";
+  allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
 in
 {
   options = {
@@ -36,6 +39,12 @@ in
       _1password
       _1password-gui
     ]);
+
+    # Allowed signers file for verifying SSH-signed git commits.
+    # See `man ssh-keygen` -> ALLOWED SIGNERS for the format.
+    home.file.".ssh/allowed_signers".text = ''
+      ${signingEmail} ${signingKey}
+    '';
 
     # Automatcially start 1password
     xdg.configFile."autostart/1password.desktop" = lib.mkIf cfg.autostartDesktopFile.enable {
@@ -75,7 +84,12 @@ in
         signing = {
           signByDefault = true;
           format = "ssh";
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
+          key = signingKey;
+        };
+        settings = {
+          # Used by `git log --show-signature`, `git verify-commit`, etc.
+          # to verify SSH-signed commits against known keys.
+          gpg.ssh.allowedSignersFile = allowedSignersFile;
         };
       };
 
