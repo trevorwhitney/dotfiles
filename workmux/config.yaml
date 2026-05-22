@@ -17,5 +17,18 @@ post_create:
     else
       echo "Beads already active for $REPO_GROUP.";
     fi
-  - '[ -f package.json ] && npm install || true'
+  - >-
+    if [ -f package.json ]; then
+      if [ -f pnpm-lock.yaml ]; then pnpm install;
+      elif [ -f yarn.lock ]; then yarn install;
+      elif [ -f bun.lockb ] || [ -f bun.lock ]; then bun install;
+      else npm install;
+      fi
+    fi || true
+  - >-
+    if [ -f go.mod ]; then
+      if [ -f vendor/modules.txt ]; then go mod vendor;
+      else go mod download;
+      fi
+    fi || true
 theme: glacier-signal
