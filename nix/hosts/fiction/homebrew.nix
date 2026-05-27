@@ -48,6 +48,7 @@
       "ghostty"
       "gstreamer-runtime"
       "iterm2"
+      "little-snitch"
       "mullvad-browser"
       "mullvad-vpn"
       "orbstack"
