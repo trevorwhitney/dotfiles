@@ -925,6 +925,37 @@
 )
 
 ;; ---------------------------------------------------------------------------
+;; 55 -- Integration: Browser Remote Debugging (CDP)
+;; Allow pi-browser-harness (and any other CDP client) to read the
+;; DevToolsActivePort files written by Chromium-based browsers under
+;; ~/Library/Application Support/<browser>/. Each file is two lines:
+;; the remote-debugging TCP port and the WebSocket path.
+;;
+;; Read-only grants on the specific DevToolsActivePort literal -- no other
+;; profile files (cookies, bookmarks, history, etc.) are exposed.
+;;
+;; Use the "Brave Beta (Debug)" wrapper app (nix/home-manager/modules/
+;; brave-beta-debug.nix) to ensure Brave is launched with
+;; --remote-debugging-port=9222 so /json/version is also served.
+;; ---------------------------------------------------------------------------
+
+(allow file-read*
+    (home-literal "/Library/Application Support/Google/Chrome/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Google/Chrome Beta/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Google/Chrome Dev/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Google/Chrome Canary/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Chromium/DevToolsActivePort")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser/DevToolsActivePort")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser-Beta/DevToolsActivePort")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser-Nightly/DevToolsActivePort")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser-Dev/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Microsoft Edge/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Microsoft Edge Beta/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Microsoft Edge Dev/DevToolsActivePort")
+    (home-literal "/Library/Application Support/Microsoft Edge Canary/DevToolsActivePort")
+)
+
+;; ---------------------------------------------------------------------------
 ;; 60 -- Agent: Pi (pi-coding-agent)
 ;; Pi coding agent CLI binary, state, config, sessions, and extensions.
 ;; All global state lives under ~/.pi/agent/.
