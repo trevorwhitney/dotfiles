@@ -112,7 +112,12 @@
 (allow process-exec)                                                  ;; Execute toolchain binaries/shells.
 (allow process-fork)                                                  ;; Normal child-process trees.
 (allow sysctl-read)                                                   ;; Runtime/process introspection.
-(allow process-info* (target same-sandbox))                           ;; Introspect within same sandbox.
+(allow process-info*)                                                 ;; Host-wide read-only introspection.
+                                                                      ;; Needed by `ps -A`, `pgrep`, and tools that probe for
+                                                                      ;; running daemons (e.g. pi-browser-harness checking
+                                                                      ;; whether Chrome is up before connecting to CDP on
+                                                                      ;; 127.0.0.1:9222). Read-only -- mutation primitives
+                                                                      ;; below stay constrained to same-sandbox.
 (allow signal (target same-sandbox))                                  ;; Signal children for cancel/term.
 (allow mach-priv-task-port (target same-sandbox))                     ;; Same-sandbox process controls.
 (allow pseudo-tty)                                                    ;; PTY allocation for terminals.
