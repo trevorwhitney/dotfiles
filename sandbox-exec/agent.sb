@@ -939,6 +939,26 @@
 ;; --remote-debugging-port=9222 so /json/version is also served.
 ;; ---------------------------------------------------------------------------
 
+;; Directory traversal so DevToolsActivePort literal reads resolve.
+(allow file-read-metadata
+    (home-literal "/Library/Application Support")
+    (home-literal "/Library/Application Support/Google")
+    (home-literal "/Library/Application Support/Google/Chrome")
+    (home-literal "/Library/Application Support/Google/Chrome Beta")
+    (home-literal "/Library/Application Support/Google/Chrome Dev")
+    (home-literal "/Library/Application Support/Google/Chrome Canary")
+    (home-literal "/Library/Application Support/Chromium")
+    (home-literal "/Library/Application Support/BraveSoftware")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser-Beta")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser-Nightly")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser-Dev")
+    (home-literal "/Library/Application Support/Microsoft Edge")
+    (home-literal "/Library/Application Support/Microsoft Edge Beta")
+    (home-literal "/Library/Application Support/Microsoft Edge Dev")
+    (home-literal "/Library/Application Support/Microsoft Edge Canary")
+)
+
 (allow file-read*
     (home-literal "/Library/Application Support/Google/Chrome/DevToolsActivePort")
     (home-literal "/Library/Application Support/Google/Chrome Beta/DevToolsActivePort")
@@ -953,6 +973,21 @@
     (home-literal "/Library/Application Support/Microsoft Edge Beta/DevToolsActivePort")
     (home-literal "/Library/Application Support/Microsoft Edge Dev/DevToolsActivePort")
     (home-literal "/Library/Application Support/Microsoft Edge Canary/DevToolsActivePort")
+)
+
+;; ---------------------------------------------------------------------------
+;; 55 -- Integration: chrome-devtools-mcp (Puppeteer-managed Chrome)
+;; The chrome-devtools-mcp MCP server uses Puppeteer to launch and control
+;; a Chrome instance for browser automation. It needs:
+;;   - ~/.cache/chrome-devtools-mcp/   Chrome user-data-dir (profile, caches,
+;;                                     DevToolsActivePort, SingletonLock, etc.)
+;;   - ~/.cache/puppeteer/             Puppeteer's browser download cache
+;;                                     (used when no system Chrome is found).
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.cache/chrome-devtools-mcp")                       ;; Chrome profile managed by chrome-devtools-mcp.
+    (home-subpath "/.cache/puppeteer")                                 ;; Puppeteer browser download cache.
 )
 
 ;; ---------------------------------------------------------------------------
