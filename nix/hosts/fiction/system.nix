@@ -27,6 +27,7 @@ in
       ]
     ))
 
+    ast-grep
     bat
     bind
     claude-code
