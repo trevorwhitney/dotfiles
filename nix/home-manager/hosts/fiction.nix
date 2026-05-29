@@ -8,7 +8,7 @@
     ../modules/change-background.nix
     ../modules/claude-code.nix
     ../modules/darwin.nix
-    ../modules/ghostty.nix
+    ../modules/ghostty
     ../modules/git.nix
     ../modules/kubernetes.nix
     ../modules/tmux.nix

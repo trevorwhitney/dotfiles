@@ -1,107 +1,9 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 #
-### Colors
-case ${THEME:-everforest} in
-  everforest)
-    case ${BACKGROUND:-light} in
-      dark)
-        ## everforest dark
-        paper="#d3c6aa"
-        black="#333c43"
-        grey="#859289"
-
-        blue="#7fbbb3"
-        cyan="#83c092"
-        green="#a7c080"
-        magenta="#d699b6"
-        red="#e67e80"
-        violet="#d699b6"
-        yellow="#dbbc7f"
-        ;;
-      *)
-        ## everforest light
-        paper="#f3ead3"
-        black="#5c6a72"
-        grey="#939f91"
-
-        blue="#3a94c5"
-        cyan="#35a77c"
-        green="#8da101"
-        magenta="#df69ba"
-        red="#f8552"
-        violet="#df69ba"
-        # yellow="#dfa000"
-        yellow="#D89B00"
-        ;;
-    esac
-    ;;
-
-  solarized)
-    ## Solarized colors
-    paper="#fdf6e3"
-    black="#100F0F"
-    gray="#586e75"
-
-    blue="#268bd2"
-    cyan="#2aa198"
-    green="#859900"
-    magenta="#d33682"
-    red="#dc322f"
-    violet="#6c71c4"
-    yellow="#b58900"
-    ;;
-
-  flexoki)
-    ## Flexoki colors
-    paper="#fdf6e3"
-    black="#002b36"
-    gray="#586e75"
-
-    case ${BACKGROUND:-light} in
-      dark)
-        ## Flexoki dark
-        blue="#4385BE"
-        cyan="#3AA99F"
-        green="#879A39"
-        magenta="#CE5D97"
-        red="#D14D41"
-        violet="#8B7EC8"
-        yellow="#D0A215"
-        ;;
-      *)
-        ## Flexoki light
-        blue="#205EA6"
-        cyan="#24837B"
-        green="#66800B"
-        magenta="#A02F6F"
-        red="#AF3029"
-        violet="#5E409D"
-        yellow="#AD8301"
-        ;;
-    esac
-    ;;
-esac
-
-case ${BACKGROUND:-light} in
-  dark)
-    CURRENT_FG="$paper"
-    prompt_fg="$yellow"
-    mode_bg="$gray"
-    ;;
-  *)
-    CURRENT_FG="$black"
-    prompt_fg="$grey"
-    mode_bg="$paper"
-    ;;
-esac
-
-# Special Powerline characters
-
 # Begin a segment
-# Takes two arguments, background and foreground. Both can be omitted,
-# rendering default background/foreground.
+# Takes two arguments, foreground color and icon. Optional third arg is the text (rendered bold).
 prompt_segment() {
-  local bg fg
+  local fg
   fg="%F{$1}"
   echo -n "%{$fg%}"
   echo -n "$2"
@@ -116,7 +18,7 @@ prompt_segment() {
 prompt_context() {
   # Only show this if SSH'd into remote machine
   if [[ -n "$SSH_CLIENT" ]]; then
-    prompt_segment $violet 󰢩 "%(!.%{%F{yellow}%}.)%n@$(hostname -s)"
+    prompt_segment magenta 󰢩 "%(!.%{%F{yellow}%}.)%n@$(hostname -s)"
     print_separator
   fi
 }
@@ -158,9 +60,9 @@ git_info() {
 
     info="${ref/refs\/heads\//}${vcs_info_msg_0_%% }${mode}"
     if [[ -n $dirty ]]; then
-      prompt_segment $yellow  $info
+      prompt_segment yellow  $info
     else
-      prompt_segment $green  $info
+      prompt_segment green  $info
     fi
 
   fi
@@ -197,13 +99,13 @@ prompt_git() {
 
 # Dir: current working directory
 prompt_dir() {
-  prompt_segment $blue  '%2~'
+  prompt_segment blue  '%2~'
 }
 
 # Print failed return values
 prompt_retval() {
   if [[ $RETVAL -ne 0 ]]; then
-    prompt_segment $red  "$RETVAL"
+    prompt_segment red  "$RETVAL"
     print_separator
   fi
 }
@@ -215,21 +117,21 @@ prompt_k8s() {
     #Only show if there is a context
     context="$(kubectl config view -ojson | jq -r '."current-context"')"
     if [[ -n "$context" ]]; then
-      prompt_segment $cyan  "$context"
+      prompt_segment cyan  "$context"
       print_separator
     fi
 	fi
 }
 
 print_separator() {
-  echo -n " %{%F{$grey}%}|%{%f%} "
+  echo -n " %{%F{8}%}|%{%f%} "
 }
 
 prompt() {
   local mode
   case $KEYMAP in
-    vicmd) mode="%{%F{$magenta}%}normal%{%B%}❯%{%F{$CURRENT_FG}%b%}";;
-    viins|main) mode="%{%F{$blue}%B%}❯%{%F{$CURRENT_FG}%b%}";;
+    vicmd) mode="%{%F{magenta}%}normal%{%B%}❯%{%F{default}%b%}";;
+    viins|main) mode="%{%F{blue}%B%}❯%{%F{default}%b%}";;
   esac
   echo -n "$mode"
 }
