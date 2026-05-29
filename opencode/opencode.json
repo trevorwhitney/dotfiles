@@ -5,7 +5,7 @@
     "opencode-gemini-auth@1.4.15",
     "@mohak34/opencode-notifier@0.2.5"
   ],
-  "model": "anthropic/claude-opus-4-6",
+  "model": "anthropic/claude-opus-4-7",
   "theme": "catppuccin",
   "mcp": {
     "context7": {
