@@ -6,6 +6,7 @@
     "@mohak34/opencode-notifier@0.2.5"
   ],
   "model": "anthropic/claude-opus-4-6",
+  "theme": "catppuccin",
   "mcp": {
     "context7": {
       "type": "remote",
