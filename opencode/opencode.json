@@ -5,8 +5,8 @@
     "opencode-gemini-auth@1.4.15",
     "@mohak34/opencode-notifier@0.2.5"
   ],
-  "model": "anthropic/claude-opus-4-7",
-  "theme": "catppuccin",
+  "model": "anthropic/claude-opus-4-8",
+  "theme": "kanagawa",
   "mcp": {
     "context7": {
       "type": "remote",
@@ -34,7 +34,8 @@
         "npx",
         "-y",
         "chrome-devtools-mcp@latest",
-        "--autoConnect"
+        "--headless",
+        "--chromeArg=--no-sandbox"
       ],
       "enabled": true
     }

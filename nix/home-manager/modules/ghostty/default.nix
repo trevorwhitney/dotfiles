@@ -9,7 +9,8 @@ let
     shell-integration = "zsh";
     shell-integration-features = "no-cursor";
     # theme = "dark:Atom,light:Light Owl";
-    theme = "dark:Catppuccin Mocha,light:Catppuccin Latte";
+    # theme = "dark:Catppuccin Mocha,light:Catppuccin Latte";
+    theme = "dark:Kanagawa Wave,light:Kanagawa Lotus";
     macos-titlebar-style = "tabs";
   };
   keybindings = ''

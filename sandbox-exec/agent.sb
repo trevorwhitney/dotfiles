@@ -983,11 +983,95 @@
 ;;                                     DevToolsActivePort, SingletonLock, etc.)
 ;;   - ~/.cache/puppeteer/             Puppeteer's browser download cache
 ;;                                     (used when no system Chrome is found).
+;;
+;; Launching a Chromium-based browser inside sandbox-exec previously crashed
+;; with "Google Chrome quit unexpectedly" (SIGSEGV). Root causes, in order of
+;; how Chrome hit them at startup:
+;;
+;;   1. Crashpad. Chrome's crash handler stat()s a HARD-CODED default profile
+;;      path (~/Library/Application Support/<Browser>/Crashpad) regardless of
+;;      --user-data-dir, and registers/looks up a per-launch mach service
+;;      (org.chromium.crashpad.child_port_handshake.<pid>...). Denying either
+;;      aborts crashpad init.
+;;   2. IOKit. During startup Chrome calls IONotificationPortGetRunLoopSource
+;;      (power/display/GPU registry). With iokit-open denied the call returns
+;;      NULL, Chrome dereferences it -> EXC_BAD_ACCESS at 0x10. This was the
+;;      actual SIGSEGV behind the crash dialog (confirmed via the .ips report:
+;;      faulting frame IOKit`IONotificationPortGetRunLoopSource).
+;;   3. Mach rendezvous. The browser process publishes a mach port server
+;;      (com.google.Chrome.MachPortRendezvousServer.<pid>) that child
+;;      processes look up. Denying mach-register here is FATAL.
+;;
+;; Separately, child processes (GPU/renderer/network/utility) each call
+;; sandbox_init() to apply Chromium's OWN seatbelt profile. A nested
+;; sandbox_init() inside an existing sandbox-exec sandbox always fails
+;; ("sandbox initialization failed: Operation not permitted"), so every child
+;; crashes (GPU exit_code=6, renderers never start). That cannot be fixed from
+;; the profile -- the MCP must launch the browser with --no-sandbox so children
+;; skip their internal sandbox. That flag is set via --chromeArg=--no-sandbox in
+;; the chrome-devtools-mcp config (see ~/.config/opencode/opencode.json).
+;;
+;; The grants below cover Chrome (stable/beta/dev/canary), Chromium, Brave, and
+;; Edge -- matching the browser list in the CDP DevToolsActivePort section.
 ;; ---------------------------------------------------------------------------
 
 (allow file-read* file-write*
     (home-subpath "/.cache/chrome-devtools-mcp")                       ;; Chrome profile managed by chrome-devtools-mcp.
     (home-subpath "/.cache/puppeteer")                                 ;; Puppeteer browser download cache.
+    (home-subpath "/Library/Application Support/chrome-devtools-mcp")  ;; MCP telemetry_state.json (otherwise logs EPERM; non-fatal but noisy).
+)
+
+;; NOTE: chrome-devtools-mcp MUST run the browser HEADLESS inside this sandbox.
+;; A HEADED Chrome connects to the macOS WindowServer and GUI mach services
+;; (com.apple.windowserver.active, the dock, NSNotificationCenter, the
+;; "Chrome Helper (Alerts)" XPC service, etc.) which (deny default) blocks.
+;; The headed browser process then becomes unstable and exits right after it
+;; opens the DevTools port -> "The browser target closed" in the MCP client.
+;; Headless Chrome needs none of those and runs cleanly. Headless is set via
+;; --headless in the chrome-devtools-mcp config (~/.config/opencode/opencode.json).
+
+;; Crashpad database at the hard-coded default profile path (NOT the
+;; --user-data-dir). Chrome stat()s and writes here during crash-handler init.
+(allow file-read* file-write*
+    (home-subpath "/Library/Application Support/Google/Chrome/Crashpad")
+    (home-subpath "/Library/Application Support/Google/Chrome Beta/Crashpad")
+    (home-subpath "/Library/Application Support/Google/Chrome Dev/Crashpad")
+    (home-subpath "/Library/Application Support/Google/Chrome Canary/Crashpad")
+    (home-subpath "/Library/Application Support/Chromium/Crashpad")
+    (home-subpath "/Library/Application Support/BraveSoftware/Brave-Browser/Crashpad")
+    (home-subpath "/Library/Application Support/Microsoft Edge/Crashpad")
+)
+
+;; Directory traversal so the Crashpad subpath grants resolve, and so Chrome
+;; can read its own bundle/app-support roots during startup.
+(allow file-read-metadata
+    (home-literal "/Library/Application Support/Google/Chrome")
+    (home-literal "/Library/Application Support/Google/Chrome Beta")
+    (home-literal "/Library/Application Support/Google/Chrome Dev")
+    (home-literal "/Library/Application Support/Google/Chrome Canary")
+    (home-literal "/Library/Application Support/Chromium")
+    (home-literal "/Library/Application Support/BraveSoftware/Brave-Browser")
+    (home-literal "/Library/Application Support/Microsoft Edge")
+)
+
+;; IOKit registry access. Chrome queries the IO registry for GPU/power/display
+;; state at startup (IONotificationPortGetRunLoopSource). Without iokit-open the
+;; call returns NULL and Chrome SIGSEGVs dereferencing it.
+(allow iokit-open)
+(allow iokit-get-properties)
+
+;; Chrome inter-process mach services:
+;;   - org.chromium.crashpad.*                  crashpad child-port handshake
+;;   - com.google.Chrome.MachPortRendezvousServer.<pid>  browser<->child IPC
+;; Both register- and lookup-side grants are required; names are dynamic
+;; (PID-suffixed) so regexes are used.
+(allow mach-register
+    (global-name-regex #"^org\.chromium\.")
+    (global-name-regex #"^com\.google\.Chrome\.")
+)
+(allow mach-lookup
+    (global-name-regex #"^org\.chromium\.")
+    (global-name-regex #"^com\.google\.Chrome\.")
 )
 
 ;; ---------------------------------------------------------------------------
