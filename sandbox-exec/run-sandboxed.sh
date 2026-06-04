@@ -15,10 +15,12 @@ set -euo pipefail
 #   --workdir=<path>         Explicit workdir (default: pwd -P)
 #   --add-dirs=<p1:p2:...>   Colon-separated directories to grant read/write
 #   --add-dirs-ro=<p1:p2:..> Colon-separated directories to grant read-only
-#   --no-project-scope       Disable the dynamic per-project RW grant.
-#                            By default, workdirs under ~/workspace/<project>/
-#                            get RW access to the whole <project> directory
-#                            so sibling worktrees and `workmux add` work.
+#   --no-workspace-scope     Disable the dynamic workspace-wide RW grant.
+#                            By default, any workdir under ~/workspace/ gets RW
+#                            access to the ENTIRE ~/workspace tree so that
+#                            cross-repo / cross-worktree orchestration and
+#                            `workmux add` against other repos work. With this
+#                            flag, only the workdir itself gets RW.
 #   --dry-run                Print the generated policy to stdout and exit
 #
 # Modeled on Agent Safehouse (github.com/eugene1g/agent-safehouse)
@@ -34,7 +36,7 @@ opt_workdir=""
 opt_add_dirs=""
 opt_add_dirs_ro=""
 opt_dry_run=0
-opt_no_project_scope=0
+opt_no_workspace_scope=0
 command_args=()
 
 while [[ $# -gt 0 ]]; do
@@ -55,8 +57,8 @@ while [[ $# -gt 0 ]]; do
 		opt_dry_run=1
 		shift
 		;;
-	--no-project-scope)
-		opt_no_project_scope=1
+	--no-workspace-scope)
+		opt_no_workspace_scope=1
 		shift
 		;;
 	--)
@@ -218,49 +220,50 @@ detect_worktrees() {
 detect_worktrees
 
 # ---------------------------------------------------------------------------
-# Project-scope detection
+# Workspace-scope detection
 #
 # Layout convention: ~/workspace/<project>/<worktree-or-subdir>[/...]
-# If the workdir lives under ~/workspace/<X>/<...>, the project root is
-# ~/workspace/<X> and we grant RW on the whole project subtree. This covers
-# the current worktree, all sibling worktrees in the same project, and the
-# git worktree common dir (which lives under the project root in this layout).
+# If the workdir lives anywhere under ~/workspace/, we grant RW on the ENTIRE
+# ~/workspace subtree. This is deliberately broad: it lets an agent rooted in
+# one project (e.g. ~/workspace/loki-operational-ui/<wt>) orchestrate changes
+# in a DIFFERENT project (e.g. ~/workspace/loki/<wt>), run `workmux add`
+# against sibling repos, and write to other repos' worktree paths. Without
+# this, cross-repo/cross-worktree orchestration fails with EPERM because each
+# session was previously scoped to only its own ~/workspace/<project> subtree.
+#
+# Scope boundary: this grants RW to ~/workspace only. The rest of $HOME
+# (~/.config, ~/.ssh, ~/.local, etc.) remains governed by the narrow,
+# tool-specific grants in the durable profile above -- they are NOT widened.
 #
 # Skipped when:
-#   - --no-project-scope is set
+#   - --no-workspace-scope is set
 #   - workdir is not under ~/workspace
-#   - workdir IS ~/workspace itself, or a direct child (no project subdir to
-#     scope to -- workdir RW already covers the single level).
+#   - workdir IS ~/workspace itself (no parent scope to derive -- the workdir
+#     RW grant already covers it).
 # ---------------------------------------------------------------------------
 
+# Retained name "project_root" for downstream compatibility; it now holds the
+# shared ~/workspace root rather than a single-project subtree.
 project_root=""
 
-detect_project_root() {
-	[[ $opt_no_project_scope -eq 1 ]] && return
+detect_workspace_root() {
+	[[ $opt_no_workspace_scope -eq 1 ]] && return
 
 	local ws_prefix="${HOME}/workspace"
-	# Must be strictly under ~/workspace/.
+	# Must be strictly under ~/workspace/ (excludes ~/workspace itself, which
+	# is already covered by the per-workdir RW grant).
 	[[ "$effective_workdir" == "$ws_prefix"/* ]] || return 0
 
-	local rel="${effective_workdir#${ws_prefix}/}"
-	# rel must contain at least one '/', i.e. workdir is at depth >= 2 below
-	# ~/workspace. A top-level child (~/workspace/foo) has rel == "foo" with
-	# no slash -- no project subdir to derive, skip.
-	[[ "$rel" == */* ]] || return 0
-
-	local project_name="${rel%%/*}"
-	[[ -n "$project_name" ]] || return 0
-
-	project_root="${ws_prefix}/${project_name}"
-	# Sanity: project root must exist and be a directory.
+	project_root="$ws_prefix"
+	# Sanity: workspace root must exist and be a directory.
 	[[ -d "$project_root" ]] || project_root=""
 }
 
-detect_project_root
+detect_workspace_root
 
 # Drop linked worktrees from the dynamic RO emission if they're already
-# covered by project_root (i.e. they live under the same project). In your
-# layout this is always true, so the list typically ends up empty.
+# covered by project_root (~/workspace). Every worktree under ~/workspace is
+# now subsumed by the workspace RW grant, so this list typically ends empty.
 if [[ -n "$project_root" ]]; then
 	filtered_wts=()
 	for wt_path in "${linked_worktree_paths[@]:-}"; do
@@ -282,9 +285,9 @@ build_dynamic_policy() {
 	echo ";; Dynamic rules generated at launch: $(date -Iseconds)"
 	echo ";; Workdir: ${effective_workdir}"
 	if [[ -n "$project_root" ]]; then
-		echo ";; Project root (RW): ${project_root}"
-	elif [[ $opt_no_project_scope -eq 1 ]]; then
-		echo ";; Project scope: disabled (--no-project-scope)"
+		echo ";; Workspace root (RW): ${project_root}"
+	elif [[ $opt_no_workspace_scope -eq 1 ]]; then
+		echo ";; Workspace scope: disabled (--no-workspace-scope)"
 	fi
 	if [[ -n "$opt_add_dirs" ]]; then
 		echo ";; --add-dirs: ${opt_add_dirs}"
@@ -304,14 +307,15 @@ build_dynamic_policy() {
 	echo ";; Workdir read/write access."
 	emit_rw_grant "$effective_workdir"
 
-	# -- Project root (read/write) --
-	# Grants RW on ~/workspace/<project>/, covering sibling worktrees and
-	# the git common dir (which both live under the project root in this
-	# layout). Subsumes the per-workdir grant above and any same-project
-	# worktree paths -- those are left in the output for documentation.
+	# -- Workspace root (read/write) --
+	# Grants RW on the entire ~/workspace/ subtree, covering every project,
+	# all sibling worktrees (same- or cross-project), and the git common dir.
+	# This is what enables cross-repo orchestration: spawning agents and
+	# running `workmux add` against a DIFFERENT repo than the one the current
+	# session is rooted in. Subsumes the per-workdir grant above.
 	if [[ -n "$project_root" ]]; then
 		echo ""
-		echo ";; Project root read/write access (sibling worktrees + workmux add)."
+		echo ";; Workspace root read/write access (cross-repo + cross-worktree orchestration, workmux add)."
 		emit_ancestor_literals "$project_root"
 		emit_rw_grant "$project_root"
 	fi

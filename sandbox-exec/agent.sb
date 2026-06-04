@@ -1089,15 +1089,18 @@
 ;; ---------------------------------------------------------------------------
 ;; Static read-only: ~/workspace
 ;; Broad read visibility across all projects so agents can reference code,
-;; tooling, and shared assets in sibling repos. Write access is granted only
-;; to the current project root (derived from the workdir as the first path
-;; component under ~/workspace/), emitted dynamically by run-sandboxed.sh.
-;; This allows worktree creation (`workmux add`, `git worktree add ../...`)
-;; inside the active project while preventing cross-project writes.
+;; tooling, and shared assets in sibling repos.
+;;
+;; Write access: when the workdir is under ~/workspace/, run-sandboxed.sh
+;; dynamically grants RW to the ENTIRE ~/workspace tree, enabling cross-repo
+;; and cross-worktree orchestration (`workmux add` against other repos,
+;; `git worktree add`, editing sibling projects). For sessions rooted OUTSIDE
+;; ~/workspace, only this static read-only grant applies -- no RW.
 ;;
 ;; Escape hatches:
-;;   --add-dirs=<path>      explicit RW grant outside the project root.
-;;   --no-project-scope     disable the dynamic project-root grant.
+;;   --add-dirs=<path>        explicit RW grant outside ~/workspace.
+;;   --no-workspace-scope     disable the dynamic workspace-wide RW grant
+;;                            (falls back to RW on the workdir only).
 ;; ---------------------------------------------------------------------------
 
 ;; Ancestor literal reads for ~/workspace so agents can readdir() up the tree.
@@ -1109,7 +1112,7 @@
 )
 
 (allow file-read*
-    (home-subpath "/workspace")                                       ;; Read-only across all projects; per-project RW is dynamic.
+    (home-subpath "/workspace")                                       ;; Read-only baseline; workspace-wide RW is dynamic (workdir under ~/workspace).
 )
 
 ;; ---------------------------------------------------------------------------
