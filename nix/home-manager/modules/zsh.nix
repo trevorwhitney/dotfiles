@@ -203,6 +203,11 @@ in
         rollback = "sudo nixos-rebuild switch --rollback";
         k = "${pkgs.kubectl}/bin/kubectl ";
 
+        # corepack defaults its shim install dir to the directory holding the
+        # node binary, which is the immutable Nix store. Force shims
+        # into the user-owned npm prefix bin, which is already on PATH.
+        corepack = "corepack --install-directory $HOME/.npm-global/bin ";
+
         # git
         gco = "git checkout \$(git branch | fzf)";
         g = "git";

@@ -6,6 +6,8 @@
       autoUpdate = true;
       cleanup = "zap";
       upgrade = true;
+      # Homebrew >= 5.1 requires --force with `brew bundle install --cleanup`.
+      extraFlags = [ "--force" ];
     };
 
     taps = [
