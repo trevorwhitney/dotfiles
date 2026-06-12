@@ -27,6 +27,7 @@ in
       ]
     ))
 
+    argo
     ast-grep
     bat
     bind

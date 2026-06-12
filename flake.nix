@@ -132,6 +132,7 @@
           faillint = base.callPackage ./nix/packages/faillint { };
 
           # Migrated from overlays
+          argo = base.callPackage ./nix/packages/argo { };
           change-background = base.callPackage ./nix/packages/change-background { };
           golang-perf = base.callPackage ./nix/packages/golang-perf { };
           i3-gnome-flashback = base.callPackage ./nix/packages/i3-gnome-flashback { };
@@ -221,6 +222,7 @@
       packages = {
         inherit (allPackages.${system})
           aider-chat
+          argo
           change-background
           chart-testing-3_8_0
           claude-code
