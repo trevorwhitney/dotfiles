@@ -57,6 +57,9 @@ let
       cd ${deploymentTools} || exit 1
       ./scripts/sso/gcloud.sh
       ./scripts/sso/aws.sh ''${env}
+
+      gcx auth login --context ops
+      gh auth login -h github.com
     }
 
     main "$@"
