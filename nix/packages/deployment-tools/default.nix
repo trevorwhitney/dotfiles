@@ -58,8 +58,13 @@ let
       ./scripts/sso/gcloud.sh
       ./scripts/sso/aws.sh ''${env}
 
-      gcx auth login --context ops
-      gh auth login -h github.com
+      if ! gcx config view --context ops >/dev/null 2>&1; then
+        gcx auth login --context ops
+      fi
+      
+      if ! gh auth status -h github.com >/dev/null 2>&1; then
+        gh auth login -h github.com
+      fi
     }
 
     main "$@"
