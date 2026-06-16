@@ -139,6 +139,16 @@ in
   };
 
   programs = {
+    # Create /etc/zshenv -> /etc/static/zshenv so the nix-darwin
+    # set-environment script (which seeds /run/current-system/sw/bin and the
+    # user nix profile onto PATH) runs for ALL zsh shells, including the
+    # non-interactive `zsh -c` invocations used by coding-agent shell tools.
+    # Without this, agents launched outside an interactive/login shell get a
+    # bare PATH and cannot find system-profile binaries like slackcli.
+    zsh = {
+      enable = true;
+    };
+
     tmux = {
       enable = true;
     };

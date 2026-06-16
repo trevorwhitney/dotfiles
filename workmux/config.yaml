@@ -3,6 +3,10 @@ agent: opencode
 worktree_dir: ../
 worktree_naming: full
 prompt_file_only: true
+auto_name:
+  command: "claude --model haiku -p"
+  system_prompt: "Generate a concise kebab-case git branch name (2-4 words) summarizing the task. Lowercase, hyphen-separated, no prefixes."
+  background: true
 panes:
   - command: nvim
     focus: true
