@@ -4,7 +4,6 @@
     ../modules/1password.nix
     ../modules/android.nix
     ../modules/bash.nix
-    ../modules/brave-beta-debug.nix
     ../modules/change-background.nix
     ../modules/claude-code.nix
     ../modules/darwin.nix

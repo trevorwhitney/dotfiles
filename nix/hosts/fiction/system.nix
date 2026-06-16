@@ -1,7 +1,22 @@
 { self, pkgs, ... }:
 let
+  inherit (pkgs) lib;
   goPkg = pkgs.go;
   nodeJsPkg = pkgs.nodejs_22;
+
+  # Homebrew 6.0 made HOMEBREW_REQUIRE_TAP_TRUST default to true: third-party
+  # taps/formulae must be trusted via `brew trust` before `brew bundle` will load
+  # them. The trust file is read from "$HOME/.homebrew/trust.json" when
+  # XDG_CONFIG_HOME is unset, which is exactly the case during the nix-darwin
+  # homebrew activation (it runs `sudo --preserve-env=PATH ... env brew bundle`,
+  # stripping XDG_CONFIG_HOME). We seed that file from the system activation
+  # script *before* the homebrew bundle step so the eugene1g/safehouse tap is
+  # trusted declaratively.
+  homebrewTrustJSON = builtins.toJSON {
+    trustedtaps = [ "eugene1g/safehouse" ];
+    trustedformulae = [ "eugene1g/safehouse/agent-safehouse" ];
+  };
+  homebrewTrustUser = "twhitney";
 in
 {
   # List packages installed in system profile. To search by name, run:
@@ -106,6 +121,23 @@ in
   environment.variables = {
     EDITOR = "vim";
   };
+
+  # Seed Homebrew's tap trust file before the homebrew bundle activation step runs.
+  # `mkBefore` prepends this to the `system.activationScripts.homebrew.text` block,
+  # ensuring the trust file exists before `brew bundle` is invoked. Written as the
+  # target user (activation runs as root) to both the XDG and fallback locations.
+  system.activationScripts.homebrew.text = lib.mkBefore ''
+    echo >&2 "Seeding Homebrew tap trust for ${homebrewTrustUser}..."
+    homebrew_trust_home="$(/usr/bin/dscl . -read /Users/${homebrewTrustUser} NFSHomeDirectory | /usr/bin/awk '{print $2}')"
+    if [ -n "$homebrew_trust_home" ]; then
+      for trust_dir in "$homebrew_trust_home/.homebrew" "$homebrew_trust_home/.config/homebrew"; do
+        /usr/bin/sudo -u ${homebrewTrustUser} /bin/mkdir -p "$trust_dir"
+        printf '%s\n' ${lib.escapeShellArg homebrewTrustJSON} \
+          | /usr/bin/sudo -u ${homebrewTrustUser} /usr/bin/tee "$trust_dir/trust.json" >/dev/null
+        /usr/bin/sudo -u ${homebrewTrustUser} /bin/chmod 600 "$trust_dir/trust.json"
+      done
+    fi
+  '';
 
   # General Nix settings
   nix = {
