@@ -26,10 +26,6 @@ in
     twhitney
     agenix
   ];
-  "git.age".publicKeys = [
-    twhitney
-    agenix
-  ];
   "ghToken.age".publicKeys = [
     twhitney
     agenix

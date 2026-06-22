@@ -631,6 +631,21 @@
 )
 
 ;; ---------------------------------------------------------------------------
+;; 55 -- Integration: Android Platform Tools (adb)
+;; adb keeps its auth keypair and server state under ~/.android:
+;;   ~/.android/adbkey, adbkey.pub   RSA keypair offered to devices for the
+;;                                   "Allow USB debugging" trust prompt.
+;;   ~/.android/<misc>               adb server bookkeeping.
+;; The adb server listens on TCP 5037 and connects to devices over TCP or USB;
+;; the network block above is fully open and iokit-open (USB) is granted in the
+;; browser section below, so only the ~/.android file grant is needed here.
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.android")                                        ;; adb keypair + server state.
+)
+
+;; ---------------------------------------------------------------------------
 ;; 55 -- Integration: Docker via OrbStack
 ;; Re-opens the container-runtime default-deny block for OrbStack's docker
 ;; socket so the docker / docker compose CLI can talk to the daemon.
@@ -712,9 +727,15 @@
 ;; Network-outbound for 1Password SSH agent unix socket.
 ;; This is critical: SSH connect() to the agent socket is classified as
 ;; network-outbound by sandbox-exec, not file-read/write.
+;;
+;; The op CLI talks to its background daemon over ~/.config/op/op-daemon.sock.
+;; connect(2) on that socket is also network-outbound, so without this grant
+;; `op` commands hang or fail even though the ~/.config/op file grant above
+;; lets the CLI read its config.
 (allow network-outbound
     (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.1password/agent\\.sock$")))
     (remote unix-socket (path-regex (string-append "^" HOME_DIR "/Library/Group Containers/[A-Za-z0-9]+\\.com\\.1password/t/agent\\.sock$")))
+    (remote unix-socket (path-regex (string-append "^" HOME_DIR "/\\.config/op/op-daemon\\.sock$")))
 )
 
 ;; 1Password app/service IPC endpoints.

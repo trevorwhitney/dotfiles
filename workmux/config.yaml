@@ -4,7 +4,7 @@ worktree_dir: ../
 worktree_naming: full
 prompt_file_only: true
 auto_name:
-  command: "claude --model haiku -p"
+  command: 'claude --model haiku --append-system-prompt "You output ONLY a kebab-case git branch name of at most 4 words. No sentences, no explanation, no punctuation other than hyphens. If the input is unclear, still produce your best 2-4 word guess." -p "$(cat)"'
   system_prompt: "Generate a concise kebab-case git branch name (2-4 words) summarizing the task. Lowercase, hyphen-separated, no prefixes."
   background: true
 panes:

@@ -32,7 +32,6 @@
     secrets = {
       anthropicApiKey.file = ../../secrets/anthropicApiKey.age;
       ghToken.file = ../../secrets/ghToken.age;
-      git.file = ../../secrets/git.age;
       ollamaCredentials.file = ../../secrets/ollamaCredentials.age;
       openAiKey.file = ../../secrets/openAiKey.age;
       openRouterApiKey.file = ../../secrets/openRouterApiKey.age;
@@ -48,10 +47,6 @@
     _1password = {
       host.darwin = true;
     };
-    git = {
-      includes = [{ path = "${config.age.secrets.git.path}"; }];
-    };
-
     gh = {
       enable = true;
     };

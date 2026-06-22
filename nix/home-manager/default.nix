@@ -6,15 +6,9 @@
 }:
 let
   cfg = { config, pkgs, ... }: {
-    programs.git = {
-      includes =
-        [{ path = "${config.age.secrets.git.path}"; }];
-    };
-
     age = {
       secrets = {
         openAiKey.file = ../secrets/openAiKey.age;
-        git.file = ../secrets/git.age;
       };
       identityPaths = [ "${config.home.homeDirectory}/.config/agenix/id_ed25519" ];
       secretsDir = "${config.home.homeDirectory}/.agenix/secrets";
