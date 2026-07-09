@@ -118,11 +118,6 @@ in
         "MEMORY.md"
         "__debug_bin*"
         ".planning"
-
-        # Beads / Dolt files (added by bd init)
-        ".dolt/"
-        "**.db"
-        ".beads-credential-key"
       ];
     };
 
