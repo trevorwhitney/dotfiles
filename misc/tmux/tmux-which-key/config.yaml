@@ -64,6 +64,12 @@ items:
       - name: "Add worktree  C-a"
         key: a
         command: "display-popup -E -d \"#{pane_current_path}\" -h 30 -w 100 $HOME/.nix-profile/share/tmux-plugins/tw-tmux-lib/scripts/workmux_add_prompt.sh"
+      - name: "Open worktree  C-o"
+        key: o
+        command: "display-popup -d \"#{pane_current_path}\" -h 30 -w 100 -E $HOME/.nix-profile/share/tmux-plugins/tw-tmux-lib/scripts/open_worktree.sh"
+      - name: "Remove worktree  C-x"
+        key: x
+        command: "confirm-before -p \"Remove worktree '#{window_name}'? (y/n)\" \"run 'workmux rm -f #{window_name}'\""
 
   # -- Navigate -----------------------------------------------------------------
   - name: +Navigate
