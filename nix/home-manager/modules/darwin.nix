@@ -71,6 +71,7 @@ in
 
   xdg.configFile = {
     "workmux/config.yaml".source = mkSymlink "${dotfilesPath}/workmux/config.yaml";
+    "workmux/branch-name.sh".source = mkSymlink "${dotfilesPath}/workmux/branch-name.sh";
     "opencode/opencode.json".source = mkSymlink "${dotfilesPath}/opencode/opencode.json";
     "sandbox-exec/agent.sb".source = mkSymlink "${dotfilesPath}/sandbox-exec/agent.sb";
     "sandbox-exec/run-sandboxed.sh".source = mkSymlink "${dotfilesPath}/sandbox-exec/run-sandboxed.sh";
