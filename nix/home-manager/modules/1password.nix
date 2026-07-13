@@ -1,4 +1,8 @@
-{ pkgs, config, lib, ... }:
+{ pkgs
+, config
+, lib
+, ...
+}:
 let
   cfg = config.programs._1password;
   signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIObaPLIJ0t6iar5DTKRmKCQmFzG/P0gulLkL5hUZzslf";
@@ -35,10 +39,13 @@ in
 
   };
   config = {
-    home.packages = lib.mkIf cfg.useNixPkgs (with pkgs; [
-      _1password
-      _1password-gui
-    ]);
+    home.packages = lib.mkIf cfg.useNixPkgs (
+      with pkgs;
+      [
+        _1password
+        _1password-gui
+      ]
+    );
 
     # Allowed signers file for verifying SSH-signed git commits.
     # See `man ssh-keygen` -> ALLOWED SIGNERS for the format.
@@ -75,7 +82,9 @@ in
         RestartSec = 5;
       };
 
-      Install = { WantedBy = [ "default.target" ]; };
+      Install = {
+        WantedBy = [ "default.target" ];
+      };
     };
 
     programs = {
@@ -121,6 +130,11 @@ in
             forwardAgent = true;
             user = "twhitney";
             hostname = "10.11.0.100";
+          };
+          homeassistant = {
+            forwardAgent = false;
+            user = "twhitney";
+            hostname = "10.11.0.90";
           };
         };
       };
