@@ -69,7 +69,10 @@ items:
         command: "display-popup -d \"#{pane_current_path}\" -h 30 -w 100 -E $HOME/.nix-profile/share/tmux-plugins/tw-tmux-lib/scripts/open_worktree.sh"
       - name: "Remove worktree  C-x"
         key: x
-        command: "confirm-before -p \"Remove worktree '#{window_name}'? (y/n)\" \"run 'workmux rm -f #{window_name}'\""
+        command: 'confirm-before -p "Remove worktree #{window_name}? (y/n)" "run-shell \"workmux rm -f #{window_name}\""'
+      - name: "Agent overview  C-b"
+        key: b
+        command: 'display-popup -h 80% -w 80% -E "agentmux"'
 
   # -- Navigate -----------------------------------------------------------------
   - name: +Navigate

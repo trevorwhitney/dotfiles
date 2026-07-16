@@ -24,7 +24,7 @@
       "k6"
       "mas"
       "node"
-      "pipx" # for aider
+      "pipx"
       "python"
       "reattach-to-user-namespace"
       "telnet"
@@ -50,7 +50,6 @@
       "gstreamer-runtime"
       "iterm2"
       "little-snitch"
-      "mullvad-browser"
       "mullvad-vpn"
       "orbstack"
       "plexamp"
@@ -62,7 +61,6 @@
       "todoist-app"
       "vimr"
       "vlc"
-      "warp"
       "wine-stable"
       "wireshark-app"
     ];

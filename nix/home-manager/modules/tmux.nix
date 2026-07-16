@@ -25,6 +25,8 @@ in
       inherit (cfg) theme;
     in
     {
+      home.packages = [ pkgs.agentmux ];
+
       programs = {
         tmux = {
           enable = true;
