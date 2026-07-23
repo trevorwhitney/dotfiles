@@ -521,6 +521,15 @@
 )
 
 ;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Agentmux
+;; Agentmux runtime state directory.
+;; ---------------------------------------------------------------------------
+
+(allow file-read* file-write*
+    (home-subpath "/.local/state/agentmux")
+)
+
+;; ---------------------------------------------------------------------------
 ;; 50 -- Integration: Cloud CLIs (gcloud, kubectl, grafana-assistant)
 ;; Tool state, credentials, and cache directories for cloud/cluster CLIs.
 ;; Posture is consistent with gh/glab above: read+write on the tool's own
