@@ -53,7 +53,8 @@
       "enabled": true,
       "oauth": {
         "clientId": "1601185624273.8899143856786",
-        "callbackPort": 3118
+        "callbackPort": 3118,
+        "redirectUri": "http://localhost:3118/callback"
       }
     }
   }

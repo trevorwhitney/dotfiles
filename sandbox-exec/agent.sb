@@ -507,6 +507,33 @@
 )
 
 ;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Google Drive (CloudStorage FUSE)
+;; Obsidian vaults and other working files live under the Google Drive
+;; File Provider mount at ~/Library/CloudStorage/GoogleDrive-<acct>/.
+;;
+;; Two access paths exist and both must resolve:
+;;   1. Canonical: ~/Library/CloudStorage/GoogleDrive-<acct>/My Drive/...
+;;   2. Symlinked: ~/Google Drive -> ~/Library/CloudStorage/GoogleDrive-<acct>
+;;
+;; The wrapper grants the CANONICAL workdir dynamically, but nothing grants
+;; the ~/Google Drive symlink node or traversal through it. When an agent is
+;; launched from a shell whose logical $PWD went through ~/Google Drive/...,
+;; opencode lstat()s the symlinked form and (deny default) returns EPERM,
+;; crashing at startup. These grants let both path forms resolve.
+;;
+;; read/write (not read-only): these are live working vaults edited in place.
+;; ---------------------------------------------------------------------------
+
+(allow file-read-metadata
+    (home-literal "/Google Drive")                                    ;; Symlink node traversal (~/Google Drive -> CloudStorage mount).
+    (home-literal "/Library/CloudStorage")                            ;; FUSE root traversal.
+)
+
+(allow file-read* file-write*
+    (home-subpath "/Library/CloudStorage")                            ;; Google Drive vaults/working files (writable).
+)
+
+;; ---------------------------------------------------------------------------
 ;; 50 -- Integration: Workmux
 ;; Worktree session manager state, config, and cache.
 ;; ---------------------------------------------------------------------------
