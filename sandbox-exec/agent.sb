@@ -408,6 +408,7 @@
 (allow file-read* file-write*
     (home-subpath "/.skills")
     (home-subpath "/.agents")
+    (home-subpath "/.config/agentd")                                  ;; Shared agent daemon state/config.
     (home-literal "/AGENTS.md")
 )
 
@@ -1200,6 +1201,15 @@
 
 (allow file-read* file-write*
     (home-subpath "/Library/CloudStorage/GoogleDrive-trevorjwhitney@gmail.com/My Drive/Obsidian")
+)
+
+;; ---------------------------------------------------------------------------
+;; Static read-only: ~/Screenshots
+;; Screenshot capture directory; agents read images to inspect UI state.
+;; ---------------------------------------------------------------------------
+
+(allow file-read*
+    (home-subpath "/Screenshots")
 )
 
 ;; ===========================================================================
