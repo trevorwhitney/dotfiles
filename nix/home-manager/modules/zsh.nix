@@ -175,6 +175,21 @@ in
             fi
           '')
           ''
+            # oc [--session <id>] — fullscreen nvim+opencode; --session resumes
+            # an agentd-managed session via AGENTD_SESSION_ID.
+            oc() {
+              if [[ "$1" == "--session" ]]; then
+                if [[ -z "$2" ]]; then
+                  echo "oc: --session requires a session id" >&2
+                  return 1
+                fi
+                AGENTD_SESSION_ID="$2" nvim '+AgentFullscreen opencode' "''${@:3}"
+              else
+                nvim '+AgentFullscreen opencode' "$@"
+              fi
+            }
+          ''
+          ''
             # Clone a repo following workspace worktree conventions:
             #   ~/workspace/<repo>/<repo>  ← main clone
             #   ~/workspace/<repo>/<branch> ← worktrees (siblings)
@@ -249,7 +264,6 @@ in
         # aliases to launch agent in a vim context
         cld = "nvim '+AgentFullscreen claude'";
         cdx = "nvim '+AgentFullscreen codex'";
-        oc = "nvim '+AgentFullscreen opencode'";
         p = "nvim '+AgentFullscreen pi'";
       };
     };
