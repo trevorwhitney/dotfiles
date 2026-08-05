@@ -5,14 +5,14 @@
     "opencode-gemini-auth@1.4.15",
     "@mohak34/opencode-notifier@0.2.5"
   ],
-  "model": "anthropic/claude-opus-4-8",
+  "model": "anthropic/claude-fable-5",
   "theme": "kanagawa",
   "agent": {
     "plan": {
-      "model": "anthropic/claude-opus-4-8"
+      "model": "anthropic/claude-fable-5"
     },
     "build": {
-      "model": "anthropic/claude-opus-4-8"
+      "model": "anthropic/claude-fable-5"
     }
   },
   "mcp": {
