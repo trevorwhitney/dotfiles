@@ -5,9 +5,12 @@
 # agentic prompt so it summarizes instead of acting; --tools "" keeps it out of
 # "find and fix" mode. The tr/sed/awk tail is a hard failsafe that forces
 # kebab-case and clamps to <=5 words even if the model emits a sentence.
+# The timeout caps API retry stalls (one hung call once blocked worktree
+# creation for 15 minutes); on expiry this script fails and workmux_add_bg.sh
+# falls back to a locally generated name.
 set -euo pipefail
 
-claude --model haiku --tools "" \
+timeout -k 5 15s claude --model haiku --tools "" \
   --system-prompt "You are a text-to-branch-name converter. Output ONLY a kebab-case git branch name of at most 4 words summarizing the input. Lowercase, hyphen-separated, no other punctuation, no explanation, no sentences." \
   -p "$(cat)" \
   | tr '[:upper:]' '[:lower:]' \

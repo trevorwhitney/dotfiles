@@ -65,8 +65,8 @@ in
     src = pkgs.fetchFromGitHub {
       owner = "trevorwhitney";
       repo = "tw-tmux-lib";
-      rev = "614e910cfc55043dac3645270ed6fdda5827973e";
-      sha256 = "0wpmxn59jm63xa6414f4rljmvrm7x0642srmaivpif15l3iywdga";
+      rev = "978598d72190e918bde2823472cb9d756b96aad2";
+      sha256 = "1av9wwnbqxfv0v3zs2xb5phlwk0yhspfwc454fvnjn1vr37yq6pa";
     };
   };
 }
