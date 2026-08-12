@@ -130,6 +130,7 @@
           jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
           neovim = neovim.neovim.${system};
           agentmux = neovim.packages.${system}.agentmux;
+          agentd = neovim.packages.${system}.agentd;
           faillint = base.callPackage ./nix/packages/faillint { };
 
           # Migrated from overlays

@@ -2,6 +2,7 @@
 {
   imports = [
     ../modules/1password.nix
+    ../modules/agentd.nix
     ../modules/android.nix
     ../modules/bash.nix
     ../modules/change-background.nix

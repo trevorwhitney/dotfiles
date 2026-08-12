@@ -1,0 +1,9 @@
+poll_interval: 2m
+notify:
+  banner: decisions
+repositories:
+  - repo: grafana/loki
+    policies:
+      merge-dependency-updates:
+        shadow: true
+        allowed_authors: ["app/renovate-sh-app"]
