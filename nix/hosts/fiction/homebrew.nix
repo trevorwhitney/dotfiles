@@ -10,9 +10,13 @@
       extraFlags = [ "--force" ];
     };
 
-    taps = [
-      "eugene1g/safehouse"
-    ];
+    # Taps live here rather than in `taps` because nix-darwin's tap submodule
+    # cannot emit `trusted:`, which Homebrew >= 6 requires before it will load
+    # formulae from a non-official tap.
+    extraConfig = ''
+      tap "eugene1g/safehouse", trusted: true
+      tap "jundot/omlx", "https://github.com/jundot/omlx.git", trusted: true
+    '';
 
     brews = [
       "awscli"
@@ -22,6 +26,7 @@
       "gitleaks"
       "gnu-sed"
       "k6"
+      "jundot/omlx/omlx"
       "mas"
       "node"
       "pipx"
