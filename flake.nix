@@ -161,6 +161,8 @@
             go = base.go_1_26;
           };
           stylua = base.callPackage ./nix/packages/stylua { };
+          # Needs rustc >= 1.96, newer than stable nixpkgs provides
+          switchyard-server = unstablePackages.callPackage ./nix/packages/switchyard-server { };
 
           # Upstream workmux's check phase calls home::home_dir() and tries to
           # create directories under HOME, which fails in the Nix sandbox
@@ -257,6 +259,7 @@
           protoc-gen-gogoslick
           slackcli
           stylua
+          switchyard-server
           todoist-cli
           tw-tmux-lib
           xk6

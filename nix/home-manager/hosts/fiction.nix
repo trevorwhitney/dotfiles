@@ -13,6 +13,7 @@
     ../modules/tmux.nix
     ../modules/zed.nix
     ../modules/node.nix
+    ../modules/switchyard.nix
     ../modules/zsh.nix
   ];
 

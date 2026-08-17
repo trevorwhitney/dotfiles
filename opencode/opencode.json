@@ -5,14 +5,35 @@
     "opencode-gemini-auth@1.4.15",
     "@mohak34/opencode-notifier@0.2.5"
   ],
-  "model": "anthropic/claude-fable-5",
+  "model": "anthropic/claude-opus-5",
   "theme": "kanagawa",
+  "provider": {
+    "switchyard": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Switchyard",
+      "options": {
+        "baseURL": "http://127.0.0.1:4000/v1",
+        "apiKey": "switchyard-local"
+      },
+      "models": {
+        "impl-smart": {
+          "name": "Implementer (stage-routed sonnet/haiku)"
+        },
+        "explore-cheap": {
+          "name": "Explore (haiku passthrough)"
+        }
+      }
+    }
+  },
   "agent": {
     "plan": {
-      "model": "anthropic/claude-fable-5"
+      "model": "anthropic/claude-opus-5"
     },
     "build": {
-      "model": "anthropic/claude-fable-5"
+      "model": "anthropic/claude-opus-5"
+    },
+    "explore": {
+      "model": "switchyard/explore-cheap"
     }
   },
   "mcp": {
