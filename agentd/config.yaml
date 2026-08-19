@@ -5,13 +5,8 @@ repositories:
   - repo: grafana/loki
     policies:
       merge-dependency-updates:
-        shadow: true
+        shadow: false
         allowed_authors: ["app/renovate-sh-app"]
-        # Loki nests Go modules (operator/, operator/api/loki/) and Docker
-        # base-image digests, which the root-only default never matched, so
-        # every renovate PR escalated. Workflow, Helm, and Terraform bumps stay
-        # off this list on purpose: a workflow change can rewrite the very CI
-        # signal checks.Eligible trusts to call a PR green.
         allowed_paths:
           - "**/go.mod"
           - "**/go.sum"
