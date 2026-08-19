@@ -948,22 +948,6 @@
 )
 
 ;; ---------------------------------------------------------------------------
-;; 60 -- Agent: Gemini
-;; Gemini CLI binary, state, and config paths.
-;; Reference: 60-agents/gemini.sb
-;; ---------------------------------------------------------------------------
-
-(allow file-read* file-write*
-    (home-prefix "/.local/bin/gemini")
-    (home-subpath "/.config/gemini")
-    (home-subpath "/.cache/gemini")
-    (home-subpath "/.local/share/gemini")
-    (home-subpath "/.local/state/gemini")
-    (home-literal "/.gemini.json")
-    (home-literal "/GEMINI.md")
-)
-
-;; ---------------------------------------------------------------------------
 ;; 60 -- Agent: Aider
 ;; Aider CLI binary, state, and config paths.
 ;; Reference: 60-agents/aider.sb
