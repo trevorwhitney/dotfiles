@@ -16,6 +16,12 @@
     neovim.inputs.nixpkgs.follows = "nixpkgs";
     neovim.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
 
+    # agentd daemon + agentmux TUI. Private repo, so ssh rather than github:,
+    # whose unauthenticated API cannot read it.
+    agentmux.url = "git+ssh://git@github.com/trevorwhitney/agentmux";
+    agentmux.inputs.nixpkgs.follows = "nixpkgs";
+    agentmux.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
@@ -46,6 +52,7 @@
   outputs =
     { self
     , agenix
+    , agentmux
     , deploy-rs
     , determinate
     , flake-utils
@@ -129,8 +136,8 @@
 
           jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
           neovim = neovim.neovim.${system};
-          agentmux = neovim.packages.${system}.agentmux;
-          agentd = neovim.packages.${system}.agentd;
+          agentmux = agentmux.packages.${system}.agentmux;
+          agentd = agentmux.packages.${system}.agentd;
           faillint = base.callPackage ./nix/packages/faillint { };
 
           # Migrated from overlays
