@@ -409,6 +409,9 @@
     (home-subpath "/.skills")
     (home-subpath "/.agents")
     (home-subpath "/.config/agentd")                                  ;; Shared agent daemon state/config.
+    (home-prefix "/.local/state/agentd")                              ;; agentd state dir plus the sibling agentd.db and its
+                                                                      ;; SQLite -wal/-shm sidecars; consult jobs read and write
+                                                                      ;; the job DB directly.
     (home-literal "/AGENTS.md")
 )
 
