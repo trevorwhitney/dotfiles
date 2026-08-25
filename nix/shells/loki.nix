@@ -119,8 +119,8 @@ pkgs.mkShell {
     (yarn.override {
       nodejs = nodeJsPkg;
     })
-    nodeJsPkg.pkgs.typescript
-    nodeJsPkg.pkgs.typescript-language-server
+    typescript
+    typescript-language-server
 
     (pkgs.loki.overrideAttrs (old: {
       doCheck = false;

@@ -62,47 +62,16 @@
     };
 
     ssh = {
-      matchBlocks = {
+      settings = {
         "exit-node" = {
-          user = "twhitney";
-          host = "exit-node";
-          hostname = "24.199.116.208";
-          forwardAgent = false;
-        };
-        "jerry" = {
-          user = "twhitney";
-          host = "jerry";
-          hostname = "10.11.0.52";
-          forwardAgent = false;
-        };
-        "mickey" = {
-          user = "twhitney";
-          host = "mickey";
-          hostname = "10.11.0.74";
-          forwardAgent = true;
-        };
-        "monterey" = {
-          user = "twhitney";
-          host = "monterey";
-          hostname = "10.11.0.51";
-          forwardAgent = false;
+          User = "twhitney";
+          HostName = "24.199.116.208";
+          ForwardAgent = false;
         };
         "remy" = {
-          user = "twhitney";
-          host = "remy";
-          hostname = "10.11.0.15";
-          forwardAgent = false;
-        };
-        "omada" = {
-          host = "omada";
-          hostname = "10.11.0.72";
-          forwardAgent = true;
-        };
-        "proxmox" = {
-          user = "twhitney";
-          host = "proxmox";
-          hostname = "10.11.0.100";
-          forwardAgent = true;
+          User = "twhitney";
+          HostName = "10.11.0.15";
+          ForwardAgent = false;
         };
       };
     };

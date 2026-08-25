@@ -43,6 +43,10 @@ in
 
       autosuggestion = {
         enable = true;
+        strategy = [
+          "history"
+          "completion"
+        ];
       };
 
       oh-my-zsh = {
@@ -63,10 +67,6 @@ in
         HYPHEN_INSENSITIVE = "true";
         KEYTIMEOUT = "17";
         WORDCHARS = "*?_-.[]~=&;!#$%^(){}<>";
-        ZSH_AUTOSUGGEST_STRATEGY = [
-          "history"
-          "completion"
-        ];
       };
 
       history = {

@@ -106,35 +106,35 @@ in
       ssh = {
         enable = true;
         enableDefaultConfig = false;
-        matchBlocks = {
+        settings = {
           jerry = {
-            forwardAgent = false;
-            user = "twhitney";
-            hostname = "10.11.0.52";
+            ForwardAgent = false;
+            User = "twhitney";
+            HostName = "10.11.0.52";
           };
           mickey = {
-            forwardAgent = true;
-            user = "twhitney";
-            hostname = "10.11.0.74";
+            ForwardAgent = true;
+            User = "twhitney";
+            HostName = "10.11.0.74";
           };
           monterey = {
-            forwardAgent = false;
-            user = "twhitney";
-            hostname = "10.11.0.51";
+            ForwardAgent = false;
+            User = "twhitney";
+            HostName = "10.11.0.51";
           };
           omada = {
-            forwardAgent = true;
-            hostname = "10.11.0.72";
+            ForwardAgent = true;
+            HostName = "10.11.0.72";
           };
           proxmox = {
-            forwardAgent = true;
-            user = "twhitney";
-            hostname = "10.11.0.100";
+            ForwardAgent = true;
+            User = "twhitney";
+            HostName = "10.11.0.100";
           };
           homeassistant = {
-            forwardAgent = false;
-            user = "twhitney";
-            hostname = "10.11.0.90";
+            ForwardAgent = false;
+            User = "twhitney";
+            HostName = "10.11.0.90";
           };
         };
       };

@@ -49,8 +49,8 @@ in pkgs.mkShell {
     (yarn.override {
       inherit nodejs;
     })
-    nodePackages.typescript
-    nodePackages.typescript-language-server
+    typescript
+    typescript-language-server
 
     (pkgs.neovim {
       inherit goPkg delvePkg nodeJsPkg;
