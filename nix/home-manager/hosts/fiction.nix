@@ -8,12 +8,14 @@
     ../modules/change-background.nix
     ../modules/claude-code.nix
     ../modules/darwin.nix
+    ../modules/env.nix
     ../modules/ghostty
     ../modules/git.nix
     ../modules/kubernetes.nix
     ../modules/tmux.nix
     ../modules/zed.nix
     ../modules/node.nix
+    ../modules/opencode.nix
     ../modules/switchyard.nix
     ../modules/zsh.nix
   ];

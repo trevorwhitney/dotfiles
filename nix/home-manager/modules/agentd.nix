@@ -30,6 +30,9 @@ in
         "/usr/bin"
         "/bin"
       ];
+      # launchd does not source .zshenv, so home.sessionVariables never reaches
+      # opencode sessions this daemon execs directly.
+      EnvironmentVariables.OPENCODE_DISABLE_PROJECT_CONFIG = "true";
       StandardOutPath = "${stateDir}/agentd.log";
       StandardErrorPath = "${stateDir}/agentd.log";
     };
