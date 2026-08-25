@@ -15,6 +15,7 @@
     # formulae from a non-official tap.
     extraConfig = ''
       tap "eugene1g/safehouse", trusted: true
+      tap "grafana/grafana", trusted: true
       tap "jundot/omlx", "https://github.com/jundot/omlx.git", trusted: true
     '';
 
@@ -25,6 +26,7 @@
       "ffmpeg"
       "gitleaks"
       "gnu-sed"
+      "grafana/grafana/agento11y"
       "k6"
       "jundot/omlx/omlx"
       "mas"
