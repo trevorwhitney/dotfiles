@@ -589,6 +589,15 @@
     (home-subpath "/.local/state/gcx")
 )
 
+;; agento11y (read-only). The opencode plugin reads config.env at session start
+;; for the endpoint and token, and shells out to `agento11y local status`, which
+;; reads the receiver's status file. Both are written by the launchd receiver,
+;; which runs outside the sandbox.
+(allow file-read*
+    (home-subpath "/.config/agento11y")
+    (home-subpath "/.local/state/agento11y")
+)
+
 ;; slackcli config/auth (read-only).
 (allow file-read*
     (home-subpath "/.config/slackcli")

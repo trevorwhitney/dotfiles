@@ -17,6 +17,20 @@ let
     trustedformulae = [ "eugene1g/safehouse/agent-safehouse" ];
   };
   homebrewTrustUser = "twhitney";
+
+  # opencode installs its npm plugins with a bundled runtime whose node identity
+  # fails engine-strict against some transitive `engines` ranges. The install
+  # aborts, leaving an empty package cache, and the plugin silently never loads.
+  # Relax the check for opencode alone; ~/.npmrc still applies min-release-age
+  # and ignore-scripts to those installs.
+  opencodePkg = pkgs.symlinkJoin {
+    name = "opencode";
+    paths = [ pkgs.opencode ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/opencode --set npm_config_engine_strict false
+    '';
+  };
 in
 {
   # List packages installed in system profile. To search by name, run:
@@ -69,7 +83,7 @@ in
     nil
     nixpkgs-fmt
     nmap
-    opencode
+    opencodePkg
     pre-commit
     rbenv
     ripgrep

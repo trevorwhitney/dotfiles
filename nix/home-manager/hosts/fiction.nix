@@ -3,6 +3,7 @@
   imports = [
     ../modules/1password.nix
     ../modules/agentd.nix
+    ../modules/agento11y.nix
     ../modules/android.nix
     ../modules/bash.nix
     ../modules/change-background.nix
