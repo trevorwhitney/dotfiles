@@ -65,6 +65,7 @@ in
     coreutils
     curl
     diffutils
+    duckdb
     fd
     fzf
     gcalcli

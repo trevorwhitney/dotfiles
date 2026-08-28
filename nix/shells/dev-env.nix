@@ -20,6 +20,7 @@ pkgs.mkShell {
       gnumake
       go-jsonnet
       jsonnet-bundler
+      prettier
       shellcheck
       slackcli
       yamllint
