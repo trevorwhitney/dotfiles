@@ -165,17 +165,30 @@ in
             fi
           '')
           ''
-            # oc [--session <id>] — fullscreen nvim+opencode; --session resumes
-            # an agentd-managed session via AGENTD_SESSION_ID.
+            # oc [--session <id>] [opencode args...] — fullscreen nvim+opencode.
+            # --session resumes an agentd-managed session via AGENTD_SESSION_ID;
+            # every remaining argument is forwarded verbatim to the opencode
+            # process nvim launches, e.g. oc --prompt 'this is a test'.
             oc() {
+              local session
               if [[ "$1" == "--session" ]]; then
                 if [[ -z "$2" ]]; then
                   echo "oc: --session requires a session id" >&2
                   return 1
                 fi
-                AGENTD_SESSION_ID="$2" nvim '+AgentFullscreen opencode' "''${@:3}"
+                session="$2"
+                shift 2
+              fi
+
+              # :AgentFullscreen appends everything after the mode to the agent
+              # command line as-is, and nvim's termopen re-parses that line with
+              # $SHELL — so quote each argument here rather than relying on
+              # vim's argument splitting.
+              local cmd="AgentFullscreen opencode ''${(j: :)''${(q@)@}}"
+              if [[ -n "$session" ]]; then
+                AGENTD_SESSION_ID="$session" nvim "+$cmd"
               else
-                nvim '+AgentFullscreen opencode' "$@"
+                nvim "+$cmd"
               fi
             }
           ''
