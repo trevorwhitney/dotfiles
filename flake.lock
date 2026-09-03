@@ -822,15 +822,16 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1787774558,
-        "narHash": "sha256-qubWyOxzzODezZjNtQT71NmrFP7xoEGhMjbw/2QZnQk=",
+        "lastModified": 1787297297,
+        "narHash": "sha256-yGAhVDgbQBit4RVcFl9kUlqF+0E0rWDjP/UzzLdan/U=",
         "owner": "raine",
         "repo": "workmux",
-        "rev": "0025eec2da459fe238dbf96d462ff2ecda610ed7",
+        "rev": "5c1ca2fce51ff4958c2a877869e15224f84905fb",
         "type": "github"
       },
       "original": {
         "owner": "raine",
+        "rev": "5c1ca2fce51ff4958c2a877869e15224f84905fb",
         "repo": "workmux",
         "type": "github"
       }

@@ -43,7 +43,9 @@
     # for secret management
     agenix.url = "github:ryantm/agenix";
 
-    workmux.url = "github:raine/workmux";
+    # Newer workmux revisions require ansi-to-tui 8.0.1, whose source fetch
+    # currently fails during the Darwin closure build.
+    workmux.url = "github:raine/workmux/5c1ca2fce51ff4958c2a877869e15224f84905fb";
 
     # non-nix sources to build packages from
     slackcli.url = "git+ssh://git@github.com/grafana/slackcli";
