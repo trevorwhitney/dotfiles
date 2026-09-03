@@ -4,7 +4,7 @@
   pname = "slackcli";
   inherit src version;
 
-  vendorHash = "sha256-u2y5zegN0NJH9gghs96kDvUFlJhA9SsRpfWbwsAS5Bw=";
+  vendorHash = "sha256-6op6nwimU5RQo73Ao2UDAAio9ogjmdTrzEQKL220QGI=";
 
   ldflags = [
     "-s"

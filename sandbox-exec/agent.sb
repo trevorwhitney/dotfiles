@@ -561,6 +561,36 @@
 )
 
 ;; ---------------------------------------------------------------------------
+;; 50 -- Integration: Superset
+;; Bundled CLI shims (superset, claude, codex, ...) that Superset puts on PATH
+;; inside its terminals, plus the hook scripts and state the shims consult.
+;; Read-only throughout: `process-exec` is granted globally in section 10, so
+;; read access to a script is all that is needed to run it.
+;; The `superset` shim execs into /Applications/Superset.app, already readable
+;; via the (subpath "/Applications") grant in section 10.
+;; ---------------------------------------------------------------------------
+
+(allow file-read*
+    (home-subpath "/.superset/bin")                                   ;; Agent-wrapper shims; execute-only, no state writes.
+    (home-subpath "/.superset/hooks")                                 ;; notify.sh and friends; shims exec these on session events.
+    (home-subpath "/.superset/state")                                 ;; e.g. default-claude-config-dir, read to pick the account.
+)
+
+(allow file-read-metadata
+    (home-literal "/.superset")                                       ;; Directory traversal to reach bin/.
+)
+
+;; notify.sh globs host/*/manifest.json to discover the desktop app's HTTP
+;; port, then posts to 127.0.0.1 (network is open in section 20). Grant just
+;; enough to expand that glob and read the manifest -- the sibling host.db,
+;; *.log, terminal-host.sock, and *.token stay denied.
+(allow file-read*
+    (home-literal "/.superset/host")                                  ;; List host/ to expand the glob.
+    (regex (string-append "^" HOME_DIR "/\\.superset/host/[^/]+$"))    ;; List each per-host dir.
+    (regex (string-append "^" HOME_DIR "/\\.superset/host/[^/]+/manifest\\.json$"))
+)
+
+;; ---------------------------------------------------------------------------
 ;; 50 -- Integration: Cloud CLIs (gcloud, kubectl, grafana-assistant)
 ;; Tool state, credentials, and cache directories for cloud/cluster CLIs.
 ;; Posture is consistent with gh/glab above: read+write on the tool's own
