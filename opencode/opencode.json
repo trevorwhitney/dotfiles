@@ -4,6 +4,7 @@
   "plugin": [
     "@grafana/agento11y-opencode"
   ],
+  "lsp": true,
   "model": "anthropic/claude-opus-5",
   "theme": "opencode",
   "agent": {
