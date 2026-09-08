@@ -633,6 +633,10 @@
     (home-subpath "/.config/slackcli")
 )
 
+(allow file-read*
+    (home-subpath "/.config/linear")
+)
+
 ;; AWS CLI config (read-only); SSO/CLI token caches (read-write so the credential
 ;; process can refresh cached STS/SSO tokens -- required by kubectl EKS auth).
 ;; Long-lived ~/.aws/credentials stays denied via the deny default.
