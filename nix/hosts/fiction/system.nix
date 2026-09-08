@@ -94,6 +94,7 @@ in
     unixtools.watch
     workmux
     virtualenv
+    vrnsh
     yarn
     yq-go
 

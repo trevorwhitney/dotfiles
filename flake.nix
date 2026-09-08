@@ -131,6 +131,13 @@
             pi-coding-agent
             snyk
             ;
+
+          # Stable's pre-commit lists dotnet-sdk as a check input, which drags
+          # dotnet-vmr -> swift into the Darwin closure, and
+          # swift-corelibs-xctest fails to build on aarch64-darwin (swiftc is
+          # killed during the CMake compiler check). Unstable's pre-commit is
+          # the same 4.5.1 without the dotnet dependency, and is cached.
+          inherit (unstablePackages) pre-commit;
           inherit (loki.packages.${system}) loki logcli;
 
           go_1_24 = base.go;
@@ -141,6 +148,7 @@
 
           jsonnet-language-server = jsonnet-language-server.defaultPackage."${system}";
           neovim = neovim.neovim.${system};
+          vrnsh = neovim.packages.${system}.vrnsh;
           agentmux = agentmux.packages.${system}.agentmux;
           agentd = agentmux.packages.${system}.agentd;
           faillint = base.callPackage ./nix/packages/faillint { };

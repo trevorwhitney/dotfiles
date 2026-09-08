@@ -48,6 +48,7 @@ pkgs.mkShell {
           ;
         withLspSupport = true;
       })
+      vrnsh
 
       # python with extra packages
       (
