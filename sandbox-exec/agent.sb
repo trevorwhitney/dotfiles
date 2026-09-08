@@ -578,6 +578,8 @@
 
 (allow file-read* file-write*
     (home-literal "/.superset/config.json")
+    ;; Superset replaces config.json atomically through a sibling temp file.
+    (regex (string-append "^" HOME_DIR "/\\.superset/\\.[0-9a-fA-F-]+\\.[0-9]+\\.config\\.tmp$"))
 )
 
 (allow file-read-metadata
