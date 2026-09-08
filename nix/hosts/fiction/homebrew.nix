@@ -17,6 +17,7 @@
       tap "eugene1g/safehouse", trusted: true
       tap "grafana/grafana", trusted: true
       tap "jundot/omlx", "https://github.com/jundot/omlx.git", trusted: true
+      tap "schpet/tap", trusted: true
     '';
 
     brews = [
@@ -34,6 +35,7 @@
       "pipx"
       "python"
       "reattach-to-user-namespace"
+      "schpet/tap/linear"
       "telnet"
       "tree"
       "trufflehog"
