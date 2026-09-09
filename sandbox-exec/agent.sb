@@ -562,39 +562,21 @@
 
 ;; ---------------------------------------------------------------------------
 ;; 50 -- Integration: Superset
-;; Bundled CLI shims (superset, claude, codex, ...) that Superset puts on PATH
-;; inside its terminals, plus the hook scripts and state the shims consult.
-;; Shims, hooks, and state are read-only; config.json is writable so agents can
-;; update the workspace registry during cleanup.
-;; The `superset` shim execs into /Applications/Superset.app, already readable
-;; via the (subpath "/Applications") grant in section 10.
+;; CLI shims, host manifests, local database, hooks, and orchestration state.
 ;; ---------------------------------------------------------------------------
 
 (allow file-read*
-    (home-subpath "/.superset/bin")                                   ;; Agent-wrapper shims; execute-only, no state writes.
-    (home-subpath "/.superset/hooks")                                 ;; notify.sh and friends; shims exec these on session events.
-    (home-subpath "/.superset/state")                                 ;; e.g. default-claude-config-dir, read to pick the account.
+    (home-subpath "/.superset")                                       ;; CLI state and host-service IPC metadata.
 )
 
-(allow file-read* file-write*
+(allow file-write*
     (home-literal "/.superset/config.json")
     ;; Superset replaces config.json atomically through a sibling temp file.
     (regex (string-append "^" HOME_DIR "/\\.superset/\\.[0-9a-fA-F-]+\\.[0-9]+\\.config\\.tmp$"))
+    (home-prefix "/.superset/local.db")                               ;; SQLite database, journal, WAL, and shared-memory sidecars.
 )
 
-(allow file-read-metadata
-    (home-literal "/.superset")                                       ;; Directory traversal to reach bin/.
-)
-
-;; notify.sh globs host/*/manifest.json to discover the desktop app's HTTP
-;; port, then posts to 127.0.0.1 (network is open in section 20). Grant just
-;; enough to expand that glob and read the manifest -- the sibling host.db,
-;; *.log, terminal-host.sock, and *.token stay denied.
-(allow file-read*
-    (home-literal "/.superset/host")                                  ;; List host/ to expand the glob.
-    (regex (string-append "^" HOME_DIR "/\\.superset/host/[^/]+$"))    ;; List each per-host dir.
-    (regex (string-append "^" HOME_DIR "/\\.superset/host/[^/]+/manifest\\.json$"))
-)
+(allow signal)                                                         ;; CLI probes the out-of-sandbox host service with kill(pid, 0).
 
 ;; ---------------------------------------------------------------------------
 ;; 50 -- Integration: Cloud CLIs (gcloud, kubectl, grafana-assistant)
