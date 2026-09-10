@@ -3,6 +3,7 @@ let
   inherit (pkgs) lib;
   goPkg = pkgs.go;
   nodeJsPkg = pkgs.nodejs_22;
+  cuaDriver = pkgs.callPackage ../../packages/cua-driver { };
 
   # Homebrew 6.0 made HOMEBREW_REQUIRE_TAP_TRUST default to true: third-party
   # taps/formulae must be trusted via `brew trust` before `brew bundle` will load
@@ -63,6 +64,7 @@ in
     claude-code
     cmake
     coreutils
+    cuaDriver
     curl
     diffutils
     duckdb

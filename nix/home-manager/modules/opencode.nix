@@ -11,5 +11,7 @@ in
 
   xdg.configFile = {
     "opencode/opencode.json".source = mkSymlink "${dotfilesPath}/opencode/opencode.json";
+    "opencode/plugins/superset-notify-instance-reset.js".source =
+      mkSymlink "${dotfilesPath}/opencode/plugins/superset-notify-instance-reset.js";
   };
 }
