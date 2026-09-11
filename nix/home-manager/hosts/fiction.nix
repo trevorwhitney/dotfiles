@@ -18,6 +18,7 @@
     ../modules/node.nix
     ../modules/opencode.nix
     ../modules/switchyard.nix
+    ../modules/telegraf.nix
     ../modules/zsh.nix
   ];
 
