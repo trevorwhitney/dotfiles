@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1787854923,
-        "narHash": "sha256-rpqkJE9Wh7scFPkdxeM5LUI9mMCGHccaDODFOkIEfQE=",
+        "lastModified": 1789166340,
+        "narHash": "sha256-M+wjjk5U4iGLMd+nVlWiL3jpPZG6hF194Mp2Bt+Lw2Y=",
         "ref": "refs/heads/main",
-        "rev": "89d170b12e04d03274ef901d71678a44c712c9c4",
-        "revCount": 112,
+        "rev": "467ddd444dae0aa40bb629355617bff5a8c7201c",
+        "revCount": 117,
         "type": "git",
         "url": "ssh://git@github.com/trevorwhitney/agentmux"
       },
@@ -90,10 +90,10 @@
     "deployment-tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1789137489,
-        "narHash": "sha256-XbDE14u56vAlYZchiU6Ri0eg+IZ7exIllDoBcDaqMxc=",
+        "lastModified": 1789166428,
+        "narHash": "sha256-w5xnEAnnc0NV//c4TBznu8JHYbXWsNb+y53EPgp6KlE=",
         "ref": "refs/heads/master",
-        "rev": "6dc0de15885b76696944b05f6a79b1c0411a64f1",
+        "rev": "c068a9fdcb6c12ff7aa3accb6f7d8b58c43ebb7e",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/grafana/deployment_tools"
@@ -396,11 +396,11 @@
         "nixpkgs-unstable": "nixpkgs-unstable"
       },
       "locked": {
-        "lastModified": 1789135573,
-        "narHash": "sha256-aVT1r60TlnBKsEpOwURD0doAJ+a/S8xQ4+AotOHxWag=",
+        "lastModified": 1789165811,
+        "narHash": "sha256-EimwBRCl/ZrCWqUhh/LuD8UwEwJ//XkT21LI9O0RJxE=",
         "owner": "grafana",
         "repo": "loki",
-        "rev": "78dc95d2aed9b5d985c569dc64a461c07734be77",
+        "rev": "8aecdaae6e657625e694b506466a7dfc1a49e01f",
         "type": "github"
       },
       "original": {
@@ -420,11 +420,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789078627,
-        "narHash": "sha256-58s4EstN1Y4dT+0KFdoAtqzDvpCE/NE4POau11Lgks8=",
+        "lastModified": 1789166416,
+        "narHash": "sha256-Ksb3GReNUeJxV4oUcN6SdCR+Vqo7N6pGoPqtlM9gnsY=",
         "owner": "trevorwhitney",
         "repo": "tw-vim-lib",
-        "rev": "5107e9dc5789a8f65fcbbc79e193711309573157",
+        "rev": "abcb91bee45f38f8c14c5149b4f1b171de89cd82",
         "type": "github"
       },
       "original": {

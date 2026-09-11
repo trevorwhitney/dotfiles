@@ -1,4 +1,10 @@
-poll_interval: 2m
+run_concurrency: 1
+automation:
+  provider: codex
+review:
+  task_timeout: 10m
+  retention: 168h
+  model_concurrency: 4
 notify:
   banner: decisions
 repositories:
@@ -14,3 +20,15 @@ repositories:
           - "**/Dockerfile"
           - "**/*.Dockerfile"
           - "**/*.dockerfile"
+      approve-auto-dismissed:
+        exclude_paths: ["docs/**", "**/*.md"]
+        min_confidence: 0.8
+  - repo: trevorwhitney/agentd-acceptance
+    allow_operator_prs: true
+    policies:
+      consult-triage:
+        verdicts:
+          approve:
+            action: none
+          needs-human:
+            action: none

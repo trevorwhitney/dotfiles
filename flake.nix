@@ -19,8 +19,7 @@
     neovim.inputs.nixpkgs.follows = "nixpkgs";
     neovim.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
 
-    # agentd daemon + agentmux TUI. Private repo, so ssh rather than github:,
-    # whose unauthenticated API cannot read it.
+    # agentd daemon + agentctl cli. Private repo, so ssh     
     agentmux.url = "git+ssh://git@github.com/trevorwhitney/agentmux";
     agentmux.inputs.nixpkgs.follows = "nixpkgs";
     agentmux.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
@@ -151,6 +150,7 @@
           vrnsh = neovim.packages.${system}.vrnsh;
           agentmux = agentmux.packages.${system}.agentmux;
           agentd = agentmux.packages.${system}.agentd;
+          agentctl = agentmux.packages.${system}.agentctl;
           faillint = base.callPackage ./nix/packages/faillint { };
 
           # Migrated from overlays
