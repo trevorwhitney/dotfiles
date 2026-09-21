@@ -90,10 +90,10 @@
     "deployment-tools": {
       "flake": false,
       "locked": {
-        "lastModified": 1790018226,
-        "narHash": "sha256-LvBTmFhVZC+6iO/XSeaVzEWuFvCra+O5K1L9FKu1Q2w=",
+        "lastModified": 1790031579,
+        "narHash": "sha256-/Nz0yDC24yE5syyYsKDgmoSOKLqtKuzUZu671rJYlBQ=",
         "ref": "refs/heads/master",
-        "rev": "49708705fb0d027fa4fa02896e0d9077c5ffb74e",
+        "rev": "63529a834db6559cb9545bcbbcb541cb60c17aa3",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/grafana/deployment_tools"
@@ -420,11 +420,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789499059,
-        "narHash": "sha256-Zf2G8iW7BMDr6QC3XFte9PjqxmgqUODd+acn0QfVfpg=",
+        "lastModified": 1790020193,
+        "narHash": "sha256-B38r35EBT+qrwSsaaoIYEX2u8o3PWLh+tUAe/7JYLSY=",
         "owner": "trevorwhitney",
         "repo": "tw-vim-lib",
-        "rev": "675c79d3836ca46450f44314ac6dd7c779803fed",
+        "rev": "5db30d17f577d1e75e79ea3b34ff037cd8739e59",
         "type": "github"
       },
       "original": {
