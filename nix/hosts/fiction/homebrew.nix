@@ -23,6 +23,7 @@
     brews = [
       "awscli"
       "bfg"
+      "coreutils"
       "fswatch"
       "ffmpeg"
       "gitleaks"

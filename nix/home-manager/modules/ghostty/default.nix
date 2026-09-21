@@ -10,7 +10,8 @@ let
     shell-integration-features = "no-cursor";
     # theme = "dark:Atom,light:Light Owl";
     # theme = "dark:Catppuccin Mocha,light:Catppuccin Latte";
-    theme = "dark:Kanagawa Wave,light:Kanagawa Lotus";
+    # theme = "dark:Kanagawa Wave,light:Kanagawa Lotus";
+    theme = "dark:Atom,light:GitHub Light High Contrast";
     macos-titlebar-style = "tabs";
   };
   keybindings = ''
