@@ -591,6 +591,9 @@
     (home-subpath "/.config/gcloud")                                  ;; Active config, ADC, account state, logs, lock files.
     (home-subpath "/.cache/gcloud")                                   ;; Component cache (if used).
 
+    ;; Google Workspace CLI config and authentication state.
+    (home-subpath "/.config/gws")
+
     ;; Kubernetes CLI.
     (home-subpath "/.kube")                                           ;; kubeconfig, http-cache, discovery cache, plugin state.
 
