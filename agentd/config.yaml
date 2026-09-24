@@ -32,3 +32,21 @@ repositories:
             action: none
           needs-human:
             action: none
+
+# Local notification inbox; collect on the hour during Denver working hours.
+inbox:
+  listen: 127.0.0.1:8737
+  schedule: true
+  timezone: America/Denver
+  start_hour: 8
+  end_hour: 17
+  email: trevor.whitney@grafana.com
+  email_query: 'in:inbox newer_than:14d -category:promotions -category:social'
+  github_user: trevorwhitney
+  slack_user: U01JK00C54M
+  slack_context: Grafana Labs Internal
+  slack_review_channel: loki-reviews
+  superset_project: 739d5a3a-0314-4102-82c7-aa458d4e15d0
+  superset_agent: codex
+  classification_rules: |
+    Prefer direct questions, requests, and blockers over general announcements.
