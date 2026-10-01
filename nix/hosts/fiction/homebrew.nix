@@ -27,6 +27,7 @@
       "fswatch"
       "ffmpeg"
       "gitleaks"
+      "googleworkspace-cli"
       "gnu-sed"
       "grafana/grafana/agento11y"
       "k6"

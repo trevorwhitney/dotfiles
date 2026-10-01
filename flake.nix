@@ -19,8 +19,8 @@
     neovim.inputs.nixpkgs.follows = "nixpkgs";
     neovim.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
 
-    # agentd daemon + agentctl cli. Private repo, so ssh     
-    agentmux.url = "git+ssh://git@github.com/trevorwhitney/agentmux";
+    # agentd daemon + agentctl cli from the local checkout for faster feedback.
+    agentmux.url = "path:/Users/twhitney/workspace/agentmux/agentmux";
     agentmux.inputs.nixpkgs.follows = "nixpkgs";
     agentmux.inputs.nixpkgs-unstable.follows = "nixpkgs-unstable";
 
