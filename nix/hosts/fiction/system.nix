@@ -1,8 +1,7 @@
 { self, pkgs, ... }:
 let
   inherit (pkgs) lib;
-  goPkg = pkgs.go;
-  nodeJsPkg = pkgs.nodejs_22;
+  developmentTools = import ../../development-tools.nix { inherit pkgs; };
   cuaDriver = pkgs.callPackage ../../packages/cua-driver { };
 
   # Homebrew 6.0 made HOMEBREW_REQUIRE_TAP_TRUST default to true: third-party
@@ -36,13 +35,8 @@ in
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    goPkg
-
-    (neovim {
-      inherit goPkg nodeJsPkg;
-      withLspSupport = true;
-    })
+  environment.systemPackages = developmentTools.packages ++ (with pkgs; [
+    (neovim developmentTools.editorArgs)
 
     (azure-cli.withExtensions [
       azure-cli-extensions.account
@@ -72,8 +66,6 @@ in
     fzf
     gcalcli
     gnused
-    gnumake
-    golangci-lint
     jq
     k9s
     lsof
@@ -90,14 +82,11 @@ in
     pre-commit
     rbenv
     ripgrep
-    slackcli
     statix
     todoist-cli
     unixtools.watch
     workmux
     virtualenv
-    vrnsh
-    yarn
     yq-go
 
     (pkgs.writeShellScriptBin "fix" ''
@@ -134,7 +123,7 @@ in
       wait ''$claude_pid
     '')
 
-  ];
+  ]);
 
   environment.variables = {
     EDITOR = "vim";

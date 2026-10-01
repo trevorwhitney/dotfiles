@@ -1,99 +1,57 @@
 { pkgs, ... }:
 let
-  goPkg = pkgs.go;
-  delvePkg = pkgs.delve;
-  nodejs = pkgs.nodejs_22;
-  nodeJsPkg = pkgs.nodejs_22;
+  developmentTools = import ../development-tools.nix { inherit pkgs; };
+in
+pkgs.mkShell {
+  # Retain compiler setup for project builds, including CGO.
+  packages = pkgs.lib.optionals (!pkgs.stdenv.isDarwin) (developmentTools.packages ++ (with pkgs; [
+      nixpkgs-fmt
+      statix
+    ]))
+    ++ (with pkgs; [
+      gcc
+      nettools
+      snyk
+      (pkgs.neovim (developmentTools.editorArgs // {
+        goBuildTags = "requires_docker";
+        dapConfigurations =
+          let
+            ports = {
+              "Distributor" = 18001;
+              "Ingester" = 18002;
+              "Querier" = 18004;
+              "Query Frontend" = 18007;
+              "Pattern Ingester" = 18010;
+            };
 
+            remoteDebugConfigs = (builtins.map
+              (service: {
+                type = "go";
+                request = "attach";
+                mode = "remote";
+                name = "Compose ${service}";
+                dlvToolPath = "${pkgs.delve}/bin/dlv";
+                remotePath = "/loki/loki";
+                port = ports.${service};
+                cwd = ''''${workspaceFolder}'';
+                showLog = true;
+              })
+              (builtins.attrNames ports));
 
-in pkgs.mkShell {
-  nativeBuildInputs = [ pkgs.bashInteractive ];
-  buildInputs = with pkgs; [
-    shellcheck
-  ];
-  packages = with pkgs; [
-    (import ../packages/mixtool { inherit (pkgs) lib buildGoModule fetchFromGitHub; })
-    (import ../packages/chart-testing/3_8_0.nix {
-      inherit (pkgs) stdenv;
-      pkgs = pkgs;
-    })
-
-    goPkg
-    delvePkg
-
-    act
-    golang-perf
-    drone-cli
-    envsubst
-    gcc
-    graphviz
-    gnumake
-    golangci-lint
-    gotools
-    gox
-    faillint
-    helm-docs
-    jsonnet
-    jsonnet-bundler
-    mage
-    nettools
-    nixpkgs-fmt
-    pprof
-    revive
-    snyk
-     statix
-     yamllint
-
-    # Typescript for GitHub Actions
-    nodejs
-    (yarn.override {
-      inherit nodejs;
-    })
-    typescript
-    typescript-language-server
-
-    (pkgs.neovim {
-      inherit goPkg delvePkg nodeJsPkg;
-      withLspSupport = true;
-      goBuildTags = "requires_docker";
-      dapConfigurations =
-        let
-          ports = {
-            "Distributor" = 18001;
-            "Ingester" = 18002;
-            "Querier" = 18004;
-            "Query Frontend" = 18007;
-            "Pattern Ingester" = 18010;
+          in
+          {
+            go = [
+              {
+                type = "go";
+                name = "Loki main";
+                request = "launch";
+                program = ''''${workspaceFolder}/cmd/loki/main.go'';
+                args = [
+                  ''-config.file=''${workspaceFolder}/cmd/loki/loki-local-config.yaml''
+                ];
+              }
+            ] ++ remoteDebugConfigs;
           };
-
-          remoteDebugConfigs = (builtins.map
-            (service: {
-              type = "go";
-              request = "attach";
-              mode = "remote";
-              name = "Compose ${service}";
-              dlvToolPath = "${pkgs.delve}/bin/dlv";
-              remotePath = "/loki/loki";
-              port = ports.${service};
-              cwd = ''''${workspaceFolder}'';
-              showLog = true;
-            })
-            (builtins.attrNames ports));
-
-        in
-        {
-          go = [
-            {
-              type = "go";
-              name = "Loki main";
-              request = "launch";
-              program = ''''${workspaceFolder}/cmd/loki/main.go'';
-              args = [
-                ''-config.file=''${workspaceFolder}/cmd/loki/loki-local-config.yaml''
-              ];
-            }
-          ] ++ remoteDebugConfigs;
-        };
-    })
-  ];
+      }))
+    ]);
 }

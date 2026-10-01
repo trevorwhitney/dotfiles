@@ -64,7 +64,6 @@ in
       ripgrep
       unixtools.watch
       virtualenv
-      yarn
       yq-go
     ];
   };

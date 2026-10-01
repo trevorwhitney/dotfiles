@@ -45,9 +45,9 @@ The macOS sandbox blocks agent access to `~/.cache/` and `~/.local/share/`, whic
 
 ```bash
 XDG_CACHE_HOME=/tmp/nixcache nix flake check                                    # Validate flake
-XDG_CACHE_HOME=/tmp/nixcache nix build .#devShells.aarch64-darwin.dev-env         # Build dev shell
+XDG_CACHE_HOME=/tmp/nixcache nix build .#devShells.aarch64-darwin.gel         # Build dev shell
 XDG_CACHE_HOME=/tmp/nixcache nix build .#darwinConfigurations.fiction.system      # Build macOS host
-XDG_CACHE_HOME=/tmp/nixcache nix develop .#dev-env --command bash -c "some cmd"  # Run in dev shell
+XDG_CACHE_HOME=/tmp/nixcache nix develop .#gel --command bash -c "some cmd"  # Run in dev shell
 XDG_CACHE_HOME=/tmp/nixcache nix eval .#someAttr                                 # Evaluate an attr
 XDG_CACHE_HOME=/tmp/nixcache nix flake lock --update-input <input>               # Update a flake input
 ```
