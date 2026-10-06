@@ -6,7 +6,7 @@
   ],
   "lsp": true,
   "model": "anthropic/claude-opus-5",
-  "theme": "opencode",
+  "theme": "system",
   "agent": {
     "plan": {
       "model": "anthropic/claude-opus-5"

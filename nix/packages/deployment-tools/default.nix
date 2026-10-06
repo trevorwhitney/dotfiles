@@ -44,26 +44,39 @@ let
     ${deploymentTools}/scripts/cortex/rt.sh "$@"
   '';
 
-  grafana-sso = pkgs.writeShellScriptBin "grafana-sso" ''
+  grafana-login = pkgs.writeShellScriptBin "grafana-login" ''
     main() {
-      local env="''${1:-dev}"
-
-      if [[ "$env" != "prod" && "$env" != "dev" && "$env" != "ops" ]]; then
-        echo "Usage: grafana-sso [prod|dev|ops]"
-        exit 1
+      if ! gcloud auth print-access-token --quiet >/dev/null 2>&1; then
+        gcloud auth login
+      else
+        echo "gcloud is already logged in"
       fi
 
-      source ${deploymentToolsSecretsPath};
-      cd ${deploymentTools} || exit 1
-      ./scripts/sso/gcloud.sh
-      ./scripts/sso/aws.sh ''${env}
-
-      if ! gcx config view --context ops >/dev/null 2>&1; then
-        gcx auth login --context ops
+      if ! gws auth status 2>/dev/null | ${pkgs.jq}/bin/jq -e '.token_valid == true' >/dev/null 2>&1; then
+        gws auth login
+      else
+        echo "gws is already logged in"
       fi
+
+      if [[ "$(codex mcp list --json 2>/dev/null | ${pkgs.jq}/bin/jq -r '.[] | select(.name == "airbud") | .auth_status')" != "o_auth" ]]; then
+        codex mcp login airbud
+      else
+        echo "airbud (codex) is already logged in"
+      fi
+
+      if claude mcp get plugin:grafana-airbud:airbud 2>&1 | grep -q 'Needs authentication'; then
+        claude mcp login plugin:grafana-airbud:airbud
+      else
+        echo "airbud (claude) is already logged in"
+      fi
+
+      gcx auth login --context ops
+      gcx auth login --context dev
       
       if ! gh auth status -h github.com >/dev/null 2>&1; then
         gh auth login -h github.com
+      else
+        echo "gh is already logged in"
       fi
     }
 
@@ -137,7 +150,7 @@ stdenv.mkDerivation {
     install -m755 ${gcom-ops}/bin/gcom-ops $out/bin/gcom-ops
     install -m755 ${flux-ignore}/bin/flux-ignore $out/bin/flux-ignore
     install -m755 ${rt}/bin/rt $out/bin/rt
-    install -m755 ${grafana-sso}/bin/grafana-sso $out/bin/grafana-sso
+    install -m755 ${grafana-login}/bin/grafana-login $out/bin/grafana-login
     install -m755 ${timed-access}/bin/timed-access $out/bin/timed-access
     install -m755 ${_logcli}/bin/logcli $out/bin/logcli
     install -m755 ${iap-token}/bin/iap-token $out/bin/iap-token
