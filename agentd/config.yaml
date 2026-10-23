@@ -9,6 +9,10 @@ notify:
   banner: decisions
 repositories:
   - repo: grafana/loki
+    disallowed_paths:
+      - "operator/go.mod"
+      - "operator/go.sum"
+      - "operator/**"
     policies:
       merge-dependency-updates:
         shadow: false

@@ -137,6 +137,7 @@
           # killed during the CMake compiler check). Unstable's pre-commit is
           # the same 4.5.1 without the dotnet dependency, and is cached.
           inherit (unstablePackages) pre-commit;
+          # Use Loki's toolchain, which tracks its required Go patch version.
           inherit (loki.packages.${system}) loki logcli;
 
           go_1_24 = base.go;
