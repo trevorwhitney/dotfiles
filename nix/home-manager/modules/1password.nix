@@ -35,6 +35,12 @@ in
         default = !cfg.host.darwin;
         description = "whether to install 1pssword via nix packages. Disable if installd elsewhere";
       };
+      defaultAccount = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        example = "my.1password.com";
+        description = "account the op CLI uses when --account is not given (sets OP_ACCOUNT)";
+      };
     };
 
   };
@@ -46,6 +52,10 @@ in
         _1password-gui
       ]
     );
+
+    home.sessionVariables = lib.mkIf (cfg.defaultAccount != null) {
+      OP_ACCOUNT = cfg.defaultAccount;
+    };
 
     # Allowed signers file for verifying SSH-signed git commits.
     # See `man ssh-keygen` -> ALLOWED SIGNERS for the format.

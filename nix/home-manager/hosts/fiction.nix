@@ -52,6 +52,7 @@
   programs = {
     _1password = {
       host.darwin = true;
+      defaultAccount = "grafana.1password.com";
     };
     gh = {
       enable = true;
