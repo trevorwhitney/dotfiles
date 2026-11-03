@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 let
   dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
-  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
   stateDir = "${config.home.homeDirectory}/.local/state/agentd";
   runAgentd = pkgs.writeShellApplication {
     name = "run-agentd";
@@ -23,12 +22,14 @@ let
   };
 in
 {
+  imports = [ ./live-links.nix ];
+
   home.packages = [
     pkgs.agentctl
     pkgs.agentd
   ];
 
-  xdg.configFile."agentd/config.yaml".source = mkSymlink "${dotfilesPath}/agentd/config.yaml";
+  dotfiles.liveLinks."${config.xdg.configHome}/agentd/config.yaml" = "${dotfilesPath}/agentd/config.yaml";
 
   home.activation.agentdStateDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "${stateDir}"

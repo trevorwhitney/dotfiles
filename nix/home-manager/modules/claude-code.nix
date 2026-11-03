@@ -1,11 +1,13 @@
 { config, ... }:
 let
-  dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
-  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
+  homeDir = config.home.homeDirectory;
+  dotfilesPath = "${homeDir}/workspace/dotfiles/dotfiles";
 in
 {
-  home.file = {
-    ".claude/settings.json".source = mkSymlink "${dotfilesPath}/claude/settings.json";
-    ".claude/CLAUDE.md".source = mkSymlink "${dotfilesPath}/claude/CLAUDE.md";
+  imports = [ ./live-links.nix ];
+
+  dotfiles.liveLinks = {
+    "${homeDir}/.claude/settings.json" = "${dotfilesPath}/claude/settings.json";
+    "${homeDir}/.claude/CLAUDE.md" = "${dotfilesPath}/claude/CLAUDE.md";
   };
 }

@@ -6,9 +6,9 @@
 let
   cfg = config.programs.tmux;
   dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
-  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
 in
 {
+  imports = [ ./live-links.nix ];
 
   options = {
     programs.tmux = {
@@ -56,9 +56,9 @@ in
         bash.sessionVariables.TMUX_THEME = theme;
       };
 
-      xdg.configFile = {
-        "tmux/plugins/tmux-which-key/config.yaml".source =
-          mkSymlink "${dotfilesPath}/misc/tmux/tmux-which-key/config.yaml";
+      dotfiles.liveLinks = {
+        "${config.xdg.configHome}/tmux/plugins/tmux-which-key/config.yaml" =
+          "${dotfilesPath}/misc/tmux/tmux-which-key/config.yaml";
       };
     };
 }

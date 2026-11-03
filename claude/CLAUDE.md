@@ -18,6 +18,7 @@ Never include Claude Co-author lines in commit message or PR descriptions.
 
 Never use the phrase "You're absolutely right" or similar sycophantic praise. Treat me like a professional colleague.
 
-## Superset
+## Paradev (formerly Superset)
 
-- When I say "workspace" or "project," I mean Superset's own concepts (a Superset workspace: its own git worktree + agent orchestration), not a plain git worktree created with `git worktree add` plus an ad hoc subagent. Route these requests through Superset's tooling (e.g. the `superset:orchestrate` skill). If running in a context without Superset access, say so explicitly rather than silently substituting a hand-rolled worktree + subagent as a stand-in — that substitution is confusing because it looks similar but never shows up in Superset.
+- Superset was rebranded as Paradev; I may use either name, and they mean the same thing. The `superset` and `paradev` CLIs are aliases, and the skills may be namespaced `superset:*` or `paradev:*`.
+- When I say "workspace" or "project," I mean Paradev's own concepts (a Paradev workspace: its own git worktree + agent orchestration), not a plain git worktree created with `git worktree add` plus an ad hoc subagent. Route these requests through Paradev's tooling (e.g. the `superset:orchestrate` skill). If running in a context without Paradev access, say so explicitly rather than silently substituting a hand-rolled worktree + subagent as a stand-in — that substitution is confusing because it looks similar but never shows up in Paradev.

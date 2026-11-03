@@ -1,13 +1,15 @@
 { config, ... }:
 let
   dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
-  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
+  configHome = config.xdg.configHome;
 in
 {
-  xdg.configFile = {
-    "zed/settings.json".source = mkSymlink "${dotfilesPath}/misc/zed/settings.json";
-    "zed/keymap.json".source = mkSymlink "${dotfilesPath}/misc/zed/keymap.json";
-    "zed/debug.json".source = mkSymlink "${dotfilesPath}/misc/zed/debug.json";
-    "zed/tasks.json".source = mkSymlink "${dotfilesPath}/misc/zed/tasks.json";
+  imports = [ ./live-links.nix ];
+
+  dotfiles.liveLinks = {
+    "${configHome}/zed/settings.json" = "${dotfilesPath}/misc/zed/settings.json";
+    "${configHome}/zed/keymap.json" = "${dotfilesPath}/misc/zed/keymap.json";
+    "${configHome}/zed/debug.json" = "${dotfilesPath}/misc/zed/debug.json";
+    "${configHome}/zed/tasks.json" = "${dotfilesPath}/misc/zed/tasks.json";
   };
 }

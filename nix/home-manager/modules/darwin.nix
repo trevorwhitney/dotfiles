@@ -2,9 +2,11 @@
 let
   inherit (pkgs) dotfiles;
   dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
-  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
+  configHome = config.xdg.configHome;
 in
 {
+  imports = [ ./live-links.nix ];
+
   programs = {
     java = {
       enable = true;
@@ -73,10 +75,10 @@ in
     XDG_RUNTIME_DIR = "${config.home.homeDirectory}/.local/runtime";
   };
 
-  xdg.configFile = {
-    "workmux/config.yaml".source = mkSymlink "${dotfilesPath}/workmux/config.yaml";
-    "workmux/branch-name.sh".source = mkSymlink "${dotfilesPath}/workmux/branch-name.sh";
-    "sandbox-exec/agent.sb".source = mkSymlink "${dotfilesPath}/sandbox-exec/agent.sb";
-    "sandbox-exec/run-sandboxed.sh".source = mkSymlink "${dotfilesPath}/sandbox-exec/run-sandboxed.sh";
+  dotfiles.liveLinks = {
+    "${configHome}/workmux/config.yaml" = "${dotfilesPath}/workmux/config.yaml";
+    "${configHome}/workmux/branch-name.sh" = "${dotfilesPath}/workmux/branch-name.sh";
+    "${configHome}/sandbox-exec/agent.sb" = "${dotfilesPath}/sandbox-exec/agent.sb";
+    "${configHome}/sandbox-exec/run-sandboxed.sh" = "${dotfilesPath}/sandbox-exec/run-sandboxed.sh";
   };
 }

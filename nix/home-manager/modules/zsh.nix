@@ -75,10 +75,12 @@ in
         size = 10000000;
       };
 
+
+      # Switch to enterprise accounts
+      # export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openAiKey.path})";
+      # export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
+      # export OPENROUTER_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openRouterApiKey.path})";
       envExtra = (lib.optionalString cfg.includeSecrets ''
-        export OPENAI_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openAiKey.path})";
-        export ANTHROPIC_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.anthropicApiKey.path})";
-        export OPENROUTER_API_KEY="$(${pkgs.coreutils}/bin/cat ${config.age.secrets.openRouterApiKey.path})";
         export GITHUB_EMAIL="trevorjwhitney@gmail.com"
         export GITHUB_NAME="Trevor Whitney"
 

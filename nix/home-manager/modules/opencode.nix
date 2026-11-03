@@ -1,17 +1,19 @@
 { config, ... }:
 let
   dotfilesPath = "${config.home.homeDirectory}/workspace/dotfiles/dotfiles";
-  mkSymlink = config.lib.file.mkOutOfStoreSymlink;
+  configHome = config.xdg.configHome;
 in
 {
+  imports = [ ./live-links.nix ];
+
   home.sessionVariables = {
     OPENCODE_EXPERIMENTAL_MARKDOWN = "false";
     OPENCODE_DISABLE_PROJECT_CONFIG = "true";
   };
 
-  xdg.configFile = {
-    "opencode/opencode.json".source = mkSymlink "${dotfilesPath}/opencode/opencode.json";
-    "opencode/plugins/superset-notify-instance-reset.js".source =
-      mkSymlink "${dotfilesPath}/opencode/plugins/superset-notify-instance-reset.js";
+  dotfiles.liveLinks = {
+    "${configHome}/opencode/opencode.json" = "${dotfilesPath}/opencode/opencode.json";
+    "${configHome}/opencode/plugins/superset-notify-instance-reset.js" =
+      "${dotfilesPath}/opencode/plugins/superset-notify-instance-reset.js";
   };
 }
